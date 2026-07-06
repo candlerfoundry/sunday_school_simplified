@@ -1,9 +1,8 @@
-/* Beyond Bumper Stickers — flipbook renderer.
+/* Beyond Bumper Stickers — flipbook renderer (retro edition).
  * Builds pages from window.BBS_CONTENT and drives StPageFlip.
- * Page model: cover, contents, how-to, then 2 pages per lesson
- * (A: header/prayer/cards on the left, B: questions + closing prayer on
- * the right), then a back cover. The how-to page aligns each lesson so its
- * two pages sit together as one open spread. */
+ * cover (photo), contents, how-to, 2 pages per lesson
+ * (A: header + prayer + vintage-TV video + scripture sign; B: questions + closing prayer),
+ * back cover. */
 (function () {
   "use strict";
   var C = window.BBS_CONTENT;
@@ -13,113 +12,92 @@
     return String(s == null ? "" : s)
       .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   };
-  var LOGO = "assets/candler-foundry-logo.png";
+  var TV = "../../engine/assets/tv.png";
 
   function coverPage() {
-    var dots = C.lessons.map(function (l) {
-      return '<div class="dot" data-goto="' + l.n + '" style="background:' + l.accent +
-        ';box-shadow:0 4px 12px ' + l.accent + '55">' + l.n + "</div>";
-    }).join("");
-    return '<div class="page-inner cover">' +
-      '<div class="blob"></div>' +
-      '<div class="top"><img src="' + LOGO + '" alt="The Candler Foundry">' +
-        '<div class="pill">' + esc(C.meta.subtitle) + "</div></div>" +
-      '<div class="series"><span></span><b>' + esc(C.meta.series) + "</b></div>" +
-      '<div class="title"><h1>Beyond<br>Bumper<br><em>Stickers</em></h1>' +
-        "<p>" + esc(C.meta.tagline) + "</p></div>" +
-      '<div class="lessons"><div class="lbl"><em>The Six Lessons</em>' +
-        "<small>&mdash; tap a number to jump to it</small></div>" +
-        '<div class="dots">' + dots + "</div></div>" +
-      '<div class="foot"><div class="l">' + esc(C.meta.footerNote) + "</div>" +
-        '<div class="r">' + esc(C.meta.site) + "</div></div>" +
-      "</div>";
+    return '<div class="page-inner cover"><img class="cover-photo" src="assets/cover.jpg" alt="' +
+      esc(C.meta.title) + '"></div>';
   }
 
   function contentsPage() {
     var rows = C.lessons.map(function (l) {
-      return '<a class="row" data-goto="' + l.n + '" style="color:' + l.accent + '">' +
-        '<div class="num" style="background:' + l.accent + '">' + l.n + "</div>" +
-        '<div class="mid"><div class="t">' + esc(l.title) + "</div>" +
-          '<div class="s">' + esc(l.subtitle) + "</div></div>" +
-        '<div class="ref">' + esc(l.shortRef || l.reference.split(":")[0]) + "</div></a>";
+      return '<a class="crow" data-goto="' + l.n + '" style="--accent:' + l.accent + '">' +
+        '<span class="rm">' + l.n + "</span>" +
+        '<div class="cmid"><div class="ct">' + esc(l.title) + "</div>" +
+          '<div class="cs">' + esc(l.subtitle) + "</div></div>" +
+        '<span class="cplate">' + esc(l.shortRef || l.reference.split(":")[0]) + "</span></a>";
     }).join("");
     return '<div class="page-inner contents">' +
       '<div class="series"><span></span><b>' + esc(C.meta.series) + "</b></div>" +
-      "<h2>In This Packet</h2>" +
+      '<h2 class="disp">In This Packet</h2>' +
       '<div class="lede">' + esc(C.contentsIntro) + "</div>" +
-      '<div class="list">' + rows + "</div>" +
-      "</div>";
+      '<div class="clist">' + rows + "</div></div>";
   }
 
   function howToPage() {
     var steps = [
       ["Open with prayer", "Begin together with the opening prayer on the lesson's first page."],
-      ["Read the passage aloud", "Scan the Scripture QR code or read the printed reference together."],
-      ["Watch the 3-Minute Bible", "A short video sets the passage back in its original context."],
+      ["Read the passage aloud", "Pull up the Scripture reference and read it together."],
+      ["Watch the 3-Minute Bible", "Play the short video right inside the set — it sets the passage back in its original context."],
       ["Talk through the questions", "Five discussion questions move from the text to your own life."],
       ["Close with prayer", "End with the closing prayer that gathers up the lesson."]
     ].map(function (s, i) {
-      return '<div class="qrow"><span class="n" style="background:#E0612F22;color:#E0612F">' +
-        (i + 1) + '</span><span class="q"><strong style="color:#1E364C">' + s[0] +
-        ".</strong> " + s[1] + "</span></div>";
+      return '<div class="q"><span class="rm">' + (i + 1) + "</span>" +
+        "<p><b>" + s[0] + ".</b> " + s[1] + "</p></div>";
     }).join("");
-    return '<div class="page-inner contents">' +
+    return '<div class="page-inner contents" style="--accent:var(--rust)">' +
       '<div class="series"><span></span><b>How These Lessons Work</b></div>' +
-      "<h2>An Hour Together</h2>" +
+      '<h2 class="disp">An Hour Together</h2>' +
       '<div class="lede">Each lesson stands on its own and takes about an hour. Here is the simple rhythm.</div>' +
-      '<div class="qlist" style="margin-top:30px;gap:18px">' + steps + "</div>" +
-      '<div class="howto"><p>' + esc(C.howto) + "</p></div>" +
-      "</div>";
+      '<div class="qlist steps">' + steps + "</div>" +
+      '<div class="howto-note"><p>' + esc(C.howto) + "</p></div></div>";
   }
 
-  function lessonHead(l) {
-    return '<div class="head"><div class="badge" style="background:' + l.accent + '">' +
-      (l.n < 10 ? "0" + l.n : l.n) + "</div>" +
-      '<div class="meta"><div class="tags">' +
-        '<span class="ref" style="color:' + l.accent + '">' + esc(l.reference) + "</span>" +
-        '<span class="chip">Discussion Guide</span></div>' +
-      "<h2>" + esc(l.title) + "</h2>" +
-      '<div class="sub">' + esc(l.subtitle) + "</div></div></div>";
-  }
-
-  function pageFoot(l) {
-    return '<div class="pagefoot"><img src="' + LOGO + '" alt="The Candler Foundry">' +
-      "<span>Beyond Bumper Stickers &middot; Lesson " + l.n + " of " + C.lessons.length + "</span></div>";
+  function tvScreen(l) {
+    if (l.videoUrl) {
+      return '<div class="screen"><iframe src="' + esc(l.videoUrl) +
+        '" title="3-Minute Bible" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+    }
+    return '<div class="screen">' +
+      '<div class="lab">CH 3 &middot; 3-Minute Bible</div>' +
+      '<div class="live">Play</div>' +
+      '<div class="play"></div>' +
+      '<div class="ttl">' + esc(l.videoSubtitle) + "</div></div>";
   }
 
   function lessonPageA(l) {
-    return '<div class="page-inner lesson">' +
-      lessonHead(l) +
-      '<div class="prayer opening"><div class="bar" style="background:' + l.accent + '"></div>' +
-        '<div><div class="lbl">Opening Prayer</div><p>' + esc(l.openingPrayer) + "</p></div></div>" +
-      '<div class="cards">' +
-        '<div class="card"><img src="assets/qr-scripture.png" alt="QR code">' +
-          '<div><div class="k" style="color:' + l.accent + '">Scripture Reading</div>' +
-          '<div class="v">' + esc(l.scriptureRef) + "</div>" +
-          '<div class="s">Scan or visit the link &middot; read aloud</div></div></div>' +
-        '<div class="card"><img src="assets/qr-video.png" alt="QR code">' +
-          '<div><div class="k" style="color:' + l.accent + '">Watch the Video</div>' +
-          '<div class="v">' + esc(l.videoTitle || "3-Minute Bible") + "</div>" +
-          '<div class="s">' + esc(l.videoSubtitle) + "</div></div></div>" +
+    return '<div class="page-inner lesson" style="--accent:' + l.accent + '">' +
+      '<div class="hdr"><div class="shield"><small>Lesson</small><b>' +
+        (l.n < 10 ? "0" + l.n : l.n) + "</b></div>" +
+        '<div><div class="eyebrow"><span class="tag">Discussion Guide</span></div>' +
+        '<div class="plate"><span>REF</span> ' + esc(l.reference) + "</div></div></div>" +
+      '<div class="titlewrap"><h1 class="lesson-title">' + esc(l.title) + "</h1>" +
+        '<div class="sub">' + esc(l.subtitle) + "</div></div>" +
+      '<div class="prayer opening"><div class="bar"></div><div>' +
+        '<div class="lbl">Opening Prayer</div><p>' + esc(l.openingPrayer) + "</p></div></div>" +
+      '<div class="tvwrap">' +
+        '<div class="tape" style="left:44%;top:6px;transform:rotate(-4deg)"></div>' +
+        '<div class="tv"><img src="' + TV + '" alt="Vintage TV">' + tvScreen(l) + "</div>" +
+        '<div class="tvcap">&#9654; Watch inside the set &mdash; <b>3-Minute Bible</b></div>' +
       "</div>" +
-      pageFoot(l) +
+      '<div class="sign"><div class="s1">Scripture Stop</div>' +
+        '<div class="s2">' + esc(l.scriptureRef) + "</div>" +
+        '<div class="s3">Read aloud together</div></div>' +
       "</div>";
   }
 
   function lessonPageB(l) {
     var q = l.questions.map(function (text, i) {
-      return '<div class="qrow"><span class="n" style="background:' + l.accent +
-        '22;color:' + l.accent + '">' + (i + 1) + "</span>" +
-        '<span class="q">' + esc(text) + "</span></div>";
+      return '<div class="q"><span class="rm">' + (i + 1) + "</span>" +
+        "<p>" + esc(text) + "</p></div>";
     }).join("");
-    return '<div class="page-inner lesson">' +
-      '<div class="qhead">Discussion Questions</div>' +
+    return '<div class="page-inner lesson" style="--accent:' + l.accent + '">' +
+      '<div class="qhdr disp">Discussion Questions<span class="u"></span></div>' +
       '<div class="qlist">' + q + "</div>" +
-      '<div class="prayer closing" style="margin-top:26px"><div class="bar" style="background:' + l.accent + '"></div>' +
-        '<div><div class="lbl" style="color:' + l.accent + '">Closing Prayer</div>' +
-        "<p>" + esc(l.closingPrayer) + "</p></div></div>" +
-      pageFoot(l) +
-      "</div>";
+      '<div class="prayer closing" style="margin-top:24px"><div class="bar"></div><div>' +
+        '<div class="lbl">Closing Prayer</div><p>' + esc(l.closingPrayer) + "</p></div></div>" +
+      '<div class="foot"><span>Beyond Bumper Stickers</span><span>Lesson ' + l.n +
+        " of " + C.lessons.length + "</span></div></div>";
   }
 
   function backPage() {
@@ -127,12 +105,10 @@
       '<div class="series"><span></span></div>' +
       "<h2>Read it again,<br>in context.</h2>" +
       "<p>" + esc(C.contentsIntro) + "</p>" +
-      '<div class="site">' + esc(C.meta.site) + "</div>" +
-      "</div></div>";
+      '<div class="site">' + esc(C.meta.site) + "</div></div></div>";
   }
 
-  var pages = [];
-  var pageToLesson = [];
+  var pages = [], pageToLesson = [];
   pages.push({ cls: "cover", html: coverPage() }); pageToLesson.push(0);
   pages.push({ cls: "", html: contentsPage() }); pageToLesson.push(0);
   pages.push({ cls: "", html: howToPage() }); pageToLesson.push(0);
@@ -155,8 +131,7 @@
   var flip = new PageFlip(flipEl, {
     width: 816, height: 1056, size: "fixed",
     showCover: true, usePortrait: false,
-    maxShadowOpacity: 0.5, drawShadow: true,
-    flippingTime: 700, mobileScrollSupport: false
+    maxShadowOpacity: 0.5, drawShadow: true, flippingTime: 700, mobileScrollSupport: false
   });
   flip.loadFromHTML(document.querySelectorAll("#pageflip .page"));
 
@@ -165,8 +140,7 @@
   function fit() {
     var bookW = 816 * 2, bookH = 1056;
     var availW = stage.clientWidth - 40, availH = stage.clientHeight - 40;
-    var scale = Math.min(availW / bookW, availH / bookH);
-    scaler.style.setProperty("--book-scale", scale);
+    scaler.style.setProperty("--book-scale", Math.min(availW / bookW, availH / bookH));
   }
   window.addEventListener("resize", fit); fit();
 
@@ -183,15 +157,12 @@
     prev.disabled = i <= 0; next.disabled = i >= total - 1;
     ind.textContent = "Page " + (i + 1) + " of " + total;
   }
-  flip.on("flip", updateInd);
-  flip.on("init", updateInd);
-  updateInd();
+  flip.on("flip", updateInd); flip.on("init", updateInd); updateInd();
 
   flipEl.addEventListener("click", function (e) {
     var t = e.target.closest("[data-goto]");
     if (!t) return;
-    var n = parseInt(t.getAttribute("data-goto"), 10);
-    var idx = pageToLesson.indexOf(n);
+    var idx = pageToLesson.indexOf(parseInt(t.getAttribute("data-goto"), 10));
     if (idx > -1) flip.flip(idx);
   });
 })();

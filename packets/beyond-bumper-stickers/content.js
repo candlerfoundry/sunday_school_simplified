@@ -1,8 +1,4 @@
-/* Beyond Bumper Stickers — content payload.
- * Sunday School Simplified · The Candler Foundry
- * Single source of copy for the flipbook viewer and the editor.
- * window.BBS_CONTENT = { meta, cover, contents, lessons[], back }
- */
+/* Beyond Bumper Stickers — content payload (window.BBS_CONTENT). */
 window.BBS_CONTENT = {
   "meta": {
     "series": "Sunday School Simplified",
@@ -17,7 +13,7 @@ window.BBS_CONTENT = {
   "lessons": [
     {
       "n": 1,
-      "accent": "#E0612F",
+      "accent": "#C4542A",
       "reference": "Jeremiah 29:1, 4–14",
       "title": "For I Know the Plans I Have for You",
       "subtitle": "A promise to exiles — not a personal good-luck charm.",
@@ -33,11 +29,13 @@ window.BBS_CONTENT = {
         "This is a promise made to a whole community, not to an individual. How does reading it as a word to \"y'all\" rather than \"you\" change how we apply it to our own lives and congregations?",
         "Where have you seen this verse used as a personal good-luck charm? Having sat with its fuller context, how might you share its real hope with someone who is genuinely struggling?"
       ],
-      "shortRef": "Jeremiah 29"
+      "shortRef": "Jeremiah 29",
+      "scriptureUrl": "",
+      "videoUrl": ""
     },
     {
       "n": 2,
-      "accent": "#2F8A6F",
+      "accent": "#3E7B71",
       "reference": "Psalm 46",
       "title": "Be Still, and Know That I Am God",
       "subtitle": "A war-time song of refuge — not a call to relax.",
@@ -53,11 +51,13 @@ window.BBS_CONTENT = {
         "Twice the psalm repeats, \"The Lord of hosts is with us; the God of Jacob is our refuge\" (vv. 7, 11). Why might a community need to say this together, out loud, more than once?",
         "Where have you seen \"be still and know\" used simply as a call to relax? After sitting with the whole psalm, how would you offer its deeper comfort to someone in genuine upheaval?"
       ],
-      "shortRef": "Psalm 46"
+      "shortRef": "Psalm 46",
+      "scriptureUrl": "",
+      "videoUrl": ""
     },
     {
       "n": 3,
-      "accent": "#D99A3B",
+      "accent": "#C89029",
       "reference": "Genesis 1:26–31; 2:15",
       "title": "Have Dominion Over the Earth",
       "subtitle": "A charge to tend creation — not a license to use it up.",
@@ -73,11 +73,13 @@ window.BBS_CONTENT = {
         "The charge is given to humankind together — \"let them have dominion.\" How is caring for creation a shared, communal vocation rather than an individual lifestyle choice?",
         "Where have you heard \"dominion\" used to justify using up the earth? How might the fuller picture — image-bearers placed here to till and keep — reshape that conversation?"
       ],
-      "shortRef": "Genesis 1–2"
+      "shortRef": "Genesis 1–2",
+      "scriptureUrl": "",
+      "videoUrl": ""
     },
     {
       "n": 4,
-      "accent": "#9A3D5A",
+      "accent": "#9E5145",
       "reference": "Philippians 2:2–11; 4:10–13",
       "title": "I Can Do All Things Through Him",
       "subtitle": "A secret learned in want — not a motivational slogan.",
@@ -93,11 +95,13 @@ window.BBS_CONTENT = {
         "Paul writes this as a thank-you to a church that shared in his hardship and sent support. How does the verse read differently as gratitude inside a relationship rather than a private power-up?",
         "Where have you seen 4:13 used as a guarantee of success? Having read the fuller letter, how would you offer its real strength to someone who is struggling rather than winning?"
       ],
-      "shortRef": "Philippians 4"
+      "shortRef": "Philippians 4",
+      "scriptureUrl": "",
+      "videoUrl": ""
     },
     {
       "n": 5,
-      "accent": "#2C6E8A",
+      "accent": "#4E6E86",
       "reference": "2 Timothy 2:14–17; Genesis 2:4–7",
       "title": "Rightly Dividing the Word of Truth",
       "subtitle": "A craftsman's care with Scripture — not a proof-text for being right.",
@@ -113,11 +117,13 @@ window.BBS_CONTENT = {
         "This is counsel to a young leader on behalf of a whole community. How is faithful interpretation a responsibility we carry for one another, and not only for ourselves?",
         "Where have you seen \"rightly dividing the word\" used to claim that someone simply has the right answer? How might approaching Scripture as careful, communal craftsmanship change those conversations?"
       ],
-      "shortRef": "2 Timothy 2"
+      "shortRef": "2 Timothy 2",
+      "scriptureUrl": "",
+      "videoUrl": ""
     },
     {
       "n": 6,
-      "accent": "#B6432E",
+      "accent": "#B24A34",
       "reference": "1 Corinthians 13:1–13",
       "title": "Love Is Patient, Love Is Kind",
       "subtitle": "A challenge to a divided church — not a wedding poem.",
@@ -133,7 +139,9 @@ window.BBS_CONTENT = {
         "Paul says love \"never ends,\" while prophecy, tongues, and knowledge will pass away (13:8–10). How does that reorder what a community should treasure most?",
         "Where have you mostly heard 1 Corinthians 13 — at weddings? How might reading it as a word to the gathered church reshape how you love the people you actually worship alongside?"
       ],
-      "shortRef": "1 Cor. 13"
+      "shortRef": "1 Cor. 13",
+      "scriptureUrl": "",
+      "videoUrl": ""
     }
   ]
 };
