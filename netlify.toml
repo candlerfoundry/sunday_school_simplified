@@ -3,8 +3,21 @@
   publish = "."
   command = ""
 
-# Friendly path for the (planned) browser editor
+# Browser editor (planned)
 [[redirects]]
   from = "/admin"
   to = "/admin.html"
   status = 200
+
+# Clean per-packet URLs: /<slug>/... transparently serves /packets/<slug>/...
+# (real files like /engine/* and /index.html are served directly and bypass this)
+[[redirects]]
+  from = "/:packet/*"
+  to = "/packets/:packet/:splat"
+  status = 200
+
+# Add the trailing slash so a bare /<slug> resolves its relative assets correctly
+[[redirects]]
+  from = "/:packet"
+  to = "/:packet/"
+  status = 301
