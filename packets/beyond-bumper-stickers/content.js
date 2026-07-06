@@ -52,11 +52,12 @@ window.BBS_CONTENT = {
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "God Is Our Refuge: Reading Psalm 46",
       "questions": [
-        "\"Be still, and know that I am God\" is often printed over a calm lake or a sunset, an invitation to slow down. But the psalm around it is loud — roaring waters, trembling mountains, raging nations. What is actually happening in the world of Psalm 46, and how does that setting change what \"be still\" might mean?",
-        "The psalm opens by naming God \"our refuge and strength, a very present help in trouble\" (v. 1). Where does it locate our security — in calm circumstances, or in something else entirely?",
-        "The command in verse 10 can be translated \"stop fighting\" or \"let go.\" Who is being told to be still — the anxious believer, or the raging nations? How does that possibility shift the verse's meaning?",
-        "Twice the psalm repeats, \"The Lord of hosts is with us; the God of Jacob is our refuge\" (vv. 7, 11). Why might a community need to say this together, out loud, more than once?",
-        "Where have you seen \"be still and know\" used simply as a call to relax? After sitting with the whole psalm, how would you offer its deeper comfort to someone in genuine upheaval?"
+        "\"Be still, and know that I am God\" is often interpreted as a cue to slow down. Where have you heard this verse before, and what have you taken it to mean?",
+        "The video argues that we often read the Psalms too \"spiritually,\" when many Psalms reflect material, outward catastrophes — war, displacement, and upheaval. What words or phrases in Psalm 46 point to this type of suffering?",
+        "God is called \"a very present help in trouble\" (v. 1) — help in the trouble, even as the mountains shake and the nations rage. The psalm does promise deliverance: God will one day \"make wars cease to the end of the earth\" (v. 9). But that day has not come yet. What kind of refuge is God offering in the meantime — and what does it ask of us while we wait?",
+        "Verse 10's command can be translated \"stop fighting,\" \"desist,\" or \"let go.\" Given the raging nations in the psalm, who might God actually be telling to be still — anxious individuals, or the warring powers? How does that change what the verse asks of us?",
+        "Twice the community says together, \"The Lord of hosts is with us; the God of Jacob is our refuge\" (vv. 7, 11). Why would a people under threat need to say this out loud, more than once? What does that suggest about \"being still\" as something done together, not alone?",
+        "\"Be still and know\" is often handed out as a call to relax. After sitting with the whole psalm, what would it mean to \"be still\" in a real upheaval you cannot control — not as escape, but as trust that God, not the chaos, is finally in charge? How is being still as trust different from being still as feeling calm — and where in your own life is God asking for the harder one?"
       ],
       "shortRef": "Psalm 46",
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Psalm%2046&version=NRSV",
