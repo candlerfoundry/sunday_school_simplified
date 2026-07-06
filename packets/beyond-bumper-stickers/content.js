@@ -1,0 +1,139 @@
+/* Beyond Bumper Stickers — content payload.
+ * Sunday School Simplified · The Candler Foundry
+ * Single source of copy for the flipbook viewer and the editor.
+ * window.BBS_CONTENT = { meta, cover, contents, lessons[], back }
+ */
+window.BBS_CONTENT = {
+  "meta": {
+    "series": "Sunday School Simplified",
+    "title": "Beyond Bumper Stickers",
+    "tagline": "Revisiting the Bible's most quotable texts",
+    "subtitle": "A Six-Lesson Packet",
+    "site": "candlerfoundry.org",
+    "footerNote": "Conversation questions + a free 3-Minute Bible video with every lesson"
+  },
+  "contentsIntro": "Six of the Bible's most-quoted lines — the ones we put on mugs, walls, and bumper stickers — read back inside the stories that gave them meaning.",
+  "howto": "Each lesson stands on its own and takes about an hour. Open with prayer, read the passage aloud, watch the 3-Minute Bible video together, then talk through the questions. Close with prayer.",
+  "lessons": [
+    {
+      "n": 1,
+      "accent": "#E0612F",
+      "reference": "Jeremiah 29:1, 4–14",
+      "title": "For I Know the Plans I Have for You",
+      "subtitle": "A promise to exiles — not a personal good-luck charm.",
+      "openingPrayer": "Faithful God, you spoke hope to your people even in the long years of exile. As we open these familiar words together, free us from easy slogans and lead us into the fuller story you are telling. Give us patience to listen, honesty to question, and trust to hope. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "God of exiles and of homecomings, thank you for promises bigger than our slogans. As we go, plant us where you have placed us, teach us to seek the good of our neighbors, and keep us hopeful through the long seasons of waiting. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "Jeremiah 29:1, 4–14",
+      "videoTitle": "3-Minute Bible",
+      "videoSubtitle": "Jeremiah's Letter to the Exiles",
+      "questions": [
+        "We usually meet this verse on a mug or a graduation card, lifted out on its own. But Jeremiah wrote it in a letter to a specific people in crisis. Who is the \"you,\" and what is their situation? How does knowing the audience change the way the promise lands?",
+        "God's instruction to the exiles is surprisingly ordinary: build houses, plant gardens, seek the welfare of the city where you've been sent. Why might God call them to settle into the place of their exile rather than promising a quick rescue?",
+        "The \"plans to prosper you\" come with a timeline — seventy years (v. 10). How does that long horizon reframe what \"hope and a future\" actually mean? Where do we wish God's promises moved faster than they do?",
+        "This is a promise made to a whole community, not to an individual. How does reading it as a word to \"y'all\" rather than \"you\" change how we apply it to our own lives and congregations?",
+        "Where have you seen this verse used as a personal good-luck charm? Having sat with its fuller context, how might you share its real hope with someone who is genuinely struggling?"
+      ],
+      "shortRef": "Jeremiah 29"
+    },
+    {
+      "n": 2,
+      "accent": "#2F8A6F",
+      "reference": "Psalm 46",
+      "title": "Be Still, and Know That I Am God",
+      "subtitle": "A war-time song of refuge — not a call to relax.",
+      "openingPrayer": "God our refuge and strength, when the earth feels unsteady and the nations rage, you remain a very present help. Quiet the noise within us as we gather, and teach us a stillness that is not escape but trust. Help us hear your voice above the roar. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "Lord of hosts, you are with us; God of Jacob, you are our refuge. Send us out steadier than we came — not because the waters have calmed, but because we know who holds us in them. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "Psalm 46",
+      "videoTitle": "3-Minute Bible",
+      "videoSubtitle": "God Is Our Refuge: Reading Psalm 46",
+      "questions": [
+        "\"Be still, and know that I am God\" is often printed over a calm lake or a sunset, an invitation to slow down. But the psalm around it is loud — roaring waters, trembling mountains, raging nations. What is actually happening in the world of Psalm 46, and how does that setting change what \"be still\" might mean?",
+        "The psalm opens by naming God \"our refuge and strength, a very present help in trouble\" (v. 1). Where does it locate our security — in calm circumstances, or in something else entirely?",
+        "The command in verse 10 can be translated \"stop fighting\" or \"let go.\" Who is being told to be still — the anxious believer, or the raging nations? How does that possibility shift the verse's meaning?",
+        "Twice the psalm repeats, \"The Lord of hosts is with us; the God of Jacob is our refuge\" (vv. 7, 11). Why might a community need to say this together, out loud, more than once?",
+        "Where have you seen \"be still and know\" used simply as a call to relax? After sitting with the whole psalm, how would you offer its deeper comfort to someone in genuine upheaval?"
+      ],
+      "shortRef": "Psalm 46"
+    },
+    {
+      "n": 3,
+      "accent": "#D99A3B",
+      "reference": "Genesis 1:26–31; 2:15",
+      "title": "Have Dominion Over the Earth",
+      "subtitle": "A charge to tend creation — not a license to use it up.",
+      "openingPrayer": "Creator God, you spoke the world into being and called it good, and you entrusted its care to creatures made in your image. As we open these first pages of Scripture, free us from the habit of reading them as permission, and teach us to read them as calling. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "God of the garden, you placed us here to till and to keep. Make us faithful image-bearers — gentle with what you have made, mindful of those who come after us, and grateful for the good earth you still call good. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "Genesis 1:26–31; 2:15",
+      "videoTitle": "3-Minute Bible",
+      "videoSubtitle": "Image & Dominion: Reading Genesis 1–2",
+      "questions": [
+        "\"Have dominion\" has often been read as permission to dominate and exploit the earth. But Genesis 2:15 says the human is placed in the garden \"to till it and keep it\" — to serve and protect it. How do these two verses interpret one another?",
+        "Humankind is made \"in the image of God\" (1:26–27). In the ancient world a king would set up images of himself to represent his rule in distant places. If we are God's images, what kind of \"dominion\" are we meant to represent?",
+        "Six times before humans arrive, God looks at creation and calls it \"good.\" How should the goodness of the world apart from us shape the way we treat it?",
+        "The charge is given to humankind together — \"let them have dominion.\" How is caring for creation a shared, communal vocation rather than an individual lifestyle choice?",
+        "Where have you heard \"dominion\" used to justify using up the earth? How might the fuller picture — image-bearers placed here to till and keep — reshape that conversation?"
+      ],
+      "shortRef": "Genesis 1–2"
+    },
+    {
+      "n": 4,
+      "accent": "#9A3D5A",
+      "reference": "Philippians 2:2–11; 4:10–13",
+      "title": "I Can Do All Things Through Him",
+      "subtitle": "A secret learned in want — not a motivational slogan.",
+      "openingPrayer": "Generous God, you meet us in plenty and in want, and your strength is made perfect in our weakness. As we open Paul's letter written from prison, teach us the contentment he learned, and loosen our grip on the slogans we mistake for faith. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "Christ Jesus, you emptied yourself for our sake; give us strength that looks like yours — patient, humble, and shared. When we have little and when we have much, keep us content in you, and grateful for the people who carry us. In your name we pray. Amen.",
+      "scriptureRef": "Philippians 2:2–11; 4:10–13",
+      "videoTitle": "3-Minute Bible",
+      "videoSubtitle": "Content in All Things: Paul from Prison",
+      "questions": [
+        "This verse is stitched onto athletic gear and used to promise victory. But read 4:10–12: what circumstances is Paul actually describing when he says he can do \"all things\"?",
+        "Paul says he has \"learned the secret\" of being content in plenty and in hunger, in abundance and in need (4:11–12). How is contentment something learned rather than simply felt — and what might Paul have learned it through?",
+        "In 2:5–11, Paul holds up Christ, who \"emptied himself\" and was exalted only after the cross. How does that downward-then-upward pattern reframe what \"strength\" means in 4:13?",
+        "Paul writes this as a thank-you to a church that shared in his hardship and sent support. How does the verse read differently as gratitude inside a relationship rather than a private power-up?",
+        "Where have you seen 4:13 used as a guarantee of success? Having read the fuller letter, how would you offer its real strength to someone who is struggling rather than winning?"
+      ],
+      "shortRef": "Philippians 4"
+    },
+    {
+      "n": 5,
+      "accent": "#2C6E8A",
+      "reference": "2 Timothy 2:14–17; Genesis 2:4–7",
+      "title": "Rightly Dividing the Word of Truth",
+      "subtitle": "A craftsman's care with Scripture — not a proof-text for being right.",
+      "openingPrayer": "God of truth, you have given us your word and called us to handle it with care. As we gather, make us patient workers rather than clever arguers, and let our reading build one another up rather than tear one another down. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "Faithful God, make us craftspeople of your word — unashamed, unhurried, and gentle with one another. Guard us from words that wound, and let our handling of Scripture lead us deeper into love. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "2 Timothy 2:14–17; Genesis 2:4–7",
+      "videoTitle": "3-Minute Bible",
+      "videoSubtitle": "Handling the Word: Paul's Charge to Timothy",
+      "questions": [
+        "\"Study to show thyself approved\" (KJV) has been used to promote private Bible study and even winning arguments. Read 2:14–17: what problem is Paul actually warning Timothy about, and what does he say is the goal of handling Scripture well?",
+        "Paul pictures a \"worker who has no need to be ashamed, rightly handling the word of truth\" (2:15). Genesis 2:4–7 shows the first human formed from the dust and given the ground to work. How does that image of patient, hands-on labor shape what \"handling\" Scripture should look like?",
+        "Paul contrasts good work with \"wrangling over words\" that does \"no good\" and \"ruins the hearers\" (2:14), and with talk that \"spreads like gangrene\" (2:17). What's the difference between handling Scripture as a craft and using it as a weapon?",
+        "This is counsel to a young leader on behalf of a whole community. How is faithful interpretation a responsibility we carry for one another, and not only for ourselves?",
+        "Where have you seen \"rightly dividing the word\" used to claim that someone simply has the right answer? How might approaching Scripture as careful, communal craftsmanship change those conversations?"
+      ],
+      "shortRef": "2 Timothy 2"
+    },
+    {
+      "n": 6,
+      "accent": "#B6432E",
+      "reference": "1 Corinthians 13:1–13",
+      "title": "Love Is Patient, Love Is Kind",
+      "subtitle": "A challenge to a divided church — not a wedding poem.",
+      "openingPrayer": "God who is love, you have poured your love into our hearts and called us to live it among people we do not always find easy. As we open this familiar chapter, save us from hearing only a wedding poem, and let it search us as the challenge Paul meant it to be. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "Patient and kind God, make your love visible in this community — slow to anger, quick to bear, ready to hope. Let us treasure love above every gift, for love alone never ends. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "1 Corinthians 13:1–13",
+      "videoTitle": "3-Minute Bible",
+      "videoSubtitle": "More Than a Wedding Poem: 1 Corinthians 13",
+      "questions": [
+        "\"Love is patient, love is kind\" is a wedding staple. But Paul wrote this to a congregation tearing itself apart over status and spiritual gifts. How does knowing the original setting change the chapter's tone — from comfort toward challenge?",
+        "The chapter sits between two chapters about spiritual gifts (12 and 14). Why might Paul interrupt a heated debate about gifts to insist that without love they amount to \"a noisy gong or a clanging cymbal\" (13:1)?",
+        "Read the description in verses 4–7 as a mirror rather than a greeting card. Which lines land hardest when you imagine them addressed to a quarreling church — or to us?",
+        "Paul says love \"never ends,\" while prophecy, tongues, and knowledge will pass away (13:8–10). How does that reorder what a community should treasure most?",
+        "Where have you mostly heard 1 Corinthians 13 — at weddings? How might reading it as a word to the gathered church reshape how you love the people you actually worship alongside?"
+      ],
+      "shortRef": "1 Cor. 13"
+    }
+  ]
+};

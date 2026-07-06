@@ -1,0 +1,10 @@
+# Sunday School Simplified — static flipbook site (The Candler Foundry)
+[build]
+  publish = "."
+  command = ""
+
+# Friendly path for the (planned) browser editor
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200

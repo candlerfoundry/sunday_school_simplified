@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+.netlify/
+.claude-git-token
+.claude-git-token.txt
+playwright-*.png
