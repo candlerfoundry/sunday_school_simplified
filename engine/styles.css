@@ -166,3 +166,39 @@ body{background:#D8CEBB;font-family:"Newsreader",serif;color:var(--ink2);
 .pageind{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:35;font-family:"Oswald",sans-serif;
   font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);
   background:rgba(251,244,227,.85);padding:6px 14px;border-radius:100px;}
+
+/* ---- lesson guide steps (v2 layout) ---- */
+.step{display:flex;align-items:center;gap:10px;margin:16px 0 9px;}
+.step .sn{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;
+  font-family:"Oswald",sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 0 rgba(0,0,0,.14);}
+.step .sl{font-family:"Oswald",sans-serif;font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);}
+.step-close{margin-top:20px;}
+/* tighten header + title for the new stacked flow */
+.hdr{gap:16px;}
+.titlewrap{margin-top:14px;}
+.lesson-title{font-size:43px;}
+.sub{font-size:17px;margin-top:9px;}
+/* prayers now sit directly under a numbered step; drop their own top margin/label */
+.prayer{margin-top:0;padding:14px 18px;}
+.prayer p{font-size:15px;line-height:1.44;}
+/* read-the-scripture step */
+.read{background:var(--cream);border:1.5px solid var(--line);border-radius:12px;padding:12px 18px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 3px 10px rgba(120,82,48,.06);}
+.read .ref{font-family:"Newsreader",serif;font-weight:600;font-size:18px;color:var(--ink);}
+a.gw{font-family:"Oswald",sans-serif;font-weight:700;font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+  color:#fff;background:var(--accent);padding:9px 15px;border-radius:100px;text-decoration:none;white-space:nowrap;}
+a.gw:hover{filter:brightness(.93);}
+/* watch step: smaller, centered TV; optional second video */
+.tvwrap{margin-top:0;text-align:center;position:static;}
+.tv{display:inline-block;width:auto;}
+.tv > img{max-height:322px;width:auto;max-width:100%;}
+.optvid{margin-top:9px;text-align:center;font-family:"Oswald",sans-serif;font-weight:600;font-size:11px;
+  letter-spacing:.05em;text-transform:uppercase;}
+.optvid a{color:var(--accent);text-decoration:none;}
+.optvid a:hover{text-decoration:underline;}
+/* questions: tighten to fit up to 7 comfortably */
+.qlist{margin-top:16px;gap:12px;}
+.q p{font-size:15px;line-height:1.42;}
+/* retire the gimmicky bits */
+.sign,.tape{display:none !important;}

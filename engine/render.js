@@ -1,16 +1,14 @@
 /* Beyond Bumper Stickers — flipbook renderer (retro edition).
- * Builds pages from window.BBS_CONTENT and drives StPageFlip.
- * cover (photo), contents, how-to, 2 pages per lesson
- * (A: header + prayer + vintage-TV video + scripture sign; B: questions + closing prayer),
- * back cover. */
+ * cover (photo), contents, how-to, 2 pages per lesson, back cover.
+ * Lesson spread follows a clear guide: 1 Opening Prayer · 2 Read the Scripture
+ * (Bible Gateway NRSV) · 3 Watch the 3-Minute Bible · 4 Discussion Questions ·
+ * 5 Closing Prayer. */
 (function () {
   "use strict";
   var C = window.BBS_CONTENT;
   if (!C) { console.error("BBS_CONTENT missing"); return; }
-
   var esc = function (s) {
-    return String(s == null ? "" : s)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   };
   var TV = "../../engine/assets/tv.png";
 
@@ -37,13 +35,12 @@
   function howToPage() {
     var steps = [
       ["Open with prayer", "Begin together with the opening prayer on the lesson's first page."],
-      ["Read the passage aloud", "Pull up the Scripture reference and read it together."],
-      ["Watch the 3-Minute Bible", "Play the short video right inside the set — it sets the passage back in its original context."],
-      ["Talk through the questions", "Five discussion questions move from the text to your own life."],
+      ["Read the Scripture", "Open the passage — each lesson links the NRSV text on Bible Gateway."],
+      ["Watch the 3-Minute Bible", "Play the short video inside the set; it puts the passage back in its original context."],
+      ["Talk through the questions", "The discussion questions move from the text to your own life."],
       ["Close with prayer", "End with the closing prayer that gathers up the lesson."]
     ].map(function (s, i) {
-      return '<div class="q"><span class="rm">' + (i + 1) + "</span>" +
-        "<p><b>" + s[0] + ".</b> " + s[1] + "</p></div>";
+      return '<div class="q"><span class="rm">' + (i + 1) + "</span><p><b>" + s[0] + ".</b> " + s[1] + "</p></div>";
     }).join("");
     return '<div class="page-inner contents" style="--accent:var(--rust)">' +
       '<div class="series"><span></span><b>How These Lessons Work</b></div>' +
@@ -59,45 +56,47 @@
         '" title="3-Minute Bible" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
     }
     return '<div class="screen">' +
-      '<div class="lab">CH 3 &middot; 3-Minute Bible</div>' +
-      '<div class="live">Play</div>' +
-      '<div class="play"></div>' +
-      '<div class="ttl">' + esc(l.videoSubtitle) + "</div></div>";
+      '<div class="lab">CH 3 &middot; 3-Minute Bible</div><div class="live">Play</div>' +
+      '<div class="play"></div><div class="ttl">' + esc(l.videoSubtitle) + "</div></div>";
+  }
+
+  function stepHead(n, label) {
+    return '<div class="step"><span class="sn">' + n + '</span><span class="sl">' + label + "</span></div>";
   }
 
   function lessonPageA(l) {
+    var readLink = l.scriptureUrl
+      ? '<a class="gw" href="' + esc(l.scriptureUrl) + '" target="_blank" rel="noopener">Read on Bible Gateway (NRSV) &rarr;</a>'
+      : "";
+    var opt = l.optionalVideo
+      ? '<div class="optvid"><a href="' + esc(l.optionalVideo.url || "#") + '"' +
+          (l.optionalVideo.url ? ' target="_blank" rel="noopener"' : "") +
+          '>&#9654; Optional &middot; ' + esc(l.optionalVideo.title) + "</a></div>"
+      : "";
     return '<div class="page-inner lesson" style="--accent:' + l.accent + '">' +
-      '<div class="hdr"><div class="shield"><small>Lesson</small><b>' +
-        (l.n < 10 ? "0" + l.n : l.n) + "</b></div>" +
-        '<div><div class="eyebrow"><span class="tag">Discussion Guide</span></div>' +
-        '<div class="plate"><span>REF</span> ' + esc(l.reference) + "</div></div></div>" +
+      '<div class="hdr"><div class="shield"><small>Lesson</small><b>' + (l.n < 10 ? "0" + l.n : l.n) + "</b></div>" +
+        '<div class="plate"><span>REF</span> ' + esc(l.reference) + "</div></div>" +
       '<div class="titlewrap"><h1 class="lesson-title">' + esc(l.title) + "</h1>" +
         '<div class="sub">' + esc(l.subtitle) + "</div></div>" +
-      '<div class="prayer opening"><div class="bar"></div><div>' +
-        '<div class="lbl">Opening Prayer</div><p>' + esc(l.openingPrayer) + "</p></div></div>" +
-      '<div class="tvwrap">' +
-        '<div class="tape" style="left:44%;top:6px;transform:rotate(-4deg)"></div>' +
-        '<div class="tv"><img src="' + TV + '" alt="Vintage TV">' + tvScreen(l) + "</div>" +
-        '<div class="tvcap">&#9654; Watch inside the set &mdash; <b>3-Minute Bible</b></div>' +
-      "</div>" +
-      '<div class="sign"><div class="s1">Scripture Stop</div>' +
-        '<div class="s2">' + esc(l.scriptureRef) + "</div>" +
-        '<div class="s3">Read aloud together</div></div>' +
+      stepHead(1, "Opening Prayer") +
+        '<div class="prayer"><div class="bar"></div><div><p>' + esc(l.openingPrayer) + "</p></div></div>" +
+      stepHead(2, "Read the Scripture") +
+        '<div class="read"><div class="ref">' + esc(l.scriptureRef) + "</div>" + readLink + "</div>" +
+      stepHead(3, "Watch the 3-Minute Bible") +
+        '<div class="tvwrap"><div class="tv"><img src="' + TV + '" alt="Vintage TV">' + tvScreen(l) + "</div>" + opt + "</div>" +
       "</div>";
   }
 
   function lessonPageB(l) {
-    var q = l.questions.map(function (text, i) {
-      return '<div class="q"><span class="rm">' + (i + 1) + "</span>" +
-        "<p>" + esc(text) + "</p></div>";
+    var q = l.questions.map(function (t, i) {
+      return '<div class="q"><span class="rm">' + (i + 1) + '</span><p>' + esc(t) + "</p></div>";
     }).join("");
     return '<div class="page-inner lesson" style="--accent:' + l.accent + '">' +
-      '<div class="qhdr disp">Discussion Questions<span class="u"></span></div>' +
+      stepHead(4, "Discussion Questions") +
       '<div class="qlist">' + q + "</div>" +
-      '<div class="prayer closing" style="margin-top:24px"><div class="bar"></div><div>' +
-        '<div class="lbl">Closing Prayer</div><p>' + esc(l.closingPrayer) + "</p></div></div>" +
-      '<div class="foot"><span>Beyond Bumper Stickers</span><span>Lesson ' + l.n +
-        " of " + C.lessons.length + "</span></div></div>";
+      '<div class="step step-close"><span class="sn">5</span><span class="sl">Closing Prayer</span></div>' +
+      '<div class="prayer"><div class="bar"></div><div><p>' + esc(l.closingPrayer) + "</p></div></div>" +
+      '<div class="foot"><span>Beyond Bumper Stickers</span><span>Lesson ' + l.n + " of " + C.lessons.length + "</span></div></div>";
   }
 
   function backPage() {
@@ -121,36 +120,28 @@
 
   var flipEl = document.getElementById("pageflip");
   pages.forEach(function (p) {
-    var d = document.createElement("div");
-    d.className = "page " + p.cls;
-    d.innerHTML = p.html;
-    flipEl.appendChild(d);
+    var d = document.createElement("div"); d.className = "page " + p.cls; d.innerHTML = p.html; flipEl.appendChild(d);
   });
 
   var PageFlip = (window.St && window.St.PageFlip) || window.PageFlip;
   var flip = new PageFlip(flipEl, {
-    width: 816, height: 1056, size: "fixed",
-    showCover: true, usePortrait: false,
+    width: 816, height: 1056, size: "fixed", showCover: true, usePortrait: false,
     maxShadowOpacity: 0.5, drawShadow: true, flippingTime: 700, mobileScrollSupport: false
   });
   flip.loadFromHTML(document.querySelectorAll("#pageflip .page"));
 
-  var stage = document.getElementById("stage");
-  var scaler = document.getElementById("book-scaler");
+  var stage = document.getElementById("stage"), scaler = document.getElementById("book-scaler");
   function fit() {
-    var bookW = 816 * 2, bookH = 1056;
     var availW = stage.clientWidth - 40, availH = stage.clientHeight - 40;
-    scaler.style.setProperty("--book-scale", Math.min(availW / bookW, availH / bookH));
+    scaler.style.setProperty("--book-scale", Math.min(availW / (816 * 2), availH / 1056));
   }
   window.addEventListener("resize", fit); fit();
 
-  var prev = document.getElementById("navPrev"), next = document.getElementById("navNext");
-  var ind = document.getElementById("pageind");
+  var prev = document.getElementById("navPrev"), next = document.getElementById("navNext"), ind = document.getElementById("pageind");
   prev.addEventListener("click", function () { flip.flipPrev(); });
   next.addEventListener("click", function () { flip.flipNext(); });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowLeft") flip.flipPrev();
-    if (e.key === "ArrowRight") flip.flipNext();
+    if (e.key === "ArrowLeft") flip.flipPrev(); if (e.key === "ArrowRight") flip.flipNext();
   });
   function updateInd() {
     var i = flip.getCurrentPageIndex(), total = pages.length;
@@ -158,10 +149,8 @@
     ind.textContent = "Page " + (i + 1) + " of " + total;
   }
   flip.on("flip", updateInd); flip.on("init", updateInd); updateInd();
-
   flipEl.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-goto]");
-    if (!t) return;
+    var t = e.target.closest("[data-goto]"); if (!t) return;
     var idx = pageToLesson.indexOf(parseInt(t.getAttribute("data-goto"), 10));
     if (idx > -1) flip.flip(idx);
   });

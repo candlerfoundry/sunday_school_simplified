@@ -23,15 +23,22 @@ window.BBS_CONTENT = {
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Jeremiah's Letter to the Exiles",
       "questions": [
-        "We usually meet this verse on a mug or a graduation card, lifted out on its own. But Jeremiah wrote it in a letter to a specific people in crisis. Who is the \"you,\" and what is their situation? How does knowing the audience change the way the promise lands?",
-        "God's instruction to the exiles is surprisingly ordinary: build houses, plant gardens, seek the welfare of the city where you've been sent. Why might God call them to settle into the place of their exile rather than promising a quick rescue?",
-        "The \"plans to prosper you\" come with a timeline — seventy years (v. 10). How does that long horizon reframe what \"hope and a future\" actually mean? Where do we wish God's promises moved faster than they do?",
-        "This is a promise made to a whole community, not to an individual. How does reading it as a word to \"y'all\" rather than \"you\" change how we apply it to our own lives and congregations?",
-        "Where have you seen this verse used as a personal good-luck charm? Having sat with its fuller context, how might you share its real hope with someone who is genuinely struggling?"
+        "\"For I know the plans I have for you… a hope and a future\" (v. 11) is the line we meet on mugs and graduation cards, read as a personal promise. But verse 10 shows the \"you\" is a whole community in exile, not an individual. Who is God actually speaking to, and what does God promise them?",
+        "God says the return will come only after seventy years (v. 10). Who actually lives to see that promise kept? What does it mean that God makes a promise many of the original exiles would not live long enough to see fulfilled?",
+        "In verses 4–7, what sort of life are the exiles instructed to lead until the promise is fulfilled? In verse 11, God speaks of \"plans for your welfare and not for harm\" — what does \"welfare\" seem to mean in this context?",
+        "As the video explains, Jerusalem wasn't just a hometown — it was the place of God's own dwelling. Given that, how devastating would it have been to hear the exile would last seventy years? How might Jeremiah's message have landed with his first readers?",
+        "A popular translation of v. 11 reads \"plans to prosper you\" (NIV). How is \"prosperity\" commonly understood today? How does \"prosper\" in place of \"welfare\" change the meaning — and is God promising prosperity the way we tend to imagine it?",
+        "How would you describe the \"hope\" God offers? How does God reassure the exiles that God, not Babylon, is in charge?",
+        "The exiles were asked to settle in, seek the good of the city, and wait — for a lifetime. How do we stay faithful when God's answer is \"wait,\" or simply isn't what we hoped for? Where have you had to keep faith without the answer you wanted?"
       ],
       "shortRef": "Jeremiah 29",
-      "scriptureUrl": "",
-      "videoUrl": ""
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Jeremiah%2029%3A1%2C%204-14&version=NRSV",
+      "videoUrl": "",
+      "optionalVideo": {
+        "title": "What Happened During the Exile?",
+        "subtitle": "3-Minute Bible · optional",
+        "url": ""
+      }
     },
     {
       "n": 2,
@@ -52,8 +59,9 @@ window.BBS_CONTENT = {
         "Where have you seen \"be still and know\" used simply as a call to relax? After sitting with the whole psalm, how would you offer its deeper comfort to someone in genuine upheaval?"
       ],
       "shortRef": "Psalm 46",
-      "scriptureUrl": "",
-      "videoUrl": ""
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Psalm%2046&version=NRSV",
+      "videoUrl": "",
+      "optionalVideo": null
     },
     {
       "n": 3,
@@ -74,8 +82,9 @@ window.BBS_CONTENT = {
         "Where have you heard \"dominion\" used to justify using up the earth? How might the fuller picture — image-bearers placed here to till and keep — reshape that conversation?"
       ],
       "shortRef": "Genesis 1–2",
-      "scriptureUrl": "",
-      "videoUrl": ""
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%201%3A26-31%3B%202%3A15&version=NRSV",
+      "videoUrl": "",
+      "optionalVideo": null
     },
     {
       "n": 4,
@@ -96,8 +105,9 @@ window.BBS_CONTENT = {
         "Where have you seen 4:13 used as a guarantee of success? Having read the fuller letter, how would you offer its real strength to someone who is struggling rather than winning?"
       ],
       "shortRef": "Philippians 4",
-      "scriptureUrl": "",
-      "videoUrl": ""
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Philippians%202%3A2-11%3B%204%3A10-13&version=NRSV",
+      "videoUrl": "",
+      "optionalVideo": null
     },
     {
       "n": 5,
@@ -118,8 +128,9 @@ window.BBS_CONTENT = {
         "Where have you seen \"rightly dividing the word\" used to claim that someone simply has the right answer? How might approaching Scripture as careful, communal craftsmanship change those conversations?"
       ],
       "shortRef": "2 Timothy 2",
-      "scriptureUrl": "",
-      "videoUrl": ""
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=2%20Timothy%202%3A14-17%3B%20Genesis%202%3A4-7&version=NRSV",
+      "videoUrl": "",
+      "optionalVideo": null
     },
     {
       "n": 6,
@@ -140,8 +151,9 @@ window.BBS_CONTENT = {
         "Where have you mostly heard 1 Corinthians 13 — at weddings? How might reading it as a word to the gathered church reshape how you love the people you actually worship alongside?"
       ],
       "shortRef": "1 Cor. 13",
-      "scriptureUrl": "",
-      "videoUrl": ""
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Corinthians%2013%3A1-13&version=NRSV",
+      "videoUrl": "",
+      "optionalVideo": null
     }
   ]
 };
