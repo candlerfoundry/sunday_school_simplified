@@ -74,18 +74,34 @@ body{background:var(--stage);font-family:'Mulish',sans-serif;color:var(--navy);-
 .lead{flex:1;border-top:2px dotted var(--dot);height:0;}
 .card{background:var(--card);border:1px solid var(--cardbd);border-radius:16px;padding:16px 20px;}
 .card p{font-weight:500;font-size:17.5px;line-height:1.5;color:var(--navy);}
-/* ---- scripture dropdown (obvious button) ---- */
-.scripcard{background:var(--card);border:1px solid var(--cardbd);border-radius:16px;overflow:hidden;}
+/* ---- scripture card (opens popout) ---- */
+.scripcard{background:var(--card);border:1px solid var(--cardbd);border-radius:16px;overflow:hidden;cursor:pointer;transition:box-shadow .15s,border-color .15s;}
+.scripcard:hover{border-color:var(--navy);box-shadow:0 6px 18px rgba(10,39,76,.12);}
 .scriprow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;}
 .scriprow .ref{font-weight:800;font-size:20px;color:var(--navy);}
 .scripbtn{display:flex;align-items:center;gap:10px;background:var(--navy);color:#fff;font-weight:800;font-size:14px;padding:12px 20px;border-radius:100px;cursor:pointer;white-space:nowrap;user-select:none;}
 .scripbtn .badge{opacity:.7;}
-.scripbtn .fa-chevron-down{font-size:12px;transition:transform .2s;}
-.scripcard.open .scripbtn .fa-chevron-down{transform:rotate(180deg);}
-.dropbody{border-top:1px dashed var(--cardbd);padding:14px 18px;max-height:170px;overflow-y:auto;display:none;}
-.scripcard.open .dropbody{display:block;}
-.dropbody p{font-weight:500;font-size:14.5px;line-height:1.6;color:#25405f;}
-.dropbody .note{font-style:italic;font-size:12px;color:var(--muted);}
+.scripbtn i{font-size:13px;}
+/* ---- scripture popout modal ---- */
+.scrim{position:fixed;inset:0;background:rgba(10,39,76,.55);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px;}
+.scrim.show{display:flex;}
+.modal{background:var(--page);width:min(640px,94vw);max-height:88vh;border-radius:20px;box-shadow:0 30px 80px rgba(10,39,76,.45);display:flex;flex-direction:column;overflow:hidden;}
+.mhead{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 26px;border-bottom:1px solid var(--cardbd);}
+.mref{font-weight:800;font-size:23px;color:var(--navy);}
+.mclose{border:0;background:transparent;font-size:30px;line-height:1;color:var(--smoky);cursor:pointer;padding:0 2px;}
+.mclose:hover{color:var(--red);}
+.mbody{overflow-y:auto;padding:22px 26px;-webkit-overflow-scrolling:touch;}
+.mbody h4{font-weight:800;font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--red);margin:20px 0 9px;}
+.mbody h4:first-child{margin-top:0;}
+.mbody p{font-weight:500;font-size:18px;line-height:1.65;color:#25405f;margin:0 0 13px;}
+.mbody p.super{font-style:italic;font-size:16px;color:var(--smoky);margin-bottom:10px;}
+.mbody p.poet{padding-left:16px;}
+.mbody .vn{font-weight:800;font-size:11px;color:var(--red);vertical-align:super;margin-right:3px;line-height:0;}
+.mbody .note{font-style:italic;color:var(--smoky);}
+.mfoot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 26px;border-top:1px solid var(--cardbd);background:var(--card);}
+.mopen{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;font-weight:800;font-size:14px;padding:11px 18px;border-radius:100px;text-decoration:none;white-space:nowrap;}
+.mopen i{font-size:12px;}
+.mattr{font-size:10.5px;color:var(--smoky);text-align:right;line-height:1.4;}
 /* ---- video card ---- */
 .vwrap{text-align:center;}
 .vcard{position:relative;display:inline-block;width:100%;max-width:496px;border-radius:16px;overflow:hidden;

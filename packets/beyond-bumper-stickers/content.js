@@ -60,14 +60,14 @@ window.BBS_CONTENT = {
         "The exiles were asked to settle in, seek the good of Babylon, and keep their faith in a hopeful future. Where have you had to remain faithful amid disappointing or uncertain circumstances in your own life?"
       ],
       "shortRef": "Jeremiah 29",
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Jeremiah%2029%3A1%2C%204-14&version=NRSV",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Jeremiah%2029%3A1%2C%204-14&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": {
         "title": "What Happened During the Exile?",
         "subtitle": "3-Minute Bible · optional",
         "url": ""
       },
-      "scriptureText": "",
+      "scriptureText": "<h4>Jeremiah 29:1</h4>\n<p><span class=\"vn\">1</span>These are the words of the letter that the prophet Jeremiah sent from Jerusalem to the remaining elders among the exiles and to the priests, the prophets, and all the people whom Nebuchadnezzar had taken into exile from Jerusalem to Babylon.</p>\n<h4>Jeremiah 29:4–14</h4>\n<p><span class=\"vn\">4</span>Thus says the Lord of hosts, the God of Israel, to all the exiles whom I have sent into exile from Jerusalem to Babylon: <span class=\"vn\">5</span>Build houses and live in them; plant gardens and eat what they produce. <span class=\"vn\">6</span>Take wives and have sons and daughters; take wives for your sons, and give your daughters in marriage, that they may bear sons and daughters; multiply there, and do not decrease. <span class=\"vn\">7</span>But seek the welfare of the city where I have sent you into exile, and pray to the Lord on its behalf, for in its welfare you will find your welfare. <span class=\"vn\">8</span>For thus says the Lord of hosts, the God of Israel: Do not let the prophets and the diviners who are among you deceive you, and do not listen to your dreams that you dream, <span class=\"vn\">9</span>for it is a lie that they are prophesying to you in my name; I did not send them, says the Lord.</p>\n<p><span class=\"vn\">10</span>For thus says the Lord: Only when Babylon’s seventy years are completed will I visit you, and I will fulfill to you my promise and bring you back to this place. <span class=\"vn\">11</span>For surely I know the plans I have for you, says the Lord, plans for your welfare and not for harm, to give you a future with hope. <span class=\"vn\">12</span>Then when you call upon me and come and pray to me, I will hear you. <span class=\"vn\">13</span>When you search for me, you will find me; if you seek me with all your heart, <span class=\"vn\">14</span>I will let you find me, says the Lord, and I will restore your fortunes and gather you from all the nations and all the places where I have driven you, says the Lord, and I will bring you back to the place from which I sent you into exile.</p>",
       "headerImage": "assets/headers/lesson-01.png"
     },
     {
@@ -89,10 +89,10 @@ window.BBS_CONTENT = {
         "\"Be still and know\" is often handed out as a call to relax. After sitting with the whole psalm, what would it mean to \"be still\" in an upheaval you can't control — not as escape, but as trust that God, not the chaos, is in charge? How is being still as trust different from being still as feeling calm?"
       ],
       "shortRef": "Psalm 46",
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Psalm%2046&version=NRSV",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Psalm%2046&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
-      "scriptureText": "",
+      "scriptureText": "<h4>Psalm 46</h4>\n<p class=\"super\">God’s Defense of His City and People<br>To the leader. Of the Korahites. According to Alamoth. A Song.</p>\n<p class=\"poet\"><span class=\"vn\">1</span>God is our refuge and strength,<br>a very present help in trouble.<br><span class=\"vn\">2</span>Therefore we will not fear, though the earth should change,<br>though the mountains shake in the heart of the sea,<br><span class=\"vn\">3</span>though its waters roar and foam,<br>though the mountains tremble with its tumult. Selah</p>\n<p class=\"poet\"><span class=\"vn\">4</span>There is a river whose streams make glad the city of God,<br>the holy habitation of the Most High.<br><span class=\"vn\">5</span>God is in the midst of the city; it shall not be moved;<br>God will help it when the morning dawns.<br><span class=\"vn\">6</span>The nations are in an uproar; the kingdoms totter;<br>he utters his voice; the earth melts.<br><span class=\"vn\">7</span>The Lord of hosts is with us;<br>the God of Jacob is our refuge. Selah</p>\n<p class=\"poet\"><span class=\"vn\">8</span>Come, behold the works of the Lord;<br>see what desolations he has brought on the earth.<br><span class=\"vn\">9</span>He makes wars cease to the end of the earth;<br>he breaks the bow and shatters the spear;<br>he burns the shields with fire.<br><span class=\"vn\">10</span>“Be still, and know that I am God!<br>I am exalted among the nations;<br>I am exalted in the earth.”<br><span class=\"vn\">11</span>The Lord of hosts is with us;<br>the God of Jacob is our refuge. Selah</p>",
       "headerImage": ""
     },
     {
@@ -114,10 +114,10 @@ window.BBS_CONTENT = {
         "If both dominion and service are part of our calling, where do you see them in tension in your own life? Can we serve creation while also exercising real power over it?"
       ],
       "shortRef": "Genesis 1–2",
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%201%3A26-31%3B%202%3A15&version=NRSV",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%201%3A26-31%3B%202%3A15&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
-      "scriptureText": "",
+      "scriptureText": "<h4>Genesis 1:26–31</h4>\n<p><span class=\"vn\">26</span>Then God said, “Let us make humans in our image, according to our likeness, and let them have dominion over the fish of the sea and over the birds of the air and over the cattle and over all the wild animals of the earth and over every creeping thing that creeps upon the earth.”</p>\n<p class=\"poet\"><span class=\"vn\">27</span>So God created humans in his image,<br>in the image of God he created them;<br>male and female he created them.</p>\n<p><span class=\"vn\">28</span>God blessed them, and God said to them, “Be fruitful and multiply and fill the earth and subdue it and have dominion over the fish of the sea and over the birds of the air and over every living thing that moves upon the earth.” <span class=\"vn\">29</span>God said, “See, I have given you every plant yielding seed that is upon the face of all the earth and every tree with seed in its fruit; you shall have them for food. <span class=\"vn\">30</span>And to every beast of the earth and to every bird of the air and to everything that creeps on the earth, everything that has the breath of life, I have given every green plant for food.” And it was so. <span class=\"vn\">31</span>God saw everything that he had made, and indeed, it was very good. And there was evening and there was morning, the sixth day.</p>\n<h4>Genesis 2:15</h4>\n<p><span class=\"vn\">15</span>The Lord God took the man and put him in the garden of Eden to till it and keep it.</p>",
       "headerImage": ""
     },
     {
@@ -140,10 +140,10 @@ window.BBS_CONTENT = {
         "If strength looks less like control or success and more like faithfulness within difficult circumstances, how might that change the way we think about what it means to be strong in our own lives?"
       ],
       "shortRef": "Philippians 4",
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Philippians%202%3A2-11%3B%204%3A10-13&version=NRSV",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Philippians%202%3A2-11%3B%204%3A10-13&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
-      "scriptureText": "",
+      "scriptureText": "<h4>Philippians 2:2–11</h4>\n<p><span class=\"vn\">2</span>make my joy complete: be of the same mind, having the same love, being in full accord and of one mind. <span class=\"vn\">3</span>Do nothing from selfish ambition or empty conceit, but in humility regard others as better than yourselves. <span class=\"vn\">4</span>Let each of you look not to your own interests but to the interests of others. <span class=\"vn\">5</span>Let the same mind be in you that was in Christ Jesus,</p>\n<p class=\"poet\"><span class=\"vn\">6</span>who, though he existed in the form of God,<br>did not regard equality with God<br>as something to be grasped,<br><span class=\"vn\">7</span>but emptied himself,<br>taking the form of a slave,<br>assuming human likeness.<br>And being found in appearance as a human,<br><span class=\"vn\">8</span>he humbled himself<br>and became obedient to the point of death—<br>even death on a cross.<br><span class=\"vn\">9</span>Therefore God exalted him even more highly<br>and gave him the name<br>that is above every other name,<br><span class=\"vn\">10</span>so that at the name given to Jesus<br>every knee should bend,<br>in heaven and on earth and under the earth,<br><span class=\"vn\">11</span>and every tongue should confess<br>that Jesus Christ is Lord,<br>to the glory of God the Father.</p>\n<h4>Philippians 4:10–13</h4>\n<p><span class=\"vn\">10</span>I rejoice in the Lord greatly that now at last you have revived your concern for me; indeed, you were concerned for me but had no opportunity to show it. <span class=\"vn\">11</span>Not that I am referring to being in need, for I have learned to be content with whatever I have. <span class=\"vn\">12</span>I know what it is to have little, and I know what it is to have plenty. In any and all circumstances I have learned the secret of being well-fed and of going hungry, of having plenty and of being in need. <span class=\"vn\">13</span>I can do all things through him who strengthens me.</p>",
       "headerImage": ""
     },
     {
@@ -166,10 +166,10 @@ window.BBS_CONTENT = {
         "Have you ever found a Biblical text life-giving and meaningful even if you didn't read it as factually true? Have you found \"good news\" in a passage that first felt confusing or troubling? What helped that shift?"
       ],
       "shortRef": "2 Timothy 3",
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=2%20Timothy%203%3A14-17%3B%20Genesis%202%3A4-7&version=NRSV",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=2%20Timothy%203%3A14-17%3B%20Genesis%202%3A4-7&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
-      "scriptureText": "",
+      "scriptureText": "<h4>2 Timothy 3:14–17</h4>\n<p><span class=\"vn\">14</span>But as for you, continue in what you have learned and firmly believed, knowing from whom you learned it <span class=\"vn\">15</span>and how from childhood you have known sacred writings that are able to instruct you for salvation through faith in Christ Jesus. <span class=\"vn\">16</span>All scripture is inspired by God and is useful for teaching, for reproof, for correction, and for training in righteousness, <span class=\"vn\">17</span>so that the person of God may be proficient, equipped for every good work.</p>\n<h4>Genesis 2:4–7</h4>\n<p><span class=\"vn\">4</span>These are the generations of the heavens and the earth when they were created.</p>\n<p class=\"super\">Another Account of the Creation</p>\n<p>In the day that the Lord God made the earth and the heavens, <span class=\"vn\">5</span>when no plant of the field was yet in the earth and no vegetation of the field had yet sprung up—for the Lord God had not caused it to rain upon the earth, and there was no one to till the ground, <span class=\"vn\">6</span>but a stream would rise from the earth and water the whole face of the ground— <span class=\"vn\">7</span>then the Lord God formed man from the dust of the ground and breathed into his nostrils the breath of life, and the man became a living being.</p>",
       "headerImage": ""
     },
     {
@@ -191,10 +191,10 @@ window.BBS_CONTENT = {
         "Consider your own church’s worship and common life. Where do you see Paul’s vision of love lived out well, and where is there room to grow — especially across a congregation’s diverse opinions and backgrounds?"
       ],
       "shortRef": "1 Cor. 13",
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Corinthians%2013%3A1-13&version=NRSV",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Corinthians%2013%3A1-13&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
-      "scriptureText": "",
+      "scriptureText": "<h4>1 Corinthians 13:1–13</h4>\n<p class=\"super\">The Gift of Love</p>\n<p><span class=\"vn\">1</span>If I speak in the tongues of humans and of angels but do not have love, I am a noisy gong or a clanging cymbal. <span class=\"vn\">2</span>And if I have prophetic powers and understand all mysteries and all knowledge and if I have all faith so as to remove mountains but do not have love, I am nothing. <span class=\"vn\">3</span>If I give away all my possessions and if I hand over my body so that I may boast but do not have love, I gain nothing.</p>\n<p><span class=\"vn\">4</span>Love is patient; love is kind; love is not envious or boastful or arrogant <span class=\"vn\">5</span>or rude. It does not insist on its own way; it is not irritable; it keeps no record of wrongs; <span class=\"vn\">6</span>it does not rejoice in wrongdoing but rejoices in the truth. <span class=\"vn\">7</span>It bears all things, believes all things, hopes all things, endures all things.</p>\n<p><span class=\"vn\">8</span>Love never ends. But as for prophecies, they will come to an end; as for tongues, they will cease; as for knowledge, it will come to an end. <span class=\"vn\">9</span>For we know only in part, and we prophesy only in part, <span class=\"vn\">10</span>but when the complete comes, the partial will come to an end. <span class=\"vn\">11</span>When I was a child, I spoke like a child, I thought like a child, I reasoned like a child. When I became an adult, I put an end to childish ways. <span class=\"vn\">12</span>For now we see only a reflection, as in a mirror, but then we will see face to face. Now I know only in part; then I will know fully, even as I have been fully known. <span class=\"vn\">13</span>And now faith, hope, and love remain, these three, and the greatest of these is love.</p>",
       "headerImage": ""
     }
   ]

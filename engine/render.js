@@ -51,12 +51,9 @@
       '<div class="ltitle">' + esc(l.title) + '</div></div></div>';
   }
 
-  function scriptureDrop(l) {
-    var body = l.scriptureText ? l.scriptureText
-      : '<span class="note">The full NRSV passage of ' + esc(l.scriptureRef) + ' displays here, scrollable. (Text to be added.)</span>';
-    return '<div class="scripcard"><div class="scriprow"><span class="ref">' + esc(l.scriptureRef) + '</span>' +
-      '<span class="scripbtn">Read the passage <span class="badge">NRSV</span> <i class="fa-solid fa-chevron-down"></i></span></div>' +
-      '<div class="dropbody"><p>' + body + '</p></div></div>';
+  function scriptureCard(l) {
+    return '<div class="scripcard" data-scrip="' + l.n + '"><div class="scriprow"><span class="ref">' + esc(l.scriptureRef) + '</span>' +
+      '<span class="scripbtn">Read the passage <span class="badge">NRSVUE</span> <i class="fa-solid fa-book-open"></i></span></div></div>';
   }
 
   function videoCard(l) {
@@ -74,7 +71,7 @@
       '<div class="sec first">' + ico("fa-hands-praying") + '<span class="sl">Opening Prayer</span><span class="lead"></span></div>' +
       '<div class="card"><p>' + esc(l.openingPrayer) + '</p></div>' +
       '<div class="sec">' + ico("fa-book-open") + '<span class="sl">Read the Scripture</span><span class="lead"></span></div>' +
-      scriptureDrop(l) +
+      scriptureCard(l) +
       '<div class="sec">' + ico("fa-play") + '<span class="sl">Watch the 3-Minute Bible</span><span class="lead"></span></div>' +
       '<div class="vwrap">' + videoCard(l) + opt + '</div></div>';
   }
@@ -120,9 +117,33 @@
   function updateInd() { var i = flip.getCurrentPageIndex(), t = pages.length; prev.disabled = i <= 0; next.disabled = i >= t - 1; ind.textContent = "Page " + (i + 1) + " of " + t; }
   flip.on("flip", updateInd); flip.on("init", updateInd); updateInd();
 
+  // Scripture popout modal (appended to body so it escapes the flip transform)
+  var scrim = document.createElement("div");
+  scrim.className = "scrim"; scrim.setAttribute("aria-hidden", "true");
+  scrim.innerHTML = '<div class="modal" role="dialog" aria-modal="true">' +
+    '<div class="mhead"><div class="mref"></div>' +
+    '<button class="mclose" type="button" aria-label="Close">&times;</button></div>' +
+    '<div class="mbody"></div>' +
+    '<div class="mfoot"><a class="mopen" target="_blank" rel="noopener">Open in Bible Gateway <i class="fa-solid fa-arrow-up-right-from-square"></i></a>' +
+    '<span class="mattr">New Revised Standard Version, Updated Edition (NRSVUE)<br>Copyright &copy; 2021 National Council of Churches</span></div></div>';
+  document.body.appendChild(scrim);
+  var mref = scrim.querySelector(".mref"), mbody = scrim.querySelector(".mbody"), mopen = scrim.querySelector(".mopen");
+  function openScrip(n) {
+    var l = null, i;
+    for (i = 0; i < C.lessons.length; i++) { if (C.lessons[i].n === n) { l = C.lessons[i]; break; } }
+    if (!l) return;
+    mref.textContent = l.scriptureRef;
+    mbody.innerHTML = l.scriptureText || '<p class="note">Passage text coming soon.</p>';
+    if (l.scriptureUrl) { mopen.href = l.scriptureUrl; mopen.style.display = ""; } else { mopen.style.display = "none"; }
+    scrim.classList.add("show"); scrim.setAttribute("aria-hidden", "false"); mbody.scrollTop = 0;
+  }
+  function closeScrip() { scrim.classList.remove("show"); scrim.setAttribute("aria-hidden", "true"); }
+  scrim.addEventListener("click", function (e) { if (e.target === scrim || e.target.closest(".mclose")) closeScrip(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeScrip(); });
+
   flipEl.addEventListener("click", function (e) {
-    var sb = e.target.closest(".scripbtn, .scriprow");
-    if (sb) { var card = sb.closest(".scripcard"); if (card) { e.stopPropagation(); card.classList.toggle("open"); return; } }
+    var card = e.target.closest(".scripcard");
+    if (card) { e.stopPropagation(); openScrip(parseInt(card.getAttribute("data-scrip"), 10)); return; }
     var t = e.target.closest("[data-goto]");
     if (t) { var idx = pageToLesson.indexOf(parseInt(t.getAttribute("data-goto"), 10)); if (idx > -1) flip.flip(idx); }
   });
