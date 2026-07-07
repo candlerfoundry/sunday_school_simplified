@@ -35,7 +35,7 @@
   function contentsPage() {
     var rows = C.lessons.map(function (l) {
       return '<a class="crow" data-goto="' + l.n + '"><span class="cn">' + l.n + '</span>' +
-        '<div class="cmid"><div class="ct">' + esc(l.title) + '</div><div class="cs">' + esc(l.subtitle) + '</div></div>' +
+        '<div class="cmid"><div class="ct">' + esc(l.title) + '</div></div>' +
         '<span class="cref">' + esc(l.shortRef || l.reference.split(":")[0]) + '</span></a>';
     }).join("");
     return '<div class="page-inner contents"><div class="inner-pad">' +
@@ -48,7 +48,7 @@
   function engineHeader(l) {
     return '<div class="lhead"><div class="numwrap"><div class="lnum">' + (l.n < 10 ? "0" + l.n : l.n) + '</div>' + SPARK + '</div>' +
       '<div><div class="kicker">' + esc(l.reference) + ' &middot; Discussion Guide</div>' +
-      '<div class="ltitle">' + esc(l.title) + '</div><div class="lsub">' + esc(l.subtitle) + '</div></div></div>';
+      '<div class="ltitle">' + esc(l.title) + '</div></div></div>';
   }
 
   function scriptureDrop(l) {
