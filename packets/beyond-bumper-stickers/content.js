@@ -132,11 +132,12 @@ window.BBS_CONTENT = {
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Content in All Things: Paul from Prison",
       "questions": [
-        "This verse is stitched onto athletic gear and used to promise victory. But read 4:10–12: what circumstances is Paul actually describing when he says he can do \"all things\"?",
-        "Paul says he has \"learned the secret\" of being content in plenty and in hunger, in abundance and in need (4:11–12). How is contentment something learned rather than simply felt — and what might Paul have learned it through?",
-        "In 2:5–11, Paul holds up Christ, who \"emptied himself\" and was exalted only after the cross. How does that downward-then-upward pattern reframe what \"strength\" means in 4:13?",
-        "Paul writes this as a thank-you to a church that shared in his hardship and sent support. How does the verse read differently as gratitude inside a relationship rather than a private power-up?",
-        "Where have you seen 4:13 used as a guarantee of success? Having read the fuller letter, how would you offer its real strength to someone who is struggling rather than winning?"
+        "Philippians 4:13 is often used on posters, in sports, or as a motivational phrase. Where have you seen or heard it used, and what message do you think it usually conveys?",
+        "In our culture, when we describe someone as \"strong\" (whether it's a political leader, an athlete, or a business leader) what do we usually mean? What does strength look like in those settings?",
+        "In Philippians 2:2–11, we hear the Christ hymn, where Jesus empties himself, takes the form of a servant, and becomes obedient even to death on a cross. In light of that passage, how does our usual understanding of strength get challenged? How does Jesus demonstrate strength?",
+        "In Philippians 4:11–12, Paul describes being in need, experiencing hunger, and living through changing circumstances. What do these details suggest about Paul's situation when he writes this?",
+        "When Paul says, \"I can do all things through him who strengthens me,\" do you think he is talking about overcoming weakness, or something else? What in the passage leads you to that conclusion?",
+        "If strength looks less like control or success and more like faithfulness within difficult circumstances, how might that change the way we think about what it means to be strong in our own lives?"
       ],
       "shortRef": "Philippians 4",
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Philippians%202%3A2-11%3B%204%3A10-13&version=NRSV",
