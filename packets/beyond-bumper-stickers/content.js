@@ -6,7 +6,37 @@ window.BBS_CONTENT = {
     "tagline": "Revisiting the Bible's most quotable texts",
     "subtitle": "A Six-Lesson Packet",
     "site": "candlerfoundry.org",
-    "footerNote": "Conversation questions + a free 3-Minute Bible video with every lesson"
+    "footerNote": "Conversation questions + a free 3-Minute Bible video with every lesson",
+    "letter": {
+      "heading": "A Letter from The Candler Foundry",
+      "paragraphs": [
+        "Dear Friend,",
+        "Maybe you've noticed — as we have — that some of the Bible's most beloved lines have become a little too familiar."
+      ],
+      "quotes": [
+        "\"I know the plans I have for you.\"",
+        "\"Be still, and know that I am God.\"",
+        "\"I can do all things through him who strengthens me.\""
+      ],
+      "paragraphs2": [
+        "We've posted them on billboards, stitched them onto pillows, and, yes, printed them on bumper stickers. While these soundbites often provide comfort, there's plenty to explore beneath the surface.",
+        "**Beyond Bumper Stickers** is an invitation to slow down and read six of these well-worn passages in their original historical context. In doing so, we hope you'll find each verse to be more spiritually enriching than ever before.",
+        "We've designed these lessons to be easy — you can study on your own or with a group, no leader necessary. The rhythm of each lesson is simple:"
+      ],
+      "rhythmTitle": "The Rhythm of Each Lesson",
+      "steps": [
+        "Open with prayer.",
+        "Read the passage out loud as a group.",
+        "Watch the provided 3-Minute Bible video.",
+        "Talk through the questions.",
+        "Close with prayer."
+      ],
+      "paragraphs3": [
+        "We're glad you're here. May these old, familiar words meet you in a new way."
+      ],
+      "grace": "Grace and peace,",
+      "signName": "The Candler Foundry"
+    }
   },
   "contentsIntro": "Six of the Bible's most-quoted lines — the ones we put on mugs, walls, and bumper stickers — read back inside the stories that gave them meaning.",
   "howto": "Each lesson stands on its own and takes about an hour. Open with prayer, read the passage aloud, watch the 3-Minute Bible video together, then talk through the questions. Close with prayer.",
@@ -23,13 +53,11 @@ window.BBS_CONTENT = {
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Jeremiah's Letter to the Exiles",
       "questions": [
-        "\"For I know the plans I have for you… a hope and a future\" (v. 11) is the line we meet on mugs and graduation cards, read as a personal promise. But verse 10 shows the \"you\" is a whole community in exile, not an individual. Who is God actually speaking to, and what does God promise them?",
-        "God says the return will come only after seventy years (v. 10). Who actually lives to see that promise kept? What does it mean that God makes a promise many of the original exiles would not live long enough to see fulfilled?",
-        "In verses 4–7, what sort of life are the exiles instructed to lead until the promise is fulfilled? In verse 11, God speaks of \"plans for your welfare and not for harm\" — what does \"welfare\" seem to mean in this context?",
-        "As the video explains, Jerusalem wasn't just a hometown — it was the place of God's own dwelling. Given that, how devastating would it have been to hear the exile would last seventy years? How might Jeremiah's message have landed with his first readers?",
+        "\"For I know the plans I have for you…\" (v. 11) is the line we meet on mugs and graduation cards. Often, we interpret this verse as a promise to an individual person. Who is the \"you\" that is being addressed in this passage? Does this change your original perception of verse 11?",
+        "God promises a return to Jerusalem. Will the exiles who received the letter participate in the return? How might Jeremiah's exiled audience have received this message?",
+        "In verses 4-7, what sort of life are the exiles instructed to lead until the promise is fulfilled? When God speaks in verse 11 of \"plans for welfare and not for harm,\" what does \"welfare\" seem to mean?",
         "A popular translation of v. 11 reads \"plans to prosper you\" (NIV). How is \"prosperity\" commonly understood today? How does \"prosper\" in place of \"welfare\" change the meaning — and is God promising prosperity the way we tend to imagine it?",
-        "How would you describe the \"hope\" God offers? How does God reassure the exiles that God, not Babylon, is in charge?",
-        "The exiles were asked to settle in, seek the good of the city, and wait — for a lifetime. How do we stay faithful when God's answer is \"wait,\" or simply isn't what we hoped for? Where have you had to keep faith without the answer you wanted?"
+        "The exiles were asked to settle in, seek the good of Babylon, and keep their faith in a hopeful future. Where have you had to remain faithful amid disappointing or uncertain circumstances in your own life?"
       ],
       "shortRef": "Jeremiah 29",
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Jeremiah%2029%3A1%2C%204-14&version=NRSV",
@@ -39,7 +67,8 @@ window.BBS_CONTENT = {
         "subtitle": "3-Minute Bible · optional",
         "url": ""
       },
-      "scriptureText": ""
+      "scriptureText": "",
+      "headerImage": "assets/headers/lesson-01.png"
     },
     {
       "n": 2,
@@ -64,7 +93,8 @@ window.BBS_CONTENT = {
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Psalm%2046&version=NRSV",
       "videoUrl": "",
       "optionalVideo": null,
-      "scriptureText": ""
+      "scriptureText": "",
+      "headerImage": ""
     },
     {
       "n": 3,
@@ -88,7 +118,8 @@ window.BBS_CONTENT = {
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%201%3A26-31%3B%202%3A15&version=NRSV",
       "videoUrl": "",
       "optionalVideo": null,
-      "scriptureText": ""
+      "scriptureText": "",
+      "headerImage": ""
     },
     {
       "n": 4,
@@ -112,7 +143,8 @@ window.BBS_CONTENT = {
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Philippians%202%3A2-11%3B%204%3A10-13&version=NRSV",
       "videoUrl": "",
       "optionalVideo": null,
-      "scriptureText": ""
+      "scriptureText": "",
+      "headerImage": ""
     },
     {
       "n": 5,
@@ -136,7 +168,8 @@ window.BBS_CONTENT = {
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=2%20Timothy%202%3A14-17%3B%20Genesis%202%3A4-7&version=NRSV",
       "videoUrl": "",
       "optionalVideo": null,
-      "scriptureText": ""
+      "scriptureText": "",
+      "headerImage": ""
     },
     {
       "n": 6,
@@ -160,7 +193,8 @@ window.BBS_CONTENT = {
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Corinthians%2013%3A1-13&version=NRSV",
       "videoUrl": "",
       "optionalVideo": null,
-      "scriptureText": ""
+      "scriptureText": "",
+      "headerImage": ""
     }
   ]
 };
