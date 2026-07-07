@@ -107,11 +107,11 @@ window.BBS_CONTENT = {
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Image & Dominion: Reading Genesis 1–2",
       "questions": [
-        "\"Have dominion\" has often been read as permission to dominate and exploit the earth. But Genesis 2:15 says the human is placed in the garden \"to till it and keep it\" — to serve and protect it. How do these two verses interpret one another?",
-        "Humankind is made \"in the image of God\" (1:26–27). In the ancient world a king would set up images of himself to represent his rule in distant places. If we are God's images, what kind of \"dominion\" are we meant to represent?",
-        "Six times before humans arrive, God looks at creation and calls it \"good.\" How should the goodness of the world apart from us shape the way we treat it?",
-        "The charge is given to humankind together — \"let them have dominion.\" How is caring for creation a shared, communal vocation rather than an individual lifestyle choice?",
-        "Where have you heard \"dominion\" used to justify using up the earth? How might the fuller picture — image-bearers placed here to till and keep — reshape that conversation?"
+        "Genesis 1:26 is an oft-quoted text. Where have you heard it alluded to, and in what context?",
+        "Before humans are told what to do, they're told who they are — made “in the image of God” (1:26–27). What identity does that give us, and why might identity come before instruction?",
+        "Outside the Bible, “dominion” usually means control or domination. But in Genesis this dominion is over a world God has already made and repeatedly called “good.” How should that reframe what “dominion” is meant to look like?",
+        "The video notes Genesis tells two creation stories. In the second (2:5–15), God forms the human from the dust and places them “to till and keep” the garden — and “till” can also mean “to serve.” How does that picture of serving the ground reshape “dominion” — is service in tension with it, or its true form?",
+        "If both dominion and service are part of our calling, where do you see them in tension in your own life? Can we serve creation while also exercising real power over it?"
       ],
       "shortRef": "Genesis 1–2",
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%201%3A26-31%3B%202%3A15&version=NRSV",
@@ -184,11 +184,11 @@ window.BBS_CONTENT = {
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "More Than a Wedding Poem: 1 Corinthians 13",
       "questions": [
-        "\"Love is patient, love is kind\" is a wedding staple. But Paul wrote this to a congregation tearing itself apart over status and spiritual gifts. How does knowing the original setting change the chapter's tone — from comfort toward challenge?",
-        "The chapter sits between two chapters about spiritual gifts (12 and 14). Why might Paul interrupt a heated debate about gifts to insist that without love they amount to \"a noisy gong or a clanging cymbal\" (13:1)?",
-        "Read the description in verses 4–7 as a mirror rather than a greeting card. Which lines land hardest when you imagine them addressed to a quarreling church — or to us?",
-        "Paul says love \"never ends,\" while prophecy, tongues, and knowledge will pass away (13:8–10). How does that reorder what a community should treasure most?",
-        "Where have you mostly heard 1 Corinthians 13 — at weddings? How might reading it as a word to the gathered church reshape how you love the people you actually worship alongside?"
+        "“Love is patient, love is kind” is a wedding staple. But the video notes Paul wrote this to a church in conflict. What words or phrases in the text hint at that setting? Does knowing he was writing to a troubled congregation change how you read it?",
+        "What words or phrases best describe Paul’s understanding of love here? How is it similar to the ways you show love in your own life — and how is it different?",
+        "Paul writes to a congregation fighting about spiritual gifts like prophecy and speaking in tongues. If he were writing verses 1–3 for the church today, what ministries, gifts, or achievements might he name — the things we’re tempted to prize?",
+        "Churches often measure success by growth — programs, membership, attendance. How does Paul’s understanding of love challenge those measures? How would Paul define a church’s success or failure?",
+        "Consider your own church’s worship and common life. Where do you see Paul’s vision of love lived out well, and where is there room to grow — especially across a congregation’s diverse opinions and backgrounds?"
       ],
       "shortRef": "1 Cor. 13",
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Corinthians%2013%3A1-13&version=NRSV",
