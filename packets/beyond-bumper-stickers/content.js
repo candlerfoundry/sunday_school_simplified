@@ -38,7 +38,8 @@ window.BBS_CONTENT = {
         "title": "What Happened During the Exile?",
         "subtitle": "3-Minute Bible · optional",
         "url": ""
-      }
+      },
+      "scriptureText": ""
     },
     {
       "n": 2,
@@ -62,7 +63,8 @@ window.BBS_CONTENT = {
       "shortRef": "Psalm 46",
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Psalm%2046&version=NRSV",
       "videoUrl": "",
-      "optionalVideo": null
+      "optionalVideo": null,
+      "scriptureText": ""
     },
     {
       "n": 3,
@@ -85,7 +87,8 @@ window.BBS_CONTENT = {
       "shortRef": "Genesis 1–2",
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%201%3A26-31%3B%202%3A15&version=NRSV",
       "videoUrl": "",
-      "optionalVideo": null
+      "optionalVideo": null,
+      "scriptureText": ""
     },
     {
       "n": 4,
@@ -108,7 +111,8 @@ window.BBS_CONTENT = {
       "shortRef": "Philippians 4",
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Philippians%202%3A2-11%3B%204%3A10-13&version=NRSV",
       "videoUrl": "",
-      "optionalVideo": null
+      "optionalVideo": null,
+      "scriptureText": ""
     },
     {
       "n": 5,
@@ -131,7 +135,8 @@ window.BBS_CONTENT = {
       "shortRef": "2 Timothy 2",
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=2%20Timothy%202%3A14-17%3B%20Genesis%202%3A4-7&version=NRSV",
       "videoUrl": "",
-      "optionalVideo": null
+      "optionalVideo": null,
+      "scriptureText": ""
     },
     {
       "n": 6,
@@ -154,7 +159,8 @@ window.BBS_CONTENT = {
       "shortRef": "1 Cor. 13",
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Corinthians%2013%3A1-13&version=NRSV",
       "videoUrl": "",
-      "optionalVideo": null
+      "optionalVideo": null,
+      "scriptureText": ""
     }
   ]
 };
