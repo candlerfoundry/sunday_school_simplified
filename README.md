@@ -34,7 +34,9 @@ corrupted). Therefore:
   1632x560 PNG on Emily's C: drive repeatedly arrived truncated — same byte count,
   stream cut, no IEND). Before pushing any image that came through a mount, verify it:
   PNG must contain `IEND` and fully decode (`PIL Image.load()`); otherwise get the bytes
-  another way (e.g. have Emily upload directly to GitHub) rather than pushing garbage.
+  another way rather than pushing garbage. **Known-good workaround:** the bad snapshot
+  sticks to the specific file — have Emily duplicate the file in Explorer (any new
+  filename); the fresh copy transfers clean. (Verified July 2026 with lesson-1 header.)
 - Push with the **Git Data API**: GET `git/ref/heads/main` -> read the base commit's tree ->
   POST `git/blobs` (base64) per file -> POST `git/trees` (with `base_tree`) -> POST
   `git/commits` -> PATCH `git/refs/heads/main`. (One commit can carry several files.)
@@ -175,16 +177,13 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
 - **All six lessons' discussion questions are FINAL** (Emily's approved wording).
 - **Scripture text is in place (NRSVUE)** and opens in the popout modal.
 - **Cover** is Emily's current Canva cover (`assets/cover.png`, 1632x2112).
-- **Binder design shipped** (July 2026) with all lessons using the engine-drawn header.
+- **Binder design shipped** (July 2026). Lesson 1 uses Emily's header art; lessons 2-6 use the engine-drawn header until art arrives.
 
 **Pending inputs from Emily:**
 - **Vimeo `videoUrl`s** per lesson (a few weeks out; the 3-Minute Bible MP4s are ~408 MB,
   so they must embed from Vimeo, not self-host).
-- **Header art** per lesson (1632x560, white bg). Lesson 1's new art exists at
-  `C:\Temporary Sunday School Simplified\Beyond Bumper Stickers Header - Lesson 1.png`
-  but every mount transfer arrived truncated (see binary-corruption warning above), so
-  `headerImage` is `null` for now; the engine fallback closely replicates that art.
-  Old `assets/headers/lesson-01.png` (previous design) is still in the repo but unused.
+- **Header art** for lessons 2-6 (1632x560, white bg, matching lesson 1's style).
+  Lesson 1's approved art is live (`assets/headers/lesson-01.png`, July 2026).
 - **New back cover** in the blue design (optional — back page currently dropped).
 - **PDF re-cut** (secondary product; see below).
 
