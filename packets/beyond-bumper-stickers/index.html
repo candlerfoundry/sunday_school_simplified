@@ -11,21 +11,18 @@
 <link rel="stylesheet" href="../../engine/styles.css">
 </head>
 <body>
-  <div class="topbar">
-    <div class="brand"><span></span><b>Sunday School Simplified</b></div>
-    <div class="actions">
-      <a class="btn" id="pdfBtn" href="Beyond Bumper Stickers.pdf" download>Download PDF packet</a>
-    </div>
-  </div>
-
   <button class="nav prev" id="navPrev" aria-label="Previous">&#8249;</button>
   <button class="nav next" id="navNext" aria-label="Next">&#8250;</button>
-
+  <a class="dlbtn" href="Beyond Bumper Stickers.pdf" download aria-label="Download printable packet">
+    <i class="fa-solid fa-download"></i><span class="vtxt">Download Printable Packet</span>
+  </a>
   <div id="stage">
-    <div id="book-scaler"><div id="pageflip"></div></div>
+    <div id="binder-scaler"><div class="binder">
+      <div id="spine"></div>
+      <div id="pageflip"></div>
+      <div id="tabs"></div>
+    </div></div>
   </div>
-  <div class="pageind" id="pageind"></div>
-
   <script src="content.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
   <script src="../../engine/render.js"></script>

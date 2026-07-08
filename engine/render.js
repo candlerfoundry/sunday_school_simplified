@@ -1,5 +1,6 @@
-/* Beyond Bumper Stickers — flipbook renderer.
- * cover · letter · contents(TOC) · 2 pages per lesson · back. */
+/* Sunday School Simplified — shared flipbook engine (binder design).
+ * cover · letter · contents(TOC + rhythm strip) · 2 pages per lesson ·
+ * additional resources · end page. */
 (function () {
   "use strict";
   var C = window.BBS_CONTENT;
@@ -7,117 +8,184 @@
   var esc = function (s) { return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); };
   var bold = function (s) { return esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"); };
   var ico = function (fa) { return '<span class="ic"><i class="fa-solid ' + fa + '"></i></span>'; };
-  var SPARK = '<svg class="spark" viewBox="0 0 34 34"><g stroke="#FB1616" stroke-width="3" stroke-linecap="round"><path d="M17 2 L17 11"/><path d="M31 8 L24 14"/><path d="M3 8 L10 14"/></g></svg>';
-  var HILLS = '<svg class="vhills" viewBox="0 0 700 150" preserveAspectRatio="none"><path d="M0 90 Q160 40 340 78 T700 66 L700 150 L0 150 Z" fill="#B7D3EE"/><path d="M0 118 Q210 70 430 104 T700 100 L700 150 L0 150 Z" fill="#A6C7E8"/></svg>' +
-    '<svg class="vtree" style="left:70px;bottom:70px" width="26" height="40" viewBox="0 0 26 40"><path d="M13 2 L23 26 L3 26 Z" fill="#7FA9D4"/><path d="M13 14 L21 33 L5 33 Z" fill="#7FA9D4"/><rect x="11" y="32" width="4" height="7" fill="#5C86B5"/></svg>' +
-    '<svg class="vtree" style="right:80px;bottom:64px" width="22" height="34" viewBox="0 0 26 40"><path d="M13 2 L23 26 L3 26 Z" fill="#89B0D8"/><path d="M13 14 L21 33 L5 33 Z" fill="#89B0D8"/><rect x="11" y="32" width="4" height="7" fill="#5C86B5"/></svg>';
+  var pad2 = function (n) { return n < 10 ? "0" + n : String(n); };
+  var SPARKS = '<svg class="hsparks" viewBox="0 0 34 34"><g stroke="#FB1616" stroke-width="4" stroke-linecap="round"><path d="M17 2 L17 12"/><path d="M31 8 L23 15"/><path d="M3 8 L11 15"/></g></svg>';
+  var HILLS = '<svg class="vhills" viewBox="0 0 700 150" preserveAspectRatio="none"><path d="M0 90 Q160 40 340 78 T700 66 L700 150 L0 150 Z" fill="#B7D3EE"/><path d="M0 118 Q210 70 430 104 T700 100 L700 150 L0 150 Z" fill="#A6C7E8"/></svg>';
 
-  function coverPage() { return '<div class="page-inner cover"><img class="full" src="assets/cover.png" alt="' + esc(C.meta.title) + '"></div>'; }
-  function backPage() { return '<div class="page-inner back"><img class="full" src="assets/back.jpg" alt="Beyond Bumper Stickers"></div>'; }
+  /* ---------- pages ---------- */
+  function coverPage() { return '<div class="pg cover"><img class="full" src="assets/cover.png" alt="' + esc(C.meta.title) + '"></div>'; }
 
   function letterPage() {
-    var L = C.meta.letter; if (!L) return '<div class="page-inner"></div>';
+    var L = C.meta.letter; if (!L) return '<div class="pg"></div>';
     var p1 = L.paragraphs.map(function (t) { return "<p>" + bold(t) + "</p>"; }).join("");
     var quotes = '<div class="quotes">' + L.quotes.map(function (q) { return "<div>" + esc(q) + "</div>"; }).join("") + "</div>";
     var p2 = L.paragraphs2.map(function (t) { return "<p>" + bold(t) + "</p>"; }).join("");
-    var steps = L.steps.map(function (s, i) { return '<div class="rstep"><span class="n">' + (i + 1) + '</span><span class="t">' + esc(s) + "</span></div>"; }).join("");
     var p3 = L.paragraphs3.map(function (t) { return "<p>" + bold(t) + "</p>"; }).join("");
-    return '<div class="page-inner letter"><div class="inner">' +
-      '<div class="eyebrow">' + esc(C.meta.series) + '</div><div class="redrule"></div>' +
+    return '<div class="pg letter"><div class="redrule"></div>' +
       '<div class="lettertitle">' + esc(L.heading) + '</div>' +
-      '<div class="lbody">' + p1 + quotes + p2 +
-        '<div class="rhythm"><div class="rt">' + esc(L.rhythmTitle) + '</div>' + steps + '</div>' +
-        p3 +
+      '<div class="lbody">' + p1 + quotes + p2 + p3 +
         '<div class="signoff"><div class="g">' + esc(L.grace) + '</div><div class="s">' + esc(L.signName) + '</div></div>' +
-      '</div></div></div>';
+      '</div></div>';
   }
 
   function contentsPage() {
     var rows = C.lessons.map(function (l) {
       return '<a class="crow" data-goto="' + l.n + '"><span class="cn">' + l.n + '</span>' +
-        '<div class="cmid"><div class="ct">' + esc(l.title) + '</div></div>' +
-        '<span class="cref">' + esc(l.shortRef || l.reference.split(":")[0]) + '</span></a>';
+        '<span class="ct">' + esc(l.title) + '</span>' +
+        '<span class="cref">' + esc(l.shortRef || l.reference) + '</span></a>';
     }).join("");
-    return '<div class="page-inner contents"><div class="inner-pad">' +
-      '<div class="series"><span></span><b>' + esc(C.meta.series) + '</b></div>' +
-      '<div class="chead">In This Packet</div>' +
+    var L = C.meta.letter, rhythm = "";
+    if (L && L.steps && L.steps.length) {
+      rhythm = '<div class="rhythm"><div class="rt">' + esc(L.rhythmTitle) + '</div><div class="rsteps">' +
+        L.steps.map(function (s, i) { return '<div class="rstep"><div class="n">' + (i + 1) + '</div><div class="t">' + esc(s) + '</div></div>'; }).join("") +
+        '</div></div>';
+    }
+    return '<div class="pg contents"><div class="chead">In This Packet</div>' +
       '<div class="lede">' + esc(C.contentsIntro) + '</div>' +
-      '<div class="clist">' + rows + '</div></div></div>';
+      '<div class="clist">' + rows + '</div>' + rhythm + '</div>';
   }
 
-  function engineHeader(l) {
-    return '<div class="lhead"><div class="numwrap"><div class="lnum">' + (l.n < 10 ? "0" + l.n : l.n) + '</div>' + SPARK + '</div>' +
-      '<div><div class="kicker">' + esc(l.reference) + ' &middot; Discussion Guide</div>' +
-      '<div class="ltitle">' + esc(l.title) + '</div></div></div>';
+  function headerSlot(l) {
+    if (l.headerImage) return '<div class="hdrslot"><img src="' + esc(l.headerImage) + '" alt="Lesson ' + l.n + ' — ' + esc(l.title) + '"></div>';
+    return '<div class="hdrslot"><div class="hcir">' + SPARKS + '<span class="hnum">' + pad2(l.n) + '</span></div>' +
+      '<div class="hright"><div class="htitle">' + esc(l.title) + '</div>' +
+      '<div class="href">' + esc(l.reference) + '</div></div></div>';
   }
 
-  function scriptureCard(l) {
-    return '<div class="scripcard" data-scrip="' + l.n + '"><div class="scriprow"><span class="ref">' + esc(l.scriptureRef) + '</span>' +
-      '<span class="scripbtn">Read the passage <span class="badge">NRSVUE</span> <i class="fa-solid fa-book-open"></i></span></div></div>';
+  function lessonPageA(l) {
+    return '<div class="pg lesson">' + headerSlot(l) +
+      '<div class="sec tight">' + ico("fa-hands-praying") + '<span class="sl">Opening Prayer</span><span class="lead"></span></div>' +
+      '<div class="card"><p>' + esc(l.openingPrayer) + '</p></div>' +
+      '<div class="sec">' + ico("fa-book-open") + '<span class="sl">Read the Scripture</span><span class="lead"></span></div>' +
+      '<button class="scripcard" type="button" data-scrip="' + l.n + '"><span class="ref">' + esc(l.scriptureRef) + '</span>' +
+      '<span class="scripbtn">Read the passage <span class="badge">NRSVUE</span> <i class="fa-solid fa-book-open"></i></span></button>' +
+      '<div class="sec">' + ico("fa-play") + '<span class="sl">Watch the 3-Minute Bible</span><span class="lead"></span></div>' +
+      '<div class="vzone">' + videoCard(l) + '</div></div>';
   }
 
   function videoCard(l) {
     if (l.videoUrl) return '<div class="vcard"><iframe src="' + esc(l.videoUrl) + '" title="3-Minute Bible" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
     return '<div class="vcard"><span class="vlabel">3-Minute Bible</span>' + HILLS +
-      '<div class="vplay"><i class="fa-solid fa-play"></i></div><span class="vtitle">' + esc(l.videoSubtitle) + '</span></div>';
-  }
-
-  function lessonPageA(l) {
-    var header = l.headerImage ? '<img class="hdrimg" src="' + esc(l.headerImage) + '" alt="Lesson ' + l.n + '">' : engineHeader(l);
-    var opt = l.optionalVideo
-      ? '<div class="optbar"><span class="oc"><i class="fa-solid fa-play"></i></span><span class="ot">Optional Viewing<small>' + esc(l.optionalVideo.title) + ' &middot; 3-Minute Bible</small></span></div>'
-      : "";
-    return '<div class="page-inner lesson">' + header +
-      '<div class="sec first">' + ico("fa-hands-praying") + '<span class="sl">Opening Prayer</span><span class="lead"></span></div>' +
-      '<div class="card"><p>' + esc(l.openingPrayer) + '</p></div>' +
-      '<div class="sec">' + ico("fa-book-open") + '<span class="sl">Read the Scripture</span><span class="lead"></span></div>' +
-      scriptureCard(l) +
-      '<div class="sec">' + ico("fa-play") + '<span class="sl">Watch the 3-Minute Bible</span><span class="lead"></span></div>' +
-      '<div class="vwrap">' + videoCard(l) + opt + '</div></div>';
+      '<div class="vplay"><i class="fa-solid fa-play"></i></div><span class="vcap">' + esc(l.videoSubtitle) + '</span></div>';
   }
 
   function lessonPageB(l) {
     var q = l.questions.map(function (t, i) { return '<div class="q"><span class="qn">' + (i + 1) + '</span><p>' + esc(t) + '</p></div>'; }).join("");
-    return '<div class="page-inner lesson">' +
-      '<div class="sec first">' + ico("fa-comment-dots") + '<span class="sl">Discussion Questions</span><span class="lead"></span></div>' +
-      '<div class="qs">' + q + '</div>' +
+    return '<div class="pg lesson">' +
+      '<div class="sec" style="margin-top:0">' + ico("fa-comment-dots") + '<span class="sl">Discussion Questions</span><span class="lead"></span></div>' +
+      '<div class="qs' + (l.questions.length >= 6 ? ' qmany' : '') + '">' + q + '</div>' +
       '<div class="sec">' + ico("fa-hands-praying") + '<span class="sl">Closing Prayer</span><span class="lead"></span></div>' +
       '<div class="card"><p>' + esc(l.closingPrayer) + '</p></div>' +
-      '<div class="foot"><span class="fm"><span class="fl">&#10010;</span> Foundry</span>' +
-        '<span>' + esc(C.meta.title) + ' &middot; Lesson ' + (l.n < 10 ? "0" + l.n : l.n) + ' of ' + C.lessons.length + '</span></div></div>';
+      '<div class="foot"><span>' + esc(C.meta.title) + ' &middot; Lesson ' + pad2(l.n) + ' of ' + C.lessons.length + '</span></div></div>';
   }
 
+  function resourcesPage() {
+    var withOpt = C.lessons.filter(function (l) { return l.optionalVideo; });
+    var cards = withOpt.map(function (l) {
+      var o = l.optionalVideo;
+      var inner = '<span class="rp"><i class="fa-solid fa-play"></i></span>' +
+        '<span class="rmid"><span class="rtl">' + esc(o.title) + '</span><span class="rsub">' + esc(o.subtitle || "3-Minute Bible · optional") + '</span></span>' +
+        '<span class="rref">Lesson ' + l.n + ' &middot; ' + esc(l.tabRef || l.shortRef) + '</span>';
+      return o.url
+        ? '<a class="rcard" href="' + esc(o.url) + '" target="_blank" rel="noopener">' + inner + '</a>'
+        : '<div class="rcard">' + inner + '</div>';
+    }).join("");
+    if (!cards) cards = '<div class="rnone">Optional videos will appear here as they are added.</div>';
+    return '<div class="pg resources"><div class="chead">Additional Resources</div>' +
+      '<div class="lede">Optional viewing for classes that want to go deeper — each is a short 3-Minute Bible video.</div>' +
+      '<div class="rlist">' + cards + '</div>' +
+      '<div class="rnote">More optional videos will appear here as they’re added to future lessons.</div></div>';
+  }
+
+  function endPage() {
+    return '<div class="pg endpg"><div class="redrule"></div>' +
+      '<img class="biglogo" src="assets/candler-foundry-logo.png" alt="The Candler Foundry">' +
+      '<div class="em">' + esc(C.meta.series) + ' is a project of The Candler Foundry, making the best of biblical scholarship accessible to everyone.</div>' +
+      '<div class="url">candlerfoundry.org</div></div>';
+  }
+
+  /* ---------- assemble ---------- */
   var pages = [], pageToLesson = [];
-  pages.push({ cls: "cover", html: coverPage() }); pageToLesson.push(0);
-  pages.push({ cls: "", html: letterPage() }); pageToLesson.push(0);
-  pages.push({ cls: "", html: contentsPage() }); pageToLesson.push(0);
+  function push(html, cls, hard) { pages.push({ html: html, cls: cls || "", hard: !!hard }); }
+  push(coverPage(), "coverpg", true); pageToLesson.push(0);
+  push(letterPage()); pageToLesson.push(0);
+  push(contentsPage()); pageToLesson.push(0);
   C.lessons.forEach(function (l) {
-    pages.push({ cls: "", html: lessonPageA(l) }); pageToLesson.push(l.n);
-    pages.push({ cls: "", html: lessonPageB(l) }); pageToLesson.push(l.n);
+    push(lessonPageA(l)); pageToLesson.push(l.n);
+    push(lessonPageB(l)); pageToLesson.push(l.n);
   });
-  pages.push({ cls: "back", html: backPage() }); pageToLesson.push(0);
-  if (pages.length % 2 !== 0) { pages.push({ cls: "", html: '<div class="page-inner"></div>' }); pageToLesson.push(0); }
+  var RESOURCES_IDX = pages.length;
+  push(resourcesPage()); pageToLesson.push(-1);
+  push(endPage()); pageToLesson.push(-1);
+  // with showCover, content after the cover should pair into spreads
+  if ((pages.length - 1) % 2 !== 0) { push('<div class="pg"></div>'); pageToLesson.push(-1); }
 
   var flipEl = document.getElementById("pageflip");
-  pages.forEach(function (p) { var d = document.createElement("div"); d.className = "page " + p.cls; d.innerHTML = p.html; flipEl.appendChild(d); });
+  pages.forEach(function (p) {
+    var d = document.createElement("div");
+    d.className = "page " + p.cls;
+    if (p.hard) d.setAttribute("data-density", "hard");
+    d.innerHTML = p.html;
+    flipEl.appendChild(d);
+  });
 
+  /* ---------- binder chrome ---------- */
+  var spine = document.getElementById("spine");
+  spine.innerHTML = '<div class="dash"></div><div class="svtitle">' + esc(C.meta.series) + '</div>' +
+    '<div class="foundrymark" title="The Candler Foundry"></div>';
+
+  var tabsEl = document.getElementById("tabs");
+  var tabsHtml = '<div class="tab small" data-tab="contents"><span class="ti"><i class="fa-solid fa-list"></i></span><span class="tl">Contents</span></div>';
+  C.lessons.forEach(function (l) {
+    tabsHtml += '<div class="tab" data-tab="' + l.n + '"><span class="tn">' + l.n + '</span><span class="tl">' + esc(l.tabRef || l.shortRef) + '</span></div>';
+  });
+  tabsHtml += '<div class="tab small" data-tab="resources"><span class="ti"><i class="fa-solid fa-circle-play"></i></span><span class="tl">Additional Resources</span></div>';
+  tabsEl.innerHTML = tabsHtml;
+
+  /* ---------- flip ---------- */
   var PageFlip = (window.St && window.St.PageFlip) || window.PageFlip;
   var flip = new PageFlip(flipEl, { width: 816, height: 1056, size: "fixed", showCover: true, usePortrait: false,
     maxShadowOpacity: 0.5, drawShadow: true, flippingTime: 700, mobileScrollSupport: false });
   flip.loadFromHTML(document.querySelectorAll("#pageflip .page"));
 
-  var stage = document.getElementById("stage"), scaler = document.getElementById("book-scaler");
-  function fit() { var aw = stage.clientWidth - 40, ah = stage.clientHeight - 40; scaler.style.setProperty("--book-scale", Math.min(aw / (816 * 2), ah / 1056)); }
+  var scaler = document.getElementById("binder-scaler");
+  var SPINE_W = 68, TAB_W = 96;
+  function fit() {
+    var w = SPINE_W + 816 * 2 + TAB_W, h = 1056;
+    var s = Math.min((window.innerWidth - 130) / w, (window.innerHeight - 24) / h);
+    scaler.style.setProperty("--book-scale", s);
+  }
   window.addEventListener("resize", fit); fit();
 
-  var prev = document.getElementById("navPrev"), next = document.getElementById("navNext"), ind = document.getElementById("pageind");
+  var prev = document.getElementById("navPrev"), next = document.getElementById("navNext");
   prev.addEventListener("click", function () { flip.flipPrev(); });
   next.addEventListener("click", function () { flip.flipNext(); });
   document.addEventListener("keydown", function (e) { if (e.key === "ArrowLeft") flip.flipPrev(); if (e.key === "ArrowRight") flip.flipNext(); });
-  function updateInd() { var i = flip.getCurrentPageIndex(), t = pages.length; prev.disabled = i <= 0; next.disabled = i >= t - 1; ind.textContent = "Page " + (i + 1) + " of " + t; }
-  flip.on("flip", updateInd); flip.on("init", updateInd); updateInd();
 
-  // Scripture popout modal (appended to body so it escapes the flip transform)
+  function syncUi() {
+    var i = flip.getCurrentPageIndex(), t = pages.length;
+    prev.disabled = i <= 0; next.disabled = i >= t - 1;
+    var active = null;
+    if (i >= 1 && i <= 2) active = "contents";
+    else if (i >= RESOURCES_IDX) active = "resources";
+    else if (pageToLesson[i] > 0) active = String(pageToLesson[i]);
+    else if (pageToLesson[i + 1] > 0) active = String(pageToLesson[i + 1]);
+    Array.prototype.forEach.call(tabsEl.querySelectorAll(".tab"), function (tb) {
+      tb.classList.toggle("active", tb.getAttribute("data-tab") === active);
+    });
+  }
+  flip.on("flip", syncUi); flip.on("init", syncUi); syncUi();
+
+  function gotoLesson(n) { var idx = pageToLesson.indexOf(n); if (idx > -1) flip.flip(idx); }
+  tabsEl.addEventListener("click", function (e) {
+    var tb = e.target.closest(".tab"); if (!tb) return;
+    var t = tb.getAttribute("data-tab");
+    if (t === "contents") flip.flip(1);
+    else if (t === "resources") flip.flip(RESOURCES_IDX);
+    else gotoLesson(parseInt(t, 10));
+  });
+
+  /* ---------- scripture popout modal ---------- */
   var scrim = document.createElement("div");
   scrim.className = "scrim"; scrim.setAttribute("aria-hidden", "true");
   scrim.innerHTML = '<div class="modal" role="dialog" aria-modal="true">' +
@@ -145,6 +213,6 @@
     var card = e.target.closest(".scripcard");
     if (card) { e.stopPropagation(); openScrip(parseInt(card.getAttribute("data-scrip"), 10)); return; }
     var t = e.target.closest("[data-goto]");
-    if (t) { var idx = pageToLesson.indexOf(parseInt(t.getAttribute("data-goto"), 10)); if (idx > -1) flip.flip(idx); }
+    if (t) gotoLesson(parseInt(t.getAttribute("data-goto"), 10));
   });
 })();

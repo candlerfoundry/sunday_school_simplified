@@ -30,6 +30,11 @@ corrupted). Therefore:
 - **Author every change in `/tmp`** (native filesystem), run `node --check` on any JS,
   then **push via the GitHub API** and **verify byte parity** afterward. Do not write code
   files directly into the Dropbox/OneDrive mount.
+- **Cowork mounted-folder reads can corrupt BINARY files too** (July 2026: a healthy
+  1632x560 PNG on Emily's C: drive repeatedly arrived truncated — same byte count,
+  stream cut, no IEND). Before pushing any image that came through a mount, verify it:
+  PNG must contain `IEND` and fully decode (`PIL Image.load()`); otherwise get the bytes
+  another way (e.g. have Emily upload directly to GitHub) rather than pushing garbage.
 - Push with the **Git Data API**: GET `git/ref/heads/main` -> read the base commit's tree ->
   POST `git/blobs` (base64) per file -> POST `git/trees` (with `base_tree`) -> POST
   `git/commits` -> PATCH `git/refs/heads/main`. (One commit can carry several files.)
@@ -44,22 +49,26 @@ corrupted). Therefore:
 
 Render the changed pages and eyeball them before committing:
 
-- Playwright **chromium** lives in the Flipbook project's `node_modules`
-  (`.../Flipbook/node_modules/playwright-core`). The headless shell needs
-  `libXdamage.so.1`: `apt-get download libxdamage1`, `dpkg-deb -x`, run with
-  `LD_LIBRARY_PATH=/tmp/libs`. The browser cache clears between shell calls, so
-  **reinstall chromium in the same call** that launches it
-  (`node node_modules/playwright-core/cli.js install chromium`).
-- Screenshot the specific pages you changed (or build a small standalone HTML harness that
-  inlines `styles.css` and the relevant markup) and review it.
+- Playwright chromium headless-shell in the work sandbox: `npm i playwright-core`, then
+  `node node_modules/playwright-core/cli.js install chromium-headless-shell`. The shell
+  needs `libXdamage.so.1`: `apt-get download libxdamage1`, `dpkg-deb -x` to a writable
+  dir, run node with `LD_LIBRARY_PATH=<that dir>`.
+- Serve the repo root (`python3 -m http.server`) and screenshot **every spread at two
+  viewports** (e.g. 1536x816 and 1920x1080), plus interaction checks: scripture-card
+  click must open the modal **without flipping the page**, tab clicks must jump to the
+  right spread. Actually READ the screenshots — measure with `getBoundingClientRect`
+  when something looks off; don't guess from theory.
+- Beware CSS class-name collisions when adding chrome around StPageFlip (a `.vtitle`
+  clash between spine and video card once bottom-anchored the spine text).
 
 ---
 
 ## What the site is
 
 - **Series landing:** `index.html` — lists every packet (reads `packets/index.json`).
-- **Shared engine:** `engine/render.js` (page builder + StPageFlip driver),
-  `engine/styles.css` (design system), `engine/assets/fonts/` (the licensed webfonts).
+- **Shared engine:** `engine/render.js` (page builder + StPageFlip driver + binder
+  chrome), `engine/styles.css` (design system), `engine/assets/fonts/` (licensed
+  webfonts), `engine/assets/candler-foundry-mark-white.svg` (spine mark).
 - **Packets:** `packets/<slug>/` — each self-contained (thin `index.html` shell +
   `content.js` + local `assets/` + optional PDF).
 
@@ -67,51 +76,64 @@ Render the changed pages and eyeball them before committing:
 sunday_school_simplified/
   index.html                     # series landing page
   engine/
-    render.js                    # shared flipbook engine (StPageFlip)
+    render.js                    # shared flipbook engine (StPageFlip + binder chrome)
     styles.css                   # shared design system
     assets/fonts/                # thierry.woff2, hello-handmade.woff2
+    assets/candler-foundry-mark-white.svg
   packets/
     index.json                   # manifest the landing page renders from
     beyond-bumper-stickers/
       index.html                 # thin shell: loads content.js + ../../engine/*
       content.js                 # this packet's copy (window.BBS_CONTENT)
-      assets/                    # cover.png, back.jpg, headers/*
+      assets/                    # cover.png, candler-foundry-logo.png, headers/*
       Beyond Bumper Stickers.pdf # optional downloadable packet (secondary product)
   netlify.toml                   # publish "."; rewrites /<slug>/ -> /packets/<slug>/
 ```
 
-## Design system (current — blue, template-driven)
+## Design system (current — "binder", blue, template-driven)
 
-A clean, playful-but-polished template look (this **supersedes** an earlier 1970s
-"road-trip / vintage TV" design — ignore any older references to that).
+The flipbook sits inside a **binder frame** that fills the viewport (approved July 2026;
+this supersedes both the 1970s road-trip design AND the earlier floating-book blue
+layout — no top bar, no page indicator).
 
+- **Binder frame:** navy **spine** on the left (red dash at top; "Sunday School
+  Simplified" in white vertical type reading bottom-to-top, letter tops facing the
+  pages; white Candler Foundry circle-mark at the bottom) · the two-page book ·
+  **index tabs** on the right. Tabs = one small "Contents" tab, one numbered tab per
+  lesson labeled with its abbreviated reference (`tabRef`, e.g. "Jer. 29"), and a small
+  "Additional Resources" tab. Active tab is navy. Tabs are the primary navigation
+  (plus arrow keys / edge arrows). No "page N of M" pill.
+- **Download:** a fixed vertical red **ribbon** docked to the right viewport edge
+  ("Download Printable Packet"), OUTSIDE the book so it never overlaps at any window
+  size. The fit formula reserves nothing at the bottom: scale =
+  min((vw-130)/(68+1632+96), (vh-24)/1056).
 - **Palette:** navy `#0A274C`, powder blue `#CCE0F5`, smoky blue `#2F5972`, page
-  `#FCFDFF`, card `#EAF3FC`; brand red **`#FB1616`** used only as small accents.
-- **Type:** **Thierry Leonie** (licensed display — cover, big lesson numerals),
-  **Mulish** (body; a free stand-in for Avenir), **Hello-Handmade Sans** (all-caps
-  handmade display bits — letter heading, TOC title, sign-off). Thierry + Hello-Handmade
-  load via `@font-face` from `engine/assets/fonts/`; Mulish + Font Awesome load from CDN.
-- **Icons:** Font Awesome (cdnjs) section headers with **no step numbers**.
-
-**Packet structure (page order):** cover (`assets/cover.png`, full-bleed) · **letter
-page** (from `meta.letter`) · **Table of Contents** · **two pages per lesson** · back
-cover (`assets/back.jpg`).
-
-**Each lesson = one open spread:**
-- **Left (page A):** a per-lesson `headerImage` *or* the engine-drawn header (Thierry
-  numeral + red spark); **Opening Prayer**; a **Scripture card**; the **Watch the
-  3-Minute Bible** video card; and an optional-video bar if `optionalVideo` is set.
-- **Right (page B):** **Discussion Questions**; **Closing Prayer**; footer.
-
-**Scripture (NRSVUE):** the whole Scripture card is clickable and opens a **scrollable
-popout modal** showing the passage (`scriptureText`, an HTML string), with an **"Open in
-Bible Gateway"** link (new tab) and the NRSVUE attribution. Closes on x, backdrop, or Esc.
-Bible Gateway retired standalone NRSV (it redirects to **NRSVUE**), so the whole packet
-uses **NRSVUE** — text, links, and the badge. NRSVUE permits up to 500 verses free with
-attribution; our passages are well within that.
-
-**Video:** each lesson's Watch card is an illustrated SVG placeholder until you set
-`videoUrl` (a Vimeo embed URL), at which point the engine drops in an iframe.
+  `#FCFDFF`, card `#EAF3FC`; brand red **`#FB1616`** as small accents only.
+- **Type:** **Thierry Leonie** (display numerals), **Mulish** (body; upsized ~10% vs the
+  old layout for readability/accessibility — body 18-19px), **Hello-Handmade Sans**
+  (handmade display: letter heading, TOC title, tab numerals, fallback lesson titles).
+  Thierry + Hello-Handmade via `@font-face` from `engine/assets/fonts/`; Mulish + Font
+  Awesome from CDN.
+- **Page order:** cover (`assets/cover.png`, full-bleed, `data-density="hard"` so it
+  flips like a stiff board) · **letter** (no eyebrow logo, no rhythm box) · **Contents**
+  (lesson list + relocated **"rhythm of each lesson" 5-step strip** at the bottom) ·
+  **two pages per lesson** · **Additional Resources** (all `optionalVideo`s live here —
+  lesson pages carry NO optional-viewing bar) · **end page** (full Candler Foundry logo,
+  tagline, candlerfoundry.org). **No back-cover image** (old road-trip `back.jpg` was
+  dropped; a new blue-design back cover may return later).
+- **Lesson page A:** fixed full-bleed **header slot 816x280** at top — per-lesson art
+  (`headerImage`, export at **1632x560**, white background) or, when null, an
+  engine-drawn header replicating the approved art style (powder circle + Thierry
+  numeral + red sparks, Hello-Handmade title, Mulish reference). Then Opening Prayer
+  card, Scripture card, video zone (video card centers in remaining space — no orphan
+  gap). **Page B:** questions distributed evenly (space-evenly), Closing Prayer, footer
+  ("<title> · Lesson NN of N", left-aligned, no Foundry stamp).
+- **Scripture (NRSVUE):** the scripture card is a real `<button>` (this is what stops
+  StPageFlip's click-to-flip from firing — divs flip the page, buttons/links don't).
+  It opens the scrollable popout modal (`scriptureText` HTML) with "Open in Bible
+  Gateway" (NRSVUE) and attribution. Closes on x, backdrop, or Esc.
+- **Video:** Watch card is an illustrated SVG placeholder until `videoUrl` (Vimeo embed
+  URL) is set, then an iframe.
 
 ## Content schema (`content.js`)
 
@@ -120,15 +142,20 @@ window.BBS_CONTENT = { meta, contentsIntro, lessons: [ ... ] }
 
 meta   = { series, title, letter: { heading, paragraphs[], quotes[], paragraphs2[],
            rhythmTitle, steps[], paragraphs3[], grace, signName } }
+         // rhythmTitle+steps now render on the CONTENTS page (bottom strip),
+         // not in the letter.
 
 lesson = { n, accent, reference, shortRef, title,
+           tabRef,              // NEW: short label for the side tab, e.g. "Jer. 29"
            subtitle,            // exists but UNUSED — subtitles were removed globally
            openingPrayer, closingPrayer,
            scriptureRef, scriptureUrl,   // scriptureUrl uses version=NRSVUE
            scriptureText,       // HTML string shown in the popout modal
            videoTitle, videoSubtitle, videoUrl,   // videoUrl empty until Vimeo links exist
-           optionalVideo,       // { title, subtitle, url } or null
-           headerImage,         // path or null (engine draws a header when null)
+           optionalVideo,       // { title, subtitle, url } or null — renders on the
+                                //   Additional Resources page, NOT on the lesson page
+           headerImage,         // path or null (engine draws the replica header when null);
+                                //   art spec: 1632x560 PNG, white bg, fills 816x280 slot
            questions: [ ... ] } // 5-6 strings
 ```
 
@@ -148,11 +175,17 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
 - **All six lessons' discussion questions are FINAL** (Emily's approved wording).
 - **Scripture text is in place (NRSVUE)** and opens in the popout modal.
 - **Cover** is Emily's current Canva cover (`assets/cover.png`, 1632x2112).
+- **Binder design shipped** (July 2026) with all lessons using the engine-drawn header.
 
 **Pending inputs from Emily:**
 - **Vimeo `videoUrl`s** per lesson (a few weeks out; the 3-Minute Bible MP4s are ~408 MB,
   so they must embed from Vimeo, not self-host).
-- **Header images** for lessons 2-6 (only Jeremiah has one so far).
+- **Header art** per lesson (1632x560, white bg). Lesson 1's new art exists at
+  `C:\Temporary Sunday School Simplified\Beyond Bumper Stickers Header - Lesson 1.png`
+  but every mount transfer arrived truncated (see binary-corruption warning above), so
+  `headerImage` is `null` for now; the engine fallback closely replicates that art.
+  Old `assets/headers/lesson-01.png` (previous design) is still in the repo but unused.
+- **New back cover** in the blue design (optional — back page currently dropped).
 - **PDF re-cut** (secondary product; see below).
 
 ## The PDF (secondary, print-friendly product)

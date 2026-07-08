@@ -21,7 +21,7 @@ window.BBS_CONTENT = {
       "paragraphs2": [
         "We've posted them on billboards, stitched them onto pillows, and, yes, printed them on bumper stickers. While these soundbites often provide comfort, there's plenty to explore beneath the surface.",
         "**Beyond Bumper Stickers** is an invitation to slow down and read six of these well-worn passages in their original historical context. In doing so, we hope you'll find each verse to be more spiritually enriching than ever before.",
-        "We've designed these lessons to be easy — you can study on your own or with a group, no leader necessary. The rhythm of each lesson is simple:"
+        "We've designed these lessons to be easy — you can study on your own or with a group, no leader necessary."
       ],
       "rhythmTitle": "The Rhythm of Each Lesson",
       "steps": [
@@ -43,6 +43,7 @@ window.BBS_CONTENT = {
   "lessons": [
     {
       "n": 1,
+      "tabRef": "Jer. 29",
       "accent": "#C4542A",
       "reference": "Jeremiah 29:1, 4–14",
       "title": "For I Know the Plans I Have for You",
@@ -68,10 +69,11 @@ window.BBS_CONTENT = {
         "url": ""
       },
       "scriptureText": "<h4>Jeremiah 29:1</h4>\n<p><span class=\"vn\">1</span>These are the words of the letter that the prophet Jeremiah sent from Jerusalem to the remaining elders among the exiles and to the priests, the prophets, and all the people whom Nebuchadnezzar had taken into exile from Jerusalem to Babylon.</p>\n<h4>Jeremiah 29:4–14</h4>\n<p><span class=\"vn\">4</span>Thus says the Lord of hosts, the God of Israel, to all the exiles whom I have sent into exile from Jerusalem to Babylon: <span class=\"vn\">5</span>Build houses and live in them; plant gardens and eat what they produce. <span class=\"vn\">6</span>Take wives and have sons and daughters; take wives for your sons, and give your daughters in marriage, that they may bear sons and daughters; multiply there, and do not decrease. <span class=\"vn\">7</span>But seek the welfare of the city where I have sent you into exile, and pray to the Lord on its behalf, for in its welfare you will find your welfare. <span class=\"vn\">8</span>For thus says the Lord of hosts, the God of Israel: Do not let the prophets and the diviners who are among you deceive you, and do not listen to your dreams that you dream, <span class=\"vn\">9</span>for it is a lie that they are prophesying to you in my name; I did not send them, says the Lord.</p>\n<p><span class=\"vn\">10</span>For thus says the Lord: Only when Babylon’s seventy years are completed will I visit you, and I will fulfill to you my promise and bring you back to this place. <span class=\"vn\">11</span>For surely I know the plans I have for you, says the Lord, plans for your welfare and not for harm, to give you a future with hope. <span class=\"vn\">12</span>Then when you call upon me and come and pray to me, I will hear you. <span class=\"vn\">13</span>When you search for me, you will find me; if you seek me with all your heart, <span class=\"vn\">14</span>I will let you find me, says the Lord, and I will restore your fortunes and gather you from all the nations and all the places where I have driven you, says the Lord, and I will bring you back to the place from which I sent you into exile.</p>",
-      "headerImage": "assets/headers/lesson-01.png"
+      "headerImage": null
     },
     {
       "n": 2,
+      "tabRef": "Ps. 46",
       "accent": "#3E7B71",
       "reference": "Psalm 46",
       "title": "Be Still, and Know That I Am God",
@@ -97,6 +99,7 @@ window.BBS_CONTENT = {
     },
     {
       "n": 3,
+      "tabRef": "Gen. 1–2",
       "accent": "#C89029",
       "reference": "Genesis 1:26–31; 2:15",
       "title": "Have Dominion Over the Earth",
@@ -122,6 +125,7 @@ window.BBS_CONTENT = {
     },
     {
       "n": 4,
+      "tabRef": "Phil. 4",
       "accent": "#9E5145",
       "reference": "Philippians 2:2–11; 4:10–13",
       "title": "I Can Do All Things Through Him",
@@ -148,6 +152,7 @@ window.BBS_CONTENT = {
     },
     {
       "n": 5,
+      "tabRef": "2 Tim. 3",
       "accent": "#4E6E86",
       "reference": "2 Timothy 3:14–17; Genesis 2:4–7",
       "title": "All Scripture Is Inspired by God",
@@ -174,6 +179,7 @@ window.BBS_CONTENT = {
     },
     {
       "n": 6,
+      "tabRef": "1 Cor. 13",
       "accent": "#B24A34",
       "reference": "1 Corinthians 13:1–13",
       "title": "Love Is Patient, Love Is Kind",
