@@ -6,9 +6,11 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 
 > **Working on this repo with a Cowork / AI session? START HERE.** This README is the
 > canonical, up-to-date source of truth for the project. Read it in full before making
-> any change. (Cowork's own "memory" files, if present, auto-load into the session and
-> live in Cowork's internal store — they are **not** in Dropbox and **not** in this repo,
-> so do not go looking for them in the Dropbox folder.)
+> any change — and **keep it current**: any push that changes the design, schema,
+> workflow, or status must update this README in the *same push* (see "Keep this README
+> current" below). (Cowork's own "memory" files, if present, auto-load into the session
+> and live in Cowork's internal store — they are **not** in Dropbox and **not** in this
+> repo, so do not go looking for them in the Dropbox folder.)
 
 ---
 
@@ -18,6 +20,11 @@ This repo is mirrored into a **cloud-synced Dropbox folder** where a live `.git`
 ordinary text writes are **unreliable** (writes get silently truncated; git metadata gets
 corrupted). Therefore:
 
+- **Keep this README current — treat it as part of the deliverable.** Whenever a change
+  alters the design, the content schema, the workflow, or the project status/pending list,
+  update `README.md` and include it in the **same commit** as the change. A push that
+  leaves this README stale is an incomplete push. (This file is the only project state
+  that survives across sessions in git; do not rely on external notes to carry it.)
 - **GitHub `main` is the SOURCE OF TRUTH.** The Dropbox folder is a browse-only mirror —
   never trust or edit local copies; always fetch the current file from GitHub first.
 - **Author every change in `/tmp`** (native filesystem), run `node --check` on any JS,
