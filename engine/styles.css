@@ -38,6 +38,15 @@ body{background:var(--stage);font-family:'Mulish',sans-serif;color:var(--navy);-
 .dlbtn .vtxt{writing-mode:vertical-rl;}
 .dlbtn i{font-size:15px;}
 .dlbtn:hover{filter:brightness(.94);}
+/* magazine chrome: center-gutter shading + stacked page edges */
+.bookdeco{position:absolute;left:var(--spine-w);top:0;width:calc(var(--page-w)*2);height:100%;pointer-events:none;z-index:20;}
+.bookdeco .gutter{position:absolute;left:50%;top:0;bottom:0;width:72px;transform:translateX(-50%);
+  background:linear-gradient(90deg,rgba(10,39,76,0),rgba(10,39,76,.10) 46%,rgba(10,39,76,.16) 50%,rgba(10,39,76,.10) 54%,rgba(10,39,76,0));}
+.bookdeco .stack{position:absolute;top:8px;bottom:8px;width:7px;background:repeating-linear-gradient(180deg,#fff 0 3px,#DFE9F4 3px 5px);}
+.bookdeco .stack.left{left:-7px;border-radius:4px 0 0 4px;box-shadow:-1px 0 0 rgba(10,39,76,.15);}
+.bookdeco .stack.right{right:-7px;border-radius:0 4px 4px 0;box-shadow:1px 0 0 rgba(10,39,76,.15);}
+.binder.on-cover .gutter,.binder.on-cover .stack.left{display:none;}
+
 /* pages */
 .page{width:var(--page-w);height:var(--page-h);position:relative;overflow:hidden;background:var(--page);}
 .pg{position:absolute;inset:0;display:flex;flex-direction:column;padding:46px 52px 38px;z-index:2;}

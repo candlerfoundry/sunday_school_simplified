@@ -105,6 +105,10 @@ layout — no top bar, no page indicator).
   lesson labeled with its abbreviated reference (`tabRef`, e.g. "Jer. 29"), and a small
   "Additional Resources" tab. Active tab is navy. Tabs are the primary navigation
   (plus arrow keys / edge arrows). No "page N of M" pill.
+- **Magazine chrome** (`.bookdeco`, added July 2026): a soft center-**gutter** shading
+  down the spine of every open spread, and serrated **page-edge stacks** on the outer
+  left/right edges so the book reads as a thick open magazine. Both hide on the cover
+  view (`.binder.on-cover`).
 - **Download:** a fixed vertical red **ribbon** docked to the right viewport edge
   ("Download Printable Packet"), OUTSIDE the book so it never overlaps at any window
   size. The fit formula reserves nothing at the bottom: scale =
@@ -116,8 +120,9 @@ layout — no top bar, no page indicator).
   (handmade display: letter heading, TOC title, tab numerals, fallback lesson titles).
   Thierry + Hello-Handmade via `@font-face` from `engine/assets/fonts/`; Mulish + Font
   Awesome from CDN.
-- **Page order:** cover (`assets/cover.png`, full-bleed, `data-density="hard"` so it
-  flips like a stiff board) · **letter** (no eyebrow logo, no rhythm box) · **Contents**
+- **Page order:** cover (`assets/cover.png`, full-bleed, SOFT flip — Emily wants the
+  same page-curl animation as every other page, NOT a stiff hard cover) · **letter**
+  (no eyebrow logo, no rhythm box) · **Contents**
   (lesson list + relocated **"rhythm of each lesson" 5-step strip** at the bottom) ·
   **two pages per lesson** · **Additional Resources** (all `optionalVideo`s live here —
   lesson pages carry NO optional-viewing bar) · **end page** (full Candler Foundry logo,
@@ -176,7 +181,7 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
 
 - **All six lessons' discussion questions are FINAL** (Emily's approved wording).
 - **Scripture text is in place (NRSVUE)** and opens in the popout modal.
-- **Cover** is Emily's current Canva cover (`assets/cover.png`, 1632x2112).
+- **Cover** is Emily's updated Canva cover (`assets/cover.png`, 1632x2112, July 2026 export — sharper than the original).
 - **Binder design shipped** (July 2026). Lesson 1 uses Emily's header art; lessons 2-6 use the engine-drawn header until art arrives.
 
 **Pending inputs from Emily:**

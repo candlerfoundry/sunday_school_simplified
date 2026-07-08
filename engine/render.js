@@ -107,7 +107,7 @@
   /* ---------- assemble ---------- */
   var pages = [], pageToLesson = [];
   function push(html, cls, hard) { pages.push({ html: html, cls: cls || "", hard: !!hard }); }
-  push(coverPage(), "coverpg", true); pageToLesson.push(0);
+  push(coverPage(), "coverpg"); pageToLesson.push(0);
   push(letterPage()); pageToLesson.push(0);
   push(contentsPage()); pageToLesson.push(0);
   C.lessons.forEach(function (l) {
@@ -130,6 +130,12 @@
   });
 
   /* ---------- binder chrome ---------- */
+  var binderEl = document.querySelector(".binder");
+  var deco = document.createElement("div");
+  deco.className = "bookdeco";
+  deco.innerHTML = '<div class="stack left"></div><div class="stack right"></div><div class="gutter"></div>';
+  binderEl.appendChild(deco);
+
   var spine = document.getElementById("spine");
   spine.innerHTML = '<div class="dash"></div><div class="svtitle">' + esc(C.meta.series) + '</div>' +
     '<div class="foundrymark" title="The Candler Foundry"></div>';
@@ -165,6 +171,7 @@
   function syncUi() {
     var i = flip.getCurrentPageIndex(), t = pages.length;
     prev.disabled = i <= 0; next.disabled = i >= t - 1;
+    binderEl.classList.toggle("on-cover", i === 0);
     var active = null;
     if (i >= 1 && i <= 2) active = "contents";
     else if (i >= RESOURCES_IDX) active = "resources";
