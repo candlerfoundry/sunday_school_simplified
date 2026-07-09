@@ -159,11 +159,12 @@
   flip.loadFromHTML(document.querySelectorAll("#pageflip .page"));
 
   var scaler = document.getElementById("binder-scaler");
-  var SPINE_W = 68, TAB_W = 96;
+  var SPINE_W = 68, TAB_W = 132;
   function fit() {
     var w = SPINE_W + 816 * 2 + TAB_W, h = 1056;
     var s = Math.min((window.innerWidth - 130) / w, (window.innerHeight - 24) / h);
     scaler.style.setProperty("--book-scale", s);
+    document.documentElement.style.setProperty("--book-scale", s);
   }
   window.addEventListener("resize", fit); fit();
 

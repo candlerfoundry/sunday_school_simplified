@@ -62,6 +62,14 @@ Render the changed pages and eyeball them before committing:
   when something looks off; don't guess from theory.
 - Beware CSS class-name collisions when adding chrome around StPageFlip (a `.vtitle`
   clash between spine and video card once bottom-anchored the spine text).
+- **Mind cross-screen scaling (July 2026 lesson):** the binder scales via
+  `--book-scale` (set on `:root` by `fit()`), so the free side margins vary a LOT
+  between screens ((100vw - 1832px*scale)/2 ≈ 45-95px). Any fixed-position chrome
+  (watermark, ribbon, nav arrows) must be sized against that margin — the watermark
+  uses `clamp(44px, calc((100vw - 1832px*var(--book-scale))/2 - 20px), 150px)`.
+  ALSO keep `fit()`'s `SPINE_W`/`TAB_W` constants in sync with the CSS variables —
+  they drifted once (96 vs 132) and silently squeezed every margin. Verify at
+  1536x816, 1280x680, 1920x1080, and iPad 1180x820 minimum.
 
 ---
 
@@ -138,11 +146,11 @@ layout — no top bar, no page indicator).
 - **Favicon:** `engine/assets/favicon.svg` — tone-on-tone powder-blue rounded tile with
   the navy Foundry circle-mark (mark only; the full wordmark is illegible at 16px).
   Linked from the packet shell and the landing page.
-- **Candler Foundry watermark:** fixed bottom-left of the screen (`.wmark`, the full
-  navy logo `engine/assets/candler-foundry-logo.svg` at ~30% opacity), links to
-  https://www.candlerfoundry.emory.edu (new tab). It deliberately tucks partially under
-  the binder on smaller screens (#stage is pointer-events:none so the visible part
-  stays clickable).
+- **Candler Foundry watermark:** fixed bottom-left (`.wmark`, full navy logo
+  `engine/assets/candler-foundry-logo.svg` at ~30% opacity), links to
+  https://www.candlerfoundry.emory.edu (new tab). It auto-scales to the free margin
+  beside the binder (see scaling note in "Verify before you push") so it stays fully
+  visible on every screen; #stage is pointer-events:none so it stays clickable.
 - **Palette:** navy `#0A274C`, powder blue `#CCE0F5`, smoky blue `#2F5972`, page
   `#FCFDFF`, card `#EAF3FC`; brand red **`#FB1616`** as small accents only.
 - **Type:** **Thierry Leonie** (display numerals), **Mulish** (body; upsized ~10% vs the
@@ -229,14 +237,21 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
   reads "Through Christ" while `title`/TOC say "Through Him" (flagged to Emily).
 - **Hand-drawn red section icons approved and shipped** (July 2026).
 - **New back cover** in the blue design (optional — back page currently dropped).
-- **PDF re-cut** (secondary product; see below).
+- **PDF re-cut with Vimeo links** once videoUrls exist (current PDF shipped July 2026
+  with "coming soon" video notes; see The PDF section).
 
 ## The PDF (secondary, print-friendly product)
 
-The flipbook is the main product; the PDF is an optional printable download and is still
-the **earlier design** — not yet rebuilt. Emily's spec for the rebuild: on each lesson,
-instead of the full passage text, show **(1) a hyperlink to the exact Bible Gateway NRSVUE
-passage and (2) a QR code to the same URL.** Keep it ink-light for home printers.
+**Rebuilt July 2026** in the binder-era design (generator: `tools/make_pdf.py`, which
+documents the full re-cut procedure). US Letter, 17 pages: full-color cover, ink-light
+interior (white bg, navy text, outlined boxes, red hand-drawn icons), letter, contents
+(+rhythm strip), two pages per lesson with Emily's header art, additional resources,
+Foundry end page with NRSVUE attribution. Each lesson: **scripture = hyperlink + QR to
+the exact Bible Gateway NRSVUE passage**; **video = Vimeo link + QR when
+`videoUrl`/`optionalVideo.url` is set, otherwise a "coming soon" note with no QR**
+(Emily prefers Vimeo links over flipbook deep-links in print). **Re-cut the PDF when
+the Vimeo URLs land in content.js.** The engine's `?lesson=N` deep links remain
+available for sharing even though the PDF no longer uses them.
 
 ## Adding a new packet
 

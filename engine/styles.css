@@ -177,7 +177,9 @@ body{background:var(--stage);font-family:'Mulish',sans-serif;color:var(--navy);-
 .mopen i{font-size:12px;}
 .mattr{font-size:10.5px;color:var(--smoky);text-align:right;line-height:1.4;}
 /* ===== Candler Foundry watermark (tucks under the binder) ===== */
-.wmark{position:fixed;left:14px;bottom:10px;width:150px;height:56px;display:block;opacity:.30;
+.wmark{position:fixed;left:14px;bottom:10px;display:block;opacity:.30;
+  width:clamp(44px, calc((100vw - 1832px*var(--book-scale, .75))/2 - 20px), 150px);
+  aspect-ratio:2337/939;height:auto;
   background:url('assets/candler-foundry-logo.svg') no-repeat left bottom/contain;transition:opacity .15s;}
 .wmark:hover{opacity:.6;}
 #stage{pointer-events:none;}
