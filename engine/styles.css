@@ -180,3 +180,12 @@ body{background:var(--stage);font-family:'Mulish',sans-serif;color:var(--navy);-
 /* ===== nav ===== */
 .nav{position:fixed;top:50%;z-index:35;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:none;background:#fff;box-shadow:0 6px 18px rgba(10,39,76,.2);cursor:pointer;font-size:20px;color:var(--navy);display:flex;align-items:center;justify-content:center;}
 .nav:hover{color:var(--red);} .nav.prev{left:12px;} .nav.next{right:12px;} .nav:disabled{opacity:.35;cursor:default;}
+/* glossy laminate on the cover (sheen + right-edge highlight; moves with the page) */
+.pg.coverpg::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(115deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.10) 28%, rgba(255,255,255,.03) 42%, rgba(255,255,255,0) 65%),
+    radial-gradient(ellipse at top left, rgba(255,255,255,.16), rgba(255,255,255,0) 45%),
+    linear-gradient(to bottom, rgba(255,255,255,.10), rgba(255,255,255,0) 18%, rgba(0,0,0,.04) 100%);
+  mix-blend-mode:screen;opacity:.7;}
+.pg.coverpg::before{content:"";position:absolute;top:0;right:0;width:8px;height:100%;pointer-events:none;z-index:2;
+  background:linear-gradient(to left, rgba(0,0,0,.12), rgba(255,255,255,.08), rgba(255,255,255,0));}

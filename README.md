@@ -108,6 +108,10 @@ layout — no top bar, no page indicator).
   `tabRef` holds the FULL reference ("Jeremiah 29", "1 Corinthians 13" — Emily wants
   them spelled out, wrapping to two/three lines), and `shortRef` (used on the Contents
   rows) is also spelled out for 1 Corinthians.
+- **Cover gloss:** the cover page carries a subtle laminate sheen + right-edge
+  highlight (`.pg.coverpg::after/::before`, approved July 2026). No box-shadow or
+  border-radius on the page itself — the binder casts the shadow, and rounded corners
+  would show background slivers on StPageFlip's square pages.
 - **Cover flip (IMPORTANT — hard-won):** Emily wants the cover to turn with the same
   soft page-curl as every other page. StPageFlip's `showCover:true` mode animates the
   lone cover rigidly and slides the whole book sideways, and `data-density` can't fix
