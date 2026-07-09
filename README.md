@@ -132,6 +132,9 @@ layout — no top bar, no page indicator).
   `vh` and it's capped at `max-height:calc(50vh - 62px)` so it can never reach the
   mid-height nav arrow on short laptop windows. The fit formula reserves nothing at the
   bottom: scale = min((vw-130)/(68+1632+132), (vh-24)/1056).
+- **Favicon:** `engine/assets/favicon.svg` — tone-on-tone powder-blue rounded tile with
+  the navy Foundry circle-mark (mark only; the full wordmark is illegible at 16px).
+  Linked from the packet shell and the landing page.
 - **Candler Foundry watermark:** fixed bottom-left of the screen (`.wmark`, the full
   navy logo `engine/assets/candler-foundry-logo.svg` at ~30% opacity), links to
   https://www.candlerfoundry.emory.edu (new tab). It deliberately tucks partially under
@@ -212,8 +215,12 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
 **Pending inputs from Emily:**
 - **Vimeo `videoUrl`s** per lesson (a few weeks out; the 3-Minute Bible MP4s are ~408 MB,
   so they must embed from Vimeo, not self-host).
-- **Header art** for lessons 2-6 (1632x560, white bg, matching lesson 1's style).
-  Lesson 1's approved art is live (`assets/headers/lesson-01.png`, July 2026).
+- ~~Header art~~ **DONE July 2026** — all six lessons use Emily's art
+  (`assets/headers/lesson-0N.png`, 1632x560, integrity-verified). Note: lesson 4's art
+  reads "Through Christ" while `title`/TOC say "Through Him" (flagged to Emily).
+- **Hand-drawn section icons** (`sss_*_hand_drawn.svg`, recolorable, on Emily's C:
+  drive) are mocked in red as replacements for the Font Awesome section icons —
+  awaiting Emily's approval; NOT yet in the engine.
 - **New back cover** in the blue design (optional — back page currently dropped).
 - **PDF re-cut** (secondary product; see below).
 
