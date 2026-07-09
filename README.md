@@ -118,6 +118,9 @@ layout — no top bar, no page indicator).
   it. The shipped solution: `showCover:false` plus an invisible **blank first page**
   (`.page.blankpg`, transparent) so the cover is the right half of a normal spread —
   soft curl, book stays centered. Do not reintroduce `showCover`.
+- **Deep links (used by the printable PDF QR codes):** `?lesson=N` opens lesson N;
+  `?goto=resources` / `?goto=contents` open those spreads (handled in render.js after
+  init via `flip.turnToPage`).
 - **Clicks never flip pages:** `disableFlipByClick:true`. StPageFlip's click-target
   check only looks at the DIRECT event target, so clicks on spans inside buttons/links
   used to trigger a backward flip (the "scripture opens but page flips" bug). Navigation

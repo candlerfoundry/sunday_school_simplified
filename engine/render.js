@@ -186,6 +186,16 @@
     });
   }
   flip.on("flip", syncUi); flip.on("init", syncUi); syncUi();
+
+  // deep links from the printable PDF QR codes: ?lesson=N, ?goto=resources|contents
+  (function () {
+    var q = new URLSearchParams(window.location.search);
+    var target = null;
+    if (q.get("lesson")) { var n = parseInt(q.get("lesson"), 10); var i = pageToLesson.indexOf(n); if (i > -1) target = i; }
+    else if (q.get("goto") === "resources") target = RESOURCES_IDX;
+    else if (q.get("goto") === "contents") target = 2;
+    if (target !== null) setTimeout(function () { flip.turnToPage(target); syncUi(); }, 60);
+  })();
   flip.on("changeState", function (e) {
     binderEl.classList.toggle("flipping", e.data === "flipping" || e.data === "user_fold" || e.data === "fold_corner");
   });
