@@ -104,15 +104,35 @@ layout — no top bar, no page indicator).
   **index tabs** on the right. Tabs = one small "Contents" tab, one numbered tab per
   lesson labeled with its abbreviated reference (`tabRef`, e.g. "Jer. 29"), and a small
   "Additional Resources" tab. Active tab is navy. Tabs are the primary navigation
-  (plus arrow keys / edge arrows). No "page N of M" pill.
+  (plus arrow keys / edge arrows). No "page N of M" pill. Tab rail is 132px wide;
+  `tabRef` holds the FULL reference ("Jeremiah 29", "1 Corinthians 13" — Emily wants
+  them spelled out, wrapping to two/three lines), and `shortRef` (used on the Contents
+  rows) is also spelled out for 1 Corinthians.
+- **Cover flip (IMPORTANT — hard-won):** Emily wants the cover to turn with the same
+  soft page-curl as every other page. StPageFlip's `showCover:true` mode animates the
+  lone cover rigidly and slides the whole book sideways, and `data-density` can't fix
+  it. The shipped solution: `showCover:false` plus an invisible **blank first page**
+  (`.page.blankpg`, transparent) so the cover is the right half of a normal spread —
+  soft curl, book stays centered. Do not reintroduce `showCover`.
+- **Clicks never flip pages:** `disableFlipByClick:true`. StPageFlip's click-target
+  check only looks at the DIRECT event target, so clicks on spans inside buttons/links
+  used to trigger a backward flip (the "scripture opens but page flips" bug). Navigation
+  is drag/swipe, arrow keys, edge arrows, and the tabs.
 - **Magazine chrome** (`.bookdeco`, added July 2026): a soft center-**gutter** shading
-  down the spine of every open spread, and serrated **page-edge stacks** on the outer
-  left/right edges so the book reads as a thick open magazine. Both hide on the cover
-  view (`.binder.on-cover`).
+  down the spine of every open spread (drawn over the pages), and **page-edge stacks**
+  on the outer left/right edges (drawn behind the pages, gradient-shaded). Both hide on
+  the cover view (`.binder.on-cover`) and the whole deco fades out while a flip is in
+  progress (`.binder.flipping`, driven by StPageFlip's `changeState`).
 - **Download:** a fixed vertical red **ribbon** docked to the right viewport edge
-  ("Download Printable Packet"), OUTSIDE the book so it never overlaps at any window
-  size. The fit formula reserves nothing at the bottom: scale =
-  min((vw-130)/(68+1632+96), (vh-24)/1056).
+  ("Download Printable Packet"), OUTSIDE the book. Its font/padding are `clamp()`ed on
+  `vh` and it's capped at `max-height:calc(50vh - 62px)` so it can never reach the
+  mid-height nav arrow on short laptop windows. The fit formula reserves nothing at the
+  bottom: scale = min((vw-130)/(68+1632+132), (vh-24)/1056).
+- **Candler Foundry watermark:** fixed bottom-left of the screen (`.wmark`, the full
+  navy logo `engine/assets/candler-foundry-logo.svg` at ~30% opacity), links to
+  https://www.candlerfoundry.emory.edu (new tab). It deliberately tucks partially under
+  the binder on smaller screens (#stage is pointer-events:none so the visible part
+  stays clickable).
 - **Palette:** navy `#0A274C`, powder blue `#CCE0F5`, smoky blue `#2F5972`, page
   `#FCFDFF`, card `#EAF3FC`; brand red **`#FB1616`** as small accents only.
 - **Type:** **Thierry Leonie** (display numerals), **Mulish** (body; upsized ~10% vs the
@@ -120,9 +140,8 @@ layout — no top bar, no page indicator).
   (handmade display: letter heading, TOC title, tab numerals, fallback lesson titles).
   Thierry + Hello-Handmade via `@font-face` from `engine/assets/fonts/`; Mulish + Font
   Awesome from CDN.
-- **Page order:** cover (`assets/cover.png`, full-bleed, SOFT flip — Emily wants the
-  same page-curl animation as every other page, NOT a stiff hard cover) · **letter**
-  (no eyebrow logo, no rhythm box) · **Contents**
+- **Page order:** hidden blank page (see below) · cover (`assets/cover.png`,
+  full-bleed) · **letter** (no eyebrow logo, no rhythm box) · **Contents**
   (lesson list + relocated **"rhythm of each lesson" 5-step strip** at the bottom) ·
   **two pages per lesson** · **Additional Resources** (all `optionalVideo`s live here —
   lesson pages carry NO optional-viewing bar) · **end page** (full Candler Foundry logo,
@@ -146,6 +165,8 @@ layout — no top bar, no page indicator).
 
 ```
 window.BBS_CONTENT = { meta, contentsIntro, lessons: [ ... ] }
+// contentsIntro may be "" — the Contents page renders no lede then (current state;
+// Emily removed the "Six of the Bible's most-quoted lines" blurb).
 
 meta   = { series, title, letter: { heading, paragraphs[], quotes[], paragraphs2[],
            rhythmTitle, steps[], paragraphs3[], grace, signName } }
@@ -153,7 +174,7 @@ meta   = { series, title, letter: { heading, paragraphs[], quotes[], paragraphs2
          // not in the letter.
 
 lesson = { n, accent, reference, shortRef, title,
-           tabRef,              // NEW: short label for the side tab, e.g. "Jer. 29"
+           tabRef,              // side-tab label, spelled out, e.g. "Jeremiah 29"
            subtitle,            // exists but UNUSED — subtitles were removed globally
            openingPrayer, closingPrayer,
            scriptureRef, scriptureUrl,   // scriptureUrl uses version=NRSVUE
