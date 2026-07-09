@@ -3,7 +3,7 @@
 :root{
   --navy:#0A274C; --powder:#CCE0F5; --smoky:#2F5972; --red:#FB1616; --page:#FCFDFF;
   --card:#EAF3FC; --cardbd:#D7E7F6; --dot:#C6DBF0; --stage:#DCE6F2; --muted:#8AA0B8;
-  --page-w:816px; --page-h:1056px; --spine-w:68px; --tab-w:96px;
+  --page-w:816px; --page-h:1056px; --spine-w:68px; --tab-w:132px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;}
@@ -21,36 +21,44 @@ body{background:var(--stage);font-family:'Mulish',sans-serif;color:var(--navy);-
 #spine .foundrymark{flex:0 0 auto;margin-top:auto;width:38px;height:38px;background:url('assets/candler-foundry-mark-white.svg') no-repeat center/contain;opacity:.92;}
 #spine::after{content:"";position:absolute;right:-10px;top:0;bottom:0;width:10px;background:linear-gradient(90deg,rgba(8,30,59,.35),rgba(8,30,59,0));z-index:26;pointer-events:none;}
 #pageflip{flex:0 0 calc(var(--page-w)*2);width:calc(var(--page-w)*2);height:var(--page-h);position:relative;z-index:10;}
+.bookdeco{z-index:20;}
+.bookdeco .stack{z-index:5;}
 /* tab rail */
 #tabs{flex:0 0 var(--tab-w);display:flex;flex-direction:column;gap:8px;padding:26px 0;z-index:1;}
 .tab{display:flex;align-items:center;gap:9px;height:78px;padding:0 12px 0 16px;margin-left:-6px;border-radius:0 15px 15px 0;
   background:#EAF3FC;border:1px solid var(--cardbd);border-left:none;cursor:pointer;box-shadow:2px 3px 8px rgba(10,39,76,.10);}
 .tab .tn{font-family:'Hello Handmade',sans-serif;font-size:27px;line-height:1;color:var(--navy);}
-.tab .tl{font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--smoky);line-height:1.2;}
+.tab .tl{font-weight:800;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--smoky);line-height:1.25;}
 .tab.small{height:58px;}
 .tab .ti{color:var(--smoky);font-size:15px;}
 .tab.active{background:var(--navy);border-color:var(--navy);}
 .tab.active .tn,.tab.active .tl,.tab.active .ti{color:#fff;}
 /* download ribbon (fixed to viewport, outside the book) */
-.dlbtn{position:fixed;right:0;bottom:26px;z-index:50;display:flex;flex-direction:column;align-items:center;gap:10px;
-  background:var(--red);color:#fff;font-family:'Mulish',sans-serif;font-weight:800;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;
-  text-decoration:none;border:none;border-radius:14px 0 0 14px;padding:16px 11px 18px;cursor:pointer;box-shadow:-6px 6px 18px rgba(10,39,76,.25);}
+.dlbtn{position:fixed;right:0;bottom:24px;z-index:50;display:flex;flex-direction:column;align-items:center;gap:clamp(6px,1.1vh,10px);
+  background:var(--red);color:#fff;font-family:'Mulish',sans-serif;font-weight:800;font-size:clamp(9.5px,1.55vh,13.5px);letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;border:none;border-radius:14px 0 0 14px;padding:clamp(10px,1.9vh,16px) clamp(8px,1.3vh,11px) clamp(12px,2.1vh,18px);
+  cursor:pointer;box-shadow:-6px 6px 18px rgba(10,39,76,.25);max-height:calc(50vh - 62px);}
 .dlbtn .vtxt{writing-mode:vertical-rl;}
-.dlbtn i{font-size:15px;}
+.dlbtn i{font-size:clamp(11px,1.7vh,15px);}
 .dlbtn:hover{filter:brightness(.94);}
 /* magazine chrome: center-gutter shading + stacked page edges */
-.bookdeco{position:absolute;left:var(--spine-w);top:0;width:calc(var(--page-w)*2);height:100%;pointer-events:none;z-index:20;}
-.bookdeco .gutter{position:absolute;left:50%;top:0;bottom:0;width:72px;transform:translateX(-50%);
+.bookdeco{position:absolute;left:var(--spine-w);top:0;width:calc(var(--page-w)*2);height:100%;pointer-events:none;transition:opacity .25s;}
+.bookdeco .gutter{position:absolute;left:50%;top:0;bottom:0;width:72px;transform:translateX(-50%);z-index:20;
   background:linear-gradient(90deg,rgba(10,39,76,0),rgba(10,39,76,.10) 46%,rgba(10,39,76,.16) 50%,rgba(10,39,76,.10) 54%,rgba(10,39,76,0));}
-.bookdeco .stack{position:absolute;top:8px;bottom:8px;width:7px;background:repeating-linear-gradient(180deg,#fff 0 3px,#DFE9F4 3px 5px);}
-.bookdeco .stack.left{left:-7px;border-radius:4px 0 0 4px;box-shadow:-1px 0 0 rgba(10,39,76,.15);}
-.bookdeco .stack.right{right:-7px;border-radius:0 4px 4px 0;box-shadow:1px 0 0 rgba(10,39,76,.15);}
+.bookdeco .stack{position:absolute;top:6px;bottom:6px;width:9px;z-index:5;
+  background:repeating-linear-gradient(180deg,#FDFEFF 0 2px,#D8E4F2 2px 4px);}
+.bookdeco .stack.left{left:-9px;border-radius:5px 0 0 5px;
+  background:linear-gradient(90deg,rgba(10,39,76,.16),rgba(10,39,76,0) 70%),repeating-linear-gradient(180deg,#FDFEFF 0 2px,#D8E4F2 2px 4px);}
+.bookdeco .stack.right{right:-9px;border-radius:0 5px 5px 0;
+  background:linear-gradient(270deg,rgba(10,39,76,.16),rgba(10,39,76,0) 70%),repeating-linear-gradient(180deg,#FDFEFF 0 2px,#D8E4F2 2px 4px);}
 .binder.on-cover .gutter,.binder.on-cover .stack.left{display:none;}
+.binder.flipping .bookdeco{opacity:0;}
 
 /* pages */
 .page{width:var(--page-w);height:var(--page-h);position:relative;overflow:hidden;background:var(--page);}
 .pg{position:absolute;inset:0;display:flex;flex-direction:column;padding:46px 52px 38px;z-index:2;}
 .pg.coverpg,.pg.cover{padding:0;}
+.page.blankpg{background:transparent;}
 .cover .full{width:100%;height:100%;object-fit:cover;display:block;}
 /* ===== lesson header slot (art: 1632x560 -> 816x280 full-bleed) ===== */
 .hdrslot{flex:0 0 280px;margin:-46px -52px 0;width:var(--page-w);height:280px;overflow:hidden;
@@ -162,6 +170,13 @@ body{background:var(--stage);font-family:'Mulish',sans-serif;color:var(--navy);-
 .mopen{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;font-weight:800;font-size:14px;padding:11px 18px;border-radius:100px;text-decoration:none;white-space:nowrap;}
 .mopen i{font-size:12px;}
 .mattr{font-size:10.5px;color:var(--smoky);text-align:right;line-height:1.4;}
+/* ===== Candler Foundry watermark (tucks under the binder) ===== */
+.wmark{position:fixed;left:14px;bottom:10px;width:150px;height:56px;display:block;opacity:.30;
+  background:url('assets/candler-foundry-logo.svg') no-repeat left bottom/contain;transition:opacity .15s;}
+.wmark:hover{opacity:.6;}
+#stage{pointer-events:none;}
+#binder-scaler{pointer-events:auto;}
+
 /* ===== nav ===== */
 .nav{position:fixed;top:50%;z-index:35;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;border:none;background:#fff;box-shadow:0 6px 18px rgba(10,39,76,.2);cursor:pointer;font-size:20px;color:var(--navy);display:flex;align-items:center;justify-content:center;}
 .nav:hover{color:var(--red);} .nav.prev{left:12px;} .nav.next{right:12px;} .nav:disabled{opacity:.35;cursor:default;}

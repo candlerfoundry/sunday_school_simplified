@@ -40,8 +40,8 @@
         L.steps.map(function (s, i) { return '<div class="rstep"><div class="n">' + (i + 1) + '</div><div class="t">' + esc(s) + '</div></div>'; }).join("") +
         '</div></div>';
     }
-    return '<div class="pg contents"><div class="chead">In This Packet</div>' +
-      '<div class="lede">' + esc(C.contentsIntro) + '</div>' +
+    var lede = C.contentsIntro ? '<div class="lede">' + esc(C.contentsIntro) + '</div>' : "";
+    return '<div class="pg contents"><div class="chead">In This Packet</div>' + lede +
       '<div class="clist">' + rows + '</div>' + rhythm + '</div>';
   }
 
@@ -107,6 +107,10 @@
   /* ---------- assemble ---------- */
   var pages = [], pageToLesson = [];
   function push(html, cls, hard) { pages.push({ html: html, cls: cls || "", hard: !!hard }); }
+  // invisible blank page before the cover: makes the cover the right half of a
+  // normal spread, so it flips with the same soft curl as every page and the book
+  // never slides sideways (StPageFlip's showCover mode animates covers rigidly).
+  push('<div class="pg"></div>', "blankpg"); pageToLesson.push(0);
   push(coverPage(), "coverpg"); pageToLesson.push(0);
   push(letterPage()); pageToLesson.push(0);
   push(contentsPage()); pageToLesson.push(0);
@@ -117,8 +121,8 @@
   var RESOURCES_IDX = pages.length;
   push(resourcesPage()); pageToLesson.push(-1);
   push(endPage()); pageToLesson.push(-1);
-  // with showCover, content after the cover should pair into spreads
-  if ((pages.length - 1) % 2 !== 0) { push('<div class="pg"></div>'); pageToLesson.push(-1); }
+  // spreads pair (0,1),(2,3)... — total must be even
+  if (pages.length % 2 !== 0) { push('<div class="pg"></div>'); pageToLesson.push(-1); }
 
   var flipEl = document.getElementById("pageflip");
   pages.forEach(function (p) {
@@ -150,8 +154,8 @@
 
   /* ---------- flip ---------- */
   var PageFlip = (window.St && window.St.PageFlip) || window.PageFlip;
-  var flip = new PageFlip(flipEl, { width: 816, height: 1056, size: "fixed", showCover: true, usePortrait: false,
-    maxShadowOpacity: 0.5, drawShadow: true, flippingTime: 700, mobileScrollSupport: false });
+  var flip = new PageFlip(flipEl, { width: 816, height: 1056, size: "fixed", showCover: false, usePortrait: false,
+    maxShadowOpacity: 0.5, drawShadow: true, flippingTime: 700, mobileScrollSupport: false, disableFlipByClick: true });
   flip.loadFromHTML(document.querySelectorAll("#pageflip .page"));
 
   var scaler = document.getElementById("binder-scaler");
@@ -171,9 +175,9 @@
   function syncUi() {
     var i = flip.getCurrentPageIndex(), t = pages.length;
     prev.disabled = i <= 0; next.disabled = i >= t - 1;
-    binderEl.classList.toggle("on-cover", i === 0);
+    binderEl.classList.toggle("on-cover", i <= 1);
     var active = null;
-    if (i >= 1 && i <= 2) active = "contents";
+    if (i >= 2 && i <= 3) active = "contents";
     else if (i >= RESOURCES_IDX) active = "resources";
     else if (pageToLesson[i] > 0) active = String(pageToLesson[i]);
     else if (pageToLesson[i + 1] > 0) active = String(pageToLesson[i + 1]);
@@ -182,12 +186,15 @@
     });
   }
   flip.on("flip", syncUi); flip.on("init", syncUi); syncUi();
+  flip.on("changeState", function (e) {
+    binderEl.classList.toggle("flipping", e.data === "flipping" || e.data === "user_fold" || e.data === "fold_corner");
+  });
 
   function gotoLesson(n) { var idx = pageToLesson.indexOf(n); if (idx > -1) flip.flip(idx); }
   tabsEl.addEventListener("click", function (e) {
     var tb = e.target.closest(".tab"); if (!tb) return;
     var t = tb.getAttribute("data-tab");
-    if (t === "contents") flip.flip(1);
+    if (t === "contents") flip.flip(2);
     else if (t === "resources") flip.flip(RESOURCES_IDX);
     else gotoLesson(parseInt(t, 10));
   });

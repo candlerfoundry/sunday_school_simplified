@@ -38,12 +38,12 @@ window.BBS_CONTENT = {
       "signName": "The Candler Foundry"
     }
   },
-  "contentsIntro": "Six of the Bible's most-quoted lines — the ones we put on mugs, walls, and bumper stickers — read back inside the stories that gave them meaning.",
+  "contentsIntro": "",
   "howto": "Each lesson stands on its own and takes about an hour. Open with prayer, read the passage aloud, watch the 3-Minute Bible video together, then talk through the questions. Close with prayer.",
   "lessons": [
     {
       "n": 1,
-      "tabRef": "Jer. 29",
+      "tabRef": "Jeremiah 29",
       "accent": "#C4542A",
       "reference": "Jeremiah 29:1, 4–14",
       "title": "For I Know the Plans I Have for You",
@@ -73,7 +73,7 @@ window.BBS_CONTENT = {
     },
     {
       "n": 2,
-      "tabRef": "Ps. 46",
+      "tabRef": "Psalm 46",
       "accent": "#3E7B71",
       "reference": "Psalm 46",
       "title": "Be Still, and Know That I Am God",
@@ -99,7 +99,7 @@ window.BBS_CONTENT = {
     },
     {
       "n": 3,
-      "tabRef": "Gen. 1–2",
+      "tabRef": "Genesis 1–2",
       "accent": "#C89029",
       "reference": "Genesis 1:26–31; 2:15",
       "title": "Have Dominion Over the Earth",
@@ -125,7 +125,7 @@ window.BBS_CONTENT = {
     },
     {
       "n": 4,
-      "tabRef": "Phil. 4",
+      "tabRef": "Philippians 4",
       "accent": "#9E5145",
       "reference": "Philippians 2:2–11; 4:10–13",
       "title": "I Can Do All Things Through Him",
@@ -152,7 +152,7 @@ window.BBS_CONTENT = {
     },
     {
       "n": 5,
-      "tabRef": "2 Tim. 3",
+      "tabRef": "2 Timothy 3",
       "accent": "#4E6E86",
       "reference": "2 Timothy 3:14–17; Genesis 2:4–7",
       "title": "All Scripture Is Inspired by God",
@@ -179,7 +179,7 @@ window.BBS_CONTENT = {
     },
     {
       "n": 6,
-      "tabRef": "1 Cor. 13",
+      "tabRef": "1 Corinthians 13",
       "accent": "#B24A34",
       "reference": "1 Corinthians 13:1–13",
       "title": "Love Is Patient, Love Is Kind",
@@ -196,7 +196,7 @@ window.BBS_CONTENT = {
         "Churches often measure success by growth — programs, membership, attendance. How does Paul’s understanding of love challenge those measures? How would Paul define a church’s success or failure?",
         "Consider your own church’s worship and common life. Where do you see Paul’s vision of love lived out well, and where is there room to grow — especially across a congregation’s diverse opinions and backgrounds?"
       ],
-      "shortRef": "1 Cor. 13",
+      "shortRef": "1 Corinthians 13",
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Corinthians%2013%3A1-13&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
