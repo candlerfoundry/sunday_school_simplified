@@ -147,6 +147,11 @@ layout — no top bar, no page indicator).
   (handmade display: letter heading, TOC title, tab numerals, fallback lesson titles).
   Thierry + Hello-Handmade via `@font-face` from `engine/assets/fonts/`; Mulish + Font
   Awesome from CDN.
+- **Section icons:** Emily's **hand-drawn SVG icons in brand red** inside the powder
+  circles (`engine/assets/icons/icon-*.svg`, single-path recolorable — prayer hands =
+  Opening Prayer, open book = Scripture, play = Watch, dialogue bubble = Questions,
+  heart = Closing Prayer). Font Awesome still supplies chrome glyphs (tabs, ribbon,
+  modal, resources play button).
 - **Page order:** hidden blank page (see below) · cover (`assets/cover.png`,
   full-bleed) · **letter** (no eyebrow logo, no rhythm box) · **Contents**
   (lesson list + relocated **"rhythm of each lesson" 5-step strip** at the bottom) ·
@@ -209,7 +214,8 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
 
 - **All six lessons' discussion questions are FINAL** (Emily's approved wording).
 - **Scripture text is in place (NRSVUE)** and opens in the popout modal.
-- **Cover** is Emily's updated Canva cover (`assets/cover.png`, 1632x2112, July 2026 export — sharper than the original).
+- **Cover** is Emily's FINAL Canva cover (`assets/cover.png`, 1632x2112, tagline
+  "Scripture That Sticks", July 2026).
 - **Binder design shipped** (July 2026). Lesson 1 uses Emily's header art; lessons 2-6 use the engine-drawn header until art arrives.
 
 **Pending inputs from Emily:**
@@ -218,9 +224,7 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
 - ~~Header art~~ **DONE July 2026** — all six lessons use Emily's art
   (`assets/headers/lesson-0N.png`, 1632x560, integrity-verified). Note: lesson 4's art
   reads "Through Christ" while `title`/TOC say "Through Him" (flagged to Emily).
-- **Hand-drawn section icons** (`sss_*_hand_drawn.svg`, recolorable, on Emily's C:
-  drive) are mocked in red as replacements for the Font Awesome section icons —
-  awaiting Emily's approval; NOT yet in the engine.
+- **Hand-drawn red section icons approved and shipped** (July 2026).
 - **New back cover** in the blue design (optional — back page currently dropped).
 - **PDF re-cut** (secondary product; see below).
 
