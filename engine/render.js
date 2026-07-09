@@ -7,7 +7,7 @@
   if (!C) { console.error("BBS_CONTENT missing"); return; }
   var esc = function (s) { return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); };
   var bold = function (s) { return esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"); };
-  var ico = function (fa) { return '<span class="ic"><i class="fa-solid ' + fa + '"></i></span>'; };
+  var ico = function (name) { return '<span class="ic ic-' + name + '"></span>'; };
   var pad2 = function (n) { return n < 10 ? "0" + n : String(n); };
   var SPARKS = '<svg class="hsparks" viewBox="0 0 34 34"><g stroke="#FB1616" stroke-width="4" stroke-linecap="round"><path d="M17 2 L17 12"/><path d="M31 8 L23 15"/><path d="M3 8 L11 15"/></g></svg>';
   var HILLS = '<svg class="vhills" viewBox="0 0 700 150" preserveAspectRatio="none"><path d="M0 90 Q160 40 340 78 T700 66 L700 150 L0 150 Z" fill="#B7D3EE"/><path d="M0 118 Q210 70 430 104 T700 100 L700 150 L0 150 Z" fill="#A6C7E8"/></svg>';
@@ -54,12 +54,12 @@
 
   function lessonPageA(l) {
     return '<div class="pg lesson">' + headerSlot(l) +
-      '<div class="sec tight">' + ico("fa-hands-praying") + '<span class="sl">Opening Prayer</span><span class="lead"></span></div>' +
+      '<div class="sec tight">' + ico("prayer") + '<span class="sl">Opening Prayer</span><span class="lead"></span></div>' +
       '<div class="card"><p>' + esc(l.openingPrayer) + '</p></div>' +
-      '<div class="sec">' + ico("fa-book-open") + '<span class="sl">Read the Scripture</span><span class="lead"></span></div>' +
+      '<div class="sec">' + ico("book") + '<span class="sl">Read the Scripture</span><span class="lead"></span></div>' +
       '<button class="scripcard" type="button" data-scrip="' + l.n + '"><span class="ref">' + esc(l.scriptureRef) + '</span>' +
       '<span class="scripbtn">Read the passage <span class="badge">NRSVUE</span> <i class="fa-solid fa-book-open"></i></span></button>' +
-      '<div class="sec">' + ico("fa-play") + '<span class="sl">Watch the 3-Minute Bible</span><span class="lead"></span></div>' +
+      '<div class="sec">' + ico("play") + '<span class="sl">Watch the 3-Minute Bible</span><span class="lead"></span></div>' +
       '<div class="vzone">' + videoCard(l) + '</div></div>';
   }
 
@@ -72,9 +72,9 @@
   function lessonPageB(l) {
     var q = l.questions.map(function (t, i) { return '<div class="q"><span class="qn">' + (i + 1) + '</span><p>' + esc(t) + '</p></div>'; }).join("");
     return '<div class="pg lesson">' +
-      '<div class="sec" style="margin-top:0">' + ico("fa-comment-dots") + '<span class="sl">Discussion Questions</span><span class="lead"></span></div>' +
+      '<div class="sec" style="margin-top:0">' + ico("dialogue") + '<span class="sl">Discussion Questions</span><span class="lead"></span></div>' +
       '<div class="qs' + (l.questions.length >= 6 ? ' qmany' : '') + '">' + q + '</div>' +
-      '<div class="sec">' + ico("fa-hands-praying") + '<span class="sl">Closing Prayer</span><span class="lead"></span></div>' +
+      '<div class="sec">' + ico("heart") + '<span class="sl">Closing Prayer</span><span class="lead"></span></div>' +
       '<div class="card"><p>' + esc(l.closingPrayer) + '</p></div>' +
       '<div class="foot"><span>' + esc(C.meta.title) + ' &middot; Lesson ' + pad2(l.n) + ' of ' + C.lessons.length + '</span></div></div>';
   }
