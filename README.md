@@ -40,6 +40,11 @@ corrupted). Therefore:
 - Push with the **Git Data API**: GET `git/ref/heads/main` -> read the base commit's tree ->
   POST `git/blobs` (base64) per file -> POST `git/trees` (with `base_tree`) -> POST
   `git/commits` -> PATCH `git/refs/heads/main`. (One commit can carry several files.)
+- **If `api.github.com` is unavailable** (some Cowork cloud sandboxes gate the Git Data API
+  host while still allowing git-over-HTTPS): clone with the PAT
+  (`https://x-access-token:<PAT>@github.com/...`), author in `/tmp`, and `git push` to
+  `main`. This lands identical bytes; verify parity by re-fetching `origin/main` and
+  diffing. (Used for the packet-#2 push, July 2026.)
 - **Token:** a fine-grained PAT (Contents: Read & Write, this repo only) is at
   `C:\Users\esavant\Dropbox\Sunday School Simplified\.claude-git-token.txt`. Use it;
   **never echo or print the token value.**
@@ -153,6 +158,13 @@ layout — no top bar, no page indicator).
   visible on every screen; #stage is pointer-events:none so it stays clickable.
 - **Palette:** navy `#0A274C`, powder blue `#CCE0F5`, smoky blue `#2F5972`, page
   `#FCFDFF`, card `#EAF3FC`; brand red **`#FB1616`** as small accents only.
+- **Per-packet theming:** a packet may re-skin the shared engine by overriding its CSS
+  variables (and a few hardcoded-chrome selectors) in an inline `<style>` in the packet's
+  own `index.html`, leaving `engine/styles.css` untouched. Packet #2 (Gospel According to
+  the Women) keeps the navy chrome but sets `--powder` to pale yellow, `--smoky`/`--red`
+  to brown, warms the neutrals, recolors the section-icon SVGs (packet-local copies under
+  the packet's `assets/icons/`), makes the download ribbon bright yellow, and tightens
+  `.qs .q` spacing so long question sets fit.
 - **Type:** **Thierry Leonie** (display numerals), **Mulish** (body; upsized ~10% vs the
   old layout for readability/accessibility — body 18-19px), **Hello-Handmade Sans**
   (handmade display: letter heading, TOC title, tab numerals, fallback lesson titles).
@@ -239,6 +251,66 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
 - **New back cover** in the blue design (optional — back page currently dropped).
 - **PDF re-cut with Vimeo links** once videoUrls exist (current PDF shipped July 2026
   with "coming soon" video notes; see The PDF section).
+
+## Packet #2 — The Gospel According to the Women (status)
+
+Six women whose faith and courage move the biblical story forward: **Hannah**
+(1 Sam 1:1–20), **Eve** (Gen 2:18–25), **Shiphrah and Puah** (Exodus 1:8–22), the
+**Daughters of Zelophehad** (Numbers 27:1–11), **Tamar** (Genesis 38:6–26), and the
+**Widow of Zarephath** (1 Kings 17:8–16). Source material: Emily's 3-Minute Bible
+transcripts + a theme/scripture chart (Dropbox).
+
+- **Palette (navy binder, warm interior):** keeps the shared engine's navy chrome; the rest
+  is re-skinned via CSS-variable overrides (see "Per-packet theming"): pale-yellow
+  `#FFF59C` circles, brown `#6d4f26` accents (rules, verse numbers, recolored section icons,
+  header sparks), warm cream cards/stage, a **bright-yellow download ribbon** (`#FFD21E`,
+  navy text — Emily wants it to grab the eye), and soft-khaki video "hills" (kept out of
+  olive — an earlier olive-green chrome read muddy against the yellow cover and was dropped
+  in favor of navy). Cover is Emily's Canva cover (`assets/cover.png`, 1632×2112,
+  gold-on-yellow, integrity-verified).
+- **Lesson 1 (Hannah) questions are FINAL** — exactly Emily's five, with one edit she
+  approved (Samuel "raised at the sanctuary, not at home with Hannah" — the earlier draft
+  said "the temple," anachronistic here). Lessons 2–6 questions, the letter, and all
+  prayers are **first drafts pending Emily's review** (Eve is next).
+- **Tabs/titles use the women's names** (`tabRef`), not the scripture reference, which suits
+  this packet; `shortRef` carries the reference on the Contents rows.
+- **Scripture modals are intentionally empty** for now — the pop-out links to the
+  authoritative NRSVUE on Bible Gateway (with attribution) via `scriptureUrl`, so nothing is
+  misquoted; full vetted passage text will be dropped in later (as BBS got its text).
+- **Headers are engine-drawn** (`headerImage: null`) — no per-lesson art yet.
+- **Page-fit:** the packet slightly tightens question spacing (`.qs .q` overrides) so long
+  question sets (e.g. Hannah's five) never collide with the closing prayer.
+- **Optional video** "Orphan, Widow, and Stranger" is stubbed on the Additional Resources
+  page under Hannah (Emily to provide the Vimeo link).
+- **NOT yet listed in `packets/index.json`** — deployed to `main` (reachable at
+  `/gospel-according-to-the-women/`) but deliberately kept **off the public storefront**
+  until the questions are finalized and the paywall is wired. Add the `index.json` entry
+  when ready to sell.
+
+Pending: Eve→Widow question approval · full NRSVUE passage text · Vimeo `videoUrl`s ·
+optional per-lesson header art · the PDF (secondary) · wire the Foxy/portal access (below).
+
+## Access / paywall model (packets)
+
+Agreed with Emily (July 2026) for selling packets, mirroring The Candler Foundry's existing
+on-demand **courses** flow (Foxy + Webflow customer portal):
+
+- **Unit of sale:** the **whole packet** — one Foxy product, one-time purchase, lifetime
+  access. Not per-lesson.
+- **Registration is required at checkout** (Foxy forces account creation). The real goal is
+  capturing buyers onto the **mailing list**; Emily is not worried about lesson
+  leakage/forwarding and plans to give many away — a **free lesson = a $0 Foxy product** that
+  still forces registration.
+- **Gating is cosmetic**, handled entirely by the **existing Foxy customer portal +
+  show/hide** on Webflow — the flipbook itself has **no login/unlock code**. After purchase, a
+  welcome email links to the portal (and directly to the packet); the portal's "My Lessons"
+  tab reveals the purchased packet via Foxy show/hide, linking out to the Netlify flipbook.
+- **URLs:** one packet URL plus six per-lesson deep links (`?lesson=N`) for the portal cards
+  and welcome email. The series landing page (`index.html`) is the public **storefront**; the
+  lessons are reached via the links Emily distributes.
+- Packet #1 (Beyond Bumper Stickers) is to move behind the same portal gate.
+- If leakage ever becomes a real concern, the upgrade path (not built) is a real edge-function
+  gate (Foxy JWT + per-product entitlement check), e.g. via a Netlify Edge Function.
 
 ## The PDF (secondary, print-friendly product)
 

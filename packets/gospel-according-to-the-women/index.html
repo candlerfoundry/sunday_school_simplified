@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Gospel According to the Women — Sunday School Simplified</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../../engine/styles.css">
+<link rel="icon" type="image/svg+xml" href="../../engine/assets/favicon.svg">
+<style>
+/* ===== The Gospel According to the Women — packet palette =====
+   Navy binder (brand chrome, shared with the engine default) holding a warm
+   yellow / brown interior. Scoped to this packet via CSS-variable overrides +
+   a few warm-neutral tweaks; the shared engine is untouched. */
+:root{
+  --navy:#0A274C;   /* brand navy: chrome, headings, body text, numerals, buttons, active tab */
+  --powder:#FFF59C; /* pale yellow: circles behind numerals + icons + question bubbles */
+  --smoky:#6d4f26;  /* brown: secondary text (references, captions, labels) */
+  --red:#6d4f26;    /* brown accent: rules, verse numbers, ribbon, rhythm circles, quotes */
+  --page:#FFFEF7;   /* warm page */
+  --card:#FBFAEA;   /* warm card */
+  --cardbd:#E7E3C0;
+  --dot:#D8D3A2;
+  --stage:#EAE7CE;  /* warm cream behind the binder */
+  --muted:#8f8757;
+}
+/* warm cream tabs (engine default is a cool blue) */
+.tab{background:#FBFAEA;}
+/* section icons: brown-recolored packet-local copies */
+.ic-prayer::after{background-image:url('assets/icons/icon-prayer.svg');}
+.ic-book::after{background-image:url('assets/icons/icon-book.svg');}
+.ic-play::after{background-image:url('assets/icons/icon-play.svg');}
+.ic-dialogue::after{background-image:url('assets/icons/icon-dialogue.svg');}
+.ic-heart::after{background-image:url('assets/icons/icon-heart.svg');}
+/* header sparks → brown (CSS stroke overrides the SVG presentation attribute) */
+.hsparks g{stroke:#6d4f26;}
+/* video card: warm yellow field with soft khaki "hills" (kept out of olive territory) */
+.vcard{background:linear-gradient(180deg,#FCF8D2,#FFF59C);}
+.vhills path:first-of-type{fill:#CDCB9E;}
+.vhills path:last-of-type{fill:#B7B27E;}
+/* footer hairline + page-edge stacks + gutter → warm neutrals to match the cream book */
+.foot{border-top-color:#E7E3C0;}
+.bookdeco .stack{background:repeating-linear-gradient(180deg,#FFFDF0 0 2px,#E7E1BE 2px 4px);}
+.bookdeco .stack.left{background:linear-gradient(90deg,rgba(61,45,15,.14),rgba(61,45,15,0) 70%),repeating-linear-gradient(180deg,#FFFDF0 0 2px,#E7E1BE 2px 4px);}
+.bookdeco .stack.right{background:linear-gradient(270deg,rgba(61,45,15,.14),rgba(61,45,15,0) 70%),repeating-linear-gradient(180deg,#FFFDF0 0 2px,#E7E1BE 2px 4px);}
+.bookdeco .gutter{background:linear-gradient(90deg,rgba(10,39,76,0),rgba(10,39,76,.10) 46%,rgba(10,39,76,.16) 50%,rgba(10,39,76,.10) 54%,rgba(10,39,76,0));}
+/* download ribbon → bright yellow to draw the eye (navy text/icon) */
+.dlbtn{background:#FFD21E;color:#0A274C;box-shadow:-6px 6px 18px rgba(10,39,76,.30);}
+.dlbtn i{color:#0A274C;}
+/* fit longer question sets on page B without collision */
+.qs .q{padding:11px 0;}
+.qs .q p{font-size:17.5px;line-height:1.42;}
+</style>
+</head>
+<body>
+  <button class="nav prev" id="navPrev" aria-label="Previous">&#8249;</button>
+  <button class="nav next" id="navNext" aria-label="Next">&#8250;</button>
+  <a class="dlbtn" href="#" aria-label="Download printable packet">
+    <i class="fa-solid fa-download"></i><span class="vtxt">Download Printable Packet</span>
+  </a>
+  <a class="wmark" href="https://www.candlerfoundry.emory.edu" target="_blank" rel="noopener" aria-label="The Candler Foundry"></a>
+  <div id="stage">
+    <div id="binder-scaler"><div class="binder">
+      <div id="spine"></div>
+      <div id="pageflip"></div>
+      <div id="tabs"></div>
+    </div></div>
+  </div>
+  <script src="content.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+  <script src="../../engine/render.js"></script>
+</body>
+</html>
