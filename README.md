@@ -178,10 +178,24 @@ layout — no top bar, no page indicator).
 - **Page order:** hidden blank page (see below) · cover (`assets/cover.png`,
   full-bleed) · **letter** (no eyebrow logo, no rhythm box) · **Contents**
   (lesson list + relocated **"rhythm of each lesson" 5-step strip** at the bottom) ·
-  **two pages per lesson** · **Additional Resources** (all `optionalVideo`s live here —
-  lesson pages carry NO optional-viewing bar) · **end page** (full Candler Foundry logo,
-  tagline, candlerfoundry.org). **No back-cover image** (old road-trip `back.jpg` was
-  dropped; a new blue-design back cover may return later).
+  **two pages per lesson** · **Additional Resources** (all `optionalVideo`s AND
+  `optionalReadings` live here — lesson pages carry NO optional-viewing bar) ·
+  **end page** (full Candler Foundry logo, tagline, candlerfoundry.org).
+  **No back-cover image** (old road-trip `back.jpg` was dropped; a new blue-design
+  back cover may return later).
+- **Lesson-page extras (July 2026):** (1) `funFact` — an optional per-lesson
+  "Did you know?" aside (`.funfact`, Hello-Handmade label + italic note, accent-colored
+  left rule) rendered under the video card on page A; null/absent → nothing renders.
+  (2) **"More on this lesson" chip** (`.morebtn`) — sits at the right end of page B's
+  existing footer row (zero added height) and jumps to the Additional Resources spread;
+  renders only when the lesson has an `optionalVideo` or `optionalReadings`. It's a
+  real `<button>` (divs would trigger StPageFlip's click-to-flip).
+- **Additional Resources readings (July 2026):** the resources page now renders
+  `optionalReadings` cards (outlined-circle book icon, `.rcard.rread`) after each
+  lesson's video card, linking out in a new tab. These are LINKS ONLY to free-access
+  sites (Bible Odyssey, Yale Bible Study, etc.) — never reproduce their content in the
+  packet; free-to-view is not open-license. Page lede/empty-state copy now says
+  "viewing and reading."
 - **Lesson page A:** fixed full-bleed **header slot 816x280** at top — per-lesson art
   (`headerImage`, export at **1632x560**, white background) or, when null, an
   engine-drawn header replicating the approved art style (powder circle + Thierry
@@ -217,6 +231,12 @@ lesson = { n, accent, reference, shortRef, title,
            videoTitle, videoSubtitle, videoUrl,   // videoUrl empty until Vimeo links exist
            optionalVideo,       // { title, subtitle, url } or null — renders on the
                                 //   Additional Resources page, NOT on the lesson page
+           optionalReadings,    // [ { title, subtitle, url }, ... ] or null — free-access
+                                //   reading LINKS, rendered as book-icon cards on the
+                                //   Additional Resources page (link out only, never
+                                //   reproduce the content)
+           funFact,             // string or null — "Did you know?" aside under the
+                                //   video card on lesson page A
            headerImage,         // path or null (engine draws the replica header when null);
                                 //   art spec: 1632x560 PNG, white bg, fills 816x280 slot
            questions: [ ... ] } // 5-6 strings
@@ -270,8 +290,18 @@ transcripts + a theme/scripture chart (Dropbox).
   gold-on-yellow, integrity-verified).
 - **Lesson 1 (Hannah) questions are FINAL** — exactly Emily's five, with one edit she
   approved (Samuel "raised at the sanctuary, not at home with Hannah" — the earlier draft
-  said "the temple," anachronistic here). Lessons 2–6 questions, the letter, and all
-  prayers are **first drafts pending Emily's review** (Eve is next).
+  said "the temple," anachronistic here). Lessons 3–6 questions, the letter, and the
+  remaining prayers are **first drafts pending Emily's review** (Shiphrah & Puah next).
+- **Lesson 2 (Eve) is FINAL (July 2026)** — rebuilt around Emily's "honest context"
+  approach: no feminist gloss on Gen 3:16 (the video's "rule with/alongside" preposition
+  claim doesn't survive scrutiny — `mashal` + *bet* means "rule over" everywhere it
+  occurs); instead the questions teach etiology, name the writers' patriarchal world
+  plainly, confront the video-vs-translations tension directly (trust > tidiness), and
+  end redemptively (God near; *khavvah* = "life"). Scope broadened to the whole Eden
+  narrative (**Genesis 2:4–3:24**, `shortRef` "Genesis 2–3"). Eve's prayers retuned to
+  match. Extras: `funFact` (no apple/Satan/"sin" in Genesis), `optionalVideo` stub
+  ("Genesis" 3-Minute Bible, Vimeo link pending), and two `optionalReadings`
+  (Bible Odyssey "Eve"; Yale Bible Study "Genesis" — both free-access, links only).
 - **Tabs/titles use the women's names** (`tabRef`), not the scripture reference, which suits
   this packet; `shortRef` carries the reference on the Contents rows.
 - **Scripture modals are intentionally empty** for now — the pop-out links to the
@@ -289,9 +319,11 @@ transcripts + a theme/scripture chart (Dropbox).
   accent `#6d4f26`, `status:"live"` (a `"soon"` card renders dimmed with no link), no
   `pdf` key yet.
 
-Pending: Eve→Widow question approval (content is DRAFT — do not distribute links until
-approved) · full NRSVUE passage text · Vimeo `videoUrl`s · optional per-lesson header
-art · the PDF (secondary) · wire the Foxy/portal access (below).
+Pending: Shiphrah & Puah→Widow question approval (lessons 3–6 are DRAFT — do not
+distribute links until approved) · full NRSVUE passage text · Vimeo `videoUrl`s
+(including the "Genesis" optional video) · optional per-lesson header art · the PDF
+(secondary; note `tools/make_pdf.py` predates `optionalReadings`/`funFact` and will
+need those added at re-cut time) · wire the Foxy/portal access (below).
 
 ## Access / paywall model (packets)
 

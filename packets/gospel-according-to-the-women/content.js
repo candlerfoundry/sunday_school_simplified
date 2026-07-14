@@ -1,7 +1,9 @@
 /* The Gospel According to the Women — content payload (window.BBS_CONTENT).
-   Lesson 1 (Hannah) questions are Emily-approved (final). Lessons 2–6 questions,
-   plus the letter and prayers, are drafts pending Emily's review. Scripture modals
-   are intentionally empty for now: the pop-out links to the authoritative NRSVUE on
+   Lessons 1 (Hannah) and 2 (Eve) questions are Emily-approved (final; Eve's scope
+   is the whole Eden narrative, Gen 2:4–3:24, and her prayers were retuned July 2026
+   to match the honest-context approach). Lessons 3–6 questions, plus the letter and
+   remaining prayers, are drafts pending Emily's review. Scripture modals are
+   intentionally empty for now: the pop-out links to the authoritative NRSVUE on
    Bible Gateway, and the full vetted passage text will be dropped in later. */
 window.BBS_CONTENT = {
   "meta": {
@@ -78,26 +80,43 @@ window.BBS_CONTENT = {
       "n": 2,
       "tabRef": "Eve",
       "accent": "#7A9A12",
-      "reference": "Genesis 2:18–25",
-      "shortRef": "Genesis 2",
+      "reference": "Genesis 2:4–3:24",
+      "shortRef": "Genesis 2–3",
       "title": "Eve",
       "subtitle": "",
-      "openingPrayer": "Creator God, you made us for one another and called our life together very good. As we open the story of Eve, free us from old distortions of power, and help us see the dignity you have given to every person. In the name of your Son Jesus Christ we pray. Amen.",
-      "closingPrayer": "God of partnership, you set us side by side to help and honor one another. Send us out to build homes, churches, and friendships where your image is honored in everyone. In the name of your Son Jesus Christ we pray. Amen.",
-      "scriptureRef": "Genesis 2:18–25",
+      "openingPrayer": "Creator God, you formed us from the dust and breathed your own life into us. As we open the story of Eve, give us honest eyes for the ancient world these words come from, and open hearts for the beauty and meaning they still carry. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "God who walks in the garden, you stay near your children even when we hide, and you clothe us with care even east of Eden. Send us out to live honestly and gently, carrying the life you have breathed into us. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "Genesis 2:4–3:24",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Eve: Partner, Not Subordinate",
       "questions": [
-        "Genesis 2:18 has God call the human's aloneness \"not good\" — the first thing in all of creation named not good. What does that tell you about how we're made, and about the worth God places on companionship and partnership?",
-        "God makes the woman as a \"helper\" for the man (vv. 18, 20). The video points out that the Hebrew word ezer is used almost everywhere else in Scripture for a superior — God himself is repeatedly called Israel's ezer. How does that unsettle the way \"helper\" often gets heard as \"assistant\" or \"lesser\"?",
-        "She is built from the human's own side, and he greets her as \"bone of my bones and flesh of my flesh\" (vv. 21–23). What picture of the relationship is that language painting — one of ranking, or of shared substance and equality?",
-        "For centuries some read Adam being formed first as proof that men outrank women, and built church practice on it. Yet Genesis 1 has God create male and female together, both bearing the divine image. Holding the two chapters side by side, what do you think Genesis actually teaches about men and women?",
-        "After the first sin, God tells the woman the man \"shall rule over you\" (Genesis 3:16). The video notes the Hebrew preposition here more often means \"with\" or \"alongside.\" How does reading it as ruling alongside her, rather than over her, change what that verse has so often been used to justify?",
-        "Where have you seen genuine partnership \"side by side\" bring life — in a marriage, a friendship, a church, a workplace — and where have you seen hierarchy do harm? What would it look like to treat those closest to you as an ezer worthy of that dignity?"
+        "What have you been taught about Eve in your faith community? Has her story shaped how you, or your church, understand women more broadly: their roles in ministry, at home, in leadership?",
+        "The Bible is full of stories that explain why the world is the way it is. Scholars call them \"etiologies.\" Some explain natural phenomena: the rainbow appears in Genesis 9 as the sign that God will never flood the earth again. Genesis 2–3 is packed with them. How many can your group spot? (Why snakes crawl. Why childbirth hurts. Why farming is backbreaking. Why we wear clothes. Why we leave home to marry. Why we die.)",
+        "Look again at Genesis 3:16 with etiology in mind. Among other things, the text is explaining a feature of the writers' world. Specifically, society was patriarchal, meaning that men tended to have more rights than women. How comfortable are you with finding beauty and spiritual meaning in ancient texts, even when our modern way of thinking starkly differs from that of their writers?",
+        "The relationship between Adam and Eve in Genesis 3:16 has been interpreted many ways. Most translations, including the NRSVUE this packet uses, render it \"he shall rule over you.\" Others, as the video notes, read the Hebrew in a way that keeps Adam and Eve equals. How comfortable are you sitting with that ambiguity? Does it matter if there is a right or wrong interpretation?",
+        "How do these writers depict God? Notice the human-like touches: God shapes the man from dust like a potter, plants a garden, performs surgery, walks in the garden in the evening breeze, asks \"Where are you?\" Compare that with the cosmic voice of Genesis 1, speaking creation into being. Is one of these closer to how you understand God than the other?",
+        "For all its hard edges, this story insists God is near: walking, asking, listening, providing. And its last word about Eve is her name, khavvah, \"life, mother of all living\" (3:20), given after everything went wrong. What do the writers want us to understand about our life with God east of Eden, where we all actually live?"
       ],
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%202%3A18-25&version=NRSVUE",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%202%3A4-3%3A24&version=NRSVUE",
       "videoUrl": "",
-      "optionalVideo": null,
+      "optionalVideo": {
+        "title": "Genesis",
+        "subtitle": "3-Minute Bible · optional (coming soon)",
+        "url": ""
+      },
+      "optionalReadings": [
+        {
+          "title": "Eve",
+          "subtitle": "Bible Odyssey · a free short article from the Society of Biblical Literature",
+          "url": "https://www.bibleodyssey.org/articles/eve/"
+        },
+        {
+          "title": "Genesis",
+          "subtitle": "Yale Bible Study · free videos and study guides for groups",
+          "url": "https://yalebiblestudy.org/courses/genesis/"
+        }
+      ],
+      "funFact": "Genesis never mentions an apple, Satan, or even the word 'sin.' All of those came from later readers of the story.",
       "scriptureText": "",
       "headerImage": null
     },

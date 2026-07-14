@@ -138,6 +138,16 @@ body{background:var(--stage);font-family:'Mulish',sans-serif;color:var(--navy);-
 .qs.qmany .qn{width:29px;height:29px;font-size:14.5px;}
 .foot{flex:0 0 auto;display:flex;align-items:center;justify-content:flex-start;border-top:1px solid #E3EDF7;padding-top:12px;margin-top:14px;
   font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--smoky);}
+/* "did you know?" hand-written aside under the video (renders only when funFact is set) */
+.funfact{flex:0 0 auto;margin-top:16px;width:100%;max-width:568px;border-left:3px solid var(--red);padding-left:14px;}
+.funfact .fflabel{font-family:'Hello Handmade',sans-serif;font-size:22px;line-height:1;color:var(--red);display:block;}
+.funfact p{font-weight:500;font-style:italic;font-size:15.5px;line-height:1.45;color:var(--smoky);margin-top:6px;}
+/* footer chip on page B → jumps to Additional Resources (renders only when the lesson has extras) */
+.morebtn{margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:transparent;border:1.5px solid var(--cardbd);
+  color:var(--smoky);font-family:'Mulish',sans-serif;font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  border-radius:100px;padding:7px 14px;cursor:pointer;transition:.15s;}
+.morebtn:hover{border-color:var(--navy);color:var(--navy);}
+.morebtn i{font-size:10px;}
 /* ===== additional resources ===== */
 .resources{padding:64px 60px 56px;}
 .rlist{flex:1;margin-top:28px;display:flex;flex-direction:column;gap:16px;}
@@ -148,6 +158,8 @@ body{background:var(--stage);font-family:'Mulish',sans-serif;color:var(--navy);-
 .rcard .rtl{font-weight:800;font-size:20px;color:var(--navy);line-height:1.15;}
 .rcard .rsub{font-weight:600;font-size:14.5px;color:var(--smoky);margin-top:4px;}
 .rcard .rref{flex:0 0 auto;font-weight:800;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--smoky);background:#fff;border:1px solid var(--cardbd);border-radius:100px;padding:7px 13px;}
+/* reading cards: outlined circle (vs the solid circle on video cards) */
+.rcard.rread .rp{background:#fff;color:var(--navy);border:2px solid var(--navy);font-size:16px;}
 .rnone{font-weight:600;font-style:italic;font-size:16px;color:var(--smoky);}
 .rnote{border-top:2px dotted var(--dot);padding-top:16px;font-weight:600;font-style:italic;font-size:15.5px;color:var(--smoky);line-height:1.5;flex:0 0 auto;}
 /* ===== end page ===== */

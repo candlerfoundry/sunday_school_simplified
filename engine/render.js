@@ -60,7 +60,12 @@
       '<button class="scripcard" type="button" data-scrip="' + l.n + '"><span class="ref">' + esc(l.scriptureRef) + '</span>' +
       '<span class="scripbtn">Read the passage <span class="badge">NRSVUE</span> <i class="fa-solid fa-book-open"></i></span></button>' +
       '<div class="sec">' + ico("play") + '<span class="sl">Watch the 3-Minute Bible</span><span class="lead"></span></div>' +
-      '<div class="vzone">' + videoCard(l) + '</div></div>';
+      '<div class="vzone">' + videoCard(l) + funFact(l) + '</div></div>';
+  }
+
+  function funFact(l) {
+    if (!l.funFact) return "";
+    return '<div class="funfact"><span class="fflabel">Did you know?</span><p>' + esc(l.funFact) + '</p></div>';
   }
 
   function videoCard(l) {
@@ -76,25 +81,39 @@
       '<div class="qs' + (l.questions.length >= 6 ? ' qmany' : '') + '">' + q + '</div>' +
       '<div class="sec">' + ico("heart") + '<span class="sl">Closing Prayer</span><span class="lead"></span></div>' +
       '<div class="card"><p>' + esc(l.closingPrayer) + '</p></div>' +
-      '<div class="foot"><span>' + esc(C.meta.title) + ' &middot; Lesson ' + pad2(l.n) + ' of ' + C.lessons.length + '</span></div></div>';
+      '<div class="foot"><span>' + esc(C.meta.title) + ' &middot; Lesson ' + pad2(l.n) + ' of ' + C.lessons.length + '</span>' + moreBtn(l) + '</div></div>';
+  }
+
+  // rendered only when the lesson has extras waiting in the back; a real <button>
+  // (buttons don't trigger StPageFlip's click-to-flip) that jumps to Additional Resources
+  function moreBtn(l) {
+    if (!l.optionalVideo && !(l.optionalReadings && l.optionalReadings.length)) return "";
+    return '<button class="morebtn" type="button" data-gotores="1">More on this lesson <i class="fa-solid fa-arrow-right"></i></button>';
   }
 
   function resourcesPage() {
-    var withOpt = C.lessons.filter(function (l) { return l.optionalVideo; });
-    var cards = withOpt.map(function (l) {
-      var o = l.optionalVideo;
-      var inner = '<span class="rp"><i class="fa-solid fa-play"></i></span>' +
-        '<span class="rmid"><span class="rtl">' + esc(o.title) + '</span><span class="rsub">' + esc(o.subtitle || "3-Minute Bible · optional") + '</span></span>' +
+    function rcard(l, o, kind) {
+      var icon = kind === "read" ? "fa-book-open" : "fa-play";
+      var defSub = kind === "read" ? "Free online reading" : "3-Minute Bible · optional";
+      var inner = '<span class="rp"><i class="fa-solid ' + icon + '"></i></span>' +
+        '<span class="rmid"><span class="rtl">' + esc(o.title) + '</span><span class="rsub">' + esc(o.subtitle || defSub) + '</span></span>' +
         '<span class="rref">Lesson ' + l.n + ' &middot; ' + esc(l.tabRef || l.shortRef) + '</span>';
+      var cls = "rcard" + (kind === "read" ? " rread" : "");
       return o.url
-        ? '<a class="rcard" href="' + esc(o.url) + '" target="_blank" rel="noopener">' + inner + '</a>'
-        : '<div class="rcard">' + inner + '</div>';
+        ? '<a class="' + cls + '" href="' + esc(o.url) + '" target="_blank" rel="noopener">' + inner + '</a>'
+        : '<div class="' + cls + '">' + inner + '</div>';
+    }
+    var cards = C.lessons.map(function (l) {
+      var out = "";
+      if (l.optionalVideo) out += rcard(l, l.optionalVideo, "video");
+      (l.optionalReadings || []).forEach(function (r) { out += rcard(l, r, "read"); });
+      return out;
     }).join("");
-    if (!cards) cards = '<div class="rnone">Optional videos will appear here as they are added.</div>';
+    if (!cards) cards = '<div class="rnone">Optional videos and readings will appear here as they are added.</div>';
     return '<div class="pg resources"><div class="chead">Additional Resources</div>' +
-      '<div class="lede">Optional viewing for classes that want to go deeper — each is a short 3-Minute Bible video.</div>' +
+      '<div class="lede">Optional viewing and reading for classes that want to go deeper.</div>' +
       '<div class="rlist">' + cards + '</div>' +
-      '<div class="rnote">More optional videos will appear here as they’re added to future lessons.</div></div>';
+      '<div class="rnote">More optional videos and readings will appear here as they’re added to future lessons.</div></div>';
   }
 
   function endPage() {
@@ -237,6 +256,8 @@
   flipEl.addEventListener("click", function (e) {
     var card = e.target.closest(".scripcard");
     if (card) { e.stopPropagation(); openScrip(parseInt(card.getAttribute("data-scrip"), 10)); return; }
+    var m = e.target.closest("[data-gotores]");
+    if (m) { e.stopPropagation(); flip.flip(RESOURCES_IDX); return; }
     var t = e.target.closest("[data-goto]");
     if (t) gotoLesson(parseInt(t.getAttribute("data-goto"), 10));
   });
