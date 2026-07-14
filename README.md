@@ -282,13 +282,16 @@ transcripts + a theme/scripture chart (Dropbox).
   question sets (e.g. Hannah's five) never collide with the closing prayer.
 - **Optional video** "Orphan, Widow, and Stranger" is stubbed on the Additional Resources
   page under Hannah (Emily to provide the Vimeo link).
-- **NOT yet listed in `packets/index.json`** — deployed to `main` (reachable at
-  `/gospel-according-to-the-women/`) but deliberately kept **off the public storefront**
-  until the questions are finalized and the paywall is wired. Add the `index.json` entry
-  when ready to sell.
+- **Listed in `packets/index.json` (July 2026)** — Emily asked for it on the storefront
+  for her own ease of review access from the landing page. This changes nothing about
+  exposure (the packet URL was already public, same as BBS); nothing is *distributed* to
+  users until Emily approves the content. Card: subtitle from `meta.tagline`, brown
+  accent `#6d4f26`, `status:"live"` (a `"soon"` card renders dimmed with no link), no
+  `pdf` key yet.
 
-Pending: Eve→Widow question approval · full NRSVUE passage text · Vimeo `videoUrl`s ·
-optional per-lesson header art · the PDF (secondary) · wire the Foxy/portal access (below).
+Pending: Eve→Widow question approval (content is DRAFT — do not distribute links until
+approved) · full NRSVUE passage text · Vimeo `videoUrl`s · optional per-lesson header
+art · the PDF (secondary) · wire the Foxy/portal access (below).
 
 ## Access / paywall model (packets)
 

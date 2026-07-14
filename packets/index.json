@@ -7,5 +7,13 @@
     "lessons": 6,
     "pdf": "Beyond Bumper Stickers.pdf",
     "status": "live"
+  },
+  {
+    "slug": "gospel-according-to-the-women",
+    "title": "The Gospel According to the Women",
+    "subtitle": "Six women who move the story of God forward",
+    "accent": "#6d4f26",
+    "lessons": 6,
+    "status": "live"
   }
 ]
