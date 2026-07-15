@@ -79,7 +79,7 @@
     return '<div class="pg lesson">' +
       '<div class="sec" style="margin-top:0">' + ico("dialogue") + '<span class="sl">Discussion Questions</span><span class="lead"></span></div>' +
       '<div class="qs' + (l.questions.length >= 6 ? ' qmany' : '') + '">' + q + '</div>' +
-      '<div class="sec">' + ico("heart") + '<span class="sl">Closing Prayer</span><span class="lead"></span></div>' +
+      '<div class="sec">' + ico("prayer") + '<span class="sl">Closing Prayer</span><span class="lead"></span></div>' +
       '<div class="card"><p>' + esc(l.closingPrayer) + '</p></div>' +
       '<div class="foot"><span>' + esc(C.meta.title) + ' &middot; Lesson ' + pad2(l.n) + ' of ' + C.lessons.length + '</span>' + moreBtn(l) + '</div></div>';
   }

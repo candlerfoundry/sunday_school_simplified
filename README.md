@@ -60,11 +60,21 @@ Render the changed pages and eyeball them before committing:
   `node node_modules/playwright-core/cli.js install chromium-headless-shell`. The shell
   needs `libXdamage.so.1`: `apt-get download libxdamage1`, `dpkg-deb -x` to a writable
   dir, run node with `LD_LIBRARY_PATH=<that dir>`.
+- On Emily's Windows machine (July 2026, verified): `npm i playwright-core` in a temp
+  dir, `node node_modules/playwright-core/cli.js install chromium-headless-shell` —
+  works directly, no LD_LIBRARY_PATH dance. Wait on `waitUntil:"load"` +
+  `document.fonts.ready` + ~2s (NOT `networkidle` — a live Vimeo iframe never idles).
+  Vimeo serves headless/automated clients a Turnstile bot-challenge ("couldn't verify
+  the security of your connection") — that black box in screenshots is expected, not a
+  privacy error; confirm real availability via `vimeo.com/api/oembed.json?url=…`.
 - Serve the repo root (`python3 -m http.server`) and screenshot **every spread at two
   viewports** (e.g. 1536x816 and 1920x1080), plus interaction checks: scripture-card
   click must open the modal **without flipping the page**, tab clicks must jump to the
   right spread. Actually READ the screenshots — measure with `getBoundingClientRect`
-  when something looks off; don't guess from theory.
+  when something looks off; don't guess from theory. **Overflow gotcha (how a clipped
+  question shipped once):** `.qs` swallows its own overflow — content slides under the
+  closing prayer with no page-bottom symptom. Check `qs.scrollHeight <= qs.clientHeight`
+  on every lesson page B, with real webfonts loaded.
 - Beware CSS class-name collisions when adding chrome around StPageFlip (a `.vtitle`
   clash between spine and video card once bottom-anchored the spine text).
 - **Mind cross-screen scaling (July 2026 lesson):** the binder scales via
@@ -172,8 +182,10 @@ layout — no top bar, no page indicator).
   Awesome from CDN.
 - **Section icons:** Emily's **hand-drawn SVG icons in brand red** inside the powder
   circles (`engine/assets/icons/icon-*.svg`, single-path recolorable — prayer hands =
-  Opening Prayer, open book = Scripture, play = Watch, dialogue bubble = Questions,
-  heart = Closing Prayer). Font Awesome still supplies chrome glyphs (tabs, ribbon,
+  Opening Prayer AND Closing Prayer, open book = Scripture, play = Watch, dialogue
+  bubble = Questions). The heart icon was dropped July 2026 (Emily: too cheesy) — both
+  prayer sections now use the prayer-hands icon; `icon-heart.svg` files remain on disk
+  but are unreferenced. Font Awesome still supplies chrome glyphs (tabs, ribbon,
   modal, resources play button).
 - **Page order:** hidden blank page (see below) · cover (`assets/cover.png`,
   full-bleed) · **letter** (no eyebrow logo, no rhythm box) · **Contents**
@@ -292,24 +304,31 @@ transcripts + a theme/scripture chart (Dropbox).
   approved (Samuel "raised at the sanctuary, not at home with Hannah" — the earlier draft
   said "the temple," anachronistic here). Lessons 3–6 questions, the letter, and the
   remaining prayers are **first drafts pending Emily's review** (Shiphrah & Puah next).
-- **Lesson 2 (Eve) is FINAL (July 2026)** — rebuilt around Emily's "honest context"
-  approach: no feminist gloss on Gen 3:16 (the video's "rule with/alongside" preposition
-  claim doesn't survive scrutiny — `mashal` + *bet* means "rule over" everywhere it
-  occurs); instead the questions teach etiology, name the writers' patriarchal world
-  plainly, confront the video-vs-translations tension directly (trust > tidiness), and
-  end redemptively (God near; *khavvah* = "life"). Scope broadened to the whole Eden
-  narrative (**Genesis 2:4–3:24**, `shortRef` "Genesis 2–3"). Eve's prayers retuned to
-  match. Extras: `funFact` (no apple/Satan/"sin" in Genesis), `optionalVideo` stub
-  ("Genesis" 3-Minute Bible, Vimeo link pending), and two `optionalReadings`
-  (Bible Odyssey "Eve"; Yale Bible Study "Genesis" — both free-access, links only).
+- **Lesson 2 is "The Two Daughters" (Mark 5:21–43), FINAL (July 2026)** — this
+  REPLACED the Eve lesson entirely (Emily was unhappy with Eve; an honest-context
+  rework was built and shipped, then scrapped in favor of a new anchor text). Built on
+  the existing 3MB **"What is a Markan sandwich?"** (3MB-26, Elizabeth Arnold), whose
+  worked example IS the hemorrhaging woman + Jairus's daughter. Emily's six questions
+  (final); `videoUrl` is LIVE (public Vimeo, `player.vimeo.com/video/1210281687`) —
+  the packet's first embedded video. Extras: `funFact` (*talitha koum* Aramaic),
+  `optionalVideo` "Mark's Secret Messiah" (public, vimeo.com/1210281410, link-out),
+  `optionalReading` Yale Bible Study "The Gospel of Mark" (free-access, link only).
+  The letter's list of women names "the two daughters of Mark 5" in Eve's old slot.
+  NOTE deliberately avoided: purity-law-as-social-outcast framing in the questions
+  (scholars, esp. Amy-Jill Levine, flag it as an anti-Jewish trope; Mark's text
+  grounds her isolation in illness + poverty, v. 26).
 - **Tabs/titles use the women's names** (`tabRef`), not the scripture reference, which suits
   this packet; `shortRef` carries the reference on the Contents rows.
 - **Scripture modals are intentionally empty** for now — the pop-out links to the
   authoritative NRSVUE on Bible Gateway (with attribution) via `scriptureUrl`, so nothing is
   misquoted; full vetted passage text will be dropped in later (as BBS got its text).
 - **Headers are engine-drawn** (`headerImage: null`) — no per-lesson art yet.
-- **Page-fit:** the packet slightly tightens question spacing (`.qs .q` overrides) so long
-  question sets (e.g. Hannah's five) never collide with the closing prayer.
+- **Page-fit (tightened July 2026 after a real overflow shipped):** the packet
+  overrides `.qs .q` (8px pad, 16.5px/1.4 text) and `.card p` (17px prayers) in its
+  inline `<style>`. At the old sizes Hannah's five questions overflowed `.qs` by 45px —
+  the overflow hides INSIDE `.qs` (content slides under the closing prayer, last
+  question invisible) and does NOT show up as page-bottom overflow, so geometry checks
+  must compare `qs.scrollHeight` vs `qs.clientHeight`, not just child bottoms.
 - **Optional video** "Orphan, Widow, and Stranger" is stubbed on the Additional Resources
   page under Hannah (Emily to provide the Vimeo link).
 - **Listed in `packets/index.json` (July 2026)** — Emily asked for it on the storefront
@@ -320,10 +339,11 @@ transcripts + a theme/scripture chart (Dropbox).
   `pdf` key yet.
 
 Pending: Shiphrah & Puah→Widow question approval (lessons 3–6 are DRAFT — do not
-distribute links until approved) · full NRSVUE passage text · Vimeo `videoUrl`s
-(including the "Genesis" optional video) · optional per-lesson header art · the PDF
-(secondary; note `tools/make_pdf.py` predates `optionalReadings`/`funFact` and will
-need those added at re-cut time) · wire the Foxy/portal access (below).
+distribute links until approved) · full NRSVUE passage text · remaining Vimeo
+`videoUrl`s (lesson 2 has its video; Hannah + the "Orphan, Widow, and Stranger"
+optional still pending) · optional per-lesson header art · the PDF (secondary; note
+`tools/make_pdf.py` predates `optionalReadings`/`funFact` and will need those added
+at re-cut time) · wire the Foxy/portal access (below).
 
 ## Access / paywall model (packets)
 

@@ -1,9 +1,8 @@
 /* The Gospel According to the Women — content payload (window.BBS_CONTENT).
-   Lessons 1 (Hannah) and 2 (Eve) questions are Emily-approved (final; Eve's scope
-   is the whole Eden narrative, Gen 2:4–3:24, and her prayers were retuned July 2026
-   to match the honest-context approach). Lessons 3–6 questions, plus the letter and
-   remaining prayers, are drafts pending Emily's review. Scripture modals are
-   intentionally empty for now: the pop-out links to the authoritative NRSVUE on
+   Lessons 1 (Hannah) and 2 (The Two Daughters, Mark 5 — replaced the Eve lesson
+   July 2026) questions are Emily-approved (final). Lessons 3–6 questions, plus the
+   letter and remaining prayers, are drafts pending Emily's review. Scripture modals
+   are intentionally empty for now: the pop-out links to the authoritative NRSVUE on
    Bible Gateway, and the full vetted passage text will be dropped in later. */
 window.BBS_CONTENT = {
   "meta": {
@@ -25,7 +24,7 @@ window.BBS_CONTENT = {
         "\"Tamar, who refused to be erased.\""
       ],
       "paragraphs2": [
-        "**The Gospel According to the Women** is an invitation to slow down with six of these women — Hannah, Eve, Shiphrah and Puah, the daughters of Zelophehad, Tamar, and the widow of Zarephath — and to read their stories in their own right, with the help of biblical scholarship.",
+        "**The Gospel According to the Women** is an invitation to slow down with six of these women — Hannah, the two daughters of Mark 5, Shiphrah and Puah, the daughters of Zelophehad, Tamar, and the widow of Zarephath — and to read their stories in their own right, with the help of biblical scholarship.",
         "We've designed these lessons to be easy — you can study on your own or with a group, no leader necessary."
       ],
       "rhythmTitle": "The Rhythm of Each Lesson",
@@ -78,45 +77,40 @@ window.BBS_CONTENT = {
     },
     {
       "n": 2,
-      "tabRef": "Eve",
+      "tabRef": "Two Daughters",
       "accent": "#7A9A12",
-      "reference": "Genesis 2:4–3:24",
-      "shortRef": "Genesis 2–3",
-      "title": "Eve",
+      "reference": "Mark 5:21–43",
+      "shortRef": "Mark 5",
+      "title": "The Two Daughters",
       "subtitle": "",
-      "openingPrayer": "Creator God, you formed us from the dust and breathed your own life into us. As we open the story of Eve, give us honest eyes for the ancient world these words come from, and open hearts for the beauty and meaning they still carry. In the name of your Son Jesus Christ we pray. Amen.",
-      "closingPrayer": "God who walks in the garden, you stay near your children even when we hide, and you clothe us with care even east of Eden. Send us out to live honestly and gently, carrying the life you have breathed into us. In the name of your Son Jesus Christ we pray. Amen.",
-      "scriptureRef": "Genesis 2:4–3:24",
+      "openingPrayer": "God of the crowded road, you notice the ones the crowd overlooks. As we open these two stories, give us the woman's boldness to reach for you, and Jairus's courage to keep believing when hope runs out. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "Healing God, you called an overlooked woman 'Daughter' and raised a little girl with a word. Speak that word over every part of us that is worn out, written off, or waiting, and send us out unafraid. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "Mark 5:21–43",
       "videoTitle": "3-Minute Bible",
-      "videoSubtitle": "Eve: Partner, Not Subordinate",
+      "videoSubtitle": "What is a Markan sandwich?",
       "questions": [
-        "What have you been taught about Eve in your faith community? Has her story shaped how you, or your church, understand women more broadly: their roles in ministry, at home, in leadership?",
-        "The Bible is full of stories that explain why the world is the way it is. Scholars call them \"etiologies.\" Some explain natural phenomena: the rainbow appears in Genesis 9 as the sign that God will never flood the earth again. Genesis 2–3 is packed with them. How many can your group spot? (Why snakes crawl. Why childbirth hurts. Why farming is backbreaking. Why we wear clothes. Why we leave home to marry. Why we die.)",
-        "Look again at Genesis 3:16 with etiology in mind. Among other things, the text is explaining a feature of the writers' world. Specifically, society was patriarchal, meaning that men tended to have more rights than women. How comfortable are you with finding beauty and spiritual meaning in ancient texts, even when our modern way of thinking starkly differs from that of their writers?",
-        "The relationship between Adam and Eve in Genesis 3:16 has been interpreted many ways. Most translations, including the NRSVUE this packet uses, render it \"he shall rule over you.\" Others, as the video notes, read the Hebrew in a way that keeps Adam and Eve equals. How comfortable are you sitting with that ambiguity? Does it matter if there is a right or wrong interpretation?",
-        "How do these writers depict God? Notice the human-like touches: God shapes the man from dust like a potter, plants a garden, performs surgery, walks in the garden in the evening breeze, asks \"Where are you?\" Compare that with the cosmic voice of Genesis 1, speaking creation into being. Is one of these closer to how you understand God than the other?",
-        "For all its hard edges, this story insists God is near: walking, asking, listening, providing. And its last word about Eve is her name, khavvah, \"life, mother of all living\" (3:20), given after everything went wrong. What do the writers want us to understand about our life with God east of Eden, where we all actually live?"
+        "Mark is famously sparse with words, telling the reader only the necessary information without much descriptive detail. Take a few minutes and imagine the details that Mark omitted. What sights, smells, and sounds do you imagine as you read? What tones of voice were used by each person as they spoke?",
+        "What context does Mark give us about the bleeding woman? Aside from her physical condition, how does Mark indicate the other ways she suffers?",
+        "Being on the social fringes as she was, the bleeding woman would need to have summoned a particular boldness to struggle through the crowd and touch Jesus. What emotions do you imagine she feels as she reaches for Jesus's cloak?",
+        "Jesus gives life to both the woman and the girl, but in very different contexts. What does restoration and healing look like for each of them?",
+        "The bleeding woman's lowly social status contrasts sharply with that of Jairus - a prominent synagogue leader who nonetheless begs at Jesus's feet for his daughter's healing. How does Mark use these narratives to demonstrate Jesus's power to overcome all boundaries - including social obstacles and even death itself?",
+        "How does Mark work to show us a Jesus that is both divine, but also tender and human?"
       ],
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%202%3A4-3%3A24&version=NRSVUE",
-      "videoUrl": "",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Mark%205%3A21-43&version=NRSVUE",
+      "videoUrl": "https://player.vimeo.com/video/1210281687",
       "optionalVideo": {
-        "title": "Genesis",
-        "subtitle": "3-Minute Bible · optional (coming soon)",
-        "url": ""
+        "title": "Mark's Secret Messiah",
+        "subtitle": "3-Minute Bible · optional",
+        "url": "https://vimeo.com/1210281410"
       },
       "optionalReadings": [
         {
-          "title": "Eve",
-          "subtitle": "Bible Odyssey · a free short article from the Society of Biblical Literature",
-          "url": "https://www.bibleodyssey.org/articles/eve/"
-        },
-        {
-          "title": "Genesis",
+          "title": "The Gospel of Mark",
           "subtitle": "Yale Bible Study · free videos and study guides for groups",
-          "url": "https://yalebiblestudy.org/courses/genesis/"
+          "url": "https://yalebiblestudy.org/courses/the-gospel-of-mark/"
         }
       ],
-      "funFact": "Genesis never mentions an apple, Satan, or even the word 'sin.' All of those came from later readers of the story.",
+      "funFact": "Mark preserves Jesus's actual Aramaic words to the girl - talitha koum, 'little girl, get up.' It's one of the few places in the Gospels where we hear Jesus in his own language.",
       "scriptureText": "",
       "headerImage": null
     },

@@ -50,9 +50,11 @@
 /* download ribbon → bright yellow to draw the eye (navy text/icon) */
 .dlbtn{background:#FFD21E;color:#0A274C;box-shadow:-6px 6px 18px rgba(10,39,76,.30);}
 .dlbtn i{color:#0A274C;}
-/* fit longer question sets on page B without collision */
-.qs .q{padding:11px 0;}
-.qs .q p{font-size:17.5px;line-height:1.42;}
+/* fit longer question sets on page B without collision (verified via Playwright:
+   Hannah's five long questions overflowed .qs by 45px at the old sizes) */
+.qs .q{padding:8px 0;}
+.qs .q p{font-size:16.5px;line-height:1.4;}
+.card p{font-size:17px;}
 </style>
 </head>
 <body>
