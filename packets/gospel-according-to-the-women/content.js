@@ -1,9 +1,10 @@
 /* The Gospel According to the Women — content payload (window.BBS_CONTENT).
-   Lessons 1 (Hannah) and 2 (The Two Daughters, Mark 5 — replaced the Eve lesson
-   July 2026) questions are Emily-approved (final). Lessons 3–6 questions, plus the
-   letter and remaining prayers, are drafts pending Emily's review. Scripture modals
-   are intentionally empty for now: the pop-out links to the authoritative NRSVUE on
-   Bible Gateway, and the full vetted passage text will be dropped in later. */
+   Lessons 1 (Hannah), 2 (The Two Daughters, Mark 5 — replaced the Eve lesson
+   July 2026), and 3 (Shiphrah & Puah) questions are Emily-approved (final).
+   Lessons 4–6 questions, plus the letter and remaining prayers, are drafts pending
+   Emily's review. Scripture modals are intentionally empty for now: the pop-out
+   links to the authoritative NRSVUE on Bible Gateway, and the full vetted passage
+   text will be dropped in later. */
 window.BBS_CONTENT = {
   "meta": {
     "series": "Sunday School Simplified",
@@ -122,22 +123,22 @@ window.BBS_CONTENT = {
       "shortRef": "Exodus 1",
       "title": "Shiphrah & Puah",
       "subtitle": "",
-      "openingPrayer": "God of the oppressed, you hear the cry of those the powerful would forget. As we open the story of Shiphrah and Puah, give us the holy courage to fear you more than we fear the powers of this world. In the name of your Son Jesus Christ we pray. Amen.",
+      "openingPrayer": "God of the oppressed, you hear the cry of those the powerful would forget. As we open the story of Shiphrah and Puah, awaken the conscience you have written on every human heart, and give us the courage to follow it. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "Liberating God, you began your rescue through two brave women long before Moses. Make us faithful in the small, costly acts that protect life, and let your justice begin in us. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "Exodus 1:8–22",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Background to the Exodus",
       "questions": [
-        "The video explains Israel first came to Egypt as refugees from famine and were welcomed — until \"a new king arose over Egypt, who did not know Joseph\" (v. 8) and grew afraid of them. How does fear set the whole chain of events in motion? Where do you see fear of \"the other\" hardening into policy in our own day?",
-        "In a chapter crowded with kings and nations, the storyteller stops to name two midwives — Shiphrah and Puah (v. 15) — while Pharaoh himself goes unnamed. What do you make of Scripture remembering their names and not his? Whom does this story treat as important?",
-        "Pharaoh orders them to kill the baby boys, but \"the midwives feared God; they did not do as the king of Egypt commanded them, but they let the boys live\" (v. 17). What does it mean that their fear of God outweighed their fear of the most powerful man on earth? When is disobedience the faithful thing to do?",
-        "They resist not with armies but with their ordinary work and a quiet refusal (and a shrewd answer to Pharaoh in vv. 18–19). The video observes that Israel's liberation is already underway here, long before Moses arrives. What does that suggest about where God's rescue tends to begin — and who gets to be part of it?",
-        "The video notes Pharaoh's machinery of forced labor swept up many peoples, and that a \"mixed multitude\" later leaves Egypt in the exodus. How does it shape your reading to see God freeing not only Israel but others who were oppressed alongside them?",
-        "Shiphrah and Puah risked themselves to protect the vulnerable when the law itself was unjust. Where might faithfulness ask something similar of ordinary people like us — a small, costly act of protecting life against the current?"
+        "The story never tells us how Shiphrah and Puah responded when Pharaoh gave them his command. He apparently expected them to obey, and the narrative doesn't tell us much about how the women responded, deliberated between themselves, or formed a plan. Using your imagination, help fill in these narrative gaps. What might the women have said to Pharaoh? To each other? To the other midwives in their community, and to expectant Hebrew mothers?",
+        "Scholars debate whether Shiphrah and Puah were Hebrew midwives or non-Hebrew midwives who served Hebrew women. How does the story change if they were protecting people outside their own community? What risks did they face for their defiance of Pharaoh? What might have led them to take that risk?",
+        "Pharaoh orders the midwives to kill the boys but let the girls live, apparently assuming that girls pose no threat to him. Yet women repeatedly defeat his plan. What does Pharaoh fail to understand about where true power resides?",
+        "Shiphrah and Puah receive no instructions from God - no burning bush, no voice from above. The text says only that they \"feared God\" (v. 17), which in the Old Testament isn't terror but something like conscience: a reverence that refuses to harm the vulnerable. What does this tell us about our human capacity to discern God's will, even when we cannot hear God's voice?",
+        "Looking back, it's easy for us to see Pharaoh's command as evil, and the midwives' acts as faithful disobedience. In our own lives, it's often harder to discern where we are called to disobey on moral or ethical grounds. Have you ever faced a choice between your conscience and following an authority? How did you respond?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Exodus%201%3A8-22&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
+      "funFact": "The Pharaoh in this story, the most powerful man in the world, is never named. The two midwives are: Shiphrah and Puah.",
       "scriptureText": "",
       "headerImage": null
     },

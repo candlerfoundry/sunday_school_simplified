@@ -302,8 +302,16 @@ transcripts + a theme/scripture chart (Dropbox).
   gold-on-yellow, integrity-verified).
 - **Lesson 1 (Hannah) questions are FINAL** — exactly Emily's five, with one edit she
   approved (Samuel "raised at the sanctuary, not at home with Hannah" — the earlier draft
-  said "the temple," anachronistic here). Lessons 3–6 questions, the letter, and the
-  remaining prayers are **first drafts pending Emily's review** (Shiphrah & Puah next).
+  said "the temple," anachronistic here). Lessons 4–6 questions, the letter, and the
+  remaining prayers are **first drafts pending Emily's review** (Zelophehad next).
+- **Lesson 3 (Shiphrah & Puah) is FINAL (July 2026)** — Emily's five questions:
+  narrative-gap imagination, the Hebrew-vs-Egyptian-midwife scholarly debate, Pharaoh's
+  gender blind spot, "feared God" glossed as CONSCIENCE (OT idiom: reverence-as-moral-
+  decency credited even to those without scriptures — Gen 20:11, 42:18, Deut 25:18 —
+  NOT fear-ranking; Emily explicitly rejected the "feared God more than Pharaoh"
+  framing), and a conscience-vs-authority experience question kept concrete to avoid
+  politics. Opening prayer retuned to the conscience framing. `funFact`: midwives
+  named, Pharaoh anonymous. Video "Background to the Exodus" (3MB-277, Vimeo pending).
 - **Lesson 2 is "The Two Daughters" (Mark 5:21–43), FINAL (July 2026)** — this
   REPLACED the Eve lesson entirely (Emily was unhappy with Eve; an honest-context
   rework was built and shipped, then scrapped in favor of a new anchor text). Built on
@@ -338,12 +346,13 @@ transcripts + a theme/scripture chart (Dropbox).
   accent `#6d4f26`, `status:"live"` (a `"soon"` card renders dimmed with no link), no
   `pdf` key yet.
 
-Pending: Shiphrah & Puah→Widow question approval (lessons 3–6 are DRAFT — do not
+Pending: Zelophehad→Widow question approval (lessons 4–6 are DRAFT — do not
 distribute links until approved) · full NRSVUE passage text · remaining Vimeo
-`videoUrl`s (lesson 2 has its video; Hannah + the "Orphan, Widow, and Stranger"
-optional still pending) · optional per-lesson header art · the PDF (secondary; note
-`tools/make_pdf.py` predates `optionalReadings`/`funFact` and will need those added
-at re-cut time) · wire the Foxy/portal access (below).
+`videoUrl`s (lesson 2 has its video; the rest, incl. "Background to the Exodus" and
+the "Orphan, Widow, and Stranger" optional, still pending) · optional per-lesson
+header art · the PDF (secondary; note `tools/make_pdf.py` predates
+`optionalReadings`/`funFact` and will need those added at re-cut time) · wire the
+Foxy/portal access (below).
 
 ## Access / paywall model (packets)
 
