@@ -302,8 +302,8 @@ transcripts + a theme/scripture chart (Dropbox).
   gold-on-yellow, integrity-verified).
 - **Lesson 1 (Hannah) questions are FINAL** — exactly Emily's five, with one edit she
   approved (Samuel "raised at the sanctuary, not at home with Hannah" — the earlier draft
-  said "the temple," anachronistic here). Lessons 4–6 questions, the letter, and the
-  remaining prayers are **first drafts pending Emily's review** (Zelophehad next).
+  said "the temple," anachronistic here). Lessons 5–6 questions, the letter, and the
+  remaining prayers are **first drafts pending Emily's review** (Tamar next).
 - **Lesson 3 (Shiphrah & Puah) is FINAL (July 2026)** — Emily's five questions:
   narrative-gap imagination, the Hebrew-vs-Egyptian-midwife scholarly debate, Pharaoh's
   gender blind spot, "feared God" glossed as CONSCIENCE (OT idiom: reverence-as-moral-
@@ -325,6 +325,19 @@ transcripts + a theme/scripture chart (Dropbox).
   NOTE deliberately avoided: purity-law-as-social-outcast framing in the questions
   (scholars, esp. Amy-Jill Levine, flag it as an anti-Jewish trope; Mark's text
   grounds her isolation in illness + poverty, v. 26).
+- **Lesson 4 (Daughters of Zelophehad) questions revised (July 2026)** — Emily's
+  workshopped set of five (down from a six-question draft), analytical rather than
+  video-quoting: land allocation and the daughters' vulnerability under patrilineal
+  inheritance, the narrator's dramatic tension and the boldness of their claim, the wider
+  stakes for descendants and other heirs, who truly owns the land and makes the law (God,
+  not Moses), and modern responsibility to care for land and the vulnerable as
+  faithfulness to God. **Scripture expanded to Numbers 26:52–56; 27:1–11** (the
+  land-by-lot passage sets up Q1); Contents `shortRef` is "Numbers 26–27". `scriptureText`
+  still empty (links out to Bible Gateway NRSVUE). Prayers left as-is pending a later
+  final pass (Emily's call). The **"Orphan, Widow, and Stranger" 3MB optional video now
+  appears under BOTH Hannah and Zelophehad** (Emily's call; Vimeo link still pending).
+  Verified July 2026: 5 questions fit `.qs` with zero overflow; the longer reference sits
+  on one header line.
 - **Tabs/titles use the women's names** (`tabRef`), not the scripture reference, which suits
   this packet; `shortRef` carries the reference on the Contents rows.
 - **Scripture modals are intentionally empty** for now — the pop-out links to the
@@ -338,7 +351,7 @@ transcripts + a theme/scripture chart (Dropbox).
   question invisible) and does NOT show up as page-bottom overflow, so geometry checks
   must compare `qs.scrollHeight` vs `qs.clientHeight`, not just child bottoms.
 - **Optional video** "Orphan, Widow, and Stranger" is stubbed on the Additional Resources
-  page under Hannah (Emily to provide the Vimeo link).
+  page under **both Hannah and Zelophehad** (Emily to provide the Vimeo link).
 - **Listed in `packets/index.json` (July 2026)** — Emily asked for it on the storefront
   for her own ease of review access from the landing page. This changes nothing about
   exposure (the packet URL was already public, same as BBS); nothing is *distributed* to
@@ -346,7 +359,7 @@ transcripts + a theme/scripture chart (Dropbox).
   accent `#6d4f26`, `status:"live"` (a `"soon"` card renders dimmed with no link), no
   `pdf` key yet.
 
-Pending: Zelophehad→Widow question approval (lessons 4–6 are DRAFT — do not
+Pending: Tamar→Widow question approval (lessons 5–6 are DRAFT — do not
 distribute links until approved) · full NRSVUE passage text · remaining Vimeo
 `videoUrl`s (lesson 2 has its video; the rest, incl. "Background to the Exodus" and
 the "Orphan, Widow, and Stranger" optional, still pending) · optional per-lesson
