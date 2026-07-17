@@ -333,16 +333,21 @@ transcripts + a theme/scripture chart (Dropbox).
   not Moses), and modern responsibility to care for land and the vulnerable as
   faithfulness to God. **Scripture expanded to Numbers 26:52–56; 27:1–11** (the
   land-by-lot passage sets up Q1); Contents `shortRef` is "Numbers 26–27". `scriptureText`
-  still empty (links out to Bible Gateway NRSVUE). Prayers left as-is pending a later
+  now carries the full NRSVUE text (see below). Prayers left as-is pending a later
   final pass (Emily's call). The **"Orphan, Widow, and Stranger" 3MB optional video now
   appears under BOTH Hannah and Zelophehad** (Emily's call; Vimeo link still pending).
   Verified July 2026: 5 questions fit `.qs` with zero overflow; the longer reference sits
   on one header line.
 - **Tabs/titles use the women's names** (`tabRef`), not the scripture reference, which suits
   this packet; `shortRef` carries the reference on the Contents rows.
-- **Scripture modals are intentionally empty** for now — the pop-out links to the
-  authoritative NRSVUE on Bible Gateway (with attribution) via `scriptureUrl`, so nothing is
-  misquoted; full vetted passage text will be dropped in later (as BBS got its text).
+- **Scripture modals carry the full NRSVUE passage text** (added July 2026, fetched from
+  Bible Gateway and formatted to the BBS `scriptureText` markup: `<h4>` sub-references,
+  `<p>`/`<p class="poet">` with `<span class="vn">N</span>` verse numbers, smart quotes,
+  Bible Gateway's thematic section headings dropped for the narrative passages). The modal
+  footer shows the required NRSVUE notice ("Copyright © 2021 National Council of Churches")
+  and links out to Bible Gateway via `scriptureUrl`. Lesson 4 combines two ranges under two
+  `<h4>`s (Numbers 26:52–56 and 27:1–11). Verified July 2026 by opening each modal in the
+  engine.
 - **Headers are engine-drawn** (`headerImage: null`) — no per-lesson art yet.
 - **Page-fit (tightened July 2026 after a real overflow shipped):** the packet
   overrides `.qs .q` (8px pad, 16.5px/1.4 text) and `.card p` (17px prayers) in its
@@ -360,7 +365,7 @@ transcripts + a theme/scripture chart (Dropbox).
   `pdf` key yet.
 
 Pending: Tamar→Widow question approval (lessons 5–6 are DRAFT — do not
-distribute links until approved) · full NRSVUE passage text · remaining Vimeo
+distribute links until approved) · remaining Vimeo
 `videoUrl`s (lesson 2 has its video; the rest, incl. "Background to the Exodus" and
 the "Orphan, Widow, and Stranger" optional, still pending) · optional per-lesson
 header art · the PDF (secondary; note `tools/make_pdf.py` predates
