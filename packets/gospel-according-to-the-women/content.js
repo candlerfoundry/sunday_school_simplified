@@ -1,9 +1,10 @@
 /* The Gospel According to the Women: content payload (window.BBS_CONTENT).
    Lessons 1 (Hannah), 2 (The Two Daughters, Mark 5, replaced the Eve lesson
    July 2026), and 3 (Shiphrah & Puah) questions are Emily-approved (final).
-   Lesson 4 (Daughters of Zelophehad) questions were workshopped and revised with
-   Emily (July 2026). Lessons 5–6 questions, plus the letter and remaining prayers,
-   are drafts pending Emily's review. All six scripture modals now carry the full
+   Lessons 4 (Daughters of Zelophehad) and 5 (Tamar) questions were workshopped and
+   revised with Emily (July 2026; Tamar's prayers were also tuned this round). Lesson 6
+   questions, plus the letter and remaining prayers, are drafts pending Emily's review.
+   All six scripture modals now carry the full
    NRSVUE passage text (added July 2026, matching the Beyond Bumper Stickers packet);
    the pop-out also links to Bible Gateway, which shows the NRSVUE copyright notice. */
 window.BBS_CONTENT = {
@@ -182,21 +183,32 @@ window.BBS_CONTENT = {
       "title": "Tamar",
       "subtitle": "",
       "openingPrayer": "Righteous God, you are at work even in the tangled and painful parts of our stories. As we open the story of Tamar, give us honesty to name what is broken and eyes to see your faithfulness within it. In the name of your Son Jesus Christ we pray. Amen.",
-      "closingPrayer": "God of the vindicated, you lifted Tamar from shame into a place in your promise. Keep us faithful when others fail us, and let us trust that you can bring righteousness even out of the mess. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "God of the vindicated, you lifted Tamar from shame into a place in your promise, and you bring righteousness even out of what is broken. Open our eyes to the vulnerable and the wronged around us, and make us quick to defend and provide for them as you do. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "Genesis 38:6–26",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Tamar: Righteousness When the System Fails",
       "questions": [
-        "This is a hard, tangled story — two deaths, a broken promise, a disguise, a scandalous pregnancy. Before we sort out who is right, what is your gut reaction to Tamar, and where do you think that reaction comes from?",
-        "By the custom of the day, Tamar was owed a future through her late husband's family — but Onan refuses his duty, and then Judah quietly withholds his son Shelah, leaving her stranded as a childless widow (vv. 11, 14). The video reframes Tamar as pursuing justice after Judah fails his responsibility. How does naming Judah's failure first change the way you read what she does next?",
-        "Her plan puts her own life on the line: when she is found pregnant, Judah's first response is \"Bring her out, and let her be burned\" (v. 24). What does it tell you about her situation — and her resolve — that she would take a risk this dangerous to claim what she was owed?",
-        "Confronted with his own staff and seal, Judah says, \"She is more in the right than I\" (v. 26). Why does the whole story turn on the powerful man's confession? What does it cost Judah to say it — and what does it finally grant Tamar?",
-        "The text is blunt that Tamar's husband was a wicked man. The video suggests her faithfulness says more about her character than about anyone else's worthiness. Where have you seen someone hold to what is right even when the people or systems around them didn't deserve that faithfulness?",
-        "Tamar is finally vindicated — and later remembered in the family line that leads to David and to Jesus (Matthew 1:3). How do you hold together a story this messy with the claim that God is working righteousness through it? Where might God be at work in the unfinished parts of your own story?"
+        "In previous lessons, we learned that ancient Israel was an agrarian society in which land, and conceiving male offspring to farm and inherit land, was a key to survival. Recall that childless widows were among the most vulnerable members of society. Now, let's revisit the many aspects of this story that, as modern readers, strike us as odd and disturbing but make sense within this context. What are Judah's instructions to Onan, and what motivates that instruction? What motivates Tamar, and what is she fighting for?",
+        "Who are the villains and protagonists in this story? How does the narrator invite the reader to see Tamar's behavior and her trickery? What aspects of the narrative prompt your responses?",
+        "A prominent recurring character in the Old Testament is the courageous underdog who seeks justice by outsmarting or tricking a more powerful foe. (Bonus points if you can think of any other examples!) What narrative clues establish Judah's authority and social power? Why are stories of trickery so resonant across time?",
+        "The narrator indicates that Onan's behavior was so \"displeasing in the sight of the Lord\" that God \"put him to death.\" Again remembering the context noted in question 1, why was Onan's behavior so displeasing? (See Deuteronomy 25:5–10 for additional context.) What is the narrator telling us about God's care for Tamar? What broader theological points does the story make about God's care for the socially and economically vulnerable, and our duty of care for them as well?",
+        "Remembering that there are no wrong answers, to what extent are you comfortable finding theological meaning in a story that is troublesome to our modern eyes and ears?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%2038%3A6-26&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
+      "optionalReadings": [
+        {
+          "title": "Rahab Hides the Spies",
+          "subtitle": "Another trickster narrative · Joshua 2 (NRSVUE)",
+          "url": "https://www.biblegateway.com/passage/?search=Joshua%202&version=NRSVUE"
+        },
+        {
+          "title": "Abram and Sarai before Pharaoh",
+          "subtitle": "Another trickster narrative · Genesis 12:10–20 (NRSVUE)",
+          "url": "https://www.biblegateway.com/passage/?search=Genesis%2012%3A10-20&version=NRSVUE"
+        }
+      ],
       "scriptureText": "<h4>Genesis 38:6–26</h4>\n<p><span class=\"vn\">6</span>Judah took a wife for Er his firstborn; her name was Tamar. <span class=\"vn\">7</span>But Er, Judah’s firstborn, was wicked in the sight of the Lord, and the Lord put him to death. <span class=\"vn\">8</span>Then Judah said to Onan, “Go in to your brother’s wife and perform the duty of a brother-in-law to her; raise up offspring for your brother.” <span class=\"vn\">9</span>But since Onan knew that the offspring would not be his, he spilled his semen on the ground whenever he went in to his brother’s wife, so that he would not give offspring to his brother. <span class=\"vn\">10</span>What he did was displeasing in the sight of the Lord, and he put him to death also. <span class=\"vn\">11</span>Then Judah said to his daughter-in-law Tamar, “Remain a widow in your father’s house until my son Shelah grows up,” for he feared that he too would die, like his brothers. So Tamar went to live in her father’s house.</p>\n<p><span class=\"vn\">12</span>In course of time the wife of Judah, Shua’s daughter, died; when Judah’s time of mourning was over, he went up to Timnah to his sheepshearers, he and his friend Hirah the Adullamite. <span class=\"vn\">13</span>When Tamar was told, “Your father-in-law is going up to Timnah to shear his sheep,” <span class=\"vn\">14</span>she put off her widow’s garments, put on a veil, wrapped herself up, and sat down at the entrance to Enaim, which is on the road to Timnah. She saw that Shelah was grown up, yet she had not been given to him in marriage. <span class=\"vn\">15</span>When Judah saw her, he thought her to be a prostitute, for she had covered her face. <span class=\"vn\">16</span>He went over to her at the roadside and said, “Come, let me come in to you,” for he did not know that she was his daughter-in-law. She said, “What will you give me, that you may come in to me?” <span class=\"vn\">17</span>He answered, “I will send you a kid from the flock.” And she said, “Only if you give me a pledge until you send it.” <span class=\"vn\">18</span>He said, “What pledge shall I give you?” She replied, “Your signet and your cord and the staff that is in your hand.” So he gave them to her and went in to her, and she conceived by him. <span class=\"vn\">19</span>Then she got up and went away, and taking off her veil she put on the garments of her widowhood.</p>\n<p><span class=\"vn\">20</span>When Judah sent the kid by his friend the Adullamite to recover the pledge from the woman, he could not find her. <span class=\"vn\">21</span>He asked the townspeople, “Where is the prostitute who was at Enaim by the wayside?” But they said, “No prostitute has been here.” <span class=\"vn\">22</span>So he returned to Judah and said, “I have not found her; moreover, the townspeople said, ‘No prostitute has been here.’ ” <span class=\"vn\">23</span>Judah replied, “Let her keep the things as her own, otherwise we will be laughed at; you see, I sent this kid, and you could not find her.”</p>\n<p><span class=\"vn\">24</span>About three months later Judah was told, “Your daughter-in-law Tamar has prostituted herself; moreover, she is pregnant as a result of prostitution.” And Judah said, “Bring her out, and let her be burned.” <span class=\"vn\">25</span>As she was being brought out, she sent word to her father-in-law, “It was the owner of these who made me pregnant.” And she said, “Take note, please, whose these are, the signet and the cord and the staff.” <span class=\"vn\">26</span>Then Judah acknowledged them and said, “She is more in the right than I, since I did not give her to my son Shelah.” And he did not lie with her again.</p>",
       "headerImage": null
     },

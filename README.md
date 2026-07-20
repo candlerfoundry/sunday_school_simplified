@@ -302,8 +302,8 @@ transcripts + a theme/scripture chart (Dropbox).
   gold-on-yellow, integrity-verified).
 - **Lesson 1 (Hannah) questions are FINAL** — exactly Emily's five, with one edit she
   approved (Samuel "raised at the sanctuary, not at home with Hannah" — the earlier draft
-  said "the temple," anachronistic here). Lessons 5–6 questions, the letter, and the
-  remaining prayers are **first drafts pending Emily's review** (Tamar next).
+  said "the temple," anachronistic here). Lesson 6 questions, the letter, and the
+  remaining prayers are **first drafts pending Emily's review** (Widow next).
 - **Lesson 3 (Shiphrah & Puah) is FINAL (July 2026)** — Emily's five questions:
   narrative-gap imagination, the Hebrew-vs-Egyptian-midwife scholarly debate, Pharaoh's
   gender blind spot, "feared God" glossed as CONSCIENCE (OT idiom: reverence-as-moral-
@@ -338,6 +338,22 @@ transcripts + a theme/scripture chart (Dropbox).
   appears under BOTH Hannah and Zelophehad** (Emily's call; Vimeo link still pending).
   Verified July 2026: 5 questions fit `.qs` with zero overflow; the longer reference sits
   on one header line.
+- **Lesson 5 (Tamar) questions revised (July 2026)** — Emily's workshopped set of five
+  (down from a six-question draft). Q1 carries the agrarian/levirate context and asks what
+  motivates Judah's instruction to Onan and what Tamar is fighting for; then villains vs.
+  protagonists and the narrator's framing of her trickery; the OT "courageous underdog /
+  trickster" tradition and why it resonates; Onan's sin read through the levirate duty
+  (Q4 cites Deut 25:5–10, steering readers away from the anachronistic
+  "spilled-seed" misreading) plus God's care for the vulnerable and our duty of care; and
+  an honest gut-check on finding theological meaning in a troubling text. **Prayers tuned
+  this round** (opening kept; closing rewritten to add the care-for-the-vulnerable thread)
+  — note this is ahead of the packet-wide prayer pass Emily still plans. **Two new
+  `optionalReadings` on the Additional Resources page** (Emily's pick): "Rahab Hides the
+  Spies" (Joshua 2) and "Abram and Sarai before Pharaoh" (Genesis 12:10–20), both tagged
+  "Another trickster narrative" and linking to Bible Gateway NRSVUE. Adding
+  `optionalReadings` also lights up Tamar's "More on this lesson" chip. Verified July 2026
+  in Playwright: 5 questions fit with the closing prayer, scripture modal renders, and both
+  reading cards show under Lesson 5 on the resources spread with no overflow.
 - **Tabs/titles use the women's names** (`tabRef`), not the scripture reference, which suits
   this packet; `shortRef` carries the reference on the Contents rows.
 - **Scripture modals carry the full NRSVUE passage text** (added July 2026, fetched from
@@ -364,7 +380,7 @@ transcripts + a theme/scripture chart (Dropbox).
   accent `#6d4f26`, `status:"live"` (a `"soon"` card renders dimmed with no link), no
   `pdf` key yet.
 
-Pending: Tamar→Widow question approval (lessons 5–6 are DRAFT — do not
+Pending: Widow question approval (lesson 6 is DRAFT — do not
 distribute links until approved) · remaining Vimeo
 `videoUrl`s (lesson 2 has its video; the rest, incl. "Background to the Exodus" and
 the "Orphan, Widow, and Stranger" optional, still pending) · optional per-lesson
