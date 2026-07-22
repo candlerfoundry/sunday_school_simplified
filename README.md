@@ -302,8 +302,9 @@ transcripts + a theme/scripture chart (Dropbox).
   gold-on-yellow, integrity-verified).
 - **Lesson 1 (Hannah) questions are FINAL** — exactly Emily's five, with one edit she
   approved (Samuel "raised at the sanctuary, not at home with Hannah" — the earlier draft
-  said "the temple," anachronistic here). Lesson 6 questions, the letter, and the
-  remaining prayers are **first drafts pending Emily's review** (Widow next).
+  said "the temple," anachronistic here). All six lessons' questions have now been
+  workshopped to Emily's reviewed wording (July 2026); the letter and a packet-wide
+  final prayer pass are the remaining draft items.
 - **Lesson 3 (Shiphrah & Puah) is FINAL (July 2026)** — Emily's five questions:
   narrative-gap imagination, the Hebrew-vs-Egyptian-midwife scholarly debate, Pharaoh's
   gender blind spot, "feared God" glossed as CONSCIENCE (OT idiom: reverence-as-moral-
@@ -354,6 +355,22 @@ transcripts + a theme/scripture chart (Dropbox).
   `optionalReadings` also lights up Tamar's "More on this lesson" chip. Verified July 2026
   in Playwright: 5 questions fit with the closing prayer, scripture modal renders, and both
   reading cards show under Lesson 5 on the resources spread with no overflow.
+- **Lesson 6 (Widow of Zarephath) questions revised (July 2026)** — Emily's workshopped
+  set of five (down from a six-question draft). **Passage widened to 1 Kings 17:1–16**
+  (was 17:8–16) so the ravens at v4 are in view, since Q1 pairs God's "I have commanded
+  the ravens" (v4) with "I have commanded a widow" (v9) to probe what divine "command"
+  means. Other beats: God entrusting the great prophet's survival to a powerless widow;
+  the foreigner-faith reading (Zarephath in Sidon, Jezebel's Baal country) and how the
+  narrator weighs faith against ethnic/national identity; hospitality-as-honor and how
+  hosting Elijah meets the widow's needs beyond food; and a personal reliance-on-the-
+  vulnerable question. **Verse-2 clarification:** the `scriptureText` reads "the word of
+  the Lord came to him **[Elijah]**, saying" (bracketed editorial insertion; v1 ends on
+  Elijah's speech to Ahab, so bare "him" was ambiguous). New **`optionalReading`**:
+  "Jesus Recalls the Widow of Zarephath" (Luke 4:25–26, his Nazareth sermon), reinforcing
+  the foreigner theme. Prayers left as-is for the packet-wide pass. Verified July 2026 in
+  Playwright: 5 questions fit with the closing prayer; the modal shows all 16 verses with
+  the "[Elijah]" clarification and the ravens; the Luke card renders under Lesson 6 with no
+  resources-page overflow.
 - **Tabs/titles use the women's names** (`tabRef`), not the scripture reference, which suits
   this packet; `shortRef` carries the reference on the Contents rows.
 - **Scripture modals carry the full NRSVUE passage text** (added July 2026, fetched from
@@ -380,8 +397,9 @@ transcripts + a theme/scripture chart (Dropbox).
   accent `#6d4f26`, `status:"live"` (a `"soon"` card renders dimmed with no link), no
   `pdf` key yet.
 
-Pending: Widow question approval (lesson 6 is DRAFT — do not
-distribute links until approved) · remaining Vimeo
+Pending: all six lessons' questions are now Emily-reviewed — remaining draft items are
+the **letter** and a **packet-wide final prayer pass** (do not distribute links until
+Emily signs off on the full content) · remaining Vimeo
 `videoUrl`s (lesson 2 has its video; the rest, incl. "Background to the Exodus" and
 the "Orphan, Widow, and Stranger" optional, still pending) · optional per-lesson
 header art · the PDF (secondary; note `tools/make_pdf.py` predates

@@ -1,12 +1,13 @@
 /* The Gospel According to the Women: content payload (window.BBS_CONTENT).
    Lessons 1 (Hannah), 2 (The Two Daughters, Mark 5, replaced the Eve lesson
    July 2026), and 3 (Shiphrah & Puah) questions are Emily-approved (final).
-   Lessons 4 (Daughters of Zelophehad) and 5 (Tamar) questions were workshopped and
-   revised with Emily (July 2026; Tamar's prayers were also tuned this round). Lesson 6
-   questions, plus the letter and remaining prayers, are drafts pending Emily's review.
-   All six scripture modals now carry the full
-   NRSVUE passage text (added July 2026, matching the Beyond Bumper Stickers packet);
-   the pop-out also links to Bible Gateway, which shows the NRSVUE copyright notice. */
+   Lessons 4 (Daughters of Zelophehad), 5 (Tamar), and 6 (Widow of Zarephath) questions
+   were workshopped and revised with Emily (July 2026; Tamar's prayers were also tuned
+   this round). All six lessons' questions are now Emily's reviewed wording; the letter
+   and a packet-wide final prayer pass are still pending. All six scripture modals carry
+   the full NRSVUE passage text (added July 2026, matching the Beyond Bumper Stickers
+   packet); the pop-out also links to Bible Gateway, which shows the NRSVUE copyright
+   notice. */
 window.BBS_CONTENT = {
   "meta": {
     "series": "Sunday School Simplified",
@@ -216,27 +217,33 @@ window.BBS_CONTENT = {
       "n": 6,
       "tabRef": "The Widow",
       "accent": "#6D4F26",
-      "reference": "1 Kings 17:8–16",
+      "reference": "1 Kings 17:1–16",
       "shortRef": "1 Kings 17",
       "title": "The Widow of Zarephath",
       "subtitle": "",
       "openingPrayer": "God of provision, you meet us at the very bottom of our resources and call us to give anyway. As we open the story of the widow of Zarephath, teach us to trust that your provision comes even in our scarcity. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "Generous God, you fed a household from a nearly empty jar and made an outsider the hero of the story. Open our hands to give, and widen our hearts to a mercy that reaches everyone. In the name of your Son Jesus Christ we pray. Amen.",
-      "scriptureRef": "1 Kings 17:8–16",
+      "scriptureRef": "1 Kings 17:1–16",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "The Widow of Zarephath",
       "questions": [
-        "When Elijah meets her, the widow is gathering a couple of sticks to cook a last meal for herself and her son, expecting that afterward \"we may eat it, and die\" (v. 12). Sit with that a moment — what does it stir in you to meet her at the very bottom of her resources?",
-        "God sends the prophet not to a palace but to a poor foreign widow, and says she will feed him (v. 9). The video draws out the surprise: God hands her the role of provider. Why might God choose the person with the least to be the one who gives?",
-        "Rather than Elijah conjuring bread out of thin air and rescuing her, the miracle unfolds through her own hands as she makes the bread (vv. 13–16). How is being empowered to give different from being handed a rescue — and why might that difference matter so much to her dignity?",
-        "Elijah's first words to her are \"Do not be afraid\" (v. 13), and he asks her to give first, out of almost nothing. What kind of trust does that ask of her? When has generosity felt costly or frightening in your own life?",
-        "She is a Gentile, an outsider to Israel — and she becomes the hero of the story, a point Jesus himself later makes pointedly (Luke 4:25–26). Why do you think Scripture keeps handing these central roles to outsiders? What does that say about how far God's mercy reaches?",
-        "Her jar of meal and jug of oil don't run dry as long as they are being used and shared. Where might God be inviting you to give out of scarcity rather than waiting for abundance — and to trust that the provision comes in the giving?"
+        "The widow doesn't seem to have received any message from God, and yet in verse 9 we are told that God has said, \"I have commanded a widow there to feed you.\" Look back at the similar statement about the ravens in verse 4. What do these two passages suggest about what \"command\" can mean? How might God be at work through us even when we have not heard God's voice directly?",
+        "Elijah, one of the most prominent figures in the Old Testament, is called to speak God's word to kings. Yet God chooses a widow, someone with little social power and almost no food, to sustain him. What do you make of God placing Elijah's survival in her hands?",
+        "God sends Elijah outside Israel to Zarephath, in Sidon, the homeland of the infamous Jezebel and a center of Baal worship. The widow who lives there is a foreigner, yet she demonstrates faith in Israel's God. What might it mean that Elijah experiences God's power and provision through a foreigner? How does the narrator weigh the importance of faith against ethnic or national identity? What lessons might the original Israelite readers have been meant to learn from this passage?",
+        "In the video we learn that, in the ancient setting of this narrative, extending hospitality was not just an obligation but a source of honor. God could have provided for Elijah by delivering another miracle similar to the one in verse 4. Instead, God instructs Elijah to enter the widow's home, where she becomes his host. How does this address the widow's needs (beyond her need for food)?",
+        "Have you ever needed to rely on someone more vulnerable, or less powerful, than you for help or hospitality? How can giving or accepting hospitality be an act of grace?"
       ],
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Kings%2017%3A8-16&version=NRSVUE",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Kings%2017%3A1-16&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
-      "scriptureText": "<h4>1 Kings 17:8–16</h4>\n<p><span class=\"vn\">8</span>Then the word of the Lord came to him, saying, <span class=\"vn\">9</span>“Go now to Zarephath, which belongs to Sidon, and live there, for I have commanded a widow there to feed you.” <span class=\"vn\">10</span>So he set out and went to Zarephath. When he came to the gate of the town, a widow was there gathering sticks; he called to her and said, “Bring me a little water in a vessel, so that I may drink.” <span class=\"vn\">11</span>As she was going to bring it, he called to her and said, “Bring me a morsel of bread in your hand.” <span class=\"vn\">12</span>But she said, “As the Lord your God lives, I have nothing baked, only a handful of meal in a jar and a little oil in a jug; I am now gathering a couple of sticks so that I may go home and prepare it for myself and my son, that we may eat it and die.” <span class=\"vn\">13</span>Elijah said to her, “Do not be afraid; go and do as you have said, but first make me a little cake of it and bring it to me, and afterward make something for yourself and your son. <span class=\"vn\">14</span>For thus says the Lord the God of Israel: The jar of meal will not be emptied and the jug of oil will not fail until the day that the Lord sends rain on the earth.” <span class=\"vn\">15</span>She went and did as Elijah said, so that she as well as he and her household ate for many days. <span class=\"vn\">16</span>The jar of meal was not emptied, neither did the jug of oil fail, according to the word of the Lord that he spoke by Elijah.</p>",
+      "optionalReadings": [
+        {
+          "title": "Jesus Recalls the Widow of Zarephath",
+          "subtitle": "Luke 4:25–26 · Jesus names her in his Nazareth sermon (NRSVUE)",
+          "url": "https://www.biblegateway.com/passage/?search=Luke%204%3A25-26&version=NRSVUE"
+        }
+      ],
+      "scriptureText": "<h4>1 Kings 17:1–16</h4>\n<p><span class=\"vn\">1</span>Now Elijah the Tishbite, of Tishbe in Gilead, said to Ahab, “As the Lord the God of Israel lives, before whom I stand, there shall be neither dew nor rain these years, except by my word.” <span class=\"vn\">2</span>The word of the Lord came to him [Elijah], saying, <span class=\"vn\">3</span>“Go from here and turn eastward, and hide yourself by the Wadi Cherith, which is east of the Jordan. <span class=\"vn\">4</span>You shall drink from the wadi, and I have commanded the ravens to feed you there.” <span class=\"vn\">5</span>So he went and did according to the word of the Lord; he went and lived by the Wadi Cherith, which is east of the Jordan. <span class=\"vn\">6</span>The ravens brought him bread and meat in the morning and bread and meat in the evening, and he drank from the wadi. <span class=\"vn\">7</span>But after a while the wadi dried up because there was no rain in the land.</p>\n<p><span class=\"vn\">8</span>Then the word of the Lord came to him, saying, <span class=\"vn\">9</span>“Go now to Zarephath, which belongs to Sidon, and live there, for I have commanded a widow there to feed you.” <span class=\"vn\">10</span>So he set out and went to Zarephath. When he came to the gate of the town, a widow was there gathering sticks; he called to her and said, “Bring me a little water in a vessel, so that I may drink.” <span class=\"vn\">11</span>As she was going to bring it, he called to her and said, “Bring me a morsel of bread in your hand.” <span class=\"vn\">12</span>But she said, “As the Lord your God lives, I have nothing baked, only a handful of meal in a jar and a little oil in a jug; I am now gathering a couple of sticks so that I may go home and prepare it for myself and my son, that we may eat it and die.” <span class=\"vn\">13</span>Elijah said to her, “Do not be afraid; go and do as you have said, but first make me a little cake of it and bring it to me, and afterward make something for yourself and your son. <span class=\"vn\">14</span>For thus says the Lord the God of Israel: The jar of meal will not be emptied and the jug of oil will not fail until the day that the Lord sends rain on the earth.” <span class=\"vn\">15</span>She went and did as Elijah said, so that she as well as he and her household ate for many days. <span class=\"vn\">16</span>The jar of meal was not emptied, neither did the jug of oil fail, according to the word of the Lord that he spoke by Elijah.</p>",
       "headerImage": null
     }
   ]
