@@ -69,6 +69,7 @@ body{background:var(--stage);font-family:'Mulish',sans-serif;color:var(--navy);-
 .hnum{font-family:'Thierry Leonie',sans-serif;font-size:150px;line-height:.8;color:var(--navy);}
 .hsparks{position:absolute;top:-12px;left:-16px;width:64px;height:64px;transform:rotate(-38deg);}
 .hright{flex:1;text-align:center;}
+.heyebrow{display:none;} /* opt-in kicker: packets that want a "Lesson N" eyebrow enable + style this */
 .htitle{font-family:'Hello Handmade',sans-serif;font-size:47px;line-height:1.02;color:var(--navy);}
 .href{font-family:'Mulish',sans-serif;font-weight:600;font-size:28px;color:var(--smoky);margin-top:12px;}
 /* ===== letter page ===== */

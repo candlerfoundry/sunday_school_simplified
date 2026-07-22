@@ -11,21 +11,25 @@
 <link rel="stylesheet" href="../../engine/styles.css">
 <link rel="icon" type="image/svg+xml" href="../../engine/assets/favicon.svg">
 <style>
-/* ===== The Gospel According to the Women — packet palette =====
-   Navy binder (brand chrome, shared with the engine default) holding a warm
-   yellow / brown interior. Scoped to this packet via CSS-variable overrides +
-   a few warm-neutral tweaks; the shared engine is untouched. */
+/* ===== The Gospel According to the Women — packet palette (facelift, July 2026) =====
+   Mustard-forward re-skin that carries the cover's personality into the lessons:
+   the cover's gold (#B8860B) is now the star; brown (#6d4f26) is the ink for rules,
+   borders, and labels; butter yellow is demoted to a faint tint. Navy is reserved for
+   the shared binder chrome only (spine, active tab, nav). Header uses the "number badge"
+   layout (variant B). All scoped to this packet; the shared engine stays generic. */
 :root{
-  --navy:#0A274C;   /* brand navy: chrome, headings, body text, numerals, buttons, active tab */
-  --powder:#FFF59C; /* pale yellow: circles behind numerals + icons + question bubbles */
-  --smoky:#6d4f26;  /* brown: secondary text (references, captions, labels) */
-  --red:#6d4f26;    /* brown accent: rules, verse numbers, ribbon, rhythm circles, quotes */
-  --page:#FFFEF7;   /* warm page */
-  --card:#FBFAEA;   /* warm card */
-  --cardbd:#E7E3C0;
-  --dot:#D8D3A2;
-  --stage:#EAE7CE;  /* warm cream behind the binder */
+  --navy:#0A274C;   /* CHROME ONLY now: spine, active tab, nav arrows */
+  --powder:#F4E9C4; /* pale gold tint: small icon + question-number circles */
+  --smoky:#6d4f26;  /* brown: secondary text, labels, references */
+  --red:#6d4f26;    /* brown accent: rules, verse numbers, rhythm circles, quotes */
+  --page:#FFFDF3;   /* warm cream page */
+  --card:#FBF6DE;   /* warm cream card */
+  --cardbd:#CBB47C; /* warm border for chrome-ish cards (tabs, TOC rows, resources, modal) */
+  --dot:#D8CB9A;
+  --stage:#EAE7CE;
   --muted:#8f8757;
+  --gold:#B8860B;   /* mustard gold — the cover's star color */
+  --cream:#FDF3D8;  /* light cream: text/icons on gold */
 }
 /* warm cream tabs (engine default is a cool blue) */
 .tab{background:#FBFAEA;}
@@ -35,12 +39,59 @@
 .ic-play::after{background-image:url('assets/icons/icon-play.svg');}
 .ic-dialogue::after{background-image:url('assets/icons/icon-dialogue.svg');}
 .ic-heart::after{background-image:url('assets/icons/icon-heart.svg');}
-/* header sparks → brown (CSS stroke overrides the SVG presentation attribute) */
-.hsparks g{stroke:#6d4f26;}
-/* video card: warm yellow field with soft khaki "hills" (kept out of olive territory) */
-.vcard{background:linear-gradient(180deg,#FCF8D2,#FFF59C);}
-.vhills path:first-of-type{fill:#CDCB9E;}
-.vhills path:last-of-type{fill:#B7B27E;}
+
+/* ===== HEADER — "number badge" (variant B) ===== */
+.hdrslot{gap:24px;align-items:center;padding:6px 46px 0 34px;border-bottom:2.5px solid var(--smoky);}
+.hcir{width:118px;height:118px;border-radius:24px;background:var(--gold);border:3px solid var(--smoky);
+  box-shadow:5px 6px 0 rgba(109,79,38,.22);}
+.hsparks{display:none;}
+.hnum{font-size:70px;color:var(--cream);line-height:1;}
+.hright{flex:1;text-align:left;align-self:center;}
+.heyebrow{display:block;font-family:'Mulish',sans-serif;font-weight:800;font-size:14px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--smoky);margin-bottom:6px;}
+.htitle{color:var(--gold);font-size:45px;line-height:1.0;}
+.href{color:var(--smoky);font-size:23px;font-weight:700;margin-top:8px;}
+
+/* ===== cards: strong brown border + gold accent bar (fixes the "faint boxes") ===== */
+.card{background:var(--card);border:1.6px solid var(--smoky);border-left:8px solid var(--gold);border-radius:14px;}
+.scripcard{background:var(--card);border:1.6px solid var(--smoky);border-left:8px solid var(--gold);border-radius:14px;}
+.scripcard:hover{border-color:var(--gold);box-shadow:0 6px 18px rgba(109,79,38,.16);}
+.scripcard .ref{color:var(--smoky);}
+.scripbtn{background:var(--gold);color:var(--cream);}
+.scripbtn .badge{opacity:1;background:rgba(255,247,220,.22);padding:2px 8px;border-radius:6px;}
+/* section labels + icon circles */
+.sl{color:var(--smoky);}
+.ic{background:var(--powder);border:1.5px solid var(--gold);}
+.lead{border-top-color:var(--dot);}
+.qn{background:var(--gold);color:var(--cream);}
+
+/* ===== video zone: on-palette 16:9 (no orange, no khaki hills) ===== */
+.vcard{background:linear-gradient(158deg,#C79412,#9c7209);border:2.5px solid var(--smoky);
+  box-shadow:0 12px 26px rgba(109,79,38,.26);max-width:592px;}
+.vhills{display:none;}
+.vlabel{color:var(--cream);background:rgba(109,79,38,.5);padding:5px 11px;border-radius:20px;top:14px;left:14px;letter-spacing:.1em;}
+.vplay{background:var(--cream);box-shadow:0 8px 20px rgba(109,79,38,.35);}
+.vplay i{color:var(--smoky);}
+.vcap{font-family:'Hello Handmade',sans-serif;color:var(--cream);font-size:20px;bottom:16px;}
+
+/* ===== display headings → cover gold ===== */
+.chead{color:var(--gold);}
+.crow .cn{color:var(--gold);}
+.crow{border-color:var(--cardbd);}
+.crow:hover{border-color:var(--gold);transform:translateX(3px);}
+.lettertitle{color:var(--gold);}
+.signoff .s{color:var(--gold);}
+.quotes{border-left-color:var(--gold);}
+.endpg .url{color:var(--gold);}
+
+/* ===== resources + modal accents ===== */
+.rcard{border-color:var(--cardbd);}
+.rcard:hover{border-color:var(--gold);}
+.rcard .rp{background:var(--gold);}
+.rcard.rread .rp{background:#fff;color:var(--gold);border:2px solid var(--gold);}
+.morebtn:hover{border-color:var(--gold);color:var(--smoky);}
+.mopen{background:var(--gold);color:var(--cream);}
+
 /* footer hairline + page-edge stacks + gutter → warm neutrals to match the cream book */
 .foot{border-top-color:#E7E3C0;}
 .bookdeco .stack{background:repeating-linear-gradient(180deg,#FFFDF0 0 2px,#E7E1BE 2px 4px);}

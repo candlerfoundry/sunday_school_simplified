@@ -171,10 +171,17 @@ layout — no top bar, no page indicator).
 - **Per-packet theming:** a packet may re-skin the shared engine by overriding its CSS
   variables (and a few hardcoded-chrome selectors) in an inline `<style>` in the packet's
   own `index.html`, leaving `engine/styles.css` untouched. Packet #2 (Gospel According to
-  the Women) keeps the navy chrome but sets `--powder` to pale yellow, `--smoky`/`--red`
-  to brown, warms the neutrals, recolors the section-icon SVGs (packet-local copies under
-  the packet's `assets/icons/`), makes the download ribbon bright yellow, and tightens
-  `.qs .q` spacing so long question sets fit.
+  the Women) does a full **mustard-forward facelift** this way (July 2026 — see that
+  packet's status section): navy is reserved for the binder chrome only, the cover's
+  **mustard gold `#B8860B`** is the star, brown `#6d4f26` is the ink for rules/borders/
+  labels, and butter yellow is demoted to a faint tint. It restyles the header into a
+  **number-badge** layout, gives the prayer/scripture cards a real brown border + gold
+  accent bar, makes the video a clean on-palette 16:9 panel, and gold-ifies the display
+  headings. All still via overrides; the engine stays generic.
+- **Optional header eyebrow (engine):** the engine-drawn lesson header emits a
+  `<div class="heyebrow">Lesson N</div>` (N spelled out) that is `display:none` in
+  `engine/styles.css` by default — so art-header packets and Beyond Bumper Stickers are
+  unchanged — and a packet opts in by styling `.heyebrow{display:block}` (packet #2 does).
 - **Type:** **Thierry Leonie** (display numerals), **Mulish** (body; upsized ~10% vs the
   old layout for readability/accessibility — body 18-19px), **Hello-Handmade Sans**
   (handmade display: letter heading, TOC title, tab numerals, fallback lesson titles).
@@ -292,14 +299,32 @@ Six women whose faith and courage move the biblical story forward: **Hannah**
 **Widow of Zarephath** (1 Kings 17:8–16). Source material: Emily's 3-Minute Bible
 transcripts + a theme/scripture chart (Dropbox).
 
-- **Palette (navy binder, warm interior):** keeps the shared engine's navy chrome; the rest
-  is re-skinned via CSS-variable overrides (see "Per-packet theming"): pale-yellow
-  `#FFF59C` circles, brown `#6d4f26` accents (rules, verse numbers, recolored section icons,
-  header sparks), warm cream cards/stage, a **bright-yellow download ribbon** (`#FFD21E`,
-  navy text — Emily wants it to grab the eye), and soft-khaki video "hills" (kept out of
-  olive — an earlier olive-green chrome read muddy against the yellow cover and was dropped
-  in favor of navy). Cover is Emily's Canva cover (`assets/cover.png`, 1632×2112,
-  gold-on-yellow, integrity-verified).
+- **Layout facelift — "number badge" (variant B, July 2026).** Emily reworked the lesson
+  layout to carry the cover's personality inward and lean into the cover's mustard gold.
+  Sampled from the cover art: butter `#FFF59C` (background), **mustard gold `#B8860B`**
+  (the display lettering — now the packet's star), brown `#6d4f26` (rules/ink). Changes,
+  all in the packet's inline `<style>`:
+  - **Header:** a gold rounded **number badge** (brown border + drop shadow, cream Thierry
+    numeral) with a `Lesson N` eyebrow, the gold Hello-Handmade name, and the reference
+    beside it, over a full-width brown header rule. Replaces the old giant-navy-numeral
+    circle. (Uses the engine's opt-in `.heyebrow`; long names like "Daughters of
+    Zelophehad" fit on one line.)
+  - **Cards:** prayer + scripture cards get a **1.6px brown border and an 8px gold left-bar**
+    (fixes the near-invisible `#E7E3C0`-on-cream borders that read as a wall of text).
+  - **Video:** a clean on-palette **16:9 mustard panel** (gradient `#C79412→#9c7209`, brown
+    border, cream play, brown "3-Minute Bible" pill, Hello-Handmade caption). The khaki
+    "hills" are gone; the placeholder now shares the exact footprint of the real Vimeo
+    iframe, so lessons with/without a video look consistent. No orange.
+  - **Accents:** display headings (letter title, "In This Packet", TOC numbers, sign-off,
+    Additional Resources title, modal "Open in Bible Gateway", resource icons, question-
+    number circles) go mustard gold; section labels + references go brown; small icon
+    circles are a pale-gold tint with a gold ring. Body text stays navy for readability.
+  - **Unchanged:** the navy binder spine/tabs/nav (shared brand chrome) and the
+    **bright-yellow download ribbon** `#FFD21E` (Emily wants it to grab the eye).
+  Verified July 2026 in Playwright across every surface (lessons incl. long titles and the
+  live-video lesson, contents/letter, modal, resources) with no overflow; Beyond Bumper
+  Stickers confirmed pixel-unchanged. Cover is Emily's Canva cover (`assets/cover.png`,
+  1632×2112, gold-on-yellow, integrity-verified).
 - **Lesson 1 (Hannah) questions are FINAL** — exactly Emily's five, with one edit she
   approved (Samuel "raised at the sanctuary, not at home with Hannah" — the earlier draft
   said "the temple," anachronistic here). All six lessons' questions have now been

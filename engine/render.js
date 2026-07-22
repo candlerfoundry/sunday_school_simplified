@@ -45,10 +45,14 @@
       '<div class="clist">' + rows + '</div>' + rhythm + '</div>';
   }
 
+  var NUMWORDS = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'];
+  function numWord(n) { return NUMWORDS[n] || String(n); }
+
   function headerSlot(l) {
     if (l.headerImage) return '<div class="hdrslot"><img src="' + esc(l.headerImage) + '" alt="Lesson ' + l.n + ' — ' + esc(l.title) + '"></div>';
+    // .heyebrow is display:none in the shared engine (packets opt in via CSS); leaves art-header packets unchanged
     return '<div class="hdrslot"><div class="hcir">' + SPARKS + '<span class="hnum">' + pad2(l.n) + '</span></div>' +
-      '<div class="hright"><div class="htitle">' + esc(l.title) + '</div>' +
+      '<div class="hright"><div class="heyebrow">Lesson ' + numWord(l.n) + '</div><div class="htitle">' + esc(l.title) + '</div>' +
       '<div class="href">' + esc(l.reference) + '</div></div></div>';
   }
 
