@@ -64,7 +64,7 @@ window.BBS_CONTENT = {
       "videoSubtitle": "Grace: The Story of Hannah",
       "pageImages": ["assets/pages/hannah-a.png", "assets/pages/hannah-b.png"],
       "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.25, "w": 81.74, "h": 6.72 },
+        "scripture": { "x": 8.7, "y": 48.06, "w": 81.8, "h": 7.1 },
         "video": { "x": 14.83, "y": 62.5, "w": 70.34, "h": 31.06 }
       },
       "questions": [

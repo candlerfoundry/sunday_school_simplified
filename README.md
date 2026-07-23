@@ -357,8 +357,12 @@ transcripts + a theme/scripture chart (Dropbox).
   the lesson pages herself in Canva. Hannah is the first one in, via the image-based
   mechanism above: `assets/pages/hannah-a.png` + `hannah-b.png` (1632×2112, exported through
   the Canva connector from design `DAHOtl4BNMk` pages 8–9). Measured hotspots (percent of
-  page): scripture `x 8.7 / y 48.25 / w 81.74 / h 6.72`, video `x 14.83 / y 62.5 / w 70.34
-  / h 31.06` (her video box is 1148×656 ≈ 16:9). Her art also carries **new prayers** that
+  page): scripture `x 8.7 / y 48.06 / w 81.8 / h 7.1`, video `x 14.83 / y 62.5 / w 70.34
+  / h 31.06` (her video box is 1148×656 ≈ 16:9). **Re-measure the hotspots every time the
+  art is re-exported** — Emily's second revision moved the scripture box (the video box
+  happened to stay put), and stale coordinates silently misalign the overlay. Measure by
+  finding the longest horizontal run of gold per row (the page has a gold outer frame whose
+  vertical edges otherwise contaminate a naive bounding box). Her art also carries **new prayers** that
   supersede the `openingPrayer`/`closingPrayer` strings visually. **Video is still dark:**
   Hannah's `videoUrl` is empty, so her own "3 Minute Bible" graphic shows — drop in the
   Vimeo URL and the in-frame player + pop-out light up automatically. **Lessons 2–6 still
