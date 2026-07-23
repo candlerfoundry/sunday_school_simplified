@@ -62,6 +62,11 @@ window.BBS_CONTENT = {
       "scriptureRef": "1 Samuel 1:1–20",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Grace: The Story of Hannah",
+      "pageImages": ["assets/pages/hannah-a.png", "assets/pages/hannah-b.png"],
+      "hotspots": {
+        "scripture": { "x": 8.7, "y": 48.25, "w": 81.74, "h": 6.72 },
+        "video": { "x": 14.83, "y": 62.5, "w": 70.34, "h": 31.06 }
+      },
       "questions": [
         "How does the narrator describe Hannah's relationship with her family, including her husband Elkanah and his other wife Peninnah? To what extent does Hannah's childless state inform those relationships?",
         "With no male offspring to support her, Hannah faced a potentially ruinous eventuality of becoming a childless widow — one of the most vulnerable members of society. Further, in the patriarchal setting of this narrative, Hannah's prestige was directly tied to her fertility. How does this context inform Hannah's prayers and concerns?",

@@ -88,6 +88,25 @@
       '<div class="foot"><span>' + esc(C.meta.title) + ' &middot; Lesson ' + pad2(l.n) + ' of ' + C.lessons.length + '</span>' + moreBtn(l) + '</div></div>';
   }
 
+  // image-based lesson pages: the packet supplies full-page art (2 pages) and the engine
+  // overlays only the interactive bits (scripture popout hotspot, video). Backward
+  // compatible: lessons without pageImages render the normal engine-drawn pages.
+  function lessonImagePageA(l) {
+    var h = l.hotspots || {}, s = h.scripture, v = h.video;
+    var out = '<div class="pg imgpage"><img class="pgimg" src="' + esc(l.pageImages[0]) + '" alt="Lesson ' + l.n + ' — ' + esc(l.title) + '">';
+    if (s) out += '<button class="imghot imgscrip" type="button" data-scrip="' + l.n + '" aria-label="Read the passage" ' +
+      'style="left:' + s.x + '%;top:' + s.y + '%;width:' + s.w + '%;height:' + s.h + '%">' +
+      '<span class="ihs-ref">' + esc(l.scriptureRef) + '</span>' +
+      '<span class="ihs-btn">Read the passage <span class="ihs-badge">NRSVUE</span> <i class="fa-solid fa-book-open"></i></span></button>';
+    if (v && l.videoUrl) out += '<div class="imghot imgvid" style="left:' + v.x + '%;top:' + v.y + '%;width:' + v.w + '%;height:' + v.h + '%">' +
+      '<iframe src="' + esc(l.videoUrl) + '" title="3-Minute Bible" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>' +
+      '<button class="vpop" type="button" data-vpop="' + l.n + '" aria-label="Pop out video"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button></div>';
+    return out + '</div>';
+  }
+  function lessonImagePageB(l) {
+    return '<div class="pg imgpage"><img class="pgimg" src="' + esc(l.pageImages[1]) + '" alt="Lesson ' + l.n + ' — ' + esc(l.title) + ' (continued)"></div>';
+  }
+
   // rendered only when the lesson has extras waiting in the back; a real <button>
   // (buttons don't trigger StPageFlip's click-to-flip) that jumps to Additional Resources
   function moreBtn(l) {
@@ -138,8 +157,9 @@
   push(letterPage()); pageToLesson.push(0);
   push(contentsPage()); pageToLesson.push(0);
   C.lessons.forEach(function (l) {
-    push(lessonPageA(l)); pageToLesson.push(l.n);
-    push(lessonPageB(l)); pageToLesson.push(l.n);
+    var img = l.pageImages && l.pageImages.length >= 2;
+    push(img ? lessonImagePageA(l) : lessonPageA(l)); pageToLesson.push(l.n);
+    push(img ? lessonImagePageB(l) : lessonPageB(l)); pageToLesson.push(l.n);
   });
   var RESOURCES_IDX = pages.length;
   push(resourcesPage()); pageToLesson.push(-1);
@@ -257,8 +277,27 @@
   scrim.addEventListener("click", function (e) { if (e.target === scrim || e.target.closest(".mclose")) closeScrip(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeScrip(); });
 
+  /* ---------- video pop-out modal (image-page lessons) ---------- */
+  var vscrim = document.createElement("div");
+  vscrim.className = "scrim vscrim"; vscrim.setAttribute("aria-hidden", "true");
+  vscrim.innerHTML = '<div class="vmodal" role="dialog" aria-modal="true"><button class="vmclose" type="button" aria-label="Close">&times;</button><div class="vmframe"></div></div>';
+  document.body.appendChild(vscrim);
+  var vmframe = vscrim.querySelector(".vmframe");
+  function openVideo(n) {
+    var l = null, i; for (i = 0; i < C.lessons.length; i++) { if (C.lessons[i].n === n) { l = C.lessons[i]; break; } }
+    if (!l || !l.videoUrl) return;
+    var sep = l.videoUrl.indexOf("?") > -1 ? "&" : "?";
+    vmframe.innerHTML = '<iframe src="' + esc(l.videoUrl) + sep + 'autoplay=1" title="3-Minute Bible" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    vscrim.classList.add("show"); vscrim.setAttribute("aria-hidden", "false");
+  }
+  function closeVideo() { vscrim.classList.remove("show"); vscrim.setAttribute("aria-hidden", "true"); vmframe.innerHTML = ""; }
+  vscrim.addEventListener("click", function (e) { if (e.target === vscrim || e.target.closest(".vmclose")) closeVideo(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeVideo(); });
+
   flipEl.addEventListener("click", function (e) {
-    var card = e.target.closest(".scripcard");
+    var vp = e.target.closest("[data-vpop]");
+    if (vp) { e.stopPropagation(); openVideo(parseInt(vp.getAttribute("data-vpop"), 10)); return; }
+    var card = e.target.closest("[data-scrip]");
     if (card) { e.stopPropagation(); openScrip(parseInt(card.getAttribute("data-scrip"), 10)); return; }
     var m = e.target.closest("[data-gotores]");
     if (m) { e.stopPropagation(); flip.flip(RESOURCES_IDX); return; }

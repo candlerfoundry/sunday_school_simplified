@@ -182,6 +182,26 @@ layout — no top bar, no page indicator).
   `<div class="heyebrow">Lesson N</div>` (N spelled out) that is `display:none` in
   `engine/styles.css` by default — so art-header packets and Beyond Bumper Stickers are
   unchanged — and a packet opts in by styling `.heyebrow{display:block}` (packet #2 does).
+- **IMAGE-BASED LESSON PAGES (July 2026) — "bring your own art."** A lesson may supply its
+  two pages as **full-page artwork** (designed in Canva) instead of being laid out by the
+  engine; the engine then renders the art full-bleed and overlays **only the interactive
+  bits**. Triggered purely by the presence of `pageImages` on a lesson, so lessons/packets
+  without it are untouched. This exists because Emily wants full design control of the
+  lesson layouts; the flipbook keeps the two things a flat image can't do:
+  - **Scripture hotspot** — a transparent positioned `<button class="imgscrip" data-scrip=N>`
+    laid over the art's scripture box; it renders the reference + a "Read the passage /
+    NRSVUE" pill and opens the **same** scripture pop-out (`scriptureText`).
+  - **Video hotspot** — the Vimeo iframe fills the art's video box (**plays in frame**),
+    plus a **⤢ pop-out button** that opens the video large in a centered 16:9 modal
+    (`.vscrim`/`.vmodal`, autoplay, Esc/backdrop to close). If the lesson has no
+    `videoUrl`, no overlay is drawn and the art's own placeholder graphic shows through.
+  - Hotspots are **percentages of the page**, so they scale with `--book-scale`.
+  - **The binder stays** (Emily's call): the art sits inside the navy spine/tab frame.
+  - Art spec: **1632 × 2112 PNG** (8.5 × 11 at 2×, same as the cover). Video box must be
+    **16:9**. Body text ≥ ~34 px at that scale (= 17 px on the rendered page).
+  - **Getting the art in: use the Canva connector, never the Dropbox mount** (the mount
+    truncates PNGs). Design `DAHOtl4BNMk` → `export-design` (png, pro, lossless) → download
+    from Canva's CDN → verify PNG signature + `IEND` before pushing.
 - **Type:** **Thierry Leonie** (display numerals), **Mulish** (body; upsized ~10% vs the
   old layout for readability/accessibility — body 18-19px), **Hello-Handmade Sans**
   (handmade display: letter heading, TOC title, tab numerals, fallback lesson titles).
@@ -258,7 +278,14 @@ lesson = { n, accent, reference, shortRef, title,
                                 //   video card on lesson page A
            headerImage,         // path or null (engine draws the replica header when null);
                                 //   art spec: 1632x560 PNG, white bg, fills 816x280 slot
-           questions: [ ... ] } // 5-6 strings
+           questions: [ ... ], // 5-6 strings
+           pageImages,          // OPTIONAL ["pageA.png","pageB.png"] — full-page Canva art.
+                                //   When present the engine renders the art instead of
+                                //   laying the pages out, and only overlays the hotspots.
+                                //   Titles/prayers/questions then live in the ART, not here
+                                //   (the fields stay for the PDF + as the written record).
+           hotspots }           // required with pageImages: percentages of the page,
+                                //   { scripture:{x,y,w,h}, video:{x,y,w,h} }
 ```
 
 `scriptureText` markup: `<h4>` sub-reference headings, `<p>` prose, `<p class="poet">`
@@ -325,6 +352,18 @@ transcripts + a theme/scripture chart (Dropbox).
   live-video lesson, contents/letter, modal, resources) with no overflow; Beyond Bumper
   Stickers confirmed pixel-unchanged. Cover is Emily's Canva cover (`assets/cover.png`,
   1632×2112, gold-on-yellow, integrity-verified).
+- **Lesson 1 (Hannah) now renders from Emily's own Canva art (July 2026).** Emily was not
+  happy with the engine-drawn layouts (including the variant-B facelift) and is designing
+  the lesson pages herself in Canva. Hannah is the first one in, via the image-based
+  mechanism above: `assets/pages/hannah-a.png` + `hannah-b.png` (1632×2112, exported through
+  the Canva connector from design `DAHOtl4BNMk` pages 8–9). Measured hotspots (percent of
+  page): scripture `x 8.7 / y 48.25 / w 81.74 / h 6.72`, video `x 14.83 / y 62.5 / w 70.34
+  / h 31.06` (her video box is 1148×656 ≈ 16:9). Her art also carries **new prayers** that
+  supersede the `openingPrayer`/`closingPrayer` strings visually. **Video is still dark:**
+  Hannah's `videoUrl` is empty, so her own "3 Minute Bible" graphic shows — drop in the
+  Vimeo URL and the in-frame player + pop-out light up automatically. **Lessons 2–6 still
+  render engine-drawn (variant B)** until Emily designs their Canva pages, so the packet is
+  intentionally mixed for now.
 - **Lesson 1 (Hannah) questions are FINAL** — exactly Emily's five, with one edit she
   approved (Samuel "raised at the sanctuary, not at home with Hannah" — the earlier draft
   said "the temple," anachronistic here). All six lessons' questions have now been
