@@ -194,10 +194,12 @@ layout — no top bar, no page indicator).
   - **Scripture hotspot** — a transparent positioned `<button class="imgscrip" data-scrip=N>`
     laid over the art's scripture box; it renders the reference + a "Read the passage /
     NRSVUE" pill and opens the **same** scripture pop-out (`scriptureText`).
-  - **Video hotspot** — the Vimeo iframe fills the art's video box (**plays in frame**),
-    plus a **⤢ pop-out button** that opens the video large in a centered 16:9 modal
-    (`.vscrim`/`.vmodal`, autoplay, Esc/backdrop to close). If the lesson has no
-    `videoUrl`, no overlay is drawn and the art's own placeholder graphic shows through.
+  - **Video hotspot** — a **transparent click target** (`.imgvidhot`) over the art's video
+    box. The art already draws a clean "3 Minute Bible" placeholder with a play button, so we
+    do **NOT** embed the Vimeo iframe in-frame (July 2026 — Emily: its preview chrome, orange
+    thumbnail + metadata, is ugly). Clicking the hotspot opens the video large in a centered
+    16:9 pop-out modal (`.vscrim`/`.vmodal`, autoplay, Esc/backdrop to close). If the lesson
+    has no `videoUrl`, no overlay is drawn and the art's own placeholder just shows through.
   - Hotspots are **percentages of the page**, so they scale with `--book-scale`.
   - **The binder stays** (Emily's call): the art sits inside the navy spine/tab frame.
   - Art spec: **1632 × 2112 PNG** (8.5 × 11 at 2×, same as the cover). Video box must be
@@ -453,16 +455,17 @@ transcripts + a theme/scripture chart (Dropbox).
   users until Emily approves the content. Card: subtitle from `meta.tagline`, brown
   accent `#6d4f26`, `status:"live"` (a `"soon"` card renders dimmed with no link), and now
   a `pdf` key (the printable packet).
-- **Content synced for the PDF (July 2026).** Because the flipbook shows the Canva art but
-  the PDF is generated from `content.js`, the two were reconciled: **`content.js` prayers were
-  updated to match the art** (the art's prayers are the newer set and supersede the older
-  drafts). **Questions were NOT changed** — here `content.js` has the *more refined, final*
-  wording and the art is older (e.g. Hannah Q3 says the final "raised at the sanctuary, not at
-  home" in `content.js` but the art still reads the older "not be raised at home"; Q4 says
-  "three sons and two daughters" vs the art's looser "five children"). So the PDF carries the
-  best wording, but **the flipbook art currently shows older question text than `content.js`** —
-  if Emily wants them identical, the fix is to update the questions in the Canva art (design
-  `DAHOtl4BNMk`) and re-export those page-B images.
+- **`content.js` synced to the Canva art (July 2026) — the flipbook/Canva is the source of
+  truth.** The flipbook shows the art; `content.js` now exists only to feed the **PDF** + as
+  the written record, so it was reconciled to match the art exactly: **prayers AND questions
+  both synced to the current Canva wording** (e.g. Hannah Q3 reads the art's "not be raised at
+  home," Q4 the art's "five children"; the Widow's questions are in the art's visual order —
+  read-order from the Canva API is unreliable, so cross-check the rendered page). If Emily
+  edits a lesson's text in Canva, re-sync `content.js` and re-cut the PDF so they stay matched.
+- **Letter rewritten (July 2026)** to Emily's new copy (no pull-quotes now — `meta.letter.quotes`
+  is `[]`, and both the engine `letterPage()` and the PDF generator skip the quotes block when
+  it's empty). The letter is engine-drawn from `content.js`, so this updated the flipbook AND
+  the PDF in one edit.
 
 Pending: all six lessons' questions are now Emily-reviewed — remaining draft items are
 the **letter** and a **packet-wide final prayer pass** (do not distribute links until
@@ -517,11 +520,10 @@ conversion needed, reuses the packet's own webfonts (Hello Handmade / Mulish) an
 text lesson headers (the flipbook's headers are baked into the full-page art, so the PDF
 draws its own eyebrow + gold title + reference + rule); QR+link scripture (Bible Gateway
 NRSVUE) and videos; `funFact` "Did you know?" notes; Additional Resources cards for
-`optionalVideo`/`optionalReadings`. Content comes straight from `content.js` — so the PDF
-carries the synced-to-art prayers AND the refined `content.js` question wording (see the
-"art vs. refined questions" note in the Packet #2 status). **Re-cut when prayers/questions/
-videoUrls change** (procedure in the script header). Only lesson 2 currently has a live
-Vimeo QR; the rest show "coming soon."
+`optionalVideo`/`optionalReadings`. Content comes straight from `content.js`, which is kept
+synced to the Canva art (prayers + questions + letter), so the **PDF matches the flipbook**.
+**Re-cut when the art/content or videoUrls change** (procedure in the script header). Only
+lesson 2 currently has a live Vimeo QR; the rest show "coming soon."
 
 ## Adding a new packet
 

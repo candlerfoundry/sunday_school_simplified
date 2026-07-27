@@ -21,16 +21,12 @@ window.BBS_CONTENT = {
       "heading": "A Letter from The Candler Foundry",
       "paragraphs": [
         "Dear Friend,",
-        "Some of the most important people in the Bible are also the easiest to read past — the women whose faith, courage, and cunning quietly move the whole story of God's people forward."
+        "Throughout Scripture, women proclaim God’s good news through their words, their courage, and their lives. They pray with honesty, preserve life in the face of violence, challenge injustice, demand recognition, offer hospitality, and bear witness to God’s healing and provision."
       ],
-      "quotes": [
-        "\"Hannah, who prayed out of her grief.\"",
-        "\"Shiphrah and Puah, who defied a king.\"",
-        "\"Tamar, who refused to be erased.\""
-      ],
+      "quotes": [],
       "paragraphs2": [
-        "**The Gospel According to the Women** is an invitation to slow down with six of these women — Hannah, the two daughters of Mark 5, Shiphrah and Puah, the daughters of Zelophehad, Tamar, and the widow of Zarephath — and to read their stories in their own right, with the help of biblical scholarship.",
-        "We've designed these lessons to be easy — you can study on your own or with a group, no leader necessary."
+        "**The Gospel According to the Women** invites us to spend time with six of these stories - Hannah, the two daughters of Mark 5, Shiphrah and Puah, the daughters of Zelophehad, Tamar, and the widow of Zarephath. Each offers a distinct witness to the character and work of God. Together, they remind us that God hears our cries, cares for us in our vulnerability, restores life, and works through human courage to bring justice and hope into the world.",
+        "We have designed these lessons to be easy-to-use and adaptable to different settings. You can study on your own or gather with a group, and with or without a discussion leader."
       ],
       "rhythmTitle": "The Rhythm of Each Lesson",
       "steps": [
@@ -41,7 +37,7 @@ window.BBS_CONTENT = {
         "Close with prayer."
       ],
       "paragraphs3": [
-        "We're glad you're here. May the faith and courage of these women meet you in a new way."
+        "We’re glad you are here. May these women’s stories deepen your understanding of Scripture and help you hear God’s good news in a new way."
       ],
       "grace": "Grace and peace,",
       "signName": "The Candler Foundry"
@@ -69,11 +65,11 @@ window.BBS_CONTENT = {
         "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
       },
       "questions": [
-        "How does the narrator describe Hannah's relationship with her family, including her husband Elkanah and his other wife Peninnah? To what extent does Hannah's childless state inform those relationships?",
-        "With no male offspring to support her, Hannah faced a potentially ruinous eventuality of becoming a childless widow — one of the most vulnerable members of society. Further, in the patriarchal setting of this narrative, Hannah's prestige was directly tied to her fertility. How does this context inform Hannah's prayers and concerns?",
-        "Hannah vows to give the very son she is begging for back to God as a nazirite, dedicated to the Lord (v. 11). As a nazirite, her son would be raised at the sanctuary, not at home with Hannah. Why do you think Hannah would have made this promise, and what do you make of it? Does it inform our understanding of her motivations for wanting a child? (No wrong answers!)",
-        "As the video explains, Hannah's infertility was understood as a matter of God withholding a pregnancy, such that the cure for infertility was prayer. Indeed, God hears Hannah's prayer and she eventually bears three sons and two daughters (1 Sam 2:21). How have Hannah's social prospects changed as a result of her childbearing? What is the narrator communicating to us about the nature of God, and God's concern for our real-world problems?",
-        "Hannah prays \"out of my great anxiety and vexation\" (v. 16) — she's so distressed that the priest Eli mistakenly believes her to be drunk. When you are in real grief, what does your own praying tend to look like?"
+        "How does the narrator describe Hannah’s relationship with her family, including her husband Elkanah and his other wife Peninnah? To what extent does Hannah’s childless state inform those relationships?",
+        "With no male offspring to support her, Hannah faced a potentially ruinous eventuality of becoming a childless widow - one of the most vulnerable members of society. Further, in the patriarchal setting of this narrative, Hannah’s prestige was tied to her fertility. How does this context inform Hannah’s prayers and concerns?",
+        "Hannah vows to give away the very son she is begging for back to God as a Nazirite. As a Nazirite, her son would not be raised at home by Hannah. Why do you think Hannah made this promise, and what do you make of it? (There are no wrong answers!)",
+        "As the video explains, Hannah’s infertility was understood as God’s withholding of pregnancy, such that the “cure” for it was prayer. Indeed, God hears Hannah’s prayer - she eventually bears five children (1 Sam. 2:21). How have Hannah’s social prospects changed as a result of her childbearing? What is the narrator communicating about the nature of God’s concern for our real-world problems?",
+        "Hannah prays “out of [her] great anxiety and vexation” - she’s so distressed that the priest Eli mistakenly believes her to be drunk. When you are in real grief, what does your own praying tend to look like?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Samuel%201%3A1-20&version=NRSVUE",
       "videoUrl": "",
@@ -105,11 +101,11 @@ window.BBS_CONTENT = {
       },
       "questions": [
         "Mark is famously sparse with words, telling the reader only the necessary information without much descriptive detail. Take a few minutes and imagine the details that Mark omitted. What sights, smells, and sounds do you imagine as you read? What tones of voice were used by each person as they spoke?",
-        "What context does Mark give us about the bleeding woman? Aside from her physical condition, how does Mark indicate the other ways she suffers?",
-        "Being on the social fringes as she was, the bleeding woman would need to have summoned a particular boldness to struggle through the crowd and touch Jesus. What emotions do you imagine she feels as she reaches for Jesus's cloak?",
+        "What context does Mark give about the bleeding woman? Aside from her physical condition, how does Mark indicate the other ways she suffers?",
+        "Being on the social fringes as she was, the bleeding woman was especially bold in struggling through the crowd to touch Jesus. What emotions do you imagine she feels as she reaches for Jesus’s cloak?",
         "Jesus gives life to both the woman and the girl, but in very different contexts. What does restoration and healing look like for each of them?",
-        "The bleeding woman's lowly social status contrasts sharply with that of Jairus - a prominent synagogue leader who nonetheless begs at Jesus's feet for his daughter's healing. How does Mark use these narratives to demonstrate Jesus's power to overcome all boundaries - including social obstacles and even death itself?",
-        "How does Mark work to show us a Jesus that is both divine, but also tender and human?"
+        "The bleeding woman’s lowly social status contrasts with that of Jairus - a prominent synagogue leader. Even so, he begs at Jesus’s feet. In what ways does this narrative show Jesus’s power to overcome boundaries - including social boundaries and death itself?",
+        "How does this narrative reveal a Jesus who is divine but also tender and human?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Mark%205%3A21-43&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1210281687",
@@ -148,11 +144,11 @@ window.BBS_CONTENT = {
         "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
       },
       "questions": [
-        "The story never tells us how Shiphrah and Puah responded when Pharaoh gave them his command. He apparently expected them to obey, and the narrative doesn't tell us much about how the women responded, deliberated between themselves, or formed a plan. Using your imagination, help fill in these narrative gaps. What might the women have said to Pharaoh? To each other? To the other midwives in their community, and to expectant Hebrew mothers?",
-        "Scholars debate whether Shiphrah and Puah were Hebrew midwives or non-Hebrew midwives who served Hebrew women. How does the story change if they were protecting people outside their own community? What risks did they face for their defiance of Pharaoh? What might have led them to take that risk?",
-        "Pharaoh orders the midwives to kill the boys but let the girls live, apparently assuming that girls pose no threat to him. Yet women repeatedly defeat his plan. What does Pharaoh fail to understand about where true power resides?",
-        "Shiphrah and Puah receive no instructions from God - no burning bush, no voice from above. The text says only that they \"feared God\" (v. 17), which in the Old Testament isn't terror but something like conscience: a reverence that refuses to harm the vulnerable. What does this tell us about our human capacity to discern God's will, even when we cannot hear God's voice?",
-        "Looking back, it's easy for us to see Pharaoh's command as evil, and the midwives' acts as faithful disobedience. In our own lives, it's often harder to discern where we are called to disobey on moral or ethical grounds. Have you ever faced a choice between your conscience and following an authority? How did you respond?"
+        "The story never tells us how Shiphrah and Puah responded when Pharaoh gave them his command. He apparently expected them to obey, and the narrative doesn't tell us how they deliberated between themselves or formed a plan. Using your imagination, help fill in these narrative gaps. What might the women have said to Pharaoh and one another? To the other midwives in their community, and to expectant Hebrew mothers?",
+        "Scholars debate whether Shiphrah and Puah were Hebrew midwives or non-Hebrew midwives who served Hebrew women. How does the story change if they were protecting people outside their own community? What risks did they face for their defiance? What might have led them to take that risk?",
+        "Pharaoh orders the midwives to kill the boys but lets the girls live, apparently assuming that girls pose no threat to him. Yet women repeatedly defeat his plan. What does Pharaoh fail to understand about where true power resides?",
+        "Shiphrah and Puah receive no instructions from God—no burning bush, no voice from above. What does this tell us about our human capacity to discern God’s will, even when we cannot hear God’s voice?",
+        "Looking back, it’s easy for us to see Pharaoh’s command as evil, and the midwives’ acts as faithful disobedience. In our own lives, it’s often harder to discern where we are called to disobey on moral or ethical grounds. Have you ever faced a choice between your conscience and following an authority? How did you respond?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Exodus%201%3A8-22&version=NRSVUE",
       "videoUrl": "",
@@ -180,11 +176,11 @@ window.BBS_CONTENT = {
         "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
       },
       "questions": [
-        "This lesson's passages reflect the Israelites' plans to allocate the promised land among the various families. Distributing the land fairly was essential, because the Israelites survived primarily on food grown on their respective families' land. Land was passed patrilineally, meaning through male heirs. Keeping this in mind, what are the daughters' circumstances in the wake of their father's death, and how are they now uniquely vulnerable?",
+        "This lesson’s passages reflect the Israelites’ plans to allocate the promised land among the various families. Distributing the land fairly was essential, because the Israelites survived primarily on food grown on their respective families’ land. Land was passed patrilineally, meaning through male heirs. Keeping this in mind, what are the daughters’ circumstances in the wake of their father’s death, and how are they now uniquely vulnerable?",
         "How does the narrator build dramatic tension as the daughters approach Moses? What makes their legal claim, and the manner in which they present it, particularly bold?",
         "How is the issue at hand relevant beyond the daughters themselves? How does the outcome affect their descendants? Other men without sons, and their daughters? The community at large?",
-        "What is Moses' role in resolving the question the daughters pose? Who actually owns and controls the land and determines its use? Who ultimately creates the laws?",
-        "As modern readers, how does the outcome of this story inform our responsibility to care for the land and the vulnerable members of our communities? How does the narrative suggest that fulfilling those responsibilities is a matter of being faithful and obedient to God?"
+        "What is Moses’ role in resolving the question the daughters pose? Who actually owns and controls the land and determines its use, and ultimately creates the laws?",
+        "As modern readers, how does the outcome of this story inform our responsibility to care for the land and the vulnerable members of our communities? How does the narrative suggest that fulfilling these responsibilities is a matter of being faithful and obedient to God?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Numbers%2026%3A52-56%3B%2027%3A1-11&version=NRSVUE",
       "videoUrl": "",
@@ -215,10 +211,10 @@ window.BBS_CONTENT = {
         "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
       },
       "questions": [
-        "In previous lessons, we learned that ancient Israel was an agrarian society in which land, and conceiving male offspring to farm and inherit land, was a key to survival. Recall that childless widows were among the most vulnerable members of society. Now, let's revisit the many aspects of this story that, as modern readers, strike us as odd and disturbing but make sense within this context. What are Judah's instructions to Onan, and what motivates that instruction? What motivates Tamar, and what is she fighting for?",
-        "Who are the villains and protagonists in this story? How does the narrator invite the reader to see Tamar's behavior and her trickery? What aspects of the narrative prompt your responses?",
-        "A prominent recurring character in the Old Testament is the courageous underdog who seeks justice by outsmarting or tricking a more powerful foe. (Bonus points if you can think of any other examples!) What narrative clues establish Judah's authority and social power? Why are stories of trickery so resonant across time?",
-        "The narrator indicates that Onan's behavior was so \"displeasing in the sight of the Lord\" that God \"put him to death.\" Again remembering the context noted in question 1, why was Onan's behavior so displeasing? (See Deuteronomy 25:5–10 for additional context.) What is the narrator telling us about God's care for Tamar? What broader theological points does the story make about God's care for the socially and economically vulnerable, and our duty of care for them as well?",
+        "In ancient Israel, access to land, and having male offspring to farm and inherit land, was key to survival. This made childless widows among the most vulnerable members of society. With this in mind, consider the aspects of this story that, as modern readers, strike us as odd and disturbing but make more sense within this context. What are Judah's instructions to Onan, and what motivates that instruction? What motivates Tamar, and what is she fighting for?",
+        "Who are the villains and protagonists in this story? Is the narrator inviting us to perceive Tamar's trickery as problematic, or heroic? What aspects of the narrative prompt your responses?",
+        "A recurring Old Testament motif is the courageous underdog who defeats a more powerful opponent using trickery. (Bonus points if you can think of any other examples!) What narrative clues establish Judah as a powerful figure? Why are stories of trickery so resonant across time?",
+        "The narrator indicates that Onan's behavior was so displeasing to God that God \"put him to death.\" Remembering the context from question 1, why was Onan's behavior so displeasing? (See Deut. 25:5–10 for additional context.) How does God’s displeasure for Onan demonstrate God's care for Tamar? What is the narrative telling us about God's care for the socially vulnerable, and our duty of care for them as well?",
         "Remembering that there are no wrong answers, to what extent are you comfortable finding theological meaning in a story that is troublesome to our modern eyes and ears?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%2038%3A6-26&version=NRSVUE",
@@ -260,8 +256,8 @@ window.BBS_CONTENT = {
       "questions": [
         "The widow doesn't seem to have received any message from God, and yet in verse 9 we are told that God has said, \"I have commanded a widow there to feed you.\" Look back at the similar statement about the ravens in verse 4. What do these two passages suggest about what \"command\" can mean? How might God be at work through us even when we have not heard God's voice directly?",
         "Elijah, one of the most prominent figures in the Old Testament, is called to speak God's word to kings. Yet God chooses a widow, someone with little social power and almost no food, to sustain him. What do you make of God placing Elijah's survival in her hands?",
-        "God sends Elijah outside Israel to Zarephath, in Sidon, the homeland of the infamous Jezebel and a center of Baal worship. The widow who lives there is a foreigner, yet she demonstrates faith in Israel's God. What might it mean that Elijah experiences God's power and provision through a foreigner? How does the narrator weigh the importance of faith against ethnic or national identity? What lessons might the original Israelite readers have been meant to learn from this passage?",
-        "In the video we learn that, in the ancient setting of this narrative, extending hospitality was not just an obligation but a source of honor. God could have provided for Elijah by delivering another miracle similar to the one in verse 4. Instead, God instructs Elijah to enter the widow's home, where she becomes his host. How does this address the widow's needs (beyond her need for food)?",
+        "God sends Elijah outside Israel to Zarephath - a center of Baal worship. The widow who lives there is a foreigner, yet she demonstrates faith in Israel's God. What might it mean that Elijah experiences God's power and provision through a foreigner? How does the narrator weigh the importance of faith against ethnic or national identity? What lessons might the original Israelite readers have been meant to learn from this passage?",
+        "In the video we learn that extending hospitality was a source of honor in ancient Israel. God could have provided for Elijah without involving the widow. Instead, God instructs Elijah to enter the widow's home, where she becomes his host. How does this address the widow's social needs?",
         "Have you ever needed to rely on someone more vulnerable, or less powerful, than you for help or hospitality? How can giving or accepting hospitality be an act of grace?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Kings%2017%3A1-16&version=NRSVUE",

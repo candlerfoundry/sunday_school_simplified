@@ -66,7 +66,7 @@ async function build(){
 
   // 2) letter
   const L = C.meta.letter;
-  const quotes = `<div class="quotes">${L.quotes.map(q=>`<div>${esc(q)}</div>`).join('')}</div>`;
+  const quotes = (L.quotes && L.quotes.length) ? `<div class="quotes">${L.quotes.map(q=>`<div>${esc(q)}</div>`).join('')}</div>` : '';
   pages.push(`<section class="page pad">
     <div class="redrule"></div>
     <h1 class="letterhead">${esc(L.heading)}</h1>

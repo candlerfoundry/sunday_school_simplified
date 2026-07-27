@@ -199,11 +199,11 @@ body{background:var(--stage);font-family:'Mulish',sans-serif;color:var(--navy);-
 .imgscrip i{font-size:13px;}
 .imgscrip:hover .ihs-btn{filter:brightness(1.07);}
 .imgscrip:focus-visible{outline:3px solid var(--gold,#0A274C);outline-offset:2px;}
-.imgvid{overflow:hidden;background:#0b1420;}
-.imgvid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
-.imgvid .vpop{position:absolute;top:9px;right:9px;z-index:4;width:36px;height:36px;border-radius:9px;border:0;cursor:pointer;
-  background:rgba(8,16,28,.7);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;transition:background .15s;}
-.imgvid .vpop:hover{background:rgba(8,16,28,.92);}
+/* video hotspot: a transparent click target over the art's own "3 Minute Bible"
+   placeholder; clicking opens the pop-out modal. No in-frame Vimeo chrome. */
+.imgvidhot{border:0;background:transparent;cursor:pointer;border-radius:6px;transition:background .15s;}
+.imgvidhot:hover{background:rgba(10,39,76,.08);}
+.imgvidhot:focus-visible{outline:3px solid var(--gold,#0A274C);outline-offset:2px;}
 /* video pop-out modal */
 .vscrim{padding:28px;}
 .vmodal{position:relative;width:min(1120px,94vw);aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 34px 90px rgba(0,0,0,.55);}

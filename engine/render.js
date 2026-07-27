@@ -18,7 +18,7 @@
   function letterPage() {
     var L = C.meta.letter; if (!L) return '<div class="pg"></div>';
     var p1 = L.paragraphs.map(function (t) { return "<p>" + bold(t) + "</p>"; }).join("");
-    var quotes = '<div class="quotes">' + L.quotes.map(function (q) { return "<div>" + esc(q) + "</div>"; }).join("") + "</div>";
+    var quotes = (L.quotes && L.quotes.length) ? '<div class="quotes">' + L.quotes.map(function (q) { return "<div>" + esc(q) + "</div>"; }).join("") + "</div>" : "";
     var p2 = L.paragraphs2.map(function (t) { return "<p>" + bold(t) + "</p>"; }).join("");
     var p3 = L.paragraphs3.map(function (t) { return "<p>" + bold(t) + "</p>"; }).join("");
     return '<div class="pg letter"><div class="redrule"></div>' +
@@ -98,9 +98,11 @@
       'style="left:' + s.x + '%;top:' + s.y + '%;width:' + s.w + '%;height:' + s.h + '%">' +
       '<span class="ihs-ref">' + esc(l.scriptureRef) + '</span>' +
       '<span class="ihs-btn">Read the passage <span class="ihs-badge">NRSVUE</span> <i class="fa-solid fa-book-open"></i></span></button>';
-    if (v && l.videoUrl) out += '<div class="imghot imgvid" style="left:' + v.x + '%;top:' + v.y + '%;width:' + v.w + '%;height:' + v.h + '%">' +
-      '<iframe src="' + esc(l.videoUrl) + '" title="3-Minute Bible" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>' +
-      '<button class="vpop" type="button" data-vpop="' + l.n + '" aria-label="Pop out video"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button></div>';
+    // Video: the art already draws a clean "3 Minute Bible" placeholder with a play button;
+    // overlay a transparent hotspot that opens the pop-out modal (autoplay). We do NOT embed
+    // the Vimeo iframe in-frame — its preview chrome (orange thumbnail + metadata) is ugly.
+    if (v && l.videoUrl) out += '<button class="imghot imgvidhot" type="button" data-vpop="' + l.n + '" aria-label="Play the 3-Minute Bible video" ' +
+      'style="left:' + v.x + '%;top:' + v.y + '%;width:' + v.w + '%;height:' + v.h + '%"></button>';
     return out + '</div>';
   }
   function lessonImagePageB(l) {
