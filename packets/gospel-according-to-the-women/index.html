@@ -98,9 +98,9 @@
 .bookdeco .stack.left{background:linear-gradient(90deg,rgba(61,45,15,.14),rgba(61,45,15,0) 70%),repeating-linear-gradient(180deg,#FFFDF0 0 2px,#E7E1BE 2px 4px);}
 .bookdeco .stack.right{background:linear-gradient(270deg,rgba(61,45,15,.14),rgba(61,45,15,0) 70%),repeating-linear-gradient(180deg,#FFFDF0 0 2px,#E7E1BE 2px 4px);}
 .bookdeco .gutter{background:linear-gradient(90deg,rgba(10,39,76,0),rgba(10,39,76,.10) 46%,rgba(10,39,76,.16) 50%,rgba(10,39,76,.10) 54%,rgba(10,39,76,0));}
-/* download ribbon → bright yellow to draw the eye (navy text/icon) */
-.dlbtn{background:#FFD21E;color:#0A274C;box-shadow:-6px 6px 18px rgba(10,39,76,.30);}
-.dlbtn i{color:#0A274C;}
+/* download tab → bright yellow to draw the eye (navy text/icon) */
+.tab.download{background:#FFD21E;border-color:#E3B800;}
+.tab.download .ti,.tab.download .tl{color:#0A274C;}
 /* fit longer question sets on page B without collision (verified via Playwright:
    Hannah's five long questions overflowed .qs by 45px at the old sizes) */
 .qs .q{padding:8px 0;}
@@ -111,9 +111,6 @@
 <body>
   <button class="nav prev" id="navPrev" aria-label="Previous">&#8249;</button>
   <button class="nav next" id="navNext" aria-label="Next">&#8250;</button>
-  <a class="dlbtn" href="#" aria-label="Download printable packet">
-    <i class="fa-solid fa-download"></i><span class="vtxt">Download Printable Packet</span>
-  </a>
   <a class="wmark" href="https://www.candlerfoundry.emory.edu" target="_blank" rel="noopener" aria-label="The Candler Foundry"></a>
   <div id="stage">
     <div id="binder-scaler"><div class="binder">

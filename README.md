@@ -153,11 +153,14 @@ layout — no top bar, no page indicator).
   on the outer left/right edges (drawn behind the pages, gradient-shaded). Both hide on
   the cover view (`.binder.on-cover`) and the whole deco fades out while a flip is in
   progress (`.binder.flipping`, driven by StPageFlip's `changeState`).
-- **Download:** a fixed vertical red **ribbon** docked to the right viewport edge
-  ("Download Printable Packet"), OUTSIDE the book. Its font/padding are `clamp()`ed on
-  `vh` and it's capped at `max-height:calc(50vh - 62px)` so it can never reach the
-  mid-height nav arrow on short laptop windows. The fit formula reserves nothing at the
-  bottom: scale = min((vw-130)/(68+1632+132), (vh-24)/1056).
+- **Download:** a **"Printable Packet" tab** at the bottom of the tab rail (July 2026 —
+  this replaced the old fixed vertical side ribbon at Emily's request; the ribbon read as
+  a tethered label, the tab reads as part of the binder). It's a real `<a ... download>`
+  styled as a `.tab.download`, rendered by the engine only when the packet ships a PDF
+  (`meta.pdf`); the click handler skips it so the browser handles the download. Colored via
+  `--red` so it grabs the eye — bright **yellow `#FFD21E`** (navy text) on the women packet,
+  red on Beyond Bumper Stickers — packets re-theme `.tab.download`. The fit formula is
+  unchanged: scale = min((vw-130)/(68+1632+132), (vh-24)/1056).
 - **Favicon:** `engine/assets/favicon.svg` — tone-on-tone powder-blue rounded tile with
   the navy Foundry circle-mark (mark only; the full wordmark is illegible at 16px).
   Linked from the packet shell and the landing page.
@@ -346,8 +349,9 @@ transcripts + a theme/scripture chart (Dropbox).
     Additional Resources title, modal "Open in Bible Gateway", resource icons, question-
     number circles) go mustard gold; section labels + references go brown; small icon
     circles are a pale-gold tint with a gold ring. Body text stays navy for readability.
-  - **Unchanged:** the navy binder spine/tabs/nav (shared brand chrome) and the
-    **bright-yellow download ribbon** `#FFD21E` (Emily wants it to grab the eye).
+  - **Unchanged:** the navy binder spine/tabs/nav (shared brand chrome). The
+    **bright-yellow `#FFD21E`** download control (Emily wants it to grab the eye) is now the
+    **"Printable Packet" tab** at the bottom of the rail (was a side ribbon — see Download above).
   Verified July 2026 in Playwright across every surface (lessons incl. long titles and the
   live-video lesson, contents/letter, modal, resources) with no overflow; Beyond Bumper
   Stickers confirmed pixel-unchanged. Cover is Emily's Canva cover (`assets/cover.png`,
@@ -447,15 +451,25 @@ transcripts + a theme/scripture chart (Dropbox).
   for her own ease of review access from the landing page. This changes nothing about
   exposure (the packet URL was already public, same as BBS); nothing is *distributed* to
   users until Emily approves the content. Card: subtitle from `meta.tagline`, brown
-  accent `#6d4f26`, `status:"live"` (a `"soon"` card renders dimmed with no link), no
-  `pdf` key yet.
+  accent `#6d4f26`, `status:"live"` (a `"soon"` card renders dimmed with no link), and now
+  a `pdf` key (the printable packet).
+- **Content synced for the PDF (July 2026).** Because the flipbook shows the Canva art but
+  the PDF is generated from `content.js`, the two were reconciled: **`content.js` prayers were
+  updated to match the art** (the art's prayers are the newer set and supersede the older
+  drafts). **Questions were NOT changed** — here `content.js` has the *more refined, final*
+  wording and the art is older (e.g. Hannah Q3 says the final "raised at the sanctuary, not at
+  home" in `content.js` but the art still reads the older "not be raised at home"; Q4 says
+  "three sons and two daughters" vs the art's looser "five children"). So the PDF carries the
+  best wording, but **the flipbook art currently shows older question text than `content.js`** —
+  if Emily wants them identical, the fix is to update the questions in the Canva art (design
+  `DAHOtl4BNMk`) and re-export those page-B images.
 
 Pending: all six lessons' questions are now Emily-reviewed — remaining draft items are
 the **letter** and a **packet-wide final prayer pass** (do not distribute links until
 Emily signs off on the full content) · remaining Vimeo
 `videoUrl`s (lesson 2 has its video; the rest, incl. "Background to the Exodus" and
-the "Orphan, Widow, and Stranger" optional, still pending) · the PDF (secondary; note `tools/make_pdf.py` predates
-`optionalReadings`/`funFact` and will need those added at re-cut time) · wire the
+the "Orphan, Widow, and Stranger" optional, still pending) · the printable PDF is **built**
+(`tools/make_women_pdf.js`; re-cut when videoUrls/content change) · wire the
 Foxy/portal access (below).
 
 ## Access / paywall model (packets)
@@ -492,6 +506,22 @@ the exact Bible Gateway NRSVUE passage**; **video = Vimeo link + QR when
 (Emily prefers Vimeo links over flipbook deep-links in print). **Re-cut the PDF when
 the Vimeo URLs land in content.js.** The engine's `?lesson=N` deep links remain
 available for sharing even though the PDF no longer uses them.
+
+**The Gospel According to the Women PDF — built July 2026** (`The Gospel According to the
+Women.pdf`, 17 pages). Same ink-light, print-friendly philosophy, but a **separate
+generator** (`tools/make_women_pdf.js`) because this packet has the mustard/brown facelift
+and extra fields. It's an **HTML-to-PDF** pipeline (a print-optimized page rendered by
+headless Chromium via `playwright-core` + `qrcode`) rather than BBS's reportlab — no font
+conversion needed, reuses the packet's own webfonts (Hello Handmade / Mulish) and palette
+(gold `#B8860B` headings, brown `#6d4f26` ink, white pages). Full-color Canva cover; clean
+text lesson headers (the flipbook's headers are baked into the full-page art, so the PDF
+draws its own eyebrow + gold title + reference + rule); QR+link scripture (Bible Gateway
+NRSVUE) and videos; `funFact` "Did you know?" notes; Additional Resources cards for
+`optionalVideo`/`optionalReadings`. Content comes straight from `content.js` — so the PDF
+carries the synced-to-art prayers AND the refined `content.js` question wording (see the
+"art vs. refined questions" note in the Packet #2 status). **Re-cut when prayers/questions/
+videoUrls change** (procedure in the script header). Only lesson 2 currently has a live
+Vimeo QR; the rest show "coming soon."
 
 ## Adding a new packet
 

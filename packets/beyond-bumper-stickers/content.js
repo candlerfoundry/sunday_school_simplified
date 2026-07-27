@@ -3,6 +3,7 @@ window.BBS_CONTENT = {
   "meta": {
     "series": "Sunday School Simplified",
     "title": "Beyond Bumper Stickers",
+    "pdf": "Beyond Bumper Stickers.pdf",
     "tagline": "Revisiting the Bible's most quotable texts",
     "subtitle": "A Six-Lesson Packet",
     "site": "candlerfoundry.org",

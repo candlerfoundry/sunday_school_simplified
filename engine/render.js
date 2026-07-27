@@ -193,6 +193,8 @@
     tabsHtml += '<div class="tab" data-tab="' + l.n + '"><span class="tn">' + l.n + '</span><span class="tl">' + esc(l.tabRef || l.shortRef) + '</span></div>';
   });
   tabsHtml += '<div class="tab small" data-tab="resources"><span class="ti"><i class="fa-solid fa-circle-play"></i></span><span class="tl">Additional Resources</span></div>';
+  // download tab (replaces the old fixed side ribbon) — only when the packet ships a PDF
+  if (C.meta.pdf) tabsHtml += '<a class="tab small download" data-tab="download" href="' + esc(C.meta.pdf) + '" download><span class="ti"><i class="fa-solid fa-download"></i></span><span class="tl">Printable Packet</span></a>';
   tabsEl.innerHTML = tabsHtml;
 
   /* ---------- flip ---------- */
@@ -248,6 +250,7 @@
   tabsEl.addEventListener("click", function (e) {
     var tb = e.target.closest(".tab"); if (!tb) return;
     var t = tb.getAttribute("data-tab");
+    if (t === "download") return;   // real <a download>; let the browser handle it
     if (t === "contents") flip.flip(2);
     else if (t === "resources") flip.flip(RESOURCES_IDX);
     else gotoLesson(parseInt(t, 10));
