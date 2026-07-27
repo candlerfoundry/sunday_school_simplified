@@ -64,8 +64,8 @@ window.BBS_CONTENT = {
       "videoSubtitle": "Grace: The Story of Hannah",
       "pageImages": ["assets/pages/hannah-a.png", "assets/pages/hannah-b.png"],
       "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.8, "h": 7.1 },
-        "video": { "x": 14.83, "y": 62.5, "w": 70.34, "h": 31.06 }
+        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
+        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
       },
       "questions": [
         "How does the narrator describe Hannah's relationship with her family, including her husband Elkanah and his other wife Peninnah? To what extent does Hannah's childless state inform those relationships?",
@@ -97,6 +97,11 @@ window.BBS_CONTENT = {
       "scriptureRef": "Mark 5:21–43",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "What is a Markan sandwich?",
+      "pageImages": ["assets/pages/two-daughters-a.png", "assets/pages/two-daughters-b.png"],
+      "hotspots": {
+        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
+        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
+      },
       "questions": [
         "Mark is famously sparse with words, telling the reader only the necessary information without much descriptive detail. Take a few minutes and imagine the details that Mark omitted. What sights, smells, and sounds do you imagine as you read? What tones of voice were used by each person as they spoke?",
         "What context does Mark give us about the bleeding woman? Aside from her physical condition, how does Mark indicate the other ways she suffers?",
@@ -136,6 +141,11 @@ window.BBS_CONTENT = {
       "scriptureRef": "Exodus 1:8–22",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Background to the Exodus",
+      "pageImages": ["assets/pages/shiphrah-puah-a.png", "assets/pages/shiphrah-puah-b.png"],
+      "hotspots": {
+        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
+        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
+      },
       "questions": [
         "The story never tells us how Shiphrah and Puah responded when Pharaoh gave them his command. He apparently expected them to obey, and the narrative doesn't tell us much about how the women responded, deliberated between themselves, or formed a plan. Using your imagination, help fill in these narrative gaps. What might the women have said to Pharaoh? To each other? To the other midwives in their community, and to expectant Hebrew mothers?",
         "Scholars debate whether Shiphrah and Puah were Hebrew midwives or non-Hebrew midwives who served Hebrew women. How does the story change if they were protecting people outside their own community? What risks did they face for their defiance of Pharaoh? What might have led them to take that risk?",
@@ -163,6 +173,11 @@ window.BBS_CONTENT = {
       "scriptureRef": "Numbers 26:52–56; 27:1–11",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "The Daughters of Zelophehad",
+      "pageImages": ["assets/pages/zelophehad-a.png", "assets/pages/zelophehad-b.png"],
+      "hotspots": {
+        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
+        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
+      },
       "questions": [
         "This lesson's passages reflect the Israelites' plans to allocate the promised land among the various families. Distributing the land fairly was essential, because the Israelites survived primarily on food grown on their respective families' land. Land was passed patrilineally, meaning through male heirs. Keeping this in mind, what are the daughters' circumstances in the wake of their father's death, and how are they now uniquely vulnerable?",
         "How does the narrator build dramatic tension as the daughters approach Moses? What makes their legal claim, and the manner in which they present it, particularly bold?",
@@ -193,6 +208,11 @@ window.BBS_CONTENT = {
       "scriptureRef": "Genesis 38:6–26",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Tamar: Righteousness When the System Fails",
+      "pageImages": ["assets/pages/tamar-a.png", "assets/pages/tamar-b.png"],
+      "hotspots": {
+        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
+        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
+      },
       "questions": [
         "In previous lessons, we learned that ancient Israel was an agrarian society in which land, and conceiving male offspring to farm and inherit land, was a key to survival. Recall that childless widows were among the most vulnerable members of society. Now, let's revisit the many aspects of this story that, as modern readers, strike us as odd and disturbing but make sense within this context. What are Judah's instructions to Onan, and what motivates that instruction? What motivates Tamar, and what is she fighting for?",
         "Who are the villains and protagonists in this story? How does the narrator invite the reader to see Tamar's behavior and her trickery? What aspects of the narrative prompt your responses?",
@@ -231,6 +251,11 @@ window.BBS_CONTENT = {
       "scriptureRef": "1 Kings 17:1–16",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "The Widow of Zarephath",
+      "pageImages": ["assets/pages/widow-a.png", "assets/pages/widow-b.png"],
+      "hotspots": {
+        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
+        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
+      },
       "questions": [
         "The widow doesn't seem to have received any message from God, and yet in verse 9 we are told that God has said, \"I have commanded a widow there to feed you.\" Look back at the similar statement about the ravens in verse 4. What do these two passages suggest about what \"command\" can mean? How might God be at work through us even when we have not heard God's voice directly?",
         "Elijah, one of the most prominent figures in the Old Testament, is called to speak God's word to kings. Yet God chooses a widow, someone with little social power and almost no food, to sustain him. What do you make of God placing Elijah's survival in her hands?",

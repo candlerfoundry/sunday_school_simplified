@@ -127,7 +127,7 @@ layout — no top bar, no page indicator).
   **index tabs** on the right. Tabs = one small "Contents" tab, one numbered tab per
   lesson labeled with its abbreviated reference (`tabRef`, e.g. "Jer. 29"), and a small
   "Additional Resources" tab. Active tab is navy. Tabs are the primary navigation
-  (plus arrow keys / edge arrows). No "page N of M" pill. Tab rail is 132px wide;
+  (plus arrow keys / edge arrows). No "page N of M" pill. Tab rail is 132px wide (the tab numeral `.tn` uses `padding-left:23px` so the numbers clear the rounded left edge — nudged out July 2026 at Emily’s request);
   `tabRef` holds the FULL reference ("Jeremiah 29", "1 Corinthians 13" — Emily wants
   them spelled out, wrapping to two/three lines), and `shortRef` (used on the Contents
   rows) is also spelled out for 1 Corinthians.
@@ -352,22 +352,7 @@ transcripts + a theme/scripture chart (Dropbox).
   live-video lesson, contents/letter, modal, resources) with no overflow; Beyond Bumper
   Stickers confirmed pixel-unchanged. Cover is Emily's Canva cover (`assets/cover.png`,
   1632×2112, gold-on-yellow, integrity-verified).
-- **Lesson 1 (Hannah) now renders from Emily's own Canva art (July 2026).** Emily was not
-  happy with the engine-drawn layouts (including the variant-B facelift) and is designing
-  the lesson pages herself in Canva. Hannah is the first one in, via the image-based
-  mechanism above: `assets/pages/hannah-a.png` + `hannah-b.png` (1632×2112, exported through
-  the Canva connector from design `DAHOtl4BNMk` pages 8–9). Measured hotspots (percent of
-  page): scripture `x 8.7 / y 48.06 / w 81.8 / h 7.1`, video `x 14.83 / y 62.5 / w 70.34
-  / h 31.06` (her video box is 1148×656 ≈ 16:9). **Re-measure the hotspots every time the
-  art is re-exported** — Emily's second revision moved the scripture box (the video box
-  happened to stay put), and stale coordinates silently misalign the overlay. Measure by
-  finding the longest horizontal run of gold per row (the page has a gold outer frame whose
-  vertical edges otherwise contaminate a naive bounding box). Her art also carries **new prayers** that
-  supersede the `openingPrayer`/`closingPrayer` strings visually. **Video is still dark:**
-  Hannah's `videoUrl` is empty, so her own "3 Minute Bible" graphic shows — drop in the
-  Vimeo URL and the in-frame player + pop-out light up automatically. **Lessons 2–6 still
-  render engine-drawn (variant B)** until Emily designs their Canva pages, so the packet is
-  intentionally mixed for now.
+- **All six lessons now render from Emily's own Canva art (July 2026).** Emily reworked every lesson's two pages herself in Canva (she was unhappy with the engine-drawn variant-B layouts), and all six are now in via the image-based mechanism above: `assets/pages/<slug>-a.png` + `-b.png` (1632×2112, exported through the Canva connector from design `DAHOtl4BNMk` pages 8–19 — hannah 8–9, two-daughters 10–11, shiphrah-puah 12–13, zelophehad 14–15, tamar 16–17, widow 18–19). The layout is a shared template, so the **hotspots are identical across all six** (measured + overlay-verified July 2026): scripture `x 8.7 / y 48.06 / w 81.74 / h 7.05`, video `x 14.77 / y 62.5 / w 70.4 / h 31.06` (video box 1149×656 ≈ 16:9). **Re-measure the hotspots every time the art is re-exported** — detect the empty gold scripture box + the dark video rectangle (dark-pixel density projection, robust to the white “3 Minute Bible” text inside the box) and confirm with a drawn overlay before trusting the numbers. The art is authoritative **visually**; the `content.js` prayer/question fields remain the written record + PDF source and may differ from the art. **Only Lesson 2 (Two Daughters) has a live `videoUrl`** (`player.vimeo.com/video/1210281687`) — it plays in-frame with a ⭢ pop-out; the other five show their own “3 Minute Bible” placeholder until Vimeo links land, at which point the in-frame player + pop-out light up automatically. Four art typos were fixed in Canva before export (SHIPHRAH headline, “Jairus”, “how they deliberated”, “jars are empty”) plus Hannah’s “Nazirite” spelling; Hannah’s visible opening prayer now reads “Gracious God…”.
 - **Lesson 1 (Hannah) questions are FINAL** — exactly Emily's five, with one edit she
   approved (Samuel "raised at the sanctuary, not at home with Hannah" — the earlier draft
   said "the temple," anachronistic here). All six lessons' questions have now been
@@ -449,7 +434,7 @@ transcripts + a theme/scripture chart (Dropbox).
   and links out to Bible Gateway via `scriptureUrl`. Lesson 4 combines two ranges under two
   `<h4>`s (Numbers 26:52–56 and 27:1–11). Verified July 2026 by opening each modal in the
   engine.
-- **Headers are engine-drawn** (`headerImage: null`) — no per-lesson art yet.
+- **Headers: N/A** — every lesson is now full-page Canva art (`pageImages`), so the engine renders the art and draws no header slot; `headerImage` stays `null`.
 - **Page-fit (tightened July 2026 after a real overflow shipped):** the packet
   overrides `.qs .q` (8px pad, 16.5px/1.4 text) and `.card p` (17px prayers) in its
   inline `<style>`. At the old sizes Hannah's five questions overflowed `.qs` by 45px —
@@ -469,8 +454,7 @@ Pending: all six lessons' questions are now Emily-reviewed — remaining draft i
 the **letter** and a **packet-wide final prayer pass** (do not distribute links until
 Emily signs off on the full content) · remaining Vimeo
 `videoUrl`s (lesson 2 has its video; the rest, incl. "Background to the Exodus" and
-the "Orphan, Widow, and Stranger" optional, still pending) · optional per-lesson
-header art · the PDF (secondary; note `tools/make_pdf.py` predates
+the "Orphan, Widow, and Stranger" optional, still pending) · the PDF (secondary; note `tools/make_pdf.py` predates
 `optionalReadings`/`funFact` and will need those added at re-cut time) · wire the
 Foxy/portal access (below).
 
