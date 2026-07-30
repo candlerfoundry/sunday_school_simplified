@@ -73,9 +73,14 @@
   }
 
   function videoCard(l) {
-    if (l.videoUrl) return '<div class="vcard"><iframe src="' + esc(l.videoUrl) + '" title="3-Minute Bible" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
-    return '<div class="vcard"><span class="vlabel">3-Minute Bible</span>' + HILLS +
-      '<div class="vplay"><i class="fa-solid fa-play"></i></div><span class="vcap">' + esc(l.videoSubtitle) + '</span></div>';
+    // Clean 16:9 placeholder that opens the pop-out modal on click (data-vpop is handled by
+    // the delegated flip-container listener). We deliberately do NOT embed the Vimeo iframe
+    // in-frame -- its preview chrome (thumbnail + title/byline metadata) is ugly.
+    var inner = '<span class="vlabel">3-Minute Bible</span>' + HILLS +
+      '<div class="vplay"><i class="fa-solid fa-play"></i></div><span class="vcap">' + esc(l.videoSubtitle) + '</span>';
+    if (l.videoUrl) return '<button class="vcard vcardbtn" type="button" data-vpop="' + l.n +
+      '" aria-label="Play the 3-Minute Bible video">' + inner + '</button>';
+    return '<div class="vcard">' + inner + '</div>';
   }
 
   function lessonPageB(l) {
