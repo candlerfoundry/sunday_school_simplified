@@ -1,19 +1,10 @@
-/* The Gospel According to the Women: content payload (window.BBS_CONTENT).
-   Lessons 1 (Hannah), 2 (The Two Daughters, Mark 5, replaced the Eve lesson
-   July 2026), and 3 (Shiphrah & Puah) questions are Emily-approved (final).
-   Lessons 4 (Daughters of Zelophehad), 5 (Tamar), and 6 (Widow of Zarephath) questions
-   were workshopped and revised with Emily (July 2026; Tamar's prayers were also tuned
-   this round). All six lessons' questions are now Emily's reviewed wording; the letter
-   and a packet-wide final prayer pass are still pending. All six scripture modals carry
-   the full NRSVUE passage text (added July 2026, matching the Beyond Bumper Stickers
-   packet); the pop-out also links to Bible Gateway, which shows the NRSVUE copyright
-   notice. */
+/* Beyond Bumper Stickers — content payload (window.BBS_CONTENT). */
 window.BBS_CONTENT = {
   "meta": {
     "series": "Sunday School Simplified",
-    "title": "The Gospel According to the Women",
-    "pdf": "The Gospel According to the Women.pdf",
-    "tagline": "Six women who move the story of God forward",
+    "title": "Beyond Bumper Stickers",
+    "pdf": "Beyond Bumper Stickers.pdf",
+    "tagline": "Revisiting the Bible's most quotable texts",
     "subtitle": "A Six-Lesson Packet",
     "site": "candlerfoundry.org",
     "footerNote": "Conversation questions + a free 3-Minute Bible video with every lesson",
@@ -21,12 +12,17 @@ window.BBS_CONTENT = {
       "heading": "A Letter from The Candler Foundry",
       "paragraphs": [
         "Dear Friend,",
-        "Throughout Scripture, women proclaim God’s good news through their words, their courage, and their lives. They pray with honesty, preserve life in the face of violence, challenge injustice, demand recognition, offer hospitality, and bear witness to God’s healing and provision."
+        "Maybe you've noticed — as we have — that some of the Bible's most beloved lines have become a little too familiar."
       ],
-      "quotes": [],
+      "quotes": [
+        "\"I know the plans I have for you.\"",
+        "\"Be still, and know that I am God.\"",
+        "\"I can do all things through him who strengthens me.\""
+      ],
       "paragraphs2": [
-        "**The Gospel According to the Women** invites us to spend time with six of these stories - Hannah, the two daughters of Mark 5, Shiphrah and Puah, the daughters of Zelophehad, Tamar, and the widow of Zarephath. Each offers a distinct witness to the character and work of God. Together, they remind us that God hears our cries, cares for us in our vulnerability, restores life, and works through human courage to bring justice and hope into the world.",
-        "We have designed these lessons to be easy-to-use and adaptable to different settings. You can study on your own or gather with a group, and with or without a discussion leader."
+        "We've posted them on billboards, stitched them onto pillows, and, yes, printed them on bumper stickers. While these soundbites often provide comfort, there's plenty to explore beneath the surface.",
+        "**Beyond Bumper Stickers** is an invitation to slow down and read six of these well-worn passages in their original historical context. In doing so, we hope you'll find each verse to be more spiritually enriching than ever before.",
+        "We've designed these lessons to be easy — you can study on your own or with a group, no leader necessary."
       ],
       "rhythmTitle": "The Rhythm of Each Lesson",
       "steps": [
@@ -37,7 +33,7 @@ window.BBS_CONTENT = {
         "Close with prayer."
       ],
       "paragraphs3": [
-        "We’re glad you are here. May these women’s stories deepen your understanding of Scripture and help you hear God’s good news in a new way."
+        "We're glad you're here. May these old, familiar words meet you in a new way."
       ],
       "grace": "Grace and peace,",
       "signName": "The Candler Foundry"
@@ -48,230 +44,165 @@ window.BBS_CONTENT = {
   "lessons": [
     {
       "n": 1,
-      "tabRef": "Hannah",
-      "accent": "#688606",
-      "reference": "1 Samuel 1:1–20",
-      "shortRef": "1 Samuel 1",
-      "title": "Hannah",
-      "subtitle": "",
-      "openingPrayer": "Gracious God, quiet our minds as we read the story of Hannah. Open our ears to hear what the Holy Spirit is saying to us through these ancient words. Show us what this story reveals about you, and the lives you call us to lead. In the name of your Son Jesus Christ we pray. Amen.",
-      "closingPrayer": "Loving God, you are the one who meets us exactly where we are - in our longing, grief, and hope. Give us the courage to bring our whole selves before you. Give us compassion for ourselves and for others. In the name of your Son Jesus Christ we pray. Amen.",
-      "scriptureRef": "1 Samuel 1:1–20",
+      "tabRef": "Jeremiah 29",
+      "accent": "#C4542A",
+      "reference": "Jeremiah 29:1, 4–14",
+      "title": "For I Know the Plans I Have for You",
+      "subtitle": "A promise to exiles — not a personal good-luck charm.",
+      "openingPrayer": "Faithful God, you spoke hope to your people even in the long years of exile. As we open these familiar words together, free us from easy slogans and lead us into the fuller story you are telling. Give us patience to listen, honesty to question, and trust to hope. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "God of exiles and of homecomings, thank you for promises bigger than our slogans. As we go, plant us where you have placed us, teach us to seek the good of our neighbors, and keep us hopeful through the long seasons of waiting. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "Jeremiah 29:1, 4–14",
       "videoTitle": "3-Minute Bible",
-      "videoSubtitle": "Grace: The Story of Hannah",
-      "pageImages": ["assets/pages/hannah-a.png", "assets/pages/hannah-b.png"],
-      "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
-      },
+      "videoSubtitle": "Jeremiah's Letter to the Exiles",
       "questions": [
-        "How does the narrator describe Hannah’s relationship with her family, including her husband Elkanah and his other wife Peninnah? To what extent does Hannah’s childless state inform those relationships?",
-        "With no male offspring to support her, Hannah faced a potentially ruinous eventuality of becoming a childless widow - one of the most vulnerable members of society. Further, in the patriarchal setting of this narrative, Hannah’s prestige was tied to her fertility. How does this context inform Hannah’s prayers and concerns?",
-        "Hannah vows to give away the very son she is begging for back to God as a Nazirite. As a Nazirite, her son would not be raised at home by Hannah. Why do you think Hannah made this promise, and what do you make of it? (There are no wrong answers!)",
-        "As the video explains, Hannah’s infertility was understood as God’s withholding of pregnancy, such that the “cure” for it was prayer. Indeed, God hears Hannah’s prayer - she eventually bears five children (1 Sam. 2:21). How have Hannah’s social prospects changed as a result of her childbearing? What is the narrator communicating about the nature of God’s concern for our real-world problems?",
-        "Hannah prays “out of [her] great anxiety and vexation” - she’s so distressed that the priest Eli mistakenly believes her to be drunk. When you are in real grief, what does your own praying tend to look like?"
+        "\"For I know the plans I have for you…\" (v. 11) is the line we meet on mugs and graduation cards. Often, we interpret this verse as a promise to an individual person. Who is the \"you\" that is being addressed in this passage? Does this change your original perception of verse 11?",
+        "God promises a return to Jerusalem. Will the exiles who received the letter participate in the return? How might Jeremiah's exiled audience have received this message?",
+        "In verses 4-7, what sort of life are the exiles instructed to lead until the promise is fulfilled? When God speaks in verse 11 of \"plans for welfare and not for harm,\" what does \"welfare\" seem to mean?",
+        "A popular translation of v. 11 reads \"plans to prosper you\" (NIV). How is \"prosperity\" commonly understood today? How does \"prosper\" in place of \"welfare\" change the meaning — and is God promising prosperity the way we tend to imagine it?",
+        "The exiles were asked to settle in, seek the good of Babylon, and keep their faith in a hopeful future. Where have you had to remain faithful amid disappointing or uncertain circumstances in your own life?"
       ],
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Samuel%201%3A1-20&version=NRSVUE",
+      "shortRef": "Jeremiah 29",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Jeremiah%2029%3A1%2C%204-14&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": {
-        "title": "Orphan, Widow, and Stranger",
-        "subtitle": "3-Minute Bible · optional (coming soon)",
+        "title": "What Happened During the Exile?",
+        "subtitle": "3-Minute Bible · optional",
         "url": ""
       },
-      "scriptureText": "<h4>1 Samuel 1:1–20</h4>\n<p><span class=\"vn\">1</span>There was a certain man of Ramathaim, a Zuphite from the hill country of Ephraim, whose name was Elkanah son of Jeroham son of Elihu son of Tohu son of Zuph, an Ephraimite. <span class=\"vn\">2</span>He had two wives; the name of one was Hannah, and the name of the other Peninnah. Peninnah had children, but Hannah had no children.</p>\n<p><span class=\"vn\">3</span>Now this man used to go up year by year from his town to worship and to sacrifice to the Lord of hosts at Shiloh, where the two sons of Eli, Hophni and Phinehas, were priests of the Lord. <span class=\"vn\">4</span>On the day when Elkanah sacrificed, he would give portions to his wife Peninnah and to all her sons and daughters, <span class=\"vn\">5</span>but to Hannah he gave a double portion because he loved her, though the Lord had closed her womb. <span class=\"vn\">6</span>Her rival used to provoke her severely, to irritate her, because the Lord had closed her womb. <span class=\"vn\">7</span>So it went on year by year; as often as she went up to the house of the Lord, she used to provoke her. Therefore Hannah wept and would not eat. <span class=\"vn\">8</span>Her husband Elkanah said to her, “Hannah, why do you weep? Why do you not eat? Why is your heart sad? Am I not more to you than ten sons?”</p>\n<p><span class=\"vn\">9</span>After they had eaten and drunk at Shiloh, Hannah rose and presented herself before the Lord. Now Eli the priest was sitting on the seat beside the doorpost of the temple of the Lord. <span class=\"vn\">10</span>She was deeply distressed and prayed to the Lord and wept bitterly. <span class=\"vn\">11</span>She made this vow: “O Lord of hosts, if only you will look on the misery of your servant and remember me and not forget your servant but will give to your servant a male child, then I will set him before you as a nazirite until the day of his death. He shall drink neither wine nor intoxicants, and no razor shall touch his head.”</p>\n<p><span class=\"vn\">12</span>As she continued praying before the Lord, Eli observed her mouth. <span class=\"vn\">13</span>Hannah was praying silently; only her lips moved, but her voice was not heard; therefore Eli thought she was drunk. <span class=\"vn\">14</span>So Eli said to her, “How long will you make a drunken spectacle of yourself? Put away your wine.” <span class=\"vn\">15</span>But Hannah answered, “No, my lord, I am a woman deeply troubled; I have drunk neither wine nor strong drink, but I have been pouring out my soul before the Lord. <span class=\"vn\">16</span>Do not regard your servant as a worthless woman, for I have been speaking out of my great anxiety and vexation all this time.” <span class=\"vn\">17</span>Then Eli answered, “Go in peace; the God of Israel grant the petition you have made to him.” <span class=\"vn\">18</span>And she said, “Let your servant find favor in your sight.” Then the woman went her way and ate and drank with her husband, and her countenance was sad no longer.</p>\n<p><span class=\"vn\">19</span>They rose early in the morning and worshiped before the Lord; then they went back to their house at Ramah. Elkanah knew his wife Hannah, and the Lord remembered her. <span class=\"vn\">20</span>In due time Hannah conceived and bore a son. She named him Samuel, for she said, “I have asked him of the Lord.”</p>",
-      "headerImage": null
+      "scriptureText": "<h4>Jeremiah 29:1</h4>\n<p><span class=\"vn\">1</span>These are the words of the letter that the prophet Jeremiah sent from Jerusalem to the remaining elders among the exiles and to the priests, the prophets, and all the people whom Nebuchadnezzar had taken into exile from Jerusalem to Babylon.</p>\n<h4>Jeremiah 29:4–14</h4>\n<p><span class=\"vn\">4</span>Thus says the Lord of hosts, the God of Israel, to all the exiles whom I have sent into exile from Jerusalem to Babylon: <span class=\"vn\">5</span>Build houses and live in them; plant gardens and eat what they produce. <span class=\"vn\">6</span>Take wives and have sons and daughters; take wives for your sons, and give your daughters in marriage, that they may bear sons and daughters; multiply there, and do not decrease. <span class=\"vn\">7</span>But seek the welfare of the city where I have sent you into exile, and pray to the Lord on its behalf, for in its welfare you will find your welfare. <span class=\"vn\">8</span>For thus says the Lord of hosts, the God of Israel: Do not let the prophets and the diviners who are among you deceive you, and do not listen to your dreams that you dream, <span class=\"vn\">9</span>for it is a lie that they are prophesying to you in my name; I did not send them, says the Lord.</p>\n<p><span class=\"vn\">10</span>For thus says the Lord: Only when Babylon’s seventy years are completed will I visit you, and I will fulfill to you my promise and bring you back to this place. <span class=\"vn\">11</span>For surely I know the plans I have for you, says the Lord, plans for your welfare and not for harm, to give you a future with hope. <span class=\"vn\">12</span>Then when you call upon me and come and pray to me, I will hear you. <span class=\"vn\">13</span>When you search for me, you will find me; if you seek me with all your heart, <span class=\"vn\">14</span>I will let you find me, says the Lord, and I will restore your fortunes and gather you from all the nations and all the places where I have driven you, says the Lord, and I will bring you back to the place from which I sent you into exile.</p>",
+      "headerImage": "assets/headers/lesson-01.png"
     },
     {
       "n": 2,
-      "tabRef": "Two Daughters",
-      "accent": "#7A9A12",
-      "reference": "Mark 5:21–43",
-      "shortRef": "Mark 5",
-      "title": "The Two Daughters",
-      "subtitle": "",
-      "openingPrayer": "God of compassion, still our hearts as we hear the stories of these two daughters. Help us sit with the fear, suffering, faith, and hope. Through the Holy Spirit, show us what this passage reveals about your healing love and the life you call us to share. In the name of your Son Jesus Christ we pray. Amen.",
-      "closingPrayer": "God of love, you call each of us as your beloved children. No person is beyond your notice or care. Help us to follow in the way of Jesus, having tender hearts and compassion for our neighbors. In the name of your Son Jesus Christ we pray. Amen.",
-      "scriptureRef": "Mark 5:21–43",
+      "tabRef": "Psalm 46",
+      "accent": "#3E7B71",
+      "reference": "Psalm 46",
+      "title": "Be Still, and Know That I Am God",
+      "subtitle": "A war-time song of refuge — not a call to relax.",
+      "openingPrayer": "God our refuge and strength, when the earth feels unsteady and the nations rage, you remain a very present help. Quiet the noise within us as we gather, and teach us a stillness that is not escape but trust. Help us hear your voice above the roar. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "Lord of hosts, you are with us; God of Jacob, you are our refuge. Send us out steadier than we came — not because the waters have calmed, but because we know who holds us in them. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "Psalm 46",
       "videoTitle": "3-Minute Bible",
-      "videoSubtitle": "What is a Markan sandwich?",
-      "pageImages": ["assets/pages/two-daughters-a.png", "assets/pages/two-daughters-b.png"],
-      "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
-      },
+      "videoSubtitle": "God Is Our Refuge: Reading Psalm 46",
       "questions": [
-        "Mark is famously sparse with words, telling the reader only the necessary information without much descriptive detail. Take a few minutes and imagine the details that Mark omitted. What sights, smells, and sounds do you imagine as you read? What tones of voice were used by each person as they spoke?",
-        "What context does Mark give about the bleeding woman? Aside from her physical condition, how does Mark indicate the other ways she suffers?",
-        "Being on the social fringes as she was, the bleeding woman was especially bold in struggling through the crowd to touch Jesus. What emotions do you imagine she feels as she reaches for Jesus’s cloak?",
-        "Jesus gives life to both the woman and the girl, but in very different contexts. What does restoration and healing look like for each of them?",
-        "The bleeding woman’s lowly social status contrasts with that of Jairus - a prominent synagogue leader. Even so, he begs at Jesus’s feet. In what ways does this narrative show Jesus’s power to overcome boundaries - including social boundaries and death itself?",
-        "How does this narrative reveal a Jesus who is divine but also tender and human?"
+        "\"Be still, and know that I am God\" is often taken as a cue to slow down. Where have you heard this verse, and what have you taken it to mean?",
+        "The video argues we often read the Psalms too \"spiritually,\" when many reflect material, outward catastrophes — war, displacement, upheaval. What words or phrases in Psalm 46 point to that kind of suffering?",
+        "God is \"a very present help in trouble\" (v. 1) — help in the trouble, even as the mountains shake. The psalm does promise deliverance (v. 9), but that day hasn't come. What refuge is God offering in the meantime, and what does it ask of us while we wait?",
+        "Verse 10's command to \"be still\" could also be translated as \"stop fighting\" or \"let go.\" Given the raging nations, who might God be telling to be still — anxious individuals, or the warring powers? How does that change what the verse asks of us?",
+        "\"Be still and know\" is often handed out as a call to relax. After sitting with the whole psalm, what would it mean to \"be still\" in an upheaval you can't control — not as escape, but as trust that God, not the chaos, is in charge? How is being still as trust different from being still as feeling calm?"
       ],
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Mark%205%3A21-43&version=NRSVUE",
-      "videoUrl": "https://player.vimeo.com/video/1210281687",
-      "optionalVideo": {
-        "title": "Mark's Secret Messiah",
-        "subtitle": "3-Minute Bible · optional",
-        "url": "https://vimeo.com/1210281410"
-      },
-      "optionalReadings": [
-        {
-          "title": "The Gospel of Mark",
-          "subtitle": "Yale Bible Study · free videos and study guides for groups",
-          "url": "https://yalebiblestudy.org/courses/the-gospel-of-mark/"
-        }
-      ],
-      "funFact": "Mark preserves Jesus's actual Aramaic words to the girl - talitha koum, 'little girl, get up.' It's one of the few places in the Gospels where we hear Jesus in his own language.",
-      "scriptureText": "<h4>Mark 5:21–43</h4>\n<p><span class=\"vn\">21</span>When Jesus had crossed again in the boat to the other side, a great crowd gathered around him, and he was by the sea. <span class=\"vn\">22</span>Then one of the leaders of the synagogue, named Jairus, came and, when he saw him, fell at his feet <span class=\"vn\">23</span>and pleaded with him repeatedly, “My little daughter is at the point of death. Come and lay your hands on her, so that she may be made well and live.” <span class=\"vn\">24</span>So he went with him.</p>\n<p>And a large crowd followed him and pressed in on him. <span class=\"vn\">25</span>Now there was a woman who had been suffering from a flow of blood for twelve years. <span class=\"vn\">26</span>She had endured much under many physicians and had spent all that she had, and she was no better but rather grew worse. <span class=\"vn\">27</span>She had heard about Jesus and came up behind him in the crowd and touched his cloak, <span class=\"vn\">28</span>for she said, “If I but touch his cloak, I will be made well.” <span class=\"vn\">29</span>Immediately her flow of blood stopped, and she felt in her body that she was healed of her disease. <span class=\"vn\">30</span>Immediately aware that power had gone forth from him, Jesus turned about in the crowd and said, “Who touched my cloak?” <span class=\"vn\">31</span>And his disciples said to him, “You see the crowd pressing in on you; how can you say, ‘Who touched me?’ ” <span class=\"vn\">32</span>He looked all around to see who had done it. <span class=\"vn\">33</span>But the woman, knowing what had happened to her, came in fear and trembling, fell down before him, and told him the whole truth. <span class=\"vn\">34</span>He said to her, “Daughter, your faith has made you well; go in peace, and be healed of your disease.”</p>\n<p><span class=\"vn\">35</span>While he was still speaking, some people came from the synagogue leader’s house to say, “Your daughter is dead. Why trouble the teacher any further?” <span class=\"vn\">36</span>But overhearing what they said, Jesus said to the synagogue leader, “Do not be afraid; only believe.” <span class=\"vn\">37</span>He allowed no one to follow him except Peter, James, and John, the brother of James. <span class=\"vn\">38</span>When they came to the synagogue leader’s house, he saw a commotion, people weeping and wailing loudly. <span class=\"vn\">39</span>When he had entered, he said to them, “Why do you make a commotion and weep? The child is not dead but sleeping.” <span class=\"vn\">40</span>And they laughed at him. Then he put them all outside and took the child’s father and mother and those who were with him and went in where the child was. <span class=\"vn\">41</span>Taking her by the hand, he said to her, “Talitha koum,” which means, “Little girl, get up!” <span class=\"vn\">42</span>And immediately the girl stood up and began to walk about (she was twelve years of age). At this they were overcome with amazement. <span class=\"vn\">43</span>He strictly ordered them that no one should know this and told them to give her something to eat.</p>",
-      "headerImage": null
+      "shortRef": "Psalm 46",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Psalm%2046&version=NRSVUE",
+      "videoUrl": "https://player.vimeo.com/video/1214332162",
+      "optionalVideo": null,
+      "scriptureText": "<h4>Psalm 46</h4>\n<p class=\"super\">God’s Defense of His City and People<br>To the leader. Of the Korahites. According to Alamoth. A Song.</p>\n<p class=\"poet\"><span class=\"vn\">1</span>God is our refuge and strength,<br>a very present help in trouble.<br><span class=\"vn\">2</span>Therefore we will not fear, though the earth should change,<br>though the mountains shake in the heart of the sea,<br><span class=\"vn\">3</span>though its waters roar and foam,<br>though the mountains tremble with its tumult. Selah</p>\n<p class=\"poet\"><span class=\"vn\">4</span>There is a river whose streams make glad the city of God,<br>the holy habitation of the Most High.<br><span class=\"vn\">5</span>God is in the midst of the city; it shall not be moved;<br>God will help it when the morning dawns.<br><span class=\"vn\">6</span>The nations are in an uproar; the kingdoms totter;<br>he utters his voice; the earth melts.<br><span class=\"vn\">7</span>The Lord of hosts is with us;<br>the God of Jacob is our refuge. Selah</p>\n<p class=\"poet\"><span class=\"vn\">8</span>Come, behold the works of the Lord;<br>see what desolations he has brought on the earth.<br><span class=\"vn\">9</span>He makes wars cease to the end of the earth;<br>he breaks the bow and shatters the spear;<br>he burns the shields with fire.<br><span class=\"vn\">10</span>“Be still, and know that I am God!<br>I am exalted among the nations;<br>I am exalted in the earth.”<br><span class=\"vn\">11</span>The Lord of hosts is with us;<br>the God of Jacob is our refuge. Selah</p>",
+      "headerImage": "assets/headers/lesson-02.png"
     },
     {
       "n": 3,
-      "tabRef": "Shiphrah & Puah",
-      "accent": "#6D4F26",
-      "reference": "Exodus 1:8–22",
-      "shortRef": "Exodus 1",
-      "title": "Shiphrah & Puah",
-      "subtitle": "",
-      "openingPrayer": "God of courage, quiet our hearts as we hear the story of Shiphrah and Puah. Open our eyes to the choices they made in the face of fear and power. Through the Holy Spirit, help us discern what is right and trust that you have equipped us to act with wisdom and faith. In the name of your Son Jesus Christ we pray. Amen.",
-      "closingPrayer": "Faithful God, you give us courage to choose what is right, even when it comes at a cost. Give us wisdom to recognize injustice, strength to resist it, and trust that even small acts of faithfulness can help bring life and hope. In the name of your Son Jesus Christ we pray. Amen.",
-      "scriptureRef": "Exodus 1:8–22",
+      "tabRef": "Genesis 1–2",
+      "accent": "#C89029",
+      "reference": "Genesis 1:26–31; 2:15",
+      "title": "Have Dominion Over the Earth",
+      "subtitle": "A charge to tend creation — not a license to use it up.",
+      "openingPrayer": "Creator God, you spoke the world into being and called it good, and you entrusted its care to creatures made in your image. As we open these first pages of Scripture, free us from the habit of reading them as permission, and teach us to read them as calling. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "God of the garden, you placed us here to till and to keep. Make us faithful image-bearers — gentle with what you have made, mindful of those who come after us, and grateful for the good earth you still call good. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "Genesis 1:26–31; 2:15",
       "videoTitle": "3-Minute Bible",
-      "videoSubtitle": "Background to the Exodus",
-      "pageImages": ["assets/pages/shiphrah-puah-a.png", "assets/pages/shiphrah-puah-b.png"],
-      "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
-      },
+      "videoSubtitle": "Image & Dominion: Reading Genesis 1–2",
       "questions": [
-        "The story never tells us how Shiphrah and Puah responded when Pharaoh gave them his command. He apparently expected them to obey, and the narrative doesn't tell us how they deliberated between themselves or formed a plan. Using your imagination, help fill in these narrative gaps. What might the women have said to Pharaoh and one another? To the other midwives in their community, and to expectant Hebrew mothers?",
-        "Scholars debate whether Shiphrah and Puah were Hebrew midwives or non-Hebrew midwives who served Hebrew women. How does the story change if they were protecting people outside their own community? What risks did they face for their defiance? What might have led them to take that risk?",
-        "Pharaoh orders the midwives to kill the boys but lets the girls live, apparently assuming that girls pose no threat to him. Yet women repeatedly defeat his plan. What does Pharaoh fail to understand about where true power resides?",
-        "Shiphrah and Puah receive no instructions from God—no burning bush, no voice from above. What does this tell us about our human capacity to discern God’s will, even when we cannot hear God’s voice?",
-        "Looking back, it’s easy for us to see Pharaoh’s command as evil, and the midwives’ acts as faithful disobedience. In our own lives, it’s often harder to discern where we are called to disobey on moral or ethical grounds. Have you ever faced a choice between your conscience and following an authority? How did you respond?"
+        "Genesis 1:26 is an oft-quoted text. Where have you heard it alluded to, and in what context?",
+        "Before humans are told what to do, they're told who they are — made “in the image of God” (1:26–27). What identity does that give us, and why might identity come before instruction?",
+        "Outside the Bible, “dominion” usually means control or domination. But in Genesis this dominion is over a world God has already made and repeatedly called “good.” How should that reframe what “dominion” is meant to look like?",
+        "The video notes Genesis tells two creation stories. In the second (2:5–15), God forms the human from the dust and places them “to till and keep” the garden — and “till” can also mean “to serve.” How does that picture of serving the ground reshape “dominion” — is service in tension with it, or its true form?",
+        "If both dominion and service are part of our calling, where do you see them in tension in your own life? Can we serve creation while also exercising real power over it?"
       ],
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Exodus%201%3A8-22&version=NRSVUE",
-      "videoUrl": "",
+      "shortRef": "Genesis 1–2",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%201%3A26-31%3B%202%3A15&version=NRSVUE",
+      "videoUrl": "https://player.vimeo.com/video/1214332189",
       "optionalVideo": null,
-      "funFact": "The Pharaoh in this story, the most powerful man in the world, is never named. The two midwives are: Shiphrah and Puah.",
-      "scriptureText": "<h4>Exodus 1:8–22</h4>\n<p><span class=\"vn\">8</span>Now a new king arose over Egypt who did not know Joseph. <span class=\"vn\">9</span>He said to his people, “Look, the Israelite people are more numerous and more powerful than we. <span class=\"vn\">10</span>Come, let us deal shrewdly with them, or they will increase and, in the event of war, join our enemies and fight against us and escape from the land.” <span class=\"vn\">11</span>Therefore they set taskmasters over them to oppress them with forced labor. They built supply cities, Pithom and Rameses, for Pharaoh. <span class=\"vn\">12</span>But the more they were oppressed, the more they multiplied and spread, so that the Egyptians came to dread the Israelites. <span class=\"vn\">13</span>The Egyptians subjected the Israelites to hard servitude <span class=\"vn\">14</span>and made their lives bitter with hard servitude in mortar and bricks and in every kind of field labor. They were ruthless in all the tasks that they imposed on them.</p>\n<p><span class=\"vn\">15</span>The king of Egypt said to the Hebrew midwives, one of whom was named Shiphrah and the other Puah, <span class=\"vn\">16</span>“When you act as midwives to the Hebrew women and see them on the birthstool, if it is a son, kill him, but if it is a daughter, she shall live.” <span class=\"vn\">17</span>But the midwives feared God; they did not do as the king of Egypt commanded them, but they let the boys live. <span class=\"vn\">18</span>So the king of Egypt summoned the midwives and said to them, “Why have you done this and allowed the boys to live?” <span class=\"vn\">19</span>The midwives said to Pharaoh, “Because the Hebrew women are not like the Egyptian women, for they are vigorous and give birth before the midwife comes to them.” <span class=\"vn\">20</span>So God dealt well with the midwives, and the people multiplied and became very strong. <span class=\"vn\">21</span>And because the midwives feared God, he gave them families. <span class=\"vn\">22</span>Then Pharaoh commanded all his people, “Every son that is born to the Hebrews you shall throw into the Nile, but you shall let every daughter live.”</p>",
-      "headerImage": null
+      "scriptureText": "<h4>Genesis 1:26–31</h4>\n<p><span class=\"vn\">26</span>Then God said, “Let us make humans in our image, according to our likeness, and let them have dominion over the fish of the sea and over the birds of the air and over the cattle and over all the wild animals of the earth and over every creeping thing that creeps upon the earth.”</p>\n<p class=\"poet\"><span class=\"vn\">27</span>So God created humans in his image,<br>in the image of God he created them;<br>male and female he created them.</p>\n<p><span class=\"vn\">28</span>God blessed them, and God said to them, “Be fruitful and multiply and fill the earth and subdue it and have dominion over the fish of the sea and over the birds of the air and over every living thing that moves upon the earth.” <span class=\"vn\">29</span>God said, “See, I have given you every plant yielding seed that is upon the face of all the earth and every tree with seed in its fruit; you shall have them for food. <span class=\"vn\">30</span>And to every beast of the earth and to every bird of the air and to everything that creeps on the earth, everything that has the breath of life, I have given every green plant for food.” And it was so. <span class=\"vn\">31</span>God saw everything that he had made, and indeed, it was very good. And there was evening and there was morning, the sixth day.</p>\n<h4>Genesis 2:15</h4>\n<p><span class=\"vn\">15</span>The Lord God took the man and put him in the garden of Eden to till it and keep it.</p>",
+      "headerImage": "assets/headers/lesson-03.png"
     },
     {
       "n": 4,
-      "tabRef": "Zelophehad",
-      "accent": "#688606",
-      "reference": "Numbers 26:52–56; 27:1–11",
-      "shortRef": "Numbers 26–27",
-      "title": "Daughters of Zelophehad",
-      "subtitle": "",
-      "openingPrayer": "Gracious God, gather our attention as we turn to Scripture. We ask that you deepen our understanding of who you are and how you call us to live together. By your Spirit, give us curiosity, wisdom, and openness to hear something new. In the name of your Son Jesus Christ we pray. Amen.",
-      "closingPrayer": "Steadfast God, you hear the voices of those who ask to be seen and treated justly. Give us courage to speak, humility to listen, and wisdom to change what causes harm. Help us care for the gifts you have entrusted to us. In the name of your Son Jesus Christ we pray. Amen.",
-      "scriptureRef": "Numbers 26:52–56; 27:1–11",
+      "tabRef": "Philippians 4",
+      "accent": "#9E5145",
+      "reference": "Philippians 2:2–11; 4:10–13",
+      "title": "I Can Do All Things Through Him",
+      "subtitle": "A secret learned in want — not a motivational slogan.",
+      "openingPrayer": "Generous God, you meet us in plenty and in want, and your strength is made perfect in our weakness. As we open Paul's letter written from prison, teach us the contentment he learned, and loosen our grip on the slogans we mistake for faith. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "Christ Jesus, you emptied yourself for our sake; give us strength that looks like yours — patient, humble, and shared. When we have little and when we have much, keep us content in you, and grateful for the people who carry us. In your name we pray. Amen.",
+      "scriptureRef": "Philippians 2:2–11; 4:10–13",
       "videoTitle": "3-Minute Bible",
-      "videoSubtitle": "The Daughters of Zelophehad",
-      "pageImages": ["assets/pages/zelophehad-a.png", "assets/pages/zelophehad-b.png"],
-      "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
-      },
+      "videoSubtitle": "Content in All Things: Paul from Prison",
       "questions": [
-        "This lesson’s passages reflect the Israelites’ plans to allocate the promised land among the various families. Distributing the land fairly was essential, because the Israelites survived primarily on food grown on their respective families’ land. Land was passed patrilineally, meaning through male heirs. Keeping this in mind, what are the daughters’ circumstances in the wake of their father’s death, and how are they now uniquely vulnerable?",
-        "How does the narrator build dramatic tension as the daughters approach Moses? What makes their legal claim, and the manner in which they present it, particularly bold?",
-        "How is the issue at hand relevant beyond the daughters themselves? How does the outcome affect their descendants? Other men without sons, and their daughters? The community at large?",
-        "What is Moses’ role in resolving the question the daughters pose? Who actually owns and controls the land and determines its use, and ultimately creates the laws?",
-        "As modern readers, how does the outcome of this story inform our responsibility to care for the land and the vulnerable members of our communities? How does the narrative suggest that fulfilling these responsibilities is a matter of being faithful and obedient to God?"
+        "Philippians 4:13 is often used on posters, in sports, or as a motivational phrase. Where have you seen or heard it used, and what message do you think it usually conveys?",
+        "In our culture, when we describe someone as \"strong\" (whether it's a political leader, an athlete, or a business leader) what do we usually mean? What does strength look like in those settings?",
+        "In Philippians 2:2–11, we hear the Christ hymn, where Jesus empties himself, takes the form of a servant, and becomes obedient even to death on a cross. In light of that passage, how does our usual understanding of strength get challenged? How does Jesus demonstrate strength?",
+        "In Philippians 4:11–12, Paul describes being in need, experiencing hunger, and living through changing circumstances. What do these details suggest about Paul's situation when he writes this?",
+        "When Paul says, \"I can do all things through him who strengthens me,\" do you think he is talking about overcoming weakness, or something else? What in the passage leads you to that conclusion?",
+        "If strength looks less like control or success and more like faithfulness within difficult circumstances, how might that change the way we think about what it means to be strong in our own lives?"
       ],
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Numbers%2026%3A52-56%3B%2027%3A1-11&version=NRSVUE",
+      "shortRef": "Philippians 4",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Philippians%202%3A2-11%3B%204%3A10-13&version=NRSVUE",
       "videoUrl": "",
-      "optionalVideo": {
-        "title": "Orphan, Widow, and Stranger",
-        "subtitle": "3-Minute Bible · optional (coming soon)",
-        "url": ""
-      },
-      "scriptureText": "<h4>Numbers 26:52–56</h4>\n<p><span class=\"vn\">52</span>The Lord spoke to Moses, saying, <span class=\"vn\">53</span>“To these the land shall be apportioned for inheritance according to the number of names. <span class=\"vn\">54</span>To a large tribe you shall give a large inheritance, and to a small tribe you shall give a small inheritance; every tribe shall be given its inheritance according to its enrollment. <span class=\"vn\">55</span>But the land shall be apportioned by lot; according to the names of their ancestral tribes they shall inherit. <span class=\"vn\">56</span>Their inheritance shall be apportioned according to lot between the larger and the smaller.”</p>\n<h4>Numbers 27:1–11</h4>\n<p><span class=\"vn\">1</span>Then the daughters of Zelophehad came forward. Zelophehad was son of Hepher son of Gilead son of Machir son of Manasseh, of the clans of Manasseh, son of Joseph. The names of his daughters were Mahlah, Noah, Hoglah, Milcah, and Tirzah. <span class=\"vn\">2</span>They stood before Moses, Eleazar the priest, the leaders, and all the congregation, at the entrance of the tent of meeting, saying, <span class=\"vn\">3</span>“Our father died in the wilderness; he was not among the congregation of those who gathered themselves together against the Lord in the congregation of Korah but died for his own sin, and he had no sons. <span class=\"vn\">4</span>Why should the name of our father be taken away from his clan because he had no son? Give to us a possession among our father’s brothers.”</p>\n<p><span class=\"vn\">5</span>Moses brought their case before the Lord. <span class=\"vn\">6</span>And the Lord spoke to Moses, saying, <span class=\"vn\">7</span>“The daughters of Zelophehad are right in what they are saying; you shall indeed let them possess an inheritance among their father’s brothers and pass the inheritance of their father on to them. <span class=\"vn\">8</span>You shall also speak to the Israelites, saying: If a man dies and has no son, then you shall pass his inheritance on to his daughter. <span class=\"vn\">9</span>If he has no daughter, then you shall give his inheritance to his brothers. <span class=\"vn\">10</span>If he has no brothers, then you shall give his inheritance to his father’s brothers. <span class=\"vn\">11</span>And if his father has no brothers, then you shall give his inheritance to the nearest kinsman of his clan, and he shall possess it. It shall be for the Israelites a statute and ordinance, as the Lord commanded Moses.”</p>",
-      "headerImage": null
+      "optionalVideo": null,
+      "scriptureText": "<h4>Philippians 2:2–11</h4>\n<p><span class=\"vn\">2</span>make my joy complete: be of the same mind, having the same love, being in full accord and of one mind. <span class=\"vn\">3</span>Do nothing from selfish ambition or empty conceit, but in humility regard others as better than yourselves. <span class=\"vn\">4</span>Let each of you look not to your own interests but to the interests of others. <span class=\"vn\">5</span>Let the same mind be in you that was in Christ Jesus,</p>\n<p class=\"poet\"><span class=\"vn\">6</span>who, though he existed in the form of God,<br>did not regard equality with God<br>as something to be grasped,<br><span class=\"vn\">7</span>but emptied himself,<br>taking the form of a slave,<br>assuming human likeness.<br>And being found in appearance as a human,<br><span class=\"vn\">8</span>he humbled himself<br>and became obedient to the point of death—<br>even death on a cross.<br><span class=\"vn\">9</span>Therefore God exalted him even more highly<br>and gave him the name<br>that is above every other name,<br><span class=\"vn\">10</span>so that at the name given to Jesus<br>every knee should bend,<br>in heaven and on earth and under the earth,<br><span class=\"vn\">11</span>and every tongue should confess<br>that Jesus Christ is Lord,<br>to the glory of God the Father.</p>\n<h4>Philippians 4:10–13</h4>\n<p><span class=\"vn\">10</span>I rejoice in the Lord greatly that now at last you have revived your concern for me; indeed, you were concerned for me but had no opportunity to show it. <span class=\"vn\">11</span>Not that I am referring to being in need, for I have learned to be content with whatever I have. <span class=\"vn\">12</span>I know what it is to have little, and I know what it is to have plenty. In any and all circumstances I have learned the secret of being well-fed and of going hungry, of having plenty and of being in need. <span class=\"vn\">13</span>I can do all things through him who strengthens me.</p>",
+      "headerImage": "assets/headers/lesson-04.png"
     },
     {
       "n": 5,
-      "tabRef": "Tamar",
-      "accent": "#7A9A12",
-      "reference": "Genesis 38:6–26",
-      "shortRef": "Genesis 38",
-      "title": "Tamar",
+      "tabRef": "2 Timothy 3",
+      "accent": "#4E6E86",
+      "reference": "2 Timothy 3:14–17; Genesis 2:4–7",
+      "title": "All Scripture Is Inspired by God",
       "subtitle": "",
-      "openingPrayer": "God of Love, open our hearts and minds as we turn to the tangled story of Tamar. We ask that you meet us in what is uncomfortable and teach us where you are at work. Through the Holy Spirit, give us compassion to hear this passage well. In the name of your Son Jesus Christ we pray. Amen.",
-      "closingPrayer": "God of mercy, you are faithful to us when things get messy and complicated. Send us out with courage, knowing that you are at work in all of the unfinished places of our lives. Help us to remain faithful to you and each other. In the name of your Son Jesus Christ we pray. Amen.",
-      "scriptureRef": "Genesis 38:6–26",
+      "openingPrayer": "Living God, you breathed life into dust and called it holy, and you breathe through Scripture to speak to us still. As we open your word, give us reverence without fear and honesty without pride. Teach us to receive what is holy and to discern it with care. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "Faithful God, thank you for a word both holy and human — inspired by your breath and carried in earthen vessels. Keep us humble as we read, generous as we discern, and open to how your Spirit teaches, corrects, and trains us still. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "2 Timothy 3:14–17; Genesis 2:4–7",
       "videoTitle": "3-Minute Bible",
-      "videoSubtitle": "Tamar: Righteousness When the System Fails",
-      "pageImages": ["assets/pages/tamar-a.png", "assets/pages/tamar-b.png"],
-      "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
-      },
+      "videoSubtitle": "Inspired by God (2 Timothy 3:16)",
       "questions": [
-        "In ancient Israel, access to land, and having male offspring to farm and inherit land, was key to survival. This made childless widows among the most vulnerable members of society. With this in mind, consider the aspects of this story that, as modern readers, strike us as odd and disturbing but make more sense within this context. What are Judah's instructions to Onan, and what motivates that instruction? What motivates Tamar, and what is she fighting for?",
-        "Who are the villains and protagonists in this story? Is the narrator inviting us to perceive Tamar's trickery as problematic, or heroic? What aspects of the narrative prompt your responses?",
-        "A recurring Old Testament motif is the courageous underdog who defeats a more powerful opponent using trickery. (Bonus points if you can think of any other examples!) What narrative clues establish Judah as a powerful figure? Why are stories of trickery so resonant across time?",
-        "The narrator indicates that Onan's behavior was so displeasing to God that God \"put him to death.\" Remembering the context from question 1, why was Onan's behavior so displeasing? (See Deut. 25:5–10 for additional context.) How does God’s displeasure for Onan demonstrate God's care for Tamar? What is the narrative telling us about God's care for the socially vulnerable, and our duty of care for them as well?",
-        "Remembering that there are no wrong answers, to what extent are you comfortable finding theological meaning in a story that is troublesome to our modern eyes and ears?"
+        "To the extent you were raised in a church tradition, what did that tradition teach about the Bible and its authority? How did you engage with Scripture in your early formative years?",
+        "How does your current church community read, teach, and interpret Scripture? Has your relationship to Scripture changed over time? How important is Scripture to your faith today?",
+        "As the video explains, the Greek word translated \"inspired\" in 2 Timothy 3:16 literally means \"God-breathed.\" In Genesis, God's breath gives life to humans. Is it difficult to hold both that a creation can be from God and that the same creation is subject to human limitation? Why or why not?",
+        "In 2 Timothy, Scripture is described as something that teaches, corrects, and trains over time. What does that mean in practice for your community? What guardrails does your tradition use to avoid interpretations that are self-serving, unloving, or unfaithful?",
+        "Which understanding of Scripture asks more of us — that the Bible is factually inerrant, or one that allows for human error and requires us to discern its meaning? (No wrong answer.)",
+        "Have you ever found a Biblical text life-giving and meaningful even if you didn't read it as factually true? Have you found \"good news\" in a passage that first felt confusing or troubling? What helped that shift?"
       ],
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%2038%3A6-26&version=NRSVUE",
+      "shortRef": "2 Timothy 3",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=2%20Timothy%203%3A14-17%3B%20Genesis%202%3A4-7&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
-      "optionalReadings": [
-        {
-          "title": "Rahab Hides the Spies",
-          "subtitle": "Another trickster narrative · Joshua 2 (NRSVUE)",
-          "url": "https://www.biblegateway.com/passage/?search=Joshua%202&version=NRSVUE"
-        },
-        {
-          "title": "Abram and Sarai before Pharaoh",
-          "subtitle": "Another trickster narrative · Genesis 12:10–20 (NRSVUE)",
-          "url": "https://www.biblegateway.com/passage/?search=Genesis%2012%3A10-20&version=NRSVUE"
-        }
-      ],
-      "scriptureText": "<h4>Genesis 38:6–26</h4>\n<p><span class=\"vn\">6</span>Judah took a wife for Er his firstborn; her name was Tamar. <span class=\"vn\">7</span>But Er, Judah’s firstborn, was wicked in the sight of the Lord, and the Lord put him to death. <span class=\"vn\">8</span>Then Judah said to Onan, “Go in to your brother’s wife and perform the duty of a brother-in-law to her; raise up offspring for your brother.” <span class=\"vn\">9</span>But since Onan knew that the offspring would not be his, he spilled his semen on the ground whenever he went in to his brother’s wife, so that he would not give offspring to his brother. <span class=\"vn\">10</span>What he did was displeasing in the sight of the Lord, and he put him to death also. <span class=\"vn\">11</span>Then Judah said to his daughter-in-law Tamar, “Remain a widow in your father’s house until my son Shelah grows up,” for he feared that he too would die, like his brothers. So Tamar went to live in her father’s house.</p>\n<p><span class=\"vn\">12</span>In course of time the wife of Judah, Shua’s daughter, died; when Judah’s time of mourning was over, he went up to Timnah to his sheepshearers, he and his friend Hirah the Adullamite. <span class=\"vn\">13</span>When Tamar was told, “Your father-in-law is going up to Timnah to shear his sheep,” <span class=\"vn\">14</span>she put off her widow’s garments, put on a veil, wrapped herself up, and sat down at the entrance to Enaim, which is on the road to Timnah. She saw that Shelah was grown up, yet she had not been given to him in marriage. <span class=\"vn\">15</span>When Judah saw her, he thought her to be a prostitute, for she had covered her face. <span class=\"vn\">16</span>He went over to her at the roadside and said, “Come, let me come in to you,” for he did not know that she was his daughter-in-law. She said, “What will you give me, that you may come in to me?” <span class=\"vn\">17</span>He answered, “I will send you a kid from the flock.” And she said, “Only if you give me a pledge until you send it.” <span class=\"vn\">18</span>He said, “What pledge shall I give you?” She replied, “Your signet and your cord and the staff that is in your hand.” So he gave them to her and went in to her, and she conceived by him. <span class=\"vn\">19</span>Then she got up and went away, and taking off her veil she put on the garments of her widowhood.</p>\n<p><span class=\"vn\">20</span>When Judah sent the kid by his friend the Adullamite to recover the pledge from the woman, he could not find her. <span class=\"vn\">21</span>He asked the townspeople, “Where is the prostitute who was at Enaim by the wayside?” But they said, “No prostitute has been here.” <span class=\"vn\">22</span>So he returned to Judah and said, “I have not found her; moreover, the townspeople said, ‘No prostitute has been here.’ ” <span class=\"vn\">23</span>Judah replied, “Let her keep the things as her own, otherwise we will be laughed at; you see, I sent this kid, and you could not find her.”</p>\n<p><span class=\"vn\">24</span>About three months later Judah was told, “Your daughter-in-law Tamar has prostituted herself; moreover, she is pregnant as a result of prostitution.” And Judah said, “Bring her out, and let her be burned.” <span class=\"vn\">25</span>As she was being brought out, she sent word to her father-in-law, “It was the owner of these who made me pregnant.” And she said, “Take note, please, whose these are, the signet and the cord and the staff.” <span class=\"vn\">26</span>Then Judah acknowledged them and said, “She is more in the right than I, since I did not give her to my son Shelah.” And he did not lie with her again.</p>",
-      "headerImage": null
+      "scriptureText": "<h4>2 Timothy 3:14–17</h4>\n<p><span class=\"vn\">14</span>But as for you, continue in what you have learned and firmly believed, knowing from whom you learned it <span class=\"vn\">15</span>and how from childhood you have known sacred writings that are able to instruct you for salvation through faith in Christ Jesus. <span class=\"vn\">16</span>All scripture is inspired by God and is useful for teaching, for reproof, for correction, and for training in righteousness, <span class=\"vn\">17</span>so that the person of God may be proficient, equipped for every good work.</p>\n<h4>Genesis 2:4–7</h4>\n<p><span class=\"vn\">4</span>These are the generations of the heavens and the earth when they were created.</p>\n<p class=\"super\">Another Account of the Creation</p>\n<p>In the day that the Lord God made the earth and the heavens, <span class=\"vn\">5</span>when no plant of the field was yet in the earth and no vegetation of the field had yet sprung up—for the Lord God had not caused it to rain upon the earth, and there was no one to till the ground, <span class=\"vn\">6</span>but a stream would rise from the earth and water the whole face of the ground— <span class=\"vn\">7</span>then the Lord God formed man from the dust of the ground and breathed into his nostrils the breath of life, and the man became a living being.</p>",
+      "headerImage": "assets/headers/lesson-05.png"
     },
     {
       "n": 6,
-      "tabRef": "The Widow",
-      "accent": "#6D4F26",
-      "reference": "1 Kings 17:1–16",
-      "shortRef": "1 Kings 17",
-      "title": "The Widow of Zarephath",
-      "subtitle": "",
-      "openingPrayer": "God of Provision, you provide for us in our places of scarcity and fear. As we turn to Scripture, help us notice your everlasting faithfulness as you work through unlikely people. In the name of your Son Jesus Christ we pray. Amen.",
-      "closingPrayer": "Generous God, you are gracious in providing for us when our jars are empty. You work through our neighbors and strangers alike. Help us to notice your goodness, welcome the stranger, and trust in your provision. In the name of your Son Jesus Christ we pray. Amen.",
-      "scriptureRef": "1 Kings 17:1–16",
+      "tabRef": "1 Corinthians 13",
+      "accent": "#B24A34",
+      "reference": "1 Corinthians 13:1–13",
+      "title": "Love Is Patient, Love Is Kind",
+      "subtitle": "A challenge to a divided church — not a wedding poem.",
+      "openingPrayer": "God who is love, you have poured your love into our hearts and called us to live it among people we do not always find easy. As we open this familiar chapter, save us from hearing only a wedding poem, and let it search us as the challenge Paul meant it to be. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "Patient and kind God, make your love visible in this community — slow to anger, quick to bear, ready to hope. Let us treasure love above every gift, for love alone never ends. In the name of your Son Jesus Christ we pray. Amen.",
+      "scriptureRef": "1 Corinthians 13:1–13",
       "videoTitle": "3-Minute Bible",
-      "videoSubtitle": "The Widow of Zarephath",
-      "pageImages": ["assets/pages/widow-a.png", "assets/pages/widow-b.png"],
-      "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
-      },
+      "videoSubtitle": "More Than a Wedding Poem: 1 Corinthians 13",
       "questions": [
-        "The widow doesn't seem to have received any message from God, and yet in verse 9 we are told that God has said, \"I have commanded a widow there to feed you.\" Look back at the similar statement about the ravens in verse 4. What do these two passages suggest about what \"command\" can mean? How might God be at work through us even when we have not heard God's voice directly?",
-        "Elijah, one of the most prominent figures in the Old Testament, is called to speak God's word to kings. Yet God chooses a widow, someone with little social power and almost no food, to sustain him. What do you make of God placing Elijah's survival in her hands?",
-        "God sends Elijah outside Israel to Zarephath - a center of Baal worship. The widow who lives there is a foreigner, yet she demonstrates faith in Israel's God. What might it mean that Elijah experiences God's power and provision through a foreigner? How does the narrator weigh the importance of faith against ethnic or national identity? What lessons might the original Israelite readers have been meant to learn from this passage?",
-        "In the video we learn that extending hospitality was a source of honor in ancient Israel. God could have provided for Elijah without involving the widow. Instead, God instructs Elijah to enter the widow's home, where she becomes his host. How does this address the widow's social needs?",
-        "Have you ever needed to rely on someone more vulnerable, or less powerful, than you for help or hospitality? How can giving or accepting hospitality be an act of grace?"
+        "“Love is patient, love is kind” is a wedding staple. But the video notes Paul wrote this to a church in conflict. What words or phrases in the text hint at that setting? Does knowing he was writing to a troubled congregation change how you read it?",
+        "What words or phrases best describe Paul’s understanding of love here? How is it similar to the ways you show love in your own life — and how is it different?",
+        "Paul writes to a congregation fighting about spiritual gifts like prophecy and speaking in tongues. If he were writing verses 1–3 for the church today, what ministries, gifts, or achievements might he name — the things we’re tempted to prize?",
+        "Churches often measure success by growth — programs, membership, attendance. How does Paul’s understanding of love challenge those measures? How would Paul define a church’s success or failure?",
+        "Consider your own church’s worship and common life. Where do you see Paul’s vision of love lived out well, and where is there room to grow — especially across a congregation’s diverse opinions and backgrounds?"
       ],
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Kings%2017%3A1-16&version=NRSVUE",
+      "shortRef": "1 Corinthians 13",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Corinthians%2013%3A1-13&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
-      "optionalReadings": [
-        {
-          "title": "Jesus Recalls the Widow of Zarephath",
-          "subtitle": "Luke 4:25–26 · Jesus names her in his Nazareth sermon (NRSVUE)",
-          "url": "https://www.biblegateway.com/passage/?search=Luke%204%3A25-26&version=NRSVUE"
-        }
-      ],
-      "scriptureText": "<h4>1 Kings 17:1–16</h4>\n<p><span class=\"vn\">1</span>Now Elijah the Tishbite, of Tishbe in Gilead, said to Ahab, “As the Lord the God of Israel lives, before whom I stand, there shall be neither dew nor rain these years, except by my word.” <span class=\"vn\">2</span>The word of the Lord came to him [Elijah], saying, <span class=\"vn\">3</span>“Go from here and turn eastward, and hide yourself by the Wadi Cherith, which is east of the Jordan. <span class=\"vn\">4</span>You shall drink from the wadi, and I have commanded the ravens to feed you there.” <span class=\"vn\">5</span>So he went and did according to the word of the Lord; he went and lived by the Wadi Cherith, which is east of the Jordan. <span class=\"vn\">6</span>The ravens brought him bread and meat in the morning and bread and meat in the evening, and he drank from the wadi. <span class=\"vn\">7</span>But after a while the wadi dried up because there was no rain in the land.</p>\n<p><span class=\"vn\">8</span>Then the word of the Lord came to him, saying, <span class=\"vn\">9</span>“Go now to Zarephath, which belongs to Sidon, and live there, for I have commanded a widow there to feed you.” <span class=\"vn\">10</span>So he set out and went to Zarephath. When he came to the gate of the town, a widow was there gathering sticks; he called to her and said, “Bring me a little water in a vessel, so that I may drink.” <span class=\"vn\">11</span>As she was going to bring it, he called to her and said, “Bring me a morsel of bread in your hand.” <span class=\"vn\">12</span>But she said, “As the Lord your God lives, I have nothing baked, only a handful of meal in a jar and a little oil in a jug; I am now gathering a couple of sticks so that I may go home and prepare it for myself and my son, that we may eat it and die.” <span class=\"vn\">13</span>Elijah said to her, “Do not be afraid; go and do as you have said, but first make me a little cake of it and bring it to me, and afterward make something for yourself and your son. <span class=\"vn\">14</span>For thus says the Lord the God of Israel: The jar of meal will not be emptied and the jug of oil will not fail until the day that the Lord sends rain on the earth.” <span class=\"vn\">15</span>She went and did as Elijah said, so that she as well as he and her household ate for many days. <span class=\"vn\">16</span>The jar of meal was not emptied, neither did the jug of oil fail, according to the word of the Lord that he spoke by Elijah.</p>",
-      "headerImage": null
+      "scriptureText": "<h4>1 Corinthians 13:1–13</h4>\n<p class=\"super\">The Gift of Love</p>\n<p><span class=\"vn\">1</span>If I speak in the tongues of humans and of angels but do not have love, I am a noisy gong or a clanging cymbal. <span class=\"vn\">2</span>And if I have prophetic powers and understand all mysteries and all knowledge and if I have all faith so as to remove mountains but do not have love, I am nothing. <span class=\"vn\">3</span>If I give away all my possessions and if I hand over my body so that I may boast but do not have love, I gain nothing.</p>\n<p><span class=\"vn\">4</span>Love is patient; love is kind; love is not envious or boastful or arrogant <span class=\"vn\">5</span>or rude. It does not insist on its own way; it is not irritable; it keeps no record of wrongs; <span class=\"vn\">6</span>it does not rejoice in wrongdoing but rejoices in the truth. <span class=\"vn\">7</span>It bears all things, believes all things, hopes all things, endures all things.</p>\n<p><span class=\"vn\">8</span>Love never ends. But as for prophecies, they will come to an end; as for tongues, they will cease; as for knowledge, it will come to an end. <span class=\"vn\">9</span>For we know only in part, and we prophesy only in part, <span class=\"vn\">10</span>but when the complete comes, the partial will come to an end. <span class=\"vn\">11</span>When I was a child, I spoke like a child, I thought like a child, I reasoned like a child. When I became an adult, I put an end to childish ways. <span class=\"vn\">12</span>For now we see only a reflection, as in a mirror, but then we will see face to face. Now I know only in part; then I will know fully, even as I have been fully known. <span class=\"vn\">13</span>And now faith, hope, and love remain, these three, and the greatest of these is love.</p>",
+      "headerImage": "assets/headers/lesson-06.png"
     }
   ]
 };
