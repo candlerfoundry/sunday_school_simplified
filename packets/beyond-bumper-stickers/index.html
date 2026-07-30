@@ -10,6 +10,20 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="../../engine/styles.css">
 <link rel="icon" type="image/svg+xml" href="../../engine/assets/favicon.svg">
+<style>
+/* ===== Beyond Bumper Stickers — 3MB video zone (facelift, July 2026) =====
+   Clean on-palette 16:9 that opens the pop-out player on click, mirroring the
+   Gospel According to the Women treatment. No inline Vimeo chrome, no blue hills.
+   Scoped to this packet; the shared engine stays generic. */
+.vcard{background:linear-gradient(158deg, var(--accent,#E0612F), color-mix(in srgb, var(--accent,#E0612F) 66%, #241008));
+  border:2.5px solid rgba(36,16,8,.32); box-shadow:0 12px 26px rgba(80,30,12,.26); max-width:592px;}
+.vhills{display:none;}
+.vlabel{color:#fff; background:rgba(0,0,0,.34); padding:5px 11px; border-radius:20px; top:14px; left:14px; letter-spacing:.1em;}
+.vplay{background:#fff; box-shadow:0 8px 20px rgba(80,30,12,.34);}
+.vplay i{color:var(--accent,#E0612F);}
+.vcap{color:#fff; bottom:16px;}
+.vcardbtn:focus-visible{outline-color:var(--accent,#E0612F);}
+</style>
 </head>
 <body>
   <button class="nav prev" id="navPrev" aria-label="Previous">&#8249;</button>
