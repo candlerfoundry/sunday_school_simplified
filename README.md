@@ -509,9 +509,18 @@ cosmetic and lives entirely in the portal. Existing on-demand template to clone:
   **`&category=SSS`** (exactly how "Partner Payment Link" appends `&category=Partner`). Resolves e.g.
   `…/cart?name=Beyond%20Bumper%20Stickers&price=0&code=SSS-BEYONDBUMPER&h:course_title=…&h:course_code=SSS-BEYONDBUMPER&category=SSS`.
   `category=SSS` is the signal for a **custom donation box** at checkout (packets are $0, donation
-  optional — the **`SSS` category is now created in Foxy** and `category=SSS` is the live checkout
-  link; the **custom checkout JS / donation UI is the one remaining piece — IN PROGRESS**).
-  The product **`code` stays `SSS-*` unchanged**, so the portal show/hide is unaffected by the category.
+  optional — the **`SSS` category is created in Foxy**, `category=SSS` is the live checkout link, and
+  the **custom donation box is BUILT + working (Aug 2026)**. The product **`code` stays `SSS-*`
+  unchanged**, so the portal show/hide is unaffected. Implementation lives in Foxy's **new admin →
+  Settings → Checkout → "Custom checkout fields"** box (both the field HTML AND a `<script>` go there
+  — Foxy executes inline scripts from that box on checkout load), appended after the Candler-Alum +
+  Organization fields. It **shows only when the cart holds an `SSS-` product** (JS scans
+  `FC.json.items` code prefix; hidden on all course/cert checkouts); on "Add gift" (or Enter) it adds
+  a Foxy line item `code=donation`, `category=SSS`, customer-set price, via unsigned `FC.client.request`
+  cart links (works because "Prevent product link/form tampering" + CSP are both OFF). Adapted from
+  Foxy's donation-on-checkout wiki snippet. **Markup gotcha (cost us a round):** mirror the existing
+  fields' simple `.fc-form-group > .col-sm-8.col-sm-offset-3 > .fc-input-group-container` structure —
+  a nested Bootstrap `col-xs-*` layout rendered only the label, not the input/button.
 
 **Registration automation — CRM capture + welcome email + Mailchimp all DONE (Aug 2026).**
 - **CRM capture already happens for SSS:** the existing generic Foxy→CRM automation creates a
@@ -599,8 +608,9 @@ portal **My Lessons** reveals the purchased packet → branded `/sss` flipbook +
 DONE: branded `/sss` wrapper URLs · My Lessons tab (facelifted, gated, nav link on all portal
 pages) · SSS Foxy formula + **`SSS` category created in Foxy** + `category=SSS` checkout URL ·
 welcome-email Zap · **Mailchimp** (store-wide, any Foxy txn → Mailchimp). **Remaining:**
-- **Custom donation box at checkout** — `category=SSS` custom checkout JS offering an optional
-  donation on the $0 packets. **IN PROGRESS** (category + URL already live; the donation UI is left).
+- **Custom donation box at checkout** — **BUILT + working (Aug 2026).** Optional "add a gift" field
+  that appears only for SSS packets and adds a `donation` line item (category `SSS`). Lives in Foxy's
+  Settings → Checkout → Custom checkout fields box (details in the Foxy checkout section above).
 - **Go public / storefront "Register" buttons** — **DEFERRED** until Emily finalizes packet content
   (packet #2 letter + prayer pass, Vimeo videos). Register links use the `category=SSS` URL. Do NOT
   distribute publicly until content is signed off.
