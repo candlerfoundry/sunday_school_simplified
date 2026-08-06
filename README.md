@@ -541,13 +541,19 @@ from `/customer-portal/my-courses`: each course card is
   branded per-lesson deep link (`/sss/<slug>?lesson=N`) does NOT pass through to the flipbook as-is
   — fine for My Lessons (links to packet home); if per-lesson links are ever needed in the welcome
   email, add a one-line script in the embed that appends `location.search` to the iframe `src`.
-- **"My Lessons" plan:** clone the My Courses page to a new **`/customer-portal/my-lessons`** page
-  (+ a "My Lessons" nav link + the same `<foxy-customer-portal>` embed/scripts), with **one gated
-  card per packet** whose link points to the BRANDED wrapper URL above (never netlify):
-  `<div foxy-logic-transaction-includes="SSS-BEYONDBUMPER"><a href="/sss/beyond-bumper-stickers">…</a></div>`
-  and the same for `SSS-GOSPELWOMEN`. Gate value = the Foxy **product `code`** (= Airtable "Course
-  Code" = the `code`/`h:course_code` in the checkout URL). All downstream links (portal cards,
-  welcome email) use the branded URLs; the flipbook's `index.html` is the public **storefront**.
+- **"My Lessons" portal tab — BUILT + LIVE (Aug 2026)** at
+  `candlerfoundry.emory.edu/customer-portal/my-lessons`. Built by **duplicating the My Courses page**
+  (to inherit the working `<foxy-customer-portal>` login + portal scripts + nav), then replacing its
+  heading/intro/CMS card-grid with a **single HTML Embed**: a navy-gradient hero (SSS eyebrow, big
+  title, full-width red rule, intro + "Log in" link → `/customer-portal/account`) and **two gated
+  cards** using the real packet covers, each with an **"Open the flipbook →"** button to the branded
+  `/sss/<slug>` wrapper + a **"Download PDF"** button (netlify PDF, `download` attr). Gates:
+  `<div foxy-logic-transaction-includes="SSS-BEYONDBUMPER">…</div>` and `SSS-GOSPELWOMEN`; gate value =
+  Foxy product `code` (= Airtable "Course Code" = the `code`/`h:course_code` in the checkout URL).
+  "My Lessons" added to the shared portal nav. The embed lives in **Webflow only** (not this repo) — if
+  it needs editing, it's the HTML Embed on that page. **Reveal not yet proven with a real logged-in
+  registrant — pending the $0 test (see below).** All downstream links (portal cards, welcome email)
+  use the branded `/sss/` URLs; the flipbook's `index.html` is the public **storefront**.
 - Building it needs **Webflow Designer** access (new page + nav link + the portal embed); the
   show/hide itself is just those attributes — no custom JavaScript required.
 
