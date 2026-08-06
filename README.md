@@ -524,16 +524,28 @@ CODE>"`** (show iff the customer's purchase history contains that product code).
 from `/customer-portal/my-courses`: each course card is
 `<div foxy-logic-transaction-includes="OND-RES0226">…</div>` whose link points to
 `/on-demand-access/<slug>` (14 such gated cards on that page).
-- **"My Lessons" plan:** clone that page to a new **`/customer-portal/my-lessons`** page (+ a
-  "My Lessons" nav link + the same `<foxy-customer-portal>` embed/scripts), with **one gated
-  card per packet**:
-  `<div foxy-logic-transaction-includes="SSS-BEYONDBUMPER"><a href="<Netlify BBS packet URL>">…</a></div>`
-  and the same for `SSS-GOSPELWOMEN`. The gate value is the Foxy **product `code`** (= the
-  Airtable "Course Code" = the `code`/`h:course_code` in the checkout URL).
-- **No dual preview/private site for packets.** On-demand links each card to a separate gated
-  `/on-demand-access/<slug>` Webflow page; packets are self-contained, so the card links
-  **straight to the Netlify flipbook** (packet URL; optional per-lesson `?lesson=N` deep links).
-  `index.html` is the public **storefront**.
+- **URL masking (decided Aug 2026): branded Webflow wrapper pages that iframe the flipbook.**
+  The customer-facing URL must never expose `netlify.app`. Method mirrors the exec dashboard's
+  embed (`<iframe src="https://candlerfoundry.netlify.app" style="width:100%;height:100vh;border:none;">`):
+  a **Webflow folder `sunday-school-simplified`** with **one subpage per packet**, each holding an
+  HTML Embed of a full-width `100vh` borderless iframe pointing at the Netlify packet URL.
+  Confirmed frame-safe — the Netlify packet pages send **no `X-Frame-Options`/CSP** (checked Aug
+  2026). Resulting branded URLs (these are what all downstream links use):
+  - `candlerfoundry.emory.edu/sunday-school-simplified/beyond-bumper-stickers`
+    → iframes `…netlify.app/packets/beyond-bumper-stickers/`
+  - `candlerfoundry.emory.edu/sunday-school-simplified/gospel-according-to-the-women`
+    → iframes `…netlify.app/packets/gospel-according-to-the-women/`
+  A Webflow folder has no page of its own, so bare `/sunday-school-simplified/` won't resolve
+  unless an index page is added (optional future series-storefront slot). Watch: the flipbook is
+  one-screen, so `100vh` below the site nav may clip the bottom sliver — if so, use
+  `calc(100vh - <nav>px)`; verify at preview.
+- **"My Lessons" plan:** clone the My Courses page to a new **`/customer-portal/my-lessons`** page
+  (+ a "My Lessons" nav link + the same `<foxy-customer-portal>` embed/scripts), with **one gated
+  card per packet** whose link points to the BRANDED wrapper URL above (never netlify):
+  `<div foxy-logic-transaction-includes="SSS-BEYONDBUMPER"><a href="/sunday-school-simplified/beyond-bumper-stickers">…</a></div>`
+  and the same for `SSS-GOSPELWOMEN`. Gate value = the Foxy **product `code`** (= Airtable "Course
+  Code" = the `code`/`h:course_code` in the checkout URL). All downstream links (portal cards,
+  welcome email) use the branded URLs; the flipbook's `index.html` is the public **storefront**.
 - Building it needs **Webflow Designer** access (new page + nav link + the portal embed); the
   show/hide itself is just those attributes — no custom JavaScript required.
 
