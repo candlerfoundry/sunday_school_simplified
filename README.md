@@ -512,13 +512,30 @@ cosmetic and lives entirely in the portal. Existing on-demand template to clone:
   to the Foundry consumer portal with the username/password they created at checkout, then open
   their lesson(s). Mirrors the on-demand welcome email.
 
-**Webflow customer portal (`candlerfoundry.emory.edu`) — TO BUILD**
-- Add a new **"My Lessons"** tab alongside the existing "My Courses" / "Account" / "Logout"
-  (clone the on-demand `/on-demand` page as the template). "My Lessons" uses **Foxy show/hide
-  keyed on `course_code`** to reveal only the packet(s) that customer registered for, each
-  linking out to the Netlify flipbook.
-- Deep links: the packet URL plus six per-lesson `?lesson=N` links for the portal cards and the
-  welcome email. `index.html` is the public **storefront**.
+**Webflow customer portal (`candlerfoundry.emory.edu/customer-portal/*`) — HOW SHOW/HIDE
+ACTUALLY WORKS (reverse-engineered from the live on-demand portal, Aug 2026).** The portal
+pages embed Foxy's **`<foxy-customer-portal>`** web component (loader from `cdn-js.foxy.io`)
+plus portal footer scripts. Gating uses **`foxy-logic-*` attributes** the component reads after
+login: it injects a stylesheet that hides every gated element by default and reveals only the
+ones whose condition matches the logged-in customer. Conditions seen live include
+`foxy-logic-authenticated`, `foxy-logic-subscribed-to` (recurring), `foxy-logic-customer-
+attribute-includes`, and — the one packets use — **`foxy-logic-transaction-includes="<PRODUCT
+CODE>"`** (show iff the customer's purchase history contains that product code). Live example
+from `/customer-portal/my-courses`: each course card is
+`<div foxy-logic-transaction-includes="OND-RES0226">…</div>` whose link points to
+`/on-demand-access/<slug>` (14 such gated cards on that page).
+- **"My Lessons" plan:** clone that page to a new **`/customer-portal/my-lessons`** page (+ a
+  "My Lessons" nav link + the same `<foxy-customer-portal>` embed/scripts), with **one gated
+  card per packet**:
+  `<div foxy-logic-transaction-includes="SSS-BEYONDBUMPER"><a href="<Netlify BBS packet URL>">…</a></div>`
+  and the same for `SSS-GOSPELWOMEN`. The gate value is the Foxy **product `code`** (= the
+  Airtable "Course Code" = the `code`/`h:course_code` in the checkout URL).
+- **No dual preview/private site for packets.** On-demand links each card to a separate gated
+  `/on-demand-access/<slug>` Webflow page; packets are self-contained, so the card links
+  **straight to the Netlify flipbook** (packet URL; optional per-lesson `?lesson=N` deep links).
+  `index.html` is the public **storefront**.
+- Building it needs **Webflow Designer** access (new page + nav link + the portal embed); the
+  show/hide itself is just those attributes — no custom JavaScript required.
 
 **Where the CRM machinery already lives (Aug 2026 — this is a CLONE of the existing course
 flow, not a from-scratch build).** Airtable base **"Candler Foundry: Master CRM"**
