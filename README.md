@@ -504,13 +504,30 @@ cosmetic and lives entirely in the portal. Existing on-demand template to clone:
 - On the site a **"Register / Get this packet" button links straight to the packet's Foxy URL**
   to check out. Foxy **forces account creation** (username + password) at checkout — that
   account is what the customer later uses to log into the portal.
+- **Optional-donation checkout (Aug 2026):** a new Airtable **formula field "SSS Foxy Registration
+  Link"** in `Course & OND Planner` mirrors the standard "Foxy Registration Link" formula but appends
+  **`&category=SSS`** (exactly how "Partner Payment Link" appends `&category=Partner`). Resolves e.g.
+  `…/cart?name=Beyond%20Bumper%20Stickers&price=0&code=SSS-BEYONDBUMPER&h:course_title=…&h:course_code=SSS-BEYONDBUMPER&category=SSS`.
+  `category=SSS` is the signal for a **custom donation box** at checkout (packets are $0, donation
+  optional — needs the **SSS category created in Foxy** + custom checkout JS, still TO BUILD, task).
+  The product **`code` stays `SSS-*` unchanged**, so the portal show/hide is unaffected by the category.
 
-**Zapier automation — fires on Foxy registration/transaction (TO BUILD)**
-- Add the registrant to the **Airtable CRM** database.
-- Add the registrant to **Mailchimp**.
-- Send the registrant a **welcome/access email** with the steps to reach their packet: log in
-  to the Foundry consumer portal with the username/password they created at checkout, then open
-  their lesson(s). Mirrors the on-demand welcome email.
+**Registration automation — CRM capture already WORKS; welcome email + Mailchimp TO BUILD
+(mapped Aug 2026 via a real $0 test).**
+- **CRM capture already happens for SSS:** the existing generic Foxy→CRM automation creates a
+  `CRM Data` record for SSS registrations too — confirmed by a real Aug 2026 $0 Gospel
+  registration (`reckS2tCH2Nrzf4f8`): captured Email, Full Name, `Type of Program = "Sunday School
+  Simplified"`, linked Course Code (→ the Gospel product rec), `Foxy ID`, `Amt Paid 0`. So **no new
+  Zap is needed just to log the registrant.**
+- **Welcome email does NOT fire for SSS:** the existing welcome-email automation is scoped to
+  courses — the Gospel test record's **`Welcome Email Sent` stayed empty** (course records have it
+  populated). So SSS needs **its own welcome email**, scoped to `Type of Program = "Sunday School
+  Simplified"`, linking to **`/customer-portal/my-lessons`** + login steps (the Foxy account made at
+  checkout). CLONE the existing mechanism — first confirm whether that's an **Airtable automation**
+  (base Automations tab) or a **Zapier Zap**, then replicate for SSS.
+- **Mailchimp** add for SSS registrants still TO BUILD (CRM Data has a `Mailchimp Export` view).
+- (Aside: each product's `Publish to Webflow` button fires a Zapier catch-hook, so Zapier is in the
+  stack alongside Airtable automations.)
 
 **Webflow customer portal (`candlerfoundry.emory.edu/customer-portal/*`) — HOW SHOW/HIDE
 ACTUALLY WORKS (reverse-engineered from the live on-demand portal, Aug 2026).** The portal
