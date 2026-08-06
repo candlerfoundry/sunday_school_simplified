@@ -509,10 +509,11 @@ cosmetic and lives entirely in the portal. Existing on-demand template to clone:
   **`&category=SSS`** (exactly how "Partner Payment Link" appends `&category=Partner`). Resolves e.g.
   `…/cart?name=Beyond%20Bumper%20Stickers&price=0&code=SSS-BEYONDBUMPER&h:course_title=…&h:course_code=SSS-BEYONDBUMPER&category=SSS`.
   `category=SSS` is the signal for a **custom donation box** at checkout (packets are $0, donation
-  optional — needs the **SSS category created in Foxy** + custom checkout JS, still TO BUILD, task).
+  optional — the **`SSS` category is now created in Foxy** and `category=SSS` is the live checkout
+  link; the **custom checkout JS / donation UI is the one remaining piece — IN PROGRESS**).
   The product **`code` stays `SSS-*` unchanged**, so the portal show/hide is unaffected by the category.
 
-**Registration automation — CRM capture + welcome email DONE (Aug 2026); Mailchimp to confirm.**
+**Registration automation — CRM capture + welcome email + Mailchimp all DONE (Aug 2026).**
 - **CRM capture already happens for SSS:** the existing generic Foxy→CRM automation creates a
   `CRM Data` record for SSS registrations too — confirmed by a real Aug 2026 $0 Gospel
   registration (`reckS2tCH2Nrzf4f8`): captured Email, Full Name, `Type of Program = "Sunday School
@@ -525,8 +526,8 @@ cosmetic and lives entirely in the portal. Existing on-demand template to clone:
   Account page for password reset, signed **"The Candler Foundry"** with the Foundry logo). Merge
   fields: `First Name`, `Course or Webinar Title`. Verified Aug 2026: email arrives + links work. The
   HTML lives in the Zap (not this repo).
-- **Mailchimp** add for SSS registrants — confirm it's a step in that welcome Zap; if not, add it
-  (CRM Data has a `Mailchimp Export` view).
+- **Mailchimp — DONE (Aug 2026):** any new Foxy transaction pushes the registrant into Mailchimp
+  (the core goal of registration = mailing-list capture). Wired store-wide, so SSS is covered.
 - (Aside: each product's `Publish to Webflow` button fires a Zapier catch-hook, so Zapier is in the
   stack alongside Airtable automations.)
 
@@ -592,12 +593,24 @@ flow, not a from-scratch build).** Airtable base **"Candler Foundry: Master CRM"
   view). Whether the existing Foxy→CRM Zap is generic on `course_code` (so packets are
   auto-captured) or per-product is the first thing to verify.
 
-**Still to do for packets (Aug 2026 — current work):** (1) verify/extend the Foxy→CRM+Mailchimp
-+welcome-email Zap for the two `SSS-*` codes; (2) fire **Publish to Webflow** for both records;
-(3) build the **"My Lessons"** portal tab (clone `/on-demand`) with **Foxy show/hide keyed on
-`course_code`**; (4) draft the **welcome email**; (5) add **"Register" buttons** on the flipbook
-storefront linking to the Foxy URLs (repo work); (6) end-to-end test one $0 registration. Upgrade
-path if leakage ever matters (not built): a Netlify Edge Function checking a Foxy JWT +
+**Status (Aug 2026) — the registration → access loop is LIVE and verified end-to-end for BOTH
+packets:** register → Foxy account created → `CRM Data` record auto-created → welcome email →
+portal **My Lessons** reveals the purchased packet → branded `/sss` flipbook + printable PDF.
+DONE: branded `/sss` wrapper URLs · My Lessons tab (facelifted, gated, nav link on all portal
+pages) · SSS Foxy formula + **`SSS` category created in Foxy** + `category=SSS` checkout URL ·
+welcome-email Zap · **Mailchimp** (store-wide, any Foxy txn → Mailchimp). **Remaining:**
+- **Custom donation box at checkout** — `category=SSS` custom checkout JS offering an optional
+  donation on the $0 packets. **IN PROGRESS** (category + URL already live; the donation UI is left).
+- **Go public / storefront "Register" buttons** — **DEFERRED** until Emily finalizes packet content
+  (packet #2 letter + prayer pass, Vimeo videos). Register links use the `category=SSS` URL. Do NOT
+  distribute publicly until content is signed off.
+- **Executive dashboard hand-off** — rewire the **"Sunday School Simplified" card on the Executive
+  BI / Impact Dashboard** (repo `candlerfoundry/executive-bi-dashboard`, `candlerfoundry.netlify.app`)
+  so its flip-side keys to these lessons (the My Lessons portal / the `/sss` flipbooks). Approach TBD;
+  tracked for later.
+- **Not doing:** listing packets in the Webflow course catalog (the `Publish to Webflow` step) —
+  decided against for SSS (Aug 2026).
+Upgrade path if leakage ever matters (not built): a Netlify Edge Function checking a Foxy JWT +
 per-product entitlement.
 
 ## The PDF (secondary, print-friendly product)
