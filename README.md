@@ -512,20 +512,21 @@ cosmetic and lives entirely in the portal. Existing on-demand template to clone:
   optional — needs the **SSS category created in Foxy** + custom checkout JS, still TO BUILD, task).
   The product **`code` stays `SSS-*` unchanged**, so the portal show/hide is unaffected by the category.
 
-**Registration automation — CRM capture already WORKS; welcome email + Mailchimp TO BUILD
-(mapped Aug 2026 via a real $0 test).**
+**Registration automation — CRM capture + welcome email DONE (Aug 2026); Mailchimp to confirm.**
 - **CRM capture already happens for SSS:** the existing generic Foxy→CRM automation creates a
   `CRM Data` record for SSS registrations too — confirmed by a real Aug 2026 $0 Gospel
   registration (`reckS2tCH2Nrzf4f8`): captured Email, Full Name, `Type of Program = "Sunday School
   Simplified"`, linked Course Code (→ the Gospel product rec), `Foxy ID`, `Amt Paid 0`. So **no new
   Zap is needed just to log the registrant.**
-- **Welcome email does NOT fire for SSS:** the existing welcome-email automation is scoped to
-  courses — the Gospel test record's **`Welcome Email Sent` stayed empty** (course records have it
-  populated). So SSS needs **its own welcome email**, scoped to `Type of Program = "Sunday School
-  Simplified"`, linking to **`/customer-portal/my-lessons`** + login steps (the Foxy account made at
-  checkout). CLONE the existing mechanism — first confirm whether that's an **Airtable automation**
-  (base Automations tab) or a **Zapier Zap**, then replicate for SSS.
-- **Mailchimp** add for SSS registrants still TO BUILD (CRM Data has a `Mailchimp Export` view).
+- **Welcome email — BUILT + LIVE (Aug 2026), via Zapier.** A Zap triggers on a new `CRM Data`
+  record, **filters** to `Type of Program = "Sunday School Simplified"` AND `Welcome Email Sent`
+  empty, sends the SSS welcome email, then sets `Welcome Email Sent` (dedupe). Email is warm/simple
+  ("Sunday School Simplified" eyebrow, 3-step access, links to **`/customer-portal/my-lessons`** + the
+  Account page for password reset, signed **"The Candler Foundry"** with the Foundry logo). Merge
+  fields: `First Name`, `Course or Webinar Title`. Verified Aug 2026: email arrives + links work. The
+  HTML lives in the Zap (not this repo).
+- **Mailchimp** add for SSS registrants — confirm it's a step in that welcome Zap; if not, add it
+  (CRM Data has a `Mailchimp Export` view).
 - (Aside: each product's `Publish to Webflow` button fires a Zapier catch-hook, so Zapier is in the
   stack alongside Airtable automations.)
 
