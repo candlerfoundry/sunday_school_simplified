@@ -520,11 +520,30 @@ cosmetic and lives entirely in the portal. Existing on-demand template to clone:
 - Deep links: the packet URL plus six per-lesson `?lesson=N` links for the portal cards and the
   welcome email. `index.html` is the public **storefront**.
 
-**Build status (Aug 2026):** only the two Foxy checkout **URLs** exist (above). NOT yet built —
-this is the current work: storefront/packet **register buttons**, the **Zap** (Foxy → Airtable
-+ Mailchimp + welcome email), the **"My Lessons"** portal tab + show/hide, and the **welcome
-email** copy. Both packets go behind this same flow. Upgrade path if leakage ever matters (not
-built): a Netlify Edge Function checking a Foxy JWT + per-product entitlement.
+**Where the CRM machinery already lives (Aug 2026 — this is a CLONE of the existing course
+flow, not a from-scratch build).** Airtable base **"Candler Foundry: Master CRM"**
+(`appiL0Z2RilcAT2Cw`):
+- **`Course & OND Planner`** (`tblQNAsrQcdnM8UZC`) = the product catalog. It **auto-generates
+  every Foxy link** (`Foxy Registration Link` free/$0, plus `+CEU` $25, `Partner`,
+  `Certificates Only`, `On-Demand` category variants) and has a **`Publish to Webflow`** button
+  that fires an existing Zapier catch-hook (`hooks.zapier.com/hooks/catch/13043534/u8jkfsc`) to
+  push the item into the Webflow CMS. Both packets are already rows here (view **"Sunday School
+  Simplified Packets"**, `Type = "Sunday School Simplified"`): **Beyond Bumper Stickers**
+  `recod9vr0DJcECFDO` and **The Gospel According to the Women** `recbbdhjeOJAxvFs6`. Both are
+  `Status: "Draft - Confirmed"` and **not yet published** (`Automated: Item Sent > Webflow? = No`).
+- **`CRM Data`** (`tbldN1Ak4SHS41PvM`) = registrants. Foxy checkout populates it (`Email`,
+  `Course Code - DO NOT MODIFY`, `Foxy ID`, `Foxy Category`), and it drives the welcome email
+  (`Welcome Email Sent` / `Manual Send of Welcome Email`) and Mailchimp (`Mailchimp Export`
+  view). Whether the existing Foxy→CRM Zap is generic on `course_code` (so packets are
+  auto-captured) or per-product is the first thing to verify.
+
+**Still to do for packets (Aug 2026 — current work):** (1) verify/extend the Foxy→CRM+Mailchimp
++welcome-email Zap for the two `SSS-*` codes; (2) fire **Publish to Webflow** for both records;
+(3) build the **"My Lessons"** portal tab (clone `/on-demand`) with **Foxy show/hide keyed on
+`course_code`**; (4) draft the **welcome email**; (5) add **"Register" buttons** on the flipbook
+storefront linking to the Foxy URLs (repo work); (6) end-to-end test one $0 registration. Upgrade
+path if leakage ever matters (not built): a Netlify Edge Function checking a Foxy JWT +
+per-product entitlement.
 
 ## The PDF (secondary, print-friendly product)
 
