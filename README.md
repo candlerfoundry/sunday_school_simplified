@@ -607,13 +607,16 @@ packets:** register → Foxy account created → `CRM Data` record auto-created 
 portal **My Lessons** reveals the purchased packet → branded `/sss` flipbook + printable PDF.
 DONE: branded `/sss` wrapper URLs · My Lessons tab (facelifted, gated, nav link on all portal
 pages) · SSS Foxy formula + **`SSS` category created in Foxy** + `category=SSS` checkout URL ·
-welcome-email Zap · **Mailchimp** (store-wide, any Foxy txn → Mailchimp). **Remaining:**
-- **Custom donation box at checkout** — **BUILT + working (Aug 2026).** Optional "add a gift" field
-  that appears only for SSS packets and adds a `donation` line item (category `SSS`). Lives in Foxy's
-  Settings → Checkout → Custom checkout fields box (details in the Foxy checkout section above).
-- **Go public / storefront "Register" buttons** — **DEFERRED** until Emily finalizes packet content
-  (packet #2 letter + prayer pass, Vimeo videos). Register links use the `category=SSS` URL. Do NOT
-  distribute publicly until content is signed off.
+welcome-email Zap · **Mailchimp** (store-wide, any Foxy txn → Mailchimp) · **custom donation box**
+at checkout (SSS-only optional gift; see the Foxy checkout section above). **Remaining:**
+- **NEXT PRIORITY (start here) — build the Sunday School Simplified LANDING PAGE (Webflow).** There is
+  currently **no public series landing/storefront page** for SSS — only the `/sss/*` wrapper pages that
+  iframe the Netlify flipbooks. Build one on `candlerfoundry.emory.edu`, modeled on the `/on-demand`
+  courses page: a series overview + a card per packet, each with a **"Register / Get this packet" CTA
+  linking to that packet's `category=SSS` Foxy checkout URL** (from the SSS formula above). This is
+  where the public **"Register" buttons** live. The build can start now; **do NOT publicly
+  promote/distribute until Emily finalizes packet content** (packet #2 letter + prayer pass, Vimeo
+  videos).
 - **Executive dashboard hand-off** — rewire the **"Sunday School Simplified" card on the Executive
   BI / Impact Dashboard** (repo `candlerfoundry/executive-bi-dashboard`, `candlerfoundry.netlify.app`)
   so its flip-side keys to these lessons (the My Lessons portal / the `/sss` flipbooks). Approach TBD;
