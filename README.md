@@ -576,23 +576,31 @@ from `/customer-portal/my-courses`: each course card is
   (→ `/customer-portal/account`) and **two gated cards** using the real packet covers, each with an
   **"Open the flipbook →"** button to the branded `/sss/<slug>` wrapper + a **"Download PDF"** button
   (netlify PDF, `download` attr).
-  **Hero — shared "Sunday School, Simplified." component (updated Aug 2026), used on BOTH the My Lessons
-  portal AND the public landing page.** Replaced the old navy-gradient hero at Emily's request. It is
-  **live HTML/CSS text over a text-free background photo**, NOT a baked image, so copy edits, mobile
-  wrapping, and accessibility all stay live: a serif headline "Sunday School, / *Simplified.*" + subtitle
-  ("Free, no-prep, scholar-created lessons.") sit over the photo behind a left-to-right white gradient
-  wash, above a navy **READ · WATCH · DISCUSS** bar, then a powder-blue **"Start with a packet"** intro
-  box (pointing-hand manicule + copy + an "Already registered? Log in" line → `/customer-portal/account`),
-  then the packet cards. **The hero photo is self-hosted** at `assets/sss-hero-photo.jpg` (a text-free
-  crop of the Impact Dashboard discussion photo *Master Class Student Talking 5*, 2000×847 progressive
-  JPEG, ~250 KB — cropped locally with PIL, never the Dropbox mount) and referenced as
-  `https://sundayschoolsimplified.netlify.app/assets/sss-hero-photo.jpg`. Serif face = Iowan Old Style /
-  Palatino / Book Antiqua / Georgia. (The earlier baked-text Canva banner `assets/sss-hero-banner.jpg`,
-  design `DAHRnlJvmA4`, is **superseded** by this live-text version and left in the repo unused.) The
-  design markup itself (styles + intro + manicule SVG) lives in the **Webflow HTML Embed**, not this repo
-  — only the photo + covers are hosted here. **Landing vs portal differ only in the cards:** portal =
-  `foxy-logic-transaction-includes` gating + "Open the flipbook" / "Download PDF"; landing = ungated +
-  "Register / Get this packet" → the `category=SSS` Foxy checkout URLs. Gates:
+  **Hero + intro — shared top, used on BOTH the My Lessons portal AND the public landing page (updated
+  Aug 2026, Emily's final direction).** The top two sections are **Emily's own Canva artwork** (design
+  `DAHRnlJvmA4`, "Sunday School Simplified Landing Page", **2 pages, each 2400×1000**), baked images she
+  controls end-to-end:
+    1. **Hero** = page 1: "Sunday School, / *Simplified.*" over a discussion photo behind a white wash,
+       "Free, no-prep, scholar-created packets.", then a navy **READ | WATCH | DISCUSS** bar. Hosted at
+       `assets/sss-hero.jpg` (2000px progressive JPEG, ~187 KB). Displayed full-width with `border-radius:26px 26px 0 0`.
+    2. **"Start with a packet." intro** = page 2: a woodcut pointing-hand + heading + copy + a baked
+       "Already registered? Log in to pick up where you left off." line, on white. Hosted at
+       `assets/sss-intro.png` (2000px PNG to keep the engraving crisp, ~288 KB). Since the "Log in" text
+       is baked in, a **transparent `<a>` hotspot** (~left 58.5% / top 79% / w 8.5% / h 7%) is positioned
+       over it → `/customer-portal/account`. (Nudge those % if the art is re-exported.)
+  Both exported via the Canva connector (`export-design` PNG, per-page) → verified (PNG signature + full
+  PIL decode) → optimized locally → pushed; never the Dropbox mount.
+  **The packet tiles BELOW the intro are live HTML** (built in the Webflow embed, not this repo): a white
+  card, cover on a tint wash (blue `#f0f8ff` + navy left rule for BBS; butter `#fff7d2` + gold rule for
+  Women), then eyebrow / title / desc / two pill buttons. **Fonts (Emily's pick): titles = "Louize"
+  (serif); all other tile text = "Avenir Next Arabic Light".** Both are COMMERCIAL fonts not on Google —
+  they must be added to the Webflow project (Louize self-hosted webfont files under her license; Avenir
+  Next Arabic via Adobe Fonts or upload). Mockups fall back to Palatino/Georgia (serif) + a light system
+  sans. (Superseded and left unused in the repo: `assets/sss-hero-banner.jpg` and `assets/sss-hero-photo.jpg`,
+  the earlier baked-banner and live-text-over-photo hero attempts.)
+  **Landing vs portal differ only in the tiles:** portal = `foxy-logic-transaction-includes` gating +
+  "Open the flipbook" / "Download PDF"; landing = ungated + "Register / Get this packet" → the
+  `category=SSS` Foxy checkout URLs. Gates:
   `<div foxy-logic-transaction-includes="SSS-BEYONDBUMPER">…</div>` and `SSS-GOSPELWOMEN`; gate value =
   Foxy product `code` (= Airtable "Course Code" = the `code`/`h:course_code` in the checkout URL).
   "My Lessons" added to the shared portal nav. The embed lives in **Webflow only** (not this repo) — if
