@@ -572,10 +572,20 @@ from `/customer-portal/my-courses`: each course card is
 - **"My Lessons" portal tab — BUILT + LIVE (Aug 2026)** at
   `candlerfoundry.emory.edu/customer-portal/my-lessons`. Built by **duplicating the My Courses page**
   (to inherit the working `<foxy-customer-portal>` login + portal scripts + nav), then replacing its
-  heading/intro/CMS card-grid with a **single HTML Embed**: a navy-gradient hero (SSS eyebrow, big
-  title, full-width red rule, intro + "Log in" link → `/customer-portal/account`) and **two gated
-  cards** using the real packet covers, each with an **"Open the flipbook →"** button to the branded
-  `/sss/<slug>` wrapper + a **"Download PDF"** button (netlify PDF, `download` attr). Gates:
+  heading/intro/CMS card-grid with a **single HTML Embed**: a hero + intro + "Log in" helper line
+  (→ `/customer-portal/account`) and **two gated cards** using the real packet covers, each with an
+  **"Open the flipbook →"** button to the branded `/sss/<slug>` wrapper + a **"Download PDF"** button
+  (netlify PDF, `download` attr).
+  **Hero (updated Aug 2026):** the old navy-gradient hero (SSS eyebrow / "My Lessons" title / red rule)
+  was replaced at Emily's request with a **Canva-designed banner image** — "Sunday School, Simplified."
+  over a discussion photo + an orange **READ · WATCH · DISCUSS** bar (source Canva design `DAHRnlJvmA4`,
+  2400×1000). The banner is **self-hosted on this repo's Netlify** at `assets/sss-hero-banner.jpg`
+  (exported via the Canva connector — PNG then optimized to a 2000px progressive JPEG, ~195 KB — never
+  the Dropbox mount) and referenced by the Webflow embed as
+  `https://sundayschoolsimplified.netlify.app/assets/sss-hero-banner.jpg`. The banner has its heading
+  baked in (so no live "My Lessons" `<h1>`); the "Log in" link stays as live text below it. **Same
+  banner is earmarked for the public landing-page hero** (below). Re-export + re-push that one file to
+  change the banner. Gates:
   `<div foxy-logic-transaction-includes="SSS-BEYONDBUMPER">…</div>` and `SSS-GOSPELWOMEN`; gate value =
   Foxy product `code` (= Airtable "Course Code" = the `code`/`h:course_code` in the checkout URL).
   "My Lessons" added to the shared portal nav. The embed lives in **Webflow only** (not this repo) — if
