@@ -590,10 +590,20 @@ from `/customer-portal/my-courses`: each course card is
          your FREE packet(s) · 2 Check your inbox · 3 Open packet — SIX lessons each) + "Already registered?
          **LOG IN**". Hosted at `assets/sss-landing-intro.png` (2000px PNG, ~355 KB). Hotspot ≈ left 52% /
          top 91% / w 9% / h 6.5% → `/customer-portal/account`.
-       - **Portal** = the earlier "**Start with a packet.**" band, hosted at `assets/sss-intro.png` (~288 KB;
-         hotspot ≈ left 58.5% / top 79%). Still valid for logged-in My Lessons.
-       (Canva design now has **3 pages**; page 3 is not used yet. Re-measure hotspot % whenever the art is
-       re-exported.)
+       - **Portal (My Lessons)** = Canva **pages 3 & 4**. Page 3 = same hero, subtitle "Your lessons are
+         ready. Let's learn!" → `assets/sss-portal-hero.jpg`. Page 4's band ("Emily's packets" + a woodcut
+         **thumbs-up** + copy) is **rebuilt as LIVE HTML — NOT used as a baked image**, because the name has
+         to personalize per customer: a heading `<span foxy-logic-display="customer-first-name"></span>&rsquo;s
+         Packets` wrapped in `foxy-logic-authenticated="true"` (fallback "Your Packets" when `="false"`);
+         live copy; a login line shown only when `foxy-logic-authenticated="false"`. The thumbs-up is cropped
+         from page 4 → `assets/sss-thumbsup.png`. Building it live also kills page 4's big bottom whitespace
+         (Emily's note) so the tiles sit right under the copy. **`foxy-logic-display` / `foxy-logic-authenticated`
+         are built into `cdn-js.foxy.io/website-helpers@1/foxy-logic.js`, already loaded on the portal**
+         (verified in source: `el.innerHTML = customerDetails.first_name`; supported display keys include
+         `customer-first-name`, `customer-last-name`, `customer-email-address`, `customer-id`). No new script.
+       - (Superseded portal band: the earlier "Start with a packet." `assets/sss-intro.png`.)
+       (Canva design now has **4 pages** — 1–2 public landing, 3–4 logged-in portal. Re-measure any hotspot %
+       and re-crop the hand whenever the art is re-exported.)
   Both exported via the Canva connector (`export-design` PNG, per-page) → verified (PNG signature + full
   PIL decode) → optimized locally → pushed; never the Dropbox mount.
   **The packet tiles BELOW the intro are live HTML** (built in the Webflow embed, not this repo): a white
