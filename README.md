@@ -576,16 +576,23 @@ from `/customer-portal/my-courses`: each course card is
   (→ `/customer-portal/account`) and **two gated cards** using the real packet covers, each with an
   **"Open the flipbook →"** button to the branded `/sss/<slug>` wrapper + a **"Download PDF"** button
   (netlify PDF, `download` attr).
-  **Hero (updated Aug 2026):** the old navy-gradient hero (SSS eyebrow / "My Lessons" title / red rule)
-  was replaced at Emily's request with a **Canva-designed banner image** — "Sunday School, Simplified."
-  over a discussion photo + an orange **READ · WATCH · DISCUSS** bar (source Canva design `DAHRnlJvmA4`,
-  2400×1000). The banner is **self-hosted on this repo's Netlify** at `assets/sss-hero-banner.jpg`
-  (exported via the Canva connector — PNG then optimized to a 2000px progressive JPEG, ~195 KB — never
-  the Dropbox mount) and referenced by the Webflow embed as
-  `https://sundayschoolsimplified.netlify.app/assets/sss-hero-banner.jpg`. The banner has its heading
-  baked in (so no live "My Lessons" `<h1>`); the "Log in" link stays as live text below it. **Same
-  banner is earmarked for the public landing-page hero** (below). Re-export + re-push that one file to
-  change the banner. Gates:
+  **Hero — shared "Sunday School, Simplified." component (updated Aug 2026), used on BOTH the My Lessons
+  portal AND the public landing page.** Replaced the old navy-gradient hero at Emily's request. It is
+  **live HTML/CSS text over a text-free background photo**, NOT a baked image, so copy edits, mobile
+  wrapping, and accessibility all stay live: a serif headline "Sunday School, / *Simplified.*" + subtitle
+  ("Free, no-prep, scholar-created lessons.") sit over the photo behind a left-to-right white gradient
+  wash, above a navy **READ · WATCH · DISCUSS** bar, then a powder-blue **"Start with a packet"** intro
+  box (pointing-hand manicule + copy + an "Already registered? Log in" line → `/customer-portal/account`),
+  then the packet cards. **The hero photo is self-hosted** at `assets/sss-hero-photo.jpg` (a text-free
+  crop of the Impact Dashboard discussion photo *Master Class Student Talking 5*, 2000×847 progressive
+  JPEG, ~250 KB — cropped locally with PIL, never the Dropbox mount) and referenced as
+  `https://sundayschoolsimplified.netlify.app/assets/sss-hero-photo.jpg`. Serif face = Iowan Old Style /
+  Palatino / Book Antiqua / Georgia. (The earlier baked-text Canva banner `assets/sss-hero-banner.jpg`,
+  design `DAHRnlJvmA4`, is **superseded** by this live-text version and left in the repo unused.) The
+  design markup itself (styles + intro + manicule SVG) lives in the **Webflow HTML Embed**, not this repo
+  — only the photo + covers are hosted here. **Landing vs portal differ only in the cards:** portal =
+  `foxy-logic-transaction-includes` gating + "Open the flipbook" / "Download PDF"; landing = ungated +
+  "Register / Get this packet" → the `category=SSS` Foxy checkout URLs. Gates:
   `<div foxy-logic-transaction-includes="SSS-BEYONDBUMPER">…</div>` and `SSS-GOSPELWOMEN`; gate value =
   Foxy product `code` (= Airtable "Course Code" = the `code`/`h:course_code` in the checkout URL).
   "My Lessons" added to the shared portal nav. The embed lives in **Webflow only** (not this repo) — if
