@@ -651,22 +651,70 @@ DONE: branded `/sss` wrapper URLs · My Lessons tab (facelifted, gated, nav link
 pages) · SSS Foxy formula + **`SSS` category created in Foxy** + `category=SSS` checkout URL ·
 welcome-email Zap · **Mailchimp** (store-wide, any Foxy txn → Mailchimp) · **custom donation box**
 at checkout (SSS-only optional gift; see the Foxy checkout section above). **Remaining:**
-- **NEXT PRIORITY (start here) — build the Sunday School Simplified LANDING PAGE (Webflow).** There is
-  currently **no public series landing/storefront page** for SSS — only the `/sss/*` wrapper pages that
-  iframe the Netlify flipbooks. Build one on `candlerfoundry.emory.edu`, modeled on the `/on-demand`
-  courses page: a series overview + a card per packet, each with a **"Register / Get this packet" CTA
-  linking to that packet's `category=SSS` Foxy checkout URL** (from the SSS formula above). This is
-  where the public **"Register" buttons** live. The build can start now; **do NOT publicly
-  promote/distribute until Emily finalizes packet content** (packet #2 letter + prayer pass, Vimeo
-  videos).
+- **Landing page + logged-in My Lessons UI — DESIGNED + CODE DELIVERED (Aug 7 2026).** Full
+  paste-ready Webflow HTML-embed code exists for BOTH the **public landing/register page** and the
+  **logged-in My Lessons portal**, built from Emily's Canva design `DAHRnlJvmA4` (see the "Hero + intro"
+  block under My Lessons above for the whole asset map + how it works). **Remaining for Emily/Webflow:**
+  paste the embeds, **add the Louize + Avenir Next Arabic fonts to the Webflow project** (or it falls
+  back to Palatino/Georgia + system sans), verify the "Log in" hotspot % on the live page, and Publish.
+  Do NOT publicly promote until packet content is finalized (below).
 - **Executive dashboard hand-off** — rewire the **"Sunday School Simplified" card on the Executive
   BI / Impact Dashboard** (repo `candlerfoundry/executive-bi-dashboard`, `candlerfoundry.netlify.app`)
   so its flip-side keys to these lessons (the My Lessons portal / the `/sss` flipbooks). Approach TBD;
-  tracked for later.
+  **now scheduled — see "Next session (Monday)" below.**
 - **Not doing:** listing packets in the Webflow course catalog (the `Publish to Webflow` step) —
   decided against for SSS (Aug 2026).
 Upgrade path if leakage ever matters (not built): a Netlify Edge Function checking a Foxy JWT +
 per-product entitlement.
+
+## Next session — Monday 2026-08-10 (START HERE)
+
+Priorities set by Emily on 2026-08-07 (she'll open a fresh chat). Do them in this order.
+Cross-cutting rules: **GitHub `main` is source of truth**; author in a native temp dir, `node --check`
+any JS, push via the Git Data API, verify byte parity. **Re-cut the affected PDF and re-verify with
+Playwright screenshots after any content change.** Remember the split brains: **Women packet's VISIBLE
+flipbook pages are Canva art** (`pageImages`, Canva design `DAHOtl4BNMk`, pages 8–19) — `content.js` is
+only the PDF source + written record; **BBS is engine-rendered from `content.js`** so editing it changes
+the flipbook AND the PDF.
+
+1. **TOP PRIORITY — clean up the copy of the flipbooks and PDFs** (both packets, lesson by lesson:
+   prayers, questions, scripture intros, letter, tile/packet descriptions; fix typos).
+   - **Beyond Bumper Stickers:** edit `packets/beyond-bumper-stickers/content.js` → updates the flipbook
+     AND is the PDF source → re-run **`tools/make_pdf.py`** (reportlab). Known open item: lesson 4 header
+     **art reads "Through Christ" but `title`/TOC say "Through Him"** — decide one and make them match
+     (art fix = re-export the header image; text fix = `content.js`).
+   - **Gospel According to the Women:** the visible flipbook copy is in **Canva `DAHOtl4BNMk`** — to change
+     what readers see, edit Canva → `export-design` the affected page(s) → verify PNG sig + `IEND` + PIL
+     decode → **re-measure the scripture/video hotspots** → push to `packets/gospel-according-to-the-women/assets/pages/`.
+     Also reconcile `content.js` to match, then re-run **`tools/make_women_pdf.js`** (playwright-core HTML→PDF)
+     so the PDF matches. (Its letter + a packet-wide prayer pass were the last known draft items.)
+   - Tidy the landing/portal **Canva slide-4 typo** ("below Perfect for groups" → add the period) in Canva
+     `DAHRnlJvmA4` if that art is reused; the live portal HTML already reads correctly.
+
+2. **Clean up the URL folders on Webflow.** Current state: a Webflow **folder `sss`** with one wrapper
+   subpage per packet — `/sss/beyond-bumper-stickers` and `/sss/gospel-according-to-the-women` (each an
+   HTML-embed `100vh` iframe of the Netlify packet). Bare `/sss/` has **no index page** so it won't
+   resolve. Decide + implement: the canonical **public landing URL** (the register page built Aug 7 —
+   e.g. an index at `/sss/` or a dedicated `/sunday-school-simplified`), consistent slug naming, and make
+   sure the landing "Register" + portal "Open the flipbook" links point at the final URLs. (Reminder: the
+   wrapper iframe `src` is fixed, so `/sss/<slug>?lesson=N` deep links don't pass through unless a
+   one-line script appends `location.search` to the iframe `src`.) Confirm exact desired URLs with Emily.
+
+3. **Update the Additional Resources sections** (both flipbooks + PDFs). The Additional Resources spread
+   is **engine-rendered from `content.js`** (`optionalVideo` + `optionalReadings`) for BOTH packets — even
+   the Women packet (only its lesson pages are Canva art, not the resources spread). So edit `content.js`
+   → re-cut the PDF. Still-pending inputs: several **Vimeo `optionalVideo` links** (e.g. "Orphan, Widow,
+   and Stranger" under Hannah + Zelophehad; "Background to the Exodus"). Ask Emily what to add/refresh.
+
+4. **LOWER — rewire the Executive dashboard SSS card to the flipbooks.** Repo
+   `candlerfoundry/executive-bi-dashboard` (local `C:\Scripts\executive-bi-dashboard`, prod
+   `candlerfoundry.netlify.app`) — **read its `CANONICAL.md` first**; separate repo + push flow. The
+   "Sunday School Simplified" offering card currently maps to the `graphic-1-reader-presenter.png`
+   vignette (~`index.html` line 10406) and there's an `assets/Sunday School Simplified/` folder. Rewire
+   its flip-side / links to point at the **My Lessons portal** and/or the branded `/sss/<slug>` flipbooks.
+   Approach TBD.
+
+Memory (Cowork) also carries this: `project-sss-landing-portal` + `reference-foxy-logic-display`.
 
 ## The PDF (secondary, print-friendly product)
 
