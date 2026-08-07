@@ -580,27 +580,34 @@ from `/customer-portal/my-courses`: each course card is
   Aug 2026, Emily's final direction).** The top two sections are **Emily's own Canva artwork** (design
   `DAHRnlJvmA4`, "Sunday School Simplified Landing Page", **2 pages, each 2400×1000**), baked images she
   controls end-to-end:
-    1. **Hero** = page 1: "Sunday School, / *Simplified.*" over a discussion photo behind a white wash,
-       "Free, no-prep, scholar-created packets.", then a navy **READ | WATCH | DISCUSS** bar. Hosted at
-       `assets/sss-hero.jpg` (2000px progressive JPEG, ~187 KB). Displayed full-width with `border-radius:26px 26px 0 0`.
-    2. **"Start with a packet." intro** = page 2: a woodcut pointing-hand + heading + copy + a baked
-       "Already registered? Log in to pick up where you left off." line, on white. Hosted at
-       `assets/sss-intro.png` (2000px PNG to keep the engraving crisp, ~288 KB). Since the "Log in" text
-       is baked in, a **transparent `<a>` hotspot** (~left 58.5% / top 79% / w 8.5% / h 7%) is positioned
-       over it → `/customer-portal/account`. (Nudge those % if the art is re-exported.)
+    1. **Hero** = Canva page 1: "Sunday School, / *Simplified.*" over a discussion photo behind a white
+       wash, "Take your Bible study to the next level with our FREE, no-prep lessons.", then a navy
+       **READ SCRIPTURE | WATCH VIDEO | DISCUSS** bar. Hosted at `assets/sss-hero.jpg` (2000px progressive
+       JPEG, ~210 KB). Displayed full-width with `border-radius:26px 26px 0 0`. Shared by both surfaces.
+    2. **Intro band — two variants, one per surface** (both Canva page 2, on white, with the woodcut
+       pointing-hand; "Log in / LOG IN" text is baked in, so a **transparent `<a>` hotspot** overlays it):
+       - **Landing** = the current Canva page 2 "**Let's get started.**" — 3 register steps (1 Register for
+         your FREE packet(s) · 2 Check your inbox · 3 Open packet — SIX lessons each) + "Already registered?
+         **LOG IN**". Hosted at `assets/sss-landing-intro.png` (2000px PNG, ~355 KB). Hotspot ≈ left 52% /
+         top 91% / w 9% / h 6.5% → `/customer-portal/account`.
+       - **Portal** = the earlier "**Start with a packet.**" band, hosted at `assets/sss-intro.png` (~288 KB;
+         hotspot ≈ left 58.5% / top 79%). Still valid for logged-in My Lessons.
+       (Canva design now has **3 pages**; page 3 is not used yet. Re-measure hotspot % whenever the art is
+       re-exported.)
   Both exported via the Canva connector (`export-design` PNG, per-page) → verified (PNG signature + full
   PIL decode) → optimized locally → pushed; never the Dropbox mount.
   **The packet tiles BELOW the intro are live HTML** (built in the Webflow embed, not this repo): a white
   card, cover on a tint wash (blue `#f0f8ff` + navy left rule for BBS; butter `#fff7d2` + gold rule for
-  Women), then eyebrow / title / desc / two pill buttons. **Fonts (Emily's pick): titles = "Louize"
-  (serif); all other tile text = "Avenir Next Arabic Light".** Both are COMMERCIAL fonts not on Google —
-  they must be added to the Webflow project (Louize self-hosted webfont files under her license; Avenir
-  Next Arabic via Adobe Fonts or upload). Mockups fall back to Palatino/Georgia (serif) + a light system
-  sans. (Superseded and left unused in the repo: `assets/sss-hero-banner.jpg` and `assets/sss-hero-photo.jpg`,
-  the earlier baked-banner and live-text-over-photo hero attempts.)
-  **Landing vs portal differ only in the tiles:** portal = `foxy-logic-transaction-includes` gating +
-  "Open the flipbook" / "Download PDF"; landing = ungated + "Register / Get this packet" → the
-  `category=SSS` Foxy checkout URLs. Gates:
+  Women), then eyebrow / title / desc / **two pill buttons**. **Fonts (Emily's pick): titles = "Louize"
+  (serif); all other text = "Avenir Next Arabic Light".** Both are COMMERCIAL fonts not on Google — they
+  must be added to the Webflow project (Louize self-hosted webfont files under her license; Avenir Next
+  Arabic via Adobe Fonts or upload). Mockups fall back to Palatino/Georgia (serif) + a light system sans.
+  (Superseded, left unused: `assets/sss-hero-banner.jpg`, `assets/sss-hero-photo.jpg` — earlier hero attempts.)
+  **Landing vs portal differ in the tiles:** **landing** = ungated, two buttons — **"Register for free →"**
+  (→ `category=SSS` Foxy checkout) + **"Learn more"** which opens a **self-contained JS pop-out modal**
+  (`.sss-modal`; scrim/×/Esc close, `document.documentElement.overflow` locked) listing the packet's six
+  lessons + a Register CTA — works inside a Webflow HTML Embed (inline `<script>` runs there). **Portal** =
+  `foxy-logic-transaction-includes` gating + "Open the flipbook" / "Download PDF". Gates:
   `<div foxy-logic-transaction-includes="SSS-BEYONDBUMPER">…</div>` and `SSS-GOSPELWOMEN`; gate value =
   Foxy product `code` (= Airtable "Course Code" = the `code`/`h:course_code` in the checkout URL).
   "My Lessons" added to the shared portal nav. The embed lives in **Webflow only** (not this repo) — if
