@@ -602,8 +602,36 @@ from `/customer-portal/my-courses`: each course card is
          (verified in source: `el.innerHTML = customerDetails.first_name`; supported display keys include
          `customer-first-name`, `customer-last-name`, `customer-email-address`, `customer-id`). No new script.
        - (Superseded portal band: the earlier "Start with a packet." `assets/sss-intro.png`.)
-       (Canva design now has **4 pages** — 1–2 public landing, 3–4 logged-in portal. Re-measure any hotspot %
-       and re-crop the hand whenever the art is re-exported.)
+       (Canva design **`DAHRnlJvmA4` now has 7 pages** — the CURRENT landing/portal art is **pages 2–5**
+       (2 = landing hero, 3 = landing intro, 4 = portal hero, 5 = portal intro); pages 1, 6, 7 are the old/superseded
+       versions and are ignored. Re-measure any hotspot % and re-crop the hand whenever the art is re-exported.)
+
+**UPDATE Aug 10 2026 — heroes reshaped to a wide/short band + landing full-bleed + Louize font fix (with Emily).**
+- **Why:** on a wide monitor the old hero (2.4:1) looked either boxed (the 1180px `.sss-page` cap → big side gutters)
+  or, at full width, *enormous* (793px tall). Emily reshaped the hero in Canva to a **wide/short band
+  (2400×720 ≈ 3.33:1)** so it can run full-bleed without being tall.
+- **New assets hosted** (from Canva `DAHRnlJvmA4`, exported via the connector → optimized with PIL → pushed via Git
+  Data API → byte-verified): `assets/sss-hero-v2.jpg` (2000×600 landing hero, ~120KB),
+  `assets/sss-landing-intro-v2.png` (2000×833), `assets/sss-portal-hero-v2.jpg` (2000×600 portal hero),
+  `assets/sss-portal-intro-v2.png` (2000×667). The old `sss-hero.jpg` / `sss-landing-intro.png` / `sss-portal-hero.jpg`
+  remain on disk but are superseded. **Landing hero subtitle copy changed** to "Make Bible study easy and fun with our
+  FREE, no-prep lessons." (baked into the new image); the READ|WATCH|DISCUSS bar is now short-form.
+- **Landing embed changes (Webflow HTML Embed `<style>` on the landing page):** point the hero `<img>` at
+  `sss-hero-v2.jpg` and the intro `<img>` at `sss-landing-intro-v2.png`; set `.sss-page{max-width:none}` (full-bleed)
+  and add `.sss-packets{max-width:1200px;margin:0 auto}` so the register tiles stay readable while the art bands go
+  edge-to-edge. Verified live via Chrome preview Aug 10 2026.
+- **FONT FIX (both embeds).** Louize IS uploaded to Webflow, but its family name there is **`Louize 205 Tf`** (weight
+  **400 only**, normal + italic — NO bold). The embeds' `--louize` var asked for `"Louize"` → no match → fell back to
+  Palatino/Georgia (the "wrong font" Emily saw). Fix: change `--louize`'s first value to `"Louize 205 Tf"`.
+  **`--avenir` (body) is left EXACTLY as-is** — Emily only wanted the fallback serif replaced with real Louize, not body
+  text changed. If bold Louize headings are ever wanted, upload the bold weight file to Webflow.
+- **PORTAL CAVEAT — do NOT bake Canva page 5 as a flat image.** Page 5 (portal intro) has **"Emily" baked into the
+  heading** plus baked "LOG IN"/"HERE" links; as an image it would show "Emily" to every customer and kill per-customer
+  personalization. The portal band MUST stay **LIVE HTML** (`foxy-logic-display="customer-first-name"`, see
+  [[reference-foxy-logic-display]]). The portal HERO (page 4 → `sss-portal-hero-v2.jpg`) is fine to swap. New portal-band
+  copy to fold into the live HTML when it's rebuilt: "Your lessons are below. Access the online packet, or download and
+  print a PDF copy." / "Don't see your lessons? LOG IN and try again." / "Need more? Browse available lessons HERE."
+  Thumbs-up woodcut can be re-cropped from page 5.
   Both exported via the Canva connector (`export-design` PNG, per-page) → verified (PNG signature + full
   PIL decode) → optimized locally → pushed; never the Dropbox mount.
   **The packet tiles BELOW the intro are live HTML** (built in the Webflow embed, not this repo): a white
