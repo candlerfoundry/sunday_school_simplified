@@ -628,10 +628,18 @@ from `/customer-portal/my-courses`: each course card is
 - **PORTAL CAVEAT — do NOT bake Canva page 5 as a flat image.** Page 5 (portal intro) has **"Emily" baked into the
   heading** plus baked "LOG IN"/"HERE" links; as an image it would show "Emily" to every customer and kill per-customer
   personalization. The portal band MUST stay **LIVE HTML** (`foxy-logic-display="customer-first-name"`, see
-  [[reference-foxy-logic-display]]). The portal HERO (page 4 → `sss-portal-hero-v2.jpg`) is fine to swap. New portal-band
-  copy to fold into the live HTML when it's rebuilt: "Your lessons are below. Access the online packet, or download and
-  print a PDF copy." / "Don't see your lessons? LOG IN and try again." / "Need more? Browse available lessons HERE."
-  Thumbs-up woodcut can be re-cropped from page 5.
+  [[reference-foxy-logic-display]]). The portal HERO (page 4 → `sss-portal-hero-v2.jpg`) is fine to swap.
+- **PORTAL BAND — Option A rebuilt as live HTML (code delivered Aug 10 2026; Emily to paste + publish).** The My Lessons
+  band (`.pl-band`) was rebuilt to Canva page-5's new design, still live/personalized. Structure: `.pl-hand` (reuses the
+  existing `assets/sss-thumbsup.png`) + `.pl-text` → `h2.pl-greeting` (authenticated: `<span foxy-logic-display=
+  "customer-first-name"></span>, let's get started.` / fallback `Let's get started.`), `p.pl-copy` ("Your lessons are
+  below. Access the online packet, or download and print a PDF copy."), and **two** helper lines: `span.pl-login`
+  [gated `foxy-logic-authenticated="false"`] lock-icon "Don't see your lessons? **Log in** (→ `/customer-portal/account`)
+  and try again." + a NEW `span.pl-browse` [ungated] arrow-icon "Need more? Browse available lessons **here**
+  (→ `/sunday-school-simplified`)." New CSS added for `.pl-browse` (mirrors `.pl-login` but `display:flex` so the two
+  lines stack). The portal embed also gets the SAME landing edits: hero `sss-portal-hero.jpg`→`-v2`, `--louize`→
+  `"Louize 205 Tf"`, `.sss-page{max-width:none}`, `.sss-packets{max-width:1200px;margin:0 auto}`. Verified in Chrome
+  (logged-out fallback state) Aug 10 2026; the personalized name only fills in for a logged-in customer.
   Both exported via the Canva connector (`export-design` PNG, per-page) → verified (PNG signature + full
   PIL decode) → optimized locally → pushed; never the Dropbox mount.
   **The packet tiles BELOW the intro are live HTML** (built in the Webflow embed, not this repo): a white
