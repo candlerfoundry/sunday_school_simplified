@@ -691,14 +691,23 @@ the flipbook AND the PDF.
    - Tidy the landing/portal **Canva slide-4 typo** ("below Perfect for groups" → add the period) in Canva
      `DAHRnlJvmA4` if that art is reused; the live portal HTML already reads correctly.
 
-2. **Clean up the URL folders on Webflow.** Current state: a Webflow **folder `sss`** with one wrapper
-   subpage per packet — `/sss/beyond-bumper-stickers` and `/sss/gospel-according-to-the-women` (each an
-   HTML-embed `100vh` iframe of the Netlify packet). Bare `/sss/` has **no index page** so it won't
-   resolve. Decide + implement: the canonical **public landing URL** (the register page built Aug 7 —
-   e.g. an index at `/sss/` or a dedicated `/sunday-school-simplified`), consistent slug naming, and make
-   sure the landing "Register" + portal "Open the flipbook" links point at the final URLs. (Reminder: the
-   wrapper iframe `src` is fixed, so `/sss/<slug>?lesson=N` deep links don't pass through unless a
-   one-line script appends `location.search` to the iframe `src`.) Confirm exact desired URLs with Emily.
+2. **Clean up the URL folders on Webflow.** **Plan set Aug 10 2026 (with Emily):** the
+   **landing/register page moves OUT of the `sss` folder to top-level `/sunday-school-simplified`** —
+   Webflow folders can't have an index page of their own, which is exactly why the landing was awkwardly
+   nested at `/sss/sunday-school-simplified`. Top-level makes it the clean public front door. It's
+   **behind a password wall for now** — re-confirm the per-page PW survives the move (Webflow page
+   passwords are per-page; folder-level passwords are separate). The **two flipbook wrappers STAY in the
+   `sss` folder** — `/sss/beyond-bumper-stickers` and `/sss/gospel-according-to-the-women` (each an
+   HTML-embed `100vh` iframe of the Netlify packet) — because the welcome-email Zap, the My Lessons portal
+   tiles, and the exec-dashboard card already link there; renaming the folder would 404 all of them for no
+   user-visible gain (visitors never type flipbook URLs — they arrive via the portal/register/email links).
+   Make sure the landing "Register" + portal "Open the flipbook" links point at the final URLs.
+   - **DEFERRED — Emily to do later (added Aug 10 2026, she explicitly deferred it):** add a **301 redirect
+     `/sss` → `/sunday-school-simplified`** (Webflow → Project Settings → Publishing → 301 Redirects, then
+     republish) so a trimmed `/sss` folder URL lands on the front door instead of Webflow's 404 (the folder
+     has no index page). Optional insurance, not blocking the reorg.
+   - (Reminder: the wrapper iframe `src` is fixed, so `/sss/<slug>?lesson=N` deep links don't pass through
+     unless a one-line script appends `location.search` to the iframe `src`.)
 
 3. **Update the Additional Resources sections** (both flipbooks + PDFs). The Additional Resources spread
    is **engine-rendered from `content.js`** (`optionalVideo` + `optionalReadings`) for BOTH packets — even
