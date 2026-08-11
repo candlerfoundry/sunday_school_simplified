@@ -667,6 +667,29 @@ from `/customer-portal/my-courses`: each course card is
 - Building it needs **Webflow Designer** access (new page + nav link + the portal embed); the
   show/hide itself is just those attributes — no custom JavaScript required.
 
+**UPDATE Aug 11 2026 — public landing page rebuilt as THREE stacked image sections (with Emily).**
+The `/sunday-school-simplified` front door is now three full-width **flat-image bands** exported from
+Canva `DAHRnlJvmA4` (**slides 5, 6, 7**), each pasted into its **own Webflow HTML Embed** so Emily controls
+the padding between them.
+- **Hosted in-repo, served from Netlify** (`sundayschoolsimplified.netlify.app`):
+  `assets/sss-landing-hero.png` (2400×720, slide 5 hero), `assets/sss-landing-getstarted.png`
+  (2400×1000, slide 6 "Let's get started"), `assets/sss-landing-packets.png` (2400×1200, slide 7
+  "Choose Your Packet"). Re-push the SAME filenames whenever the Canva slides change; Netlify redeploys.
+- **Three separate embeds, NOT one** — for independent padding, per-section background (Emily's
+  INTENTIONAL white / white / powder-blue, to differentiate the sections), and % hotspots that stay
+  relative to each image's own box. Each embed carries a **faint top divider**
+  (`border-top:1px solid rgba(10,39,76,.15)`) — which also separates the hero from the white nav bar.
+- **Type is baked into the images** (Emily's chunky display face, deliberately unified with the
+  packet-cover lettering), so **no Webflow font upload is needed** for this landing; `alt` text carries
+  the copy for SEO / screen readers.
+- **Hotspots = invisible `<a>`/`<button>` overlays sized in %** (measured + overlay-verified):
+  slide 6 **LOG IN → `/customer-portal/account`**; slide 7 **Register-Free → the `category=SSS` Foxy
+  checkout URLs**; slide 7 **Learn More → a self-contained JS pop-out modal** listing that packet's six
+  lessons + a Register CTA. **Learn More must NOT open the flipbook** — that would let visitors read the
+  whole packet without registering and defeats the capture goal (Emily, Aug 11 2026).
+- Paste-ready code delivered to Emily (`webflow-sss-embeds.html`). The **BBS cover still reads soft** in
+  slide 7's tile — re-export per the known-issue note in Packet #1 above.
+
 **Where the CRM machinery already lives (Aug 2026 — this is a CLONE of the existing course
 flow, not a from-scratch build).** Airtable base **"Candler Foundry: Master CRM"**
 (`appiL0Z2RilcAT2Cw`):
