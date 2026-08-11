@@ -309,7 +309,11 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
 - **All six lessons' discussion questions are FINAL** (Emily's approved wording).
 - **Scripture text is in place (NRSVUE)** and opens in the popout modal.
 - **Cover** is Emily's FINAL Canva cover (`assets/cover.png`, 1632x2112, tagline
-  "Scripture That Sticks", July 2026).
+  "Scripture That Sticks", July 2026). **KNOWN ISSUE — TO FIX (flagged Aug 2026):** this
+  cover renders **slightly soft/blurry everywhere it's used** (flipbook cover, PDF, and the
+  landing "Choose Your Packet" tile). The source `cover.png` needs a **sharper, full-res
+  lossless re-export from Canva** (the current file looks softened/compressed vs. the
+  Women cover). Re-export → verify PNG sig + `IEND` + PIL decode → push, then re-cut the PDF.
 - **Binder design shipped** (July 2026). Lesson 1 uses Emily's header art; lessons 2-6 use the engine-drawn header until art arrives.
 
 **Pending inputs from Emily:**
