@@ -324,15 +324,22 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
   mismatch** — title/TOC/tab now all say "Through Christ"; the **scripture reading still uses the
   NRSVUE "through him"** (reference unchanged).
 - **Lesson 3 scripture reading expanded to Genesis 1:1–2:4a; 2:15** (was 1:26–31; 2:15) — the whole
-  first creation account. The scripture modal header + Bible Gateway link point to the full passage;
-  the modal **body still prints the key verses (1:26–31; 2:15) with a note** pointing to the full
-  reading (the full inline NRSVUE text of 1:1–2:4a is not reproduced — paste from a licensed source
-  if inline text is wanted). Lessons 1/2/4/5/6 scripture references are unchanged.
-- **NEW ENGINE FEATURE — "TIP" hotspot (`imgtip`).** A lesson may add a `hotspots.tip` rect +
-  `tipUrl` (+ optional `tipLabel`); the engine overlays a **transparent link over the art's TIP
-  badge** that opens the URL in a new tab (link-only, no modal; `render.js` `lessonImagePageA` +
-  `.imgtip` in `styles.css`). **Lesson 3 uses it** (`tip x 71.08 / y 14.87 / w 8.95 / h 6.96`) →
-  Bible Gateway **Genesis 2:4b–25** (the optional "read the whole second creation narrative" tip).
+  first creation account. The scripture modal now shows the **full NRSVUE text** of Genesis 1:1–2:4a
+  (+ 2:15), fetched verbatim from Bible Gateway and formatted to the packet markup (`<h4>` sub-refs,
+  `<span class="vn">` verse numbers; truncated at 2:4a). Lessons 1/2/4/5/6 scripture references are
+  unchanged.
+- **Spine chrome:** the small **red dash at the top of the spine was removed** (Emily, Aug 2026);
+  the vertical "Sunday School Simplified" wordmark stays.
+- **"Printable Packet" tab now OPENS the PDF** in a new tab (`target="_blank"`, no `download`
+  attribute) so the reader can view it first and choose to download — was an auto-download.
+- **NEW ENGINE FEATURE — "TIP" hotspot (`imgtip`) → a pop-out box.** A lesson may add a
+  `hotspots.tip` rect + `tipText` (the advisory) + `tipUrl` + `tipLinkText`; the engine overlays a
+  transparent **`<button>`** over the art's TIP badge that opens a small **pop-out** (scrim + card,
+  ×/Esc/backdrop close) showing the advisory text and a link button — NOT a direct jump (Emily,
+  Aug 2026: a bare link "makes no sense"). Engine: `render.js` `lessonImagePageA` + the `openTip`
+  modal + `[data-tip]` handler; `.tipmodal`/`.imgtip` in `styles.css`. **Lesson 3 uses it**
+  (`tip x 71.08 / y 14.87 / w 8.95 / h 6.96`): advisory to read the whole second creation narrative,
+  link → Bible Gateway **Genesis 2:4b–25**.
 - **All six discussion questions/prayers were revised by Emily (Aug 2026)** and live in the art.
   **`content.js` question/prayer text is NOT yet synced to the revised art** — do this before the
   PDF re-cut (the flipbook shows the art regardless).
