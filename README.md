@@ -340,9 +340,9 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
   modal + `[data-tip]` handler; `.tipmodal`/`.imgtip` in `styles.css`. **Lesson 3 uses it**
   (`tip x 71.08 / y 14.87 / w 8.95 / h 6.96`): advisory to read the whole second creation narrative,
   link → Bible Gateway **Genesis 2:4b–25**.
-- **All six discussion questions/prayers were revised by Emily (Aug 2026)** and live in the art.
-  **`content.js` question/prayer text is NOT yet synced to the revised art** — do this before the
-  PDF re-cut (the flipbook shows the art regardless).
+- **All six discussion questions/prayers were revised by Emily (Aug 2026)** and are now **synced
+  into `content.js`** (the PDF source / written record) to match the art — via `tools/content-sync`
+  (curly-typography merge). The flipbook shows the art either way.
 - **Binder chrome unchanged** (navy spine/tabs/nav). Hand-drawn red section icons still apply where
   the engine draws (not on the image pages).
 
@@ -355,9 +355,17 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
   as its public Vimeo link lands. (Draft on-brand **title cards** for 283/287/288 were designed +
   handed to Emily with an `ffmpeg` overlay command that preserves the voiceover.)
 
+**PDF re-cut — DONE (Aug 2026), clean/print-friendly v2.** `tools/make_pdf.py` was **rewritten**
+per Emily's brief ("clean and easy to print, no graphics, replicate the fonts, keep the borders,
+minimal color"): no graph-paper/icons/header-art; a **thin red page border**, navy outlined section
+boxes, **RED Thierry question numbers**, and the **packet fonts** (Hello-Handmade display, Mulish
+body, Thierry numerals). Hello-Handmade is CFF, so the build **converts it to glyf via cu2qu** for
+reportlab (font prep documented in the script header). Content comes from the synced `content.js`;
+**scripture QR+link (Bible Gateway NRSVUE)** on every lesson, **video QR+link (Vimeo)** on L2 + L3,
+"coming soon" note on L1/L4/L5/L6. 17 pages, rendered with PyMuPDF and eyeballed. Re-run when the
+art/content or videoUrls change (`content.json` dump + `fonts/` prep + `python make_pdf.py`).
+
 **Still pending:**
-- **PDF re-cut** — sync `content.js` question/prayer/scripture text to the revised art, then re-run
-  `tools/make_pdf.py`; add Vimeo QR/links for L2+L3. (Reportlab build; see The PDF section.)
 - **New back cover** in the blue design (optional — back page currently dropped).
 
 ## Packet #2 — The Gospel According to the Women (status)
