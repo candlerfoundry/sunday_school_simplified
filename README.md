@@ -306,26 +306,52 @@ Six lessons, each recovering a famous verse's original context against its bumpe
 misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Genesis 2),
 1 Corinthians 13.
 
-- **All six lessons' discussion questions are FINAL** (Emily's approved wording).
-- **Scripture text is in place (NRSVUE)** and opens in the popout modal.
-- **Cover** is Emily's FINAL Canva cover (`assets/cover.png`, 1632x2112, tagline
-  "Scripture That Sticks", July 2026). **KNOWN ISSUE — TO FIX (flagged Aug 2026):** this
-  cover renders **slightly soft/blurry everywhere it's used** (flipbook cover, PDF, and the
-  landing "Choose Your Packet" tile). The source `cover.png` needs a **sharper, full-res
-  lossless re-export from Canva** (the current file looks softened/compressed vs. the
-  Women cover). Re-export → verify PNG sig + `IEND` + PIL decode → push, then re-cut the PDF.
-- **Binder design shipped** (July 2026). Lesson 1 uses Emily's header art; lessons 2-6 use the engine-drawn header until art arrives.
+- **NOW IMAGE-BASED (Aug 2026) — BBS converted to full-page Canva art, just like the Women
+  packet.** Emily reworked all six lessons + the cover in Canva (design `DAHOtl4BNMk`,
+  **pages 3–15**: page 3 = cover, pages 4–15 = the 6 lessons × 2 pages). The engine now renders
+  the art full-bleed (`pageImages`) and overlays only the interactive hotspots; `content.js`
+  is the written record + PDF source (its question/prayer *text* is not shown on the flipbook
+  anymore). Art at `assets/pages/lesson-N-a.png` / `-b.png` (1632×2112, integrity-verified).
+  **Hotspots are identical across all six page-As** (detected + overlay-verified): scripture
+  `x 8.7 / y 48.06 / w 81.74 / h 7.29`, video `x 14.77 / y 62.5 / w 70.4 / h 31.06` — the SAME
+  template geometry as the Women packet. Live + verified Aug 2026 (18 pages, no overflow, no
+  broken images).
+- **Cover fuzziness FIXED (Aug 2026):** `assets/cover.png` re-exported from Canva at **2×
+  (3264×4224), lossless** — crisp on the flipbook and the landing/portal thumbnails. (Supersedes
+  the earlier "cover blurry" known issue.)
+- **Lesson 4 title = "I Can Do All Things Through Christ"** (Aug 2026, Emily's call — the popular
+  KJV/NIV phrasing). This **resolves the old "Through Christ" (art) vs "Through Him" (title/TOC)
+  mismatch** — title/TOC/tab now all say "Through Christ"; the **scripture reading still uses the
+  NRSVUE "through him"** (reference unchanged).
+- **Lesson 3 scripture reading expanded to Genesis 1:1–2:4a; 2:15** (was 1:26–31; 2:15) — the whole
+  first creation account. The scripture modal header + Bible Gateway link point to the full passage;
+  the modal **body still prints the key verses (1:26–31; 2:15) with a note** pointing to the full
+  reading (the full inline NRSVUE text of 1:1–2:4a is not reproduced — paste from a licensed source
+  if inline text is wanted). Lessons 1/2/4/5/6 scripture references are unchanged.
+- **NEW ENGINE FEATURE — "TIP" hotspot (`imgtip`).** A lesson may add a `hotspots.tip` rect +
+  `tipUrl` (+ optional `tipLabel`); the engine overlays a **transparent link over the art's TIP
+  badge** that opens the URL in a new tab (link-only, no modal; `render.js` `lessonImagePageA` +
+  `.imgtip` in `styles.css`). **Lesson 3 uses it** (`tip x 71.08 / y 14.87 / w 8.95 / h 6.96`) →
+  Bible Gateway **Genesis 2:4b–25** (the optional "read the whole second creation narrative" tip).
+- **All six discussion questions/prayers were revised by Emily (Aug 2026)** and live in the art.
+  **`content.js` question/prayer text is NOT yet synced to the revised art** — do this before the
+  PDF re-cut (the flipbook shows the art regardless).
+- **Binder chrome unchanged** (navy spine/tabs/nav). Hand-drawn red section icons still apply where
+  the engine draws (not on the image pages).
 
-**Pending inputs from Emily:**
-- **Vimeo `videoUrl`s** per lesson (a few weeks out; the 3-Minute Bible MP4s are ~408 MB,
-  so they must embed from Vimeo, not self-host).
-- ~~Header art~~ **DONE July 2026** — all six lessons use Emily's art
-  (`assets/headers/lesson-0N.png`, 1632x560, integrity-verified). Note: lesson 4's art
-  reads "Through Christ" while `title`/TOC say "Through Him" (flagged to Emily).
-- **Hand-drawn red section icons approved and shipped** (July 2026).
+**Videos (3-Minute Bible) — status Aug 2026:**
+- **LIVE + wired:** L2 Psalm 46 (`player.vimeo.com/video/1214332162`, 3MB-284) · L3 Genesis 1–2
+  (`.../1214332189`, 3MB-285). Both play in the in-frame pop-out.
+- **Pending upload/correction:** L1 Jeremiah (3MB-283, held for a corrected title slide) · L4
+  Philippians (3MB-44 — captioned in Dropbox but **not yet on Vimeo**) · L5 2 Timothy (3MB-287, held)
+  · L6 1 Corinthians (3MB-288, held). 283/287/288 are being re-cut by the production team; wire each
+  as its public Vimeo link lands. (Draft on-brand **title cards** for 283/287/288 were designed +
+  handed to Emily with an `ffmpeg` overlay command that preserves the voiceover.)
+
+**Still pending:**
+- **PDF re-cut** — sync `content.js` question/prayer/scripture text to the revised art, then re-run
+  `tools/make_pdf.py`; add Vimeo QR/links for L2+L3. (Reportlab build; see The PDF section.)
 - **New back cover** in the blue design (optional — back page currently dropped).
-- **PDF re-cut with Vimeo links** once videoUrls exist (current PDF shipped July 2026
-  with "coming soon" video notes; see The PDF section).
 
 ## Packet #2 — The Gospel According to the Women (status)
 
