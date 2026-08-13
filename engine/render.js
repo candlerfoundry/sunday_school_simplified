@@ -112,9 +112,9 @@
     // extra passage in a new tab (link-only, no modal). Rendered only when the lesson
     // supplies hotspots.tip + tipUrl (e.g. Lesson 3 -> the full second creation narrative).
     var t = h.tip;
-    if (t && l.tipUrl) out += '<a class="imghot imgtip" href="' + esc(l.tipUrl) + '" target="_blank" rel="noopener" ' +
-      'aria-label="' + esc(l.tipLabel || 'Optional further reading') + '" title="' + esc(l.tipLabel || '') + '" ' +
-      'style="left:' + t.x + '%;top:' + t.y + '%;width:' + t.w + '%;height:' + t.h + '%"></a>';
+    if (t && (l.tipText || l.tipUrl)) out += '<button class="imghot imgtip" type="button" data-tip="' + l.n + '" ' +
+      'aria-label="' + esc(l.tipLabel || l.tipLinkText || 'Optional further reading') + '" ' +
+      'style="left:' + t.x + '%;top:' + t.y + '%;width:' + t.w + '%;height:' + t.h + '%"></button>';
     return out + '</div>';
   }
   function lessonImagePageB(l) {
@@ -198,7 +198,7 @@
   binderEl.appendChild(deco);
 
   var spine = document.getElementById("spine");
-  spine.innerHTML = '<div class="dash"></div><div class="svtitle">' + esc(C.meta.series) + '</div>' +
+  spine.innerHTML = '<div class="svtitle">' + esc(C.meta.series) + '</div>' +
     '<div class="foundrymark" title="The Candler Foundry"></div>';
 
   var tabsEl = document.getElementById("tabs");
@@ -208,7 +208,7 @@
   });
   tabsHtml += '<div class="tab small" data-tab="resources"><span class="ti"><i class="fa-solid fa-circle-play"></i></span><span class="tl">Additional Resources</span></div>';
   // download tab (replaces the old fixed side ribbon) — only when the packet ships a PDF
-  if (C.meta.pdf) tabsHtml += '<a class="tab small download" data-tab="download" href="' + esc(C.meta.pdf) + '" download><span class="ti"><i class="fa-solid fa-download"></i></span><span class="tl">Printable Packet</span></a>';
+  if (C.meta.pdf) tabsHtml += '<a class="tab small download" data-tab="download" href="' + esc(C.meta.pdf) + '" target="_blank" rel="noopener"><span class="ti"><i class="fa-solid fa-file-pdf"></i></span><span class="tl">Printable Packet</span></a>';
   tabsEl.innerHTML = tabsHtml;
 
   /* ---------- flip ---------- */
@@ -311,11 +311,35 @@
   vscrim.addEventListener("click", function (e) { if (e.target === vscrim || e.target.closest(".vmclose")) closeVideo(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeVideo(); });
 
+  /* ---------- "TIP" pop-out (image-page lessons): advisory note + a link ---------- */
+  var tscrim = document.createElement("div");
+  tscrim.className = "scrim tipscrim"; tscrim.setAttribute("aria-hidden", "true");
+  tscrim.innerHTML = '<div class="tipmodal" role="dialog" aria-modal="true">' +
+    '<button class="tmclose" type="button" aria-label="Close">&times;</button>' +
+    '<div class="tiphead"><span class="tipbadge">TIP</span></div>' +
+    '<div class="tipbody"></div>' +
+    '<a class="tipopen" target="_blank" rel="noopener"></a></div>';
+  document.body.appendChild(tscrim);
+  var tbody = tscrim.querySelector(".tipbody"), topen = tscrim.querySelector(".tipopen");
+  function openTip(n) {
+    var l = null, i; for (i = 0; i < C.lessons.length; i++) { if (C.lessons[i].n === n) { l = C.lessons[i]; break; } }
+    if (!l || !(l.tipText || l.tipUrl)) return;
+    tbody.textContent = l.tipText || "";
+    if (l.tipUrl) { topen.href = l.tipUrl; topen.innerHTML = esc(l.tipLinkText || "Read the passage") + ' <i class="fa-solid fa-arrow-up-right-from-square"></i>'; topen.style.display = ""; }
+    else { topen.style.display = "none"; }
+    tscrim.classList.add("show"); tscrim.setAttribute("aria-hidden", "false");
+  }
+  function closeTip() { tscrim.classList.remove("show"); tscrim.setAttribute("aria-hidden", "true"); }
+  tscrim.addEventListener("click", function (e) { if (e.target === tscrim || e.target.closest(".tmclose")) closeTip(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeTip(); });
+
   flipEl.addEventListener("click", function (e) {
     var vp = e.target.closest("[data-vpop]");
     if (vp) { e.stopPropagation(); openVideo(parseInt(vp.getAttribute("data-vpop"), 10)); return; }
     var card = e.target.closest("[data-scrip]");
     if (card) { e.stopPropagation(); openScrip(parseInt(card.getAttribute("data-scrip"), 10)); return; }
+    var tp = e.target.closest("[data-tip]");
+    if (tp) { e.stopPropagation(); openTip(parseInt(tp.getAttribute("data-tip"), 10)); return; }
     var m = e.target.closest("[data-gotores]");
     if (m) { e.stopPropagation(); flip.flip(RESOURCES_IDX); return; }
     var t = e.target.closest("[data-goto]");

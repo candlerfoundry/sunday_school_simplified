@@ -211,6 +211,15 @@ button.vcard{appearance:none;-webkit-appearance:none;border:0;padding:0;margin:0
 .imgtip{display:block;border:0;background:transparent;cursor:pointer;border-radius:50%;transition:background .15s;}
 .imgtip:hover{background:rgba(251,22,22,.18);}
 .imgtip:focus-visible{outline:3px solid #FB1616;outline-offset:2px;}
+/* "TIP" pop-out box */
+.tipmodal{position:relative;width:min(460px,92vw);background:#FCFDFF;border-radius:14px;padding:26px 26px 22px;box-shadow:0 30px 80px rgba(10,39,76,.4);}
+.tipmodal .tmclose{position:absolute;top:8px;right:14px;border:0;background:transparent;font-size:26px;line-height:1;color:#9fb0c0;cursor:pointer;}
+.tiphead{margin-bottom:12px;}
+.tipbadge{display:inline-block;background:var(--red,#FB1616);color:#fff;font-weight:800;letter-spacing:1px;font-size:12px;padding:5px 13px;border-radius:20px;}
+.tipbody{color:#24324a;font-size:16.5px;line-height:1.5;margin-bottom:18px;}
+.tipopen{display:inline-flex;align-items:center;gap:8px;background:var(--navy,#0A274C);color:#fff;font-weight:700;text-decoration:none;padding:11px 20px;border-radius:30px;font-size:14.5px;}
+.tipopen:hover{filter:brightness(1.09);}
+.tipopen i{font-size:12px;}
 /* video pop-out modal */
 .vscrim{padding:28px;}
 .vmodal{position:relative;width:min(1120px,94vw);aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 34px 90px rgba(0,0,0,.55);}
