@@ -306,6 +306,27 @@ Six lessons, each recovering a famous verse's original context against its bumpe
 misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Genesis 2),
 1 Corinthians 13.
 
+> **OPEN TODOs — START HERE next session (Emily, Aug 2026).** BBS is fully **live + image-based**;
+> these are small follow-ups. Items 1–4 each end with a **PDF re-cut** (heavy toolchain — see "The
+> PDF" section: Python 3.14 + `pip install reportlab qrcode pillow fonttools brotli cu2qu pymupdf`,
+> font prep, `content.json` dump, `python tools/make_pdf.py`, render+eyeball, push).
+> 1. **L2 closing prayer → "God of peace"** (lowercase p — Emily already fixed it in the Canva design).
+>    Flipbook: **re-export Canva `DAHOtl4BNMk` page 7 → `packets/beyond-bumper-stickers/assets/pages/lesson-2-b.png`**
+>    (verify PNG sig + IEND) + push. Record/PDF: `content.js` L2 `closingPrayer` "God of Peace," → "God of peace,".
+> 2. **PDF body text: bigger + darker (Emily: too small, reads gray).** In `tools/make_pdf.py` change
+>    `INK = HexColor('#22303F')` → near-black/navy (e.g. `#0A274C`) and bump body sizes (prayer_box 10.5→~12,
+>    questions 10.3→~11.5, leadings to match). Flipbook lesson body is baked art, so this is PDF-only unless
+>    Emily also means the on-screen modal text — confirm.
+> 3. **"3 Minute Bible" — NO hyphen — everywhere.** Replace "3-Minute Bible" → "3 Minute Bible" in
+>    `content.js` (each lesson `videoTitle`, `meta.footerNote`), `engine/render.js` (aria-labels/placeholders),
+>    and `tools/make_pdf.py` ("Watch the 3-Minute Bible", "3-Minute Bible video").
+> 4. **L4 Philippians video title = "Un-Structuring the Bible"** (3MB-44). Set `content.js` L4 `videoSubtitle`
+>    to "Un-Structuring the Bible"; use it when the video is wired (3MB-44 is captioned in Dropbox but **not yet
+>    on Vimeo** — needs the local `vimeo_upload.py`).
+> None of these block the live flipbook. Also still pending: the **4 videos** (L1 Jeremiah 283, L4 Philippians
+> 3MB-44, L5 2 Timothy 287, L6 1 Corinthians 13 288) — draft **title cards** for 283/287/288 were handed to Emily
+> (need her wording + intro-duration confirmation + optional production title-frame to match exactly).
+
 - **NOW IMAGE-BASED (Aug 2026) — BBS converted to full-page Canva art, just like the Women
   packet.** Emily reworked all six lessons + the cover in Canva (design `DAHOtl4BNMk`,
   **pages 3–15**: page 3 = cover, pages 4–15 = the 6 lessons × 2 pages). The engine now renders
