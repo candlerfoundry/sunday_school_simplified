@@ -7,7 +7,7 @@ window.BBS_CONTENT = {
     "tagline": "Revisiting the Bible's most quotable texts",
     "subtitle": "A Six-Lesson Packet",
     "site": "candlerfoundry.org",
-    "footerNote": "Conversation questions + a free 3-Minute Bible video with every lesson",
+    "footerNote": "Conversation questions + a free 3 Minute Bible video with every lesson",
     "letter": {
       "heading": "A Letter from The Candler Foundry",
       "paragraphs": [
@@ -28,7 +28,7 @@ window.BBS_CONTENT = {
       "steps": [
         "Open with prayer.",
         "Read the passage out loud as a group.",
-        "Watch the provided 3-Minute Bible video.",
+        "Watch the provided 3 Minute Bible video.",
         "Talk through the questions.",
         "Close with prayer."
       ],
@@ -40,7 +40,7 @@ window.BBS_CONTENT = {
     }
   },
   "contentsIntro": "",
-  "howto": "Each lesson stands on its own and takes about an hour. Open with prayer, read the passage aloud, watch the 3-Minute Bible video together, then talk through the questions. Close with prayer.",
+  "howto": "Each lesson stands on its own and takes about an hour. Open with prayer, read the passage aloud, watch the 3 Minute Bible video together, then talk through the questions. Close with prayer.",
   "lessons": [
     {
       "n": 1,
@@ -52,7 +52,7 @@ window.BBS_CONTENT = {
       "openingPrayer": "Faithful God, you spoke hope to your people even in the long years of exile. As we read these familiar words together, lead us into the fuller story you are telling us. Give us patience to listen to your Word and to one another. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "Loving God, we thank you for your promise to be faithful to us, never forgetting us or forsaking us. As we go, keep us hopeful through long seasons of waiting, and help us remember to trust in you. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "Jeremiah 29:1, 4–14",
-      "videoTitle": "3-Minute Bible",
+      "videoTitle": "3 Minute Bible",
       "videoSubtitle": "Jeremiah's Letter to the Exiles",
       "questions": [
         "“For I know the plans I have for you” is the line we meet on mugs and graduation cards. Often, we interpret this verse as a promise to an individual person. Who is the “you” that is being addressed in this passage? Does this change your original perception of verse 11?",
@@ -66,7 +66,7 @@ window.BBS_CONTENT = {
       "videoUrl": "",
       "optionalVideo": {
         "title": "What Happened During the Exile?",
-        "subtitle": "3-Minute Bible · optional",
+        "subtitle": "3 Minute Bible · optional",
         "url": ""
       },
       "scriptureText": "<h4>Jeremiah 29:1</h4>\n<p><span class=\"vn\">1</span>These are the words of the letter that the prophet Jeremiah sent from Jerusalem to the remaining elders among the exiles and to the priests, the prophets, and all the people whom Nebuchadnezzar had taken into exile from Jerusalem to Babylon.</p>\n<h4>Jeremiah 29:4–14</h4>\n<p><span class=\"vn\">4</span>Thus says the Lord of hosts, the God of Israel, to all the exiles whom I have sent into exile from Jerusalem to Babylon: <span class=\"vn\">5</span>Build houses and live in them; plant gardens and eat what they produce. <span class=\"vn\">6</span>Take wives and have sons and daughters; take wives for your sons, and give your daughters in marriage, that they may bear sons and daughters; multiply there, and do not decrease. <span class=\"vn\">7</span>But seek the welfare of the city where I have sent you into exile, and pray to the Lord on its behalf, for in its welfare you will find your welfare. <span class=\"vn\">8</span>For thus says the Lord of hosts, the God of Israel: Do not let the prophets and the diviners who are among you deceive you, and do not listen to your dreams that you dream, <span class=\"vn\">9</span>for it is a lie that they are prophesying to you in my name; I did not send them, says the Lord.</p>\n<p><span class=\"vn\">10</span>For thus says the Lord: Only when Babylon’s seventy years are completed will I visit you, and I will fulfill to you my promise and bring you back to this place. <span class=\"vn\">11</span>For surely I know the plans I have for you, says the Lord, plans for your welfare and not for harm, to give you a future with hope. <span class=\"vn\">12</span>Then when you call upon me and come and pray to me, I will hear you. <span class=\"vn\">13</span>When you search for me, you will find me; if you seek me with all your heart, <span class=\"vn\">14</span>I will let you find me, says the Lord, and I will restore your fortunes and gather you from all the nations and all the places where I have driven you, says the Lord, and I will bring you back to the place from which I sent you into exile.</p>",
@@ -98,9 +98,9 @@ window.BBS_CONTENT = {
       "title": "Be Still, and Know That I Am God",
       "subtitle": "A war-time song of refuge — not a call to relax.",
       "openingPrayer": "God of refuge and strength, when the earth feels unsteady, you remain in our presence. Quiet the noise within us as we gather, and help us to hear your voice above the chaos of our lives. In the name of your Son Jesus Christ we pray. Amen.",
-      "closingPrayer": "God of Peace, you are the one who remains ever-faithful to your creation. Even as chaos seems to reign, help us remember your promise of deliverance. Remind us that only love, not chaos, will have the final word. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "God of peace, you are the one who remains ever-faithful to your creation. Even as chaos seems to reign, help us remember your promise of deliverance. Remind us that only love, not chaos, will have the final word. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "Psalm 46",
-      "videoTitle": "3-Minute Bible",
+      "videoTitle": "3 Minute Bible",
       "videoSubtitle": "God Is Our Refuge: Reading Psalm 46",
       "questions": [
         "“Be still, and know that I am God” is often taken as a cue to slow down and relax. Where have you heard this verse, and what have you taken it to mean?",
@@ -144,7 +144,7 @@ window.BBS_CONTENT = {
       "openingPrayer": "God our Creator, you spoke the world into being and called it good, and you entrusted care of it to those made in your image. As we connect with the stories of our holy beginnings, help us read them as a calling. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "God of all, you created us in your image, and you called us to serve what you called “good.” Make us faithful bearers of your holy image. Give us gentle and grateful hearts, mindful of our sacred responsibility to care for your creation. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "Genesis 1:1–2:4a; 2:15",
-      "videoTitle": "3-Minute Bible",
+      "videoTitle": "3 Minute Bible",
       "videoSubtitle": "Image & Dominion: Reading Genesis 1–2",
       "questions": [
         "Genesis 1:26 is often cited in isolation to describe humanity’s relationship to creation. Consider verse 26 in its broader context of the first reading. What patterns do you notice in the way creation takes shape? Where do humans appear in the sequence, and what does the order of creation suggest about humanity’s relationship to the rest of creation? (There are no wrong answers!)",
@@ -197,8 +197,8 @@ window.BBS_CONTENT = {
       "openingPrayer": "Gracious God, as we turn to Scripture, quiet the distractions that keep us from hearing clearly. Teach us the humility of Christ, who chose the way of service and love. By your Spirit, help us to hear something new in these familiar words. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "God of compassion, you became like us and emptied yourself for our sake. Give us strength that looks more like yours. Help us to “do all things” for your sake and for your glory. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "Philippians 2:2–11; 4:10–13",
-      "videoTitle": "3-Minute Bible",
-      "videoSubtitle": "Content in All Things: Paul from Prison",
+      "videoTitle": "3 Minute Bible",
+      "videoSubtitle": "Un-Structuring the Bible",
       "questions": [
         "Philippians 4:13 is often used as a motivational phrase, including in the context of sports. Where have you seen or heard it quoted? What message has it conveyed to you? Has this passage had personal meaning to you?",
         "In our culture, when we describe someone as “strong” (whether it’s a politician, athlete, or business leader), what do we usually mean? What does strength look like in those settings?",
@@ -241,7 +241,7 @@ window.BBS_CONTENT = {
       "openingPrayer": "Living God, you breathed life into dust and called it holy, and you breathe new life into Scripture that speaks to us today. As we turn to your Word, teach us to receive it and discern it responsibly and reverently. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "Faithful God, we give thanks for the gift of Scripture. Give us the courage to continue wrestling with its meaning for us today. Help us to hear your good news, even in texts that challenge or confuse us. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "2 Timothy 3:14–17; Genesis 2:4–7",
-      "videoTitle": "3-Minute Bible",
+      "videoTitle": "3 Minute Bible",
       "videoSubtitle": "Inspired by God (2 Timothy 3:16)",
       "questions": [
         "To the extent you were raised in a church tradition, what did that tradition teach about the Bible and its authority? How did you engage with Scripture in your formative years?",
@@ -285,7 +285,7 @@ window.BBS_CONTENT = {
       "openingPrayer": "God of love, open our hearts to your Word and help us hear what you would teach us. Show us the depth of the love you have called us to practice. Guide our discussion and give us grace to listen to one another. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "Holy God, you have called us to be a church rooted in your love. Help us to be bearers of your kindness and patience. Continue to shape us, and shape your church, so that we grow ever-closer to you. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "1 Corinthians 13:1–13",
-      "videoTitle": "3-Minute Bible",
+      "videoTitle": "3 Minute Bible",
       "videoSubtitle": "More Than a Wedding Poem: 1 Corinthians 13",
       "questions": [
         "“Love is patient, love is kind” is a wedding staple. But as Dr. Arnold notes in the video, Paul wrote these words to a church in turmoil. What words or phrases suggest that the passage is meant to correct what is wrong? Does the understanding that Paul was writing to a troubled congregation change how you read this passage?",

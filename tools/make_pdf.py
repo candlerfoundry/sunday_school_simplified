@@ -31,7 +31,7 @@ FD = os.path.join(WORK, 'fonts')
 C = json.load(open(os.path.join(WORK, 'content.json'), encoding='utf-8'))
 
 NAVY, SMOKY, RED = HexColor('#0A274C'), HexColor('#2F5972'), HexColor('#FB1616')
-INK = HexColor('#22303F')          # body text
+INK = HexColor('#0A274C')          # body text
 BOX = HexColor('#0A274C')          # box outline (navy, thin)
 W, H = letter                      # 612 x 792
 M = 52
@@ -80,7 +80,7 @@ def box(c, y, h):
     c.roundRect(M, y - h, CW, h, 7, stroke=1, fill=0)
 
 def prayer_box(c, y, text):
-    s = st('Mulish', 10.5, INK, leading=15.4)
+    s = st('Mulish', 12, INK, leading=17)
     p = Paragraph(esc(text), s)
     _, ph = p.wrap(CW - 28, 10000)
     bh = ph + 20
@@ -214,12 +214,12 @@ for l in C['lessons']:
     y = section(c, y, 'Read the Scripture')
     y = link_box(c, y, l['scriptureRef'], 'New Revised Standard Version, Updated Edition',
                  l['scriptureUrl'], 'Read at Bible Gateway (NRSVUE) — or scan the code') - 20
-    y = section(c, y, 'Watch the 3-Minute Bible')
+    y = section(c, y, 'Watch the 3 Minute Bible')
     if l.get('videoUrl'):
-        y = link_box(c, y, l.get('videoSubtitle') or '3-Minute Bible', '3-Minute Bible video',
+        y = link_box(c, y, l.get('videoSubtitle') or '3 Minute Bible', '3 Minute Bible video',
                      l['videoUrl'], 'Watch on Vimeo — or scan the code')
     else:
-        y = note_box(c, y, l.get('videoSubtitle') or '3-Minute Bible', '3-Minute Bible video',
+        y = note_box(c, y, l.get('videoSubtitle') or '3 Minute Bible', '3 Minute Bible video',
                      'Video coming soon — it will play in the online flipbook.')
     footer(c, '%s · Lesson %02d of %d' % (C['meta']['title'], n, len(C['lessons'])), page)
     c.showPage(); page += 1
@@ -229,7 +229,7 @@ for l in C['lessons']:
     y = section(c, y, 'Discussion Questions')
     y -= 4
     qs = l['questions']
-    qstyle = st('Mulish', 10.3, INK, leading=14.4)
+    qstyle = st('Mulish', 11.5, INK, leading=16)
     for i, qt in enumerate(qs):
         nx = M + 3
         c.setFont('Thierry', 15); c.setFillColor(RED)
@@ -248,7 +248,7 @@ for l in C['lessons']:
 border(c)
 c.setFont('Hello', 27); c.setFillColor(NAVY)
 c.drawString(M, H - 84, 'Additional Resources')
-y = para(c, 'Optional viewing for classes that want to go deeper — each is a short 3-Minute Bible video.',
+y = para(c, 'Optional viewing for classes that want to go deeper — each is a short 3 Minute Bible video.',
          st('Mulish-It', 10.5, SMOKY, leading=15), M, H - 98, CW) - 22
 any_res = False
 for l in C['lessons']:

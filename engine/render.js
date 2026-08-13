@@ -63,7 +63,7 @@
       '<div class="sec">' + ico("book") + '<span class="sl">Read the Scripture</span><span class="lead"></span></div>' +
       '<button class="scripcard" type="button" data-scrip="' + l.n + '"><span class="ref">' + esc(l.scriptureRef) + '</span>' +
       '<span class="scripbtn">Read the passage <span class="badge">NRSVUE</span> <i class="fa-solid fa-book-open"></i></span></button>' +
-      '<div class="sec">' + ico("play") + '<span class="sl">Watch the 3-Minute Bible</span><span class="lead"></span></div>' +
+      '<div class="sec">' + ico("play") + '<span class="sl">Watch the 3 Minute Bible</span><span class="lead"></span></div>' +
       '<div class="vzone">' + videoCard(l) + funFact(l) + '</div></div>';
   }
 
@@ -76,10 +76,10 @@
     // Clean 16:9 placeholder that opens the pop-out modal on click (data-vpop is handled by
     // the delegated flip-container listener). We deliberately do NOT embed the Vimeo iframe
     // in-frame -- its preview chrome (thumbnail + title/byline metadata) is ugly.
-    var inner = '<span class="vlabel">3-Minute Bible</span>' + HILLS +
+    var inner = '<span class="vlabel">3 Minute Bible</span>' + HILLS +
       '<div class="vplay"><i class="fa-solid fa-play"></i></div><span class="vcap">' + esc(l.videoSubtitle) + '</span>';
     if (l.videoUrl) return '<button class="vcard vcardbtn" type="button" data-vpop="' + l.n +
-      '" aria-label="Play the 3-Minute Bible video">' + inner + '</button>';
+      '" aria-label="Play the 3 Minute Bible video">' + inner + '</button>';
     return '<div class="vcard">' + inner + '</div>';
   }
 
@@ -106,7 +106,7 @@
     // Video: the art already draws a clean "3 Minute Bible" placeholder with a play button;
     // overlay a transparent hotspot that opens the pop-out modal (autoplay). We do NOT embed
     // the Vimeo iframe in-frame — its preview chrome (orange thumbnail + metadata) is ugly.
-    if (v && l.videoUrl) out += '<button class="imghot imgvidhot" type="button" data-vpop="' + l.n + '" aria-label="Play the 3-Minute Bible video" ' +
+    if (v && l.videoUrl) out += '<button class="imghot imgvidhot" type="button" data-vpop="' + l.n + '" aria-label="Play the 3 Minute Bible video" ' +
       'style="left:' + v.x + '%;top:' + v.y + '%;width:' + v.w + '%;height:' + v.h + '%"></button>';
     // Optional "TIP" hotspot: a transparent link over the art's TIP badge that opens an
     // extra passage in a new tab (link-only, no modal). Rendered only when the lesson
@@ -131,7 +131,7 @@
   function resourcesPage() {
     function rcard(l, o, kind) {
       var icon = kind === "read" ? "fa-book-open" : "fa-play";
-      var defSub = kind === "read" ? "Free online reading" : "3-Minute Bible · optional";
+      var defSub = kind === "read" ? "Free online reading" : "3 Minute Bible · optional";
       var inner = '<span class="rp"><i class="fa-solid ' + icon + '"></i></span>' +
         '<span class="rmid"><span class="rtl">' + esc(o.title) + '</span><span class="rsub">' + esc(o.subtitle || defSub) + '</span></span>' +
         '<span class="rref">Lesson ' + l.n + ' &middot; ' + esc(l.tabRef || l.shortRef) + '</span>';
@@ -264,7 +264,7 @@
   tabsEl.addEventListener("click", function (e) {
     var tb = e.target.closest(".tab"); if (!tb) return;
     var t = tb.getAttribute("data-tab");
-    if (t === "download") return;   // real <a download>; let the browser handle it
+    if (t === "download") return;   // <a target=_blank>: opens the PDF in a new tab, no auto-download
     if (t === "contents") flip.flip(2);
     else if (t === "resources") flip.flip(RESOURCES_IDX);
     else gotoLesson(parseInt(t, 10));
@@ -304,7 +304,7 @@
     var l = null, i; for (i = 0; i < C.lessons.length; i++) { if (C.lessons[i].n === n) { l = C.lessons[i]; break; } }
     if (!l || !l.videoUrl) return;
     var sep = l.videoUrl.indexOf("?") > -1 ? "&" : "?";
-    vmframe.innerHTML = '<iframe src="' + esc(l.videoUrl) + sep + 'autoplay=1" title="3-Minute Bible" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    vmframe.innerHTML = '<iframe src="' + esc(l.videoUrl) + sep + 'autoplay=1" title="3 Minute Bible" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
     vscrim.classList.add("show"); vscrim.setAttribute("aria-hidden", "false");
   }
   function closeVideo() { vscrim.classList.remove("show"); vscrim.setAttribute("aria-hidden", "true"); vmframe.innerHTML = ""; }
