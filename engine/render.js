@@ -108,6 +108,13 @@
     // the Vimeo iframe in-frame — its preview chrome (orange thumbnail + metadata) is ugly.
     if (v && l.videoUrl) out += '<button class="imghot imgvidhot" type="button" data-vpop="' + l.n + '" aria-label="Play the 3-Minute Bible video" ' +
       'style="left:' + v.x + '%;top:' + v.y + '%;width:' + v.w + '%;height:' + v.h + '%"></button>';
+    // Optional "TIP" hotspot: a transparent link over the art's TIP badge that opens an
+    // extra passage in a new tab (link-only, no modal). Rendered only when the lesson
+    // supplies hotspots.tip + tipUrl (e.g. Lesson 3 -> the full second creation narrative).
+    var t = h.tip;
+    if (t && l.tipUrl) out += '<a class="imghot imgtip" href="' + esc(l.tipUrl) + '" target="_blank" rel="noopener" ' +
+      'aria-label="' + esc(l.tipLabel || 'Optional further reading') + '" title="' + esc(l.tipLabel || '') + '" ' +
+      'style="left:' + t.x + '%;top:' + t.y + '%;width:' + t.w + '%;height:' + t.h + '%"></a>';
     return out + '</div>';
   }
   function lessonImagePageB(l) {

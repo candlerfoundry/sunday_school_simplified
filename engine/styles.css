@@ -207,6 +207,10 @@ button.vcard{appearance:none;-webkit-appearance:none;border:0;padding:0;margin:0
 .imgvidhot{border:0;background:transparent;cursor:pointer;border-radius:6px;transition:background .15s;}
 .imgvidhot:hover{background:rgba(10,39,76,.08);}
 .imgvidhot:focus-visible{outline:3px solid var(--gold,#0A274C);outline-offset:2px;}
+/* "TIP" hotspot: transparent link over the art's TIP badge (opens a passage in a new tab) */
+.imgtip{display:block;border:0;background:transparent;cursor:pointer;border-radius:50%;transition:background .15s;}
+.imgtip:hover{background:rgba(251,22,22,.18);}
+.imgtip:focus-visible{outline:3px solid #FB1616;outline-offset:2px;}
 /* video pop-out modal */
 .vscrim{padding:28px;}
 .vmodal{position:relative;width:min(1120px,94vw);aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 34px 90px rgba(0,0,0,.55);}

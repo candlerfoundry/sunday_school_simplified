@@ -70,7 +70,25 @@ window.BBS_CONTENT = {
         "url": ""
       },
       "scriptureText": "<h4>Jeremiah 29:1</h4>\n<p><span class=\"vn\">1</span>These are the words of the letter that the prophet Jeremiah sent from Jerusalem to the remaining elders among the exiles and to the priests, the prophets, and all the people whom Nebuchadnezzar had taken into exile from Jerusalem to Babylon.</p>\n<h4>Jeremiah 29:4–14</h4>\n<p><span class=\"vn\">4</span>Thus says the Lord of hosts, the God of Israel, to all the exiles whom I have sent into exile from Jerusalem to Babylon: <span class=\"vn\">5</span>Build houses and live in them; plant gardens and eat what they produce. <span class=\"vn\">6</span>Take wives and have sons and daughters; take wives for your sons, and give your daughters in marriage, that they may bear sons and daughters; multiply there, and do not decrease. <span class=\"vn\">7</span>But seek the welfare of the city where I have sent you into exile, and pray to the Lord on its behalf, for in its welfare you will find your welfare. <span class=\"vn\">8</span>For thus says the Lord of hosts, the God of Israel: Do not let the prophets and the diviners who are among you deceive you, and do not listen to your dreams that you dream, <span class=\"vn\">9</span>for it is a lie that they are prophesying to you in my name; I did not send them, says the Lord.</p>\n<p><span class=\"vn\">10</span>For thus says the Lord: Only when Babylon’s seventy years are completed will I visit you, and I will fulfill to you my promise and bring you back to this place. <span class=\"vn\">11</span>For surely I know the plans I have for you, says the Lord, plans for your welfare and not for harm, to give you a future with hope. <span class=\"vn\">12</span>Then when you call upon me and come and pray to me, I will hear you. <span class=\"vn\">13</span>When you search for me, you will find me; if you seek me with all your heart, <span class=\"vn\">14</span>I will let you find me, says the Lord, and I will restore your fortunes and gather you from all the nations and all the places where I have driven you, says the Lord, and I will bring you back to the place from which I sent you into exile.</p>",
-      "headerImage": "assets/headers/lesson-01.png"
+      "headerImage": "assets/headers/lesson-01.png",
+      "pageImages": [
+        "assets/pages/lesson-1-a.png",
+        "assets/pages/lesson-1-b.png"
+      ],
+      "hotspots": {
+        "scripture": {
+          "x": 8.7,
+          "y": 48.06,
+          "w": 81.74,
+          "h": 7.29
+        },
+        "video": {
+          "x": 14.77,
+          "y": 62.5,
+          "w": 70.4,
+          "h": 31.06
+        }
+      }
     },
     {
       "n": 2,
@@ -96,18 +114,36 @@ window.BBS_CONTENT = {
       "videoUrl": "https://player.vimeo.com/video/1214332162",
       "optionalVideo": null,
       "scriptureText": "<h4>Psalm 46</h4>\n<p class=\"super\">God’s Defense of His City and People<br>To the leader. Of the Korahites. According to Alamoth. A Song.</p>\n<p class=\"poet\"><span class=\"vn\">1</span>God is our refuge and strength,<br>a very present help in trouble.<br><span class=\"vn\">2</span>Therefore we will not fear, though the earth should change,<br>though the mountains shake in the heart of the sea,<br><span class=\"vn\">3</span>though its waters roar and foam,<br>though the mountains tremble with its tumult. Selah</p>\n<p class=\"poet\"><span class=\"vn\">4</span>There is a river whose streams make glad the city of God,<br>the holy habitation of the Most High.<br><span class=\"vn\">5</span>God is in the midst of the city; it shall not be moved;<br>God will help it when the morning dawns.<br><span class=\"vn\">6</span>The nations are in an uproar; the kingdoms totter;<br>he utters his voice; the earth melts.<br><span class=\"vn\">7</span>The Lord of hosts is with us;<br>the God of Jacob is our refuge. Selah</p>\n<p class=\"poet\"><span class=\"vn\">8</span>Come, behold the works of the Lord;<br>see what desolations he has brought on the earth.<br><span class=\"vn\">9</span>He makes wars cease to the end of the earth;<br>he breaks the bow and shatters the spear;<br>he burns the shields with fire.<br><span class=\"vn\">10</span>“Be still, and know that I am God!<br>I am exalted among the nations;<br>I am exalted in the earth.”<br><span class=\"vn\">11</span>The Lord of hosts is with us;<br>the God of Jacob is our refuge. Selah</p>",
-      "headerImage": "assets/headers/lesson-02.png"
+      "headerImage": "assets/headers/lesson-02.png",
+      "pageImages": [
+        "assets/pages/lesson-2-a.png",
+        "assets/pages/lesson-2-b.png"
+      ],
+      "hotspots": {
+        "scripture": {
+          "x": 8.7,
+          "y": 48.06,
+          "w": 81.74,
+          "h": 7.29
+        },
+        "video": {
+          "x": 14.77,
+          "y": 62.5,
+          "w": 70.4,
+          "h": 31.06
+        }
+      }
     },
     {
       "n": 3,
       "tabRef": "Genesis 1–2",
       "accent": "#C89029",
-      "reference": "Genesis 1:26–31; 2:15",
+      "reference": "Genesis 1:1–2:4a; 2:15",
       "title": "Have Dominion Over the Earth",
       "subtitle": "A charge to tend creation — not a license to use it up.",
       "openingPrayer": "Creator God, you spoke the world into being and called it good, and you entrusted its care to creatures made in your image. As we open these first pages of Scripture, free us from the habit of reading them as permission, and teach us to read them as calling. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "God of the garden, you placed us here to till and to keep. Make us faithful image-bearers — gentle with what you have made, mindful of those who come after us, and grateful for the good earth you still call good. In the name of your Son Jesus Christ we pray. Amen.",
-      "scriptureRef": "Genesis 1:26–31; 2:15",
+      "scriptureRef": "Genesis 1:1–2:4a; 2:15",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Image & Dominion: Reading Genesis 1–2",
       "questions": [
@@ -118,18 +154,44 @@ window.BBS_CONTENT = {
         "If both dominion and service are part of our calling, where do you see them in tension in your own life? Can we serve creation while also exercising real power over it?"
       ],
       "shortRef": "Genesis 1–2",
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%201%3A26-31%3B%202%3A15&version=NRSVUE",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%201%3A1-2%3A4%3B%202%3A15&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1214332189",
       "optionalVideo": null,
       "scriptureText": "<h4>Genesis 1:26–31</h4>\n<p><span class=\"vn\">26</span>Then God said, “Let us make humans in our image, according to our likeness, and let them have dominion over the fish of the sea and over the birds of the air and over the cattle and over all the wild animals of the earth and over every creeping thing that creeps upon the earth.”</p>\n<p class=\"poet\"><span class=\"vn\">27</span>So God created humans in his image,<br>in the image of God he created them;<br>male and female he created them.</p>\n<p><span class=\"vn\">28</span>God blessed them, and God said to them, “Be fruitful and multiply and fill the earth and subdue it and have dominion over the fish of the sea and over the birds of the air and over every living thing that moves upon the earth.” <span class=\"vn\">29</span>God said, “See, I have given you every plant yielding seed that is upon the face of all the earth and every tree with seed in its fruit; you shall have them for food. <span class=\"vn\">30</span>And to every beast of the earth and to every bird of the air and to everything that creeps on the earth, everything that has the breath of life, I have given every green plant for food.” And it was so. <span class=\"vn\">31</span>God saw everything that he had made, and indeed, it was very good. And there was evening and there was morning, the sixth day.</p>\n<h4>Genesis 2:15</h4>\n<p><span class=\"vn\">15</span>The Lord God took the man and put him in the garden of Eden to till it and keep it.</p>",
-      "headerImage": "assets/headers/lesson-03.png"
+      "headerImage": "assets/headers/lesson-03.png",
+      "pageImages": [
+        "assets/pages/lesson-3-a.png",
+        "assets/pages/lesson-3-b.png"
+      ],
+      "hotspots": {
+        "scripture": {
+          "x": 8.7,
+          "y": 48.06,
+          "w": 81.74,
+          "h": 7.29
+        },
+        "video": {
+          "x": 14.77,
+          "y": 62.5,
+          "w": 70.4,
+          "h": 31.06
+        },
+        "tip": {
+          "x": 71.08,
+          "y": 14.87,
+          "w": 8.95,
+          "h": 6.96
+        }
+      },
+      "tipUrl": "https://www.biblegateway.com/passage/?search=Genesis%202%3A4b-25&version=NRSVUE",
+      "tipLabel": "Optional: read the whole second creation narrative — Genesis 2:4b–25 (NRSVUE)"
     },
     {
       "n": 4,
       "tabRef": "Philippians 4",
       "accent": "#9E5145",
       "reference": "Philippians 2:2–11; 4:10–13",
-      "title": "I Can Do All Things Through Him",
+      "title": "I Can Do All Things Through Christ",
       "subtitle": "A secret learned in want — not a motivational slogan.",
       "openingPrayer": "Generous God, you meet us in plenty and in want, and your strength is made perfect in our weakness. As we open Paul's letter written from prison, teach us the contentment he learned, and loosen our grip on the slogans we mistake for faith. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "Christ Jesus, you emptied yourself for our sake; give us strength that looks like yours — patient, humble, and shared. When we have little and when we have much, keep us content in you, and grateful for the people who carry us. In your name we pray. Amen.",
@@ -149,7 +211,25 @@ window.BBS_CONTENT = {
       "videoUrl": "",
       "optionalVideo": null,
       "scriptureText": "<h4>Philippians 2:2–11</h4>\n<p><span class=\"vn\">2</span>make my joy complete: be of the same mind, having the same love, being in full accord and of one mind. <span class=\"vn\">3</span>Do nothing from selfish ambition or empty conceit, but in humility regard others as better than yourselves. <span class=\"vn\">4</span>Let each of you look not to your own interests but to the interests of others. <span class=\"vn\">5</span>Let the same mind be in you that was in Christ Jesus,</p>\n<p class=\"poet\"><span class=\"vn\">6</span>who, though he existed in the form of God,<br>did not regard equality with God<br>as something to be grasped,<br><span class=\"vn\">7</span>but emptied himself,<br>taking the form of a slave,<br>assuming human likeness.<br>And being found in appearance as a human,<br><span class=\"vn\">8</span>he humbled himself<br>and became obedient to the point of death—<br>even death on a cross.<br><span class=\"vn\">9</span>Therefore God exalted him even more highly<br>and gave him the name<br>that is above every other name,<br><span class=\"vn\">10</span>so that at the name given to Jesus<br>every knee should bend,<br>in heaven and on earth and under the earth,<br><span class=\"vn\">11</span>and every tongue should confess<br>that Jesus Christ is Lord,<br>to the glory of God the Father.</p>\n<h4>Philippians 4:10–13</h4>\n<p><span class=\"vn\">10</span>I rejoice in the Lord greatly that now at last you have revived your concern for me; indeed, you were concerned for me but had no opportunity to show it. <span class=\"vn\">11</span>Not that I am referring to being in need, for I have learned to be content with whatever I have. <span class=\"vn\">12</span>I know what it is to have little, and I know what it is to have plenty. In any and all circumstances I have learned the secret of being well-fed and of going hungry, of having plenty and of being in need. <span class=\"vn\">13</span>I can do all things through him who strengthens me.</p>",
-      "headerImage": "assets/headers/lesson-04.png"
+      "headerImage": "assets/headers/lesson-04.png",
+      "pageImages": [
+        "assets/pages/lesson-4-a.png",
+        "assets/pages/lesson-4-b.png"
+      ],
+      "hotspots": {
+        "scripture": {
+          "x": 8.7,
+          "y": 48.06,
+          "w": 81.74,
+          "h": 7.29
+        },
+        "video": {
+          "x": 14.77,
+          "y": 62.5,
+          "w": 70.4,
+          "h": 31.06
+        }
+      }
     },
     {
       "n": 5,
@@ -176,7 +256,25 @@ window.BBS_CONTENT = {
       "videoUrl": "",
       "optionalVideo": null,
       "scriptureText": "<h4>2 Timothy 3:14–17</h4>\n<p><span class=\"vn\">14</span>But as for you, continue in what you have learned and firmly believed, knowing from whom you learned it <span class=\"vn\">15</span>and how from childhood you have known sacred writings that are able to instruct you for salvation through faith in Christ Jesus. <span class=\"vn\">16</span>All scripture is inspired by God and is useful for teaching, for reproof, for correction, and for training in righteousness, <span class=\"vn\">17</span>so that the person of God may be proficient, equipped for every good work.</p>\n<h4>Genesis 2:4–7</h4>\n<p><span class=\"vn\">4</span>These are the generations of the heavens and the earth when they were created.</p>\n<p class=\"super\">Another Account of the Creation</p>\n<p>In the day that the Lord God made the earth and the heavens, <span class=\"vn\">5</span>when no plant of the field was yet in the earth and no vegetation of the field had yet sprung up—for the Lord God had not caused it to rain upon the earth, and there was no one to till the ground, <span class=\"vn\">6</span>but a stream would rise from the earth and water the whole face of the ground— <span class=\"vn\">7</span>then the Lord God formed man from the dust of the ground and breathed into his nostrils the breath of life, and the man became a living being.</p>",
-      "headerImage": "assets/headers/lesson-05.png"
+      "headerImage": "assets/headers/lesson-05.png",
+      "pageImages": [
+        "assets/pages/lesson-5-a.png",
+        "assets/pages/lesson-5-b.png"
+      ],
+      "hotspots": {
+        "scripture": {
+          "x": 8.7,
+          "y": 48.06,
+          "w": 81.74,
+          "h": 7.29
+        },
+        "video": {
+          "x": 14.77,
+          "y": 62.5,
+          "w": 70.4,
+          "h": 31.06
+        }
+      }
     },
     {
       "n": 6,
@@ -202,7 +300,25 @@ window.BBS_CONTENT = {
       "videoUrl": "",
       "optionalVideo": null,
       "scriptureText": "<h4>1 Corinthians 13:1–13</h4>\n<p class=\"super\">The Gift of Love</p>\n<p><span class=\"vn\">1</span>If I speak in the tongues of humans and of angels but do not have love, I am a noisy gong or a clanging cymbal. <span class=\"vn\">2</span>And if I have prophetic powers and understand all mysteries and all knowledge and if I have all faith so as to remove mountains but do not have love, I am nothing. <span class=\"vn\">3</span>If I give away all my possessions and if I hand over my body so that I may boast but do not have love, I gain nothing.</p>\n<p><span class=\"vn\">4</span>Love is patient; love is kind; love is not envious or boastful or arrogant <span class=\"vn\">5</span>or rude. It does not insist on its own way; it is not irritable; it keeps no record of wrongs; <span class=\"vn\">6</span>it does not rejoice in wrongdoing but rejoices in the truth. <span class=\"vn\">7</span>It bears all things, believes all things, hopes all things, endures all things.</p>\n<p><span class=\"vn\">8</span>Love never ends. But as for prophecies, they will come to an end; as for tongues, they will cease; as for knowledge, it will come to an end. <span class=\"vn\">9</span>For we know only in part, and we prophesy only in part, <span class=\"vn\">10</span>but when the complete comes, the partial will come to an end. <span class=\"vn\">11</span>When I was a child, I spoke like a child, I thought like a child, I reasoned like a child. When I became an adult, I put an end to childish ways. <span class=\"vn\">12</span>For now we see only a reflection, as in a mirror, but then we will see face to face. Now I know only in part; then I will know fully, even as I have been fully known. <span class=\"vn\">13</span>And now faith, hope, and love remain, these three, and the greatest of these is love.</p>",
-      "headerImage": "assets/headers/lesson-06.png"
+      "headerImage": "assets/headers/lesson-06.png",
+      "pageImages": [
+        "assets/pages/lesson-6-a.png",
+        "assets/pages/lesson-6-b.png"
+      ],
+      "hotspots": {
+        "scripture": {
+          "x": 8.7,
+          "y": 48.06,
+          "w": 81.74,
+          "h": 7.29
+        },
+        "video": {
+          "x": 14.77,
+          "y": 62.5,
+          "w": 70.4,
+          "h": 31.06
+        }
+      }
     }
   ]
 };
