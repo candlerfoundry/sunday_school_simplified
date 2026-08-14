@@ -1,0 +1,112 @@
+<!-- =====================================================================
+     SUNDAY SCHOOL SIMPLIFIED — PUBLIC LANDING PAGE
+     3 separate Webflow HTML Embeds, stacked in order (1, 2, 3).
+     Each block is self-contained — paste each into its own Embed.
+     ===================================================================== -->
+
+
+<!-- ############### LANDING BLOCK 1 of 3 — HERO ############### -->
+<div style="position:relative;width:100%;max-width:1200px;margin:0 auto;line-height:0">
+  <img src="https://sundayschoolsimplified.netlify.app/assets/sss-landing-hero-v3.png"
+       alt="Sunday School, Simplified — easy & fun Bible studies, scholar-designed, and free."
+       style="width:100%;display:block;border-radius:26px 26px 0 0">
+</div>
+
+
+<!-- ############### LANDING BLOCK 2 of 3 — LET'S GET STARTED ############### -->
+<div style="position:relative;width:100%;max-width:1200px;margin:0 auto;line-height:0">
+  <img src="https://sundayschoolsimplified.netlify.app/assets/sss-landing-getstarted-v2.png"
+       alt="Let's get started — register for your free packet, check your inbox, open your packet. Already registered? Log in."
+       style="width:100%;display:block">
+  <!-- "Already registered? LOG IN" -->
+  <a href="/customer-portal/account" aria-label="Log in"
+     style="position:absolute;left:46.5%;top:80.5%;width:7.5%;height:5.5%;display:block"></a>
+</div>
+
+
+<!-- ############### LANDING BLOCK 3 of 3 — CHOOSE YOUR PACKET ############### -->
+<style>
+  .sss-lm-scrim{position:fixed;inset:0;background:rgba(8,20,38,.55);display:none;
+    align-items:center;justify-content:center;z-index:9999;padding:20px}
+  .sss-lm-scrim.open{display:flex}
+  .sss-lm-card{background:#fff;max-width:520px;width:100%;border-radius:22px;padding:34px 34px 30px;
+    box-shadow:0 24px 70px rgba(8,20,38,.4);position:relative;
+    font-family:"Avenir Next Arabic Light","Avenir Next",Avenir,"Segoe UI",system-ui,sans-serif;color:#24364b}
+  .sss-lm-x{position:absolute;top:14px;right:16px;border:0;background:transparent;font-size:26px;line-height:1;
+    color:#8794a5;cursor:pointer}
+  .sss-lm-eyebrow{color:#465468;font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin:0 0 6px}
+  .sss-lm-title{margin:0 0 18px;color:#071f3d;
+    font-family:"Louize 205 Tf","Iowan Old Style","Palatino Linotype",Georgia,serif;font-weight:500;font-size:28px;line-height:1.06}
+  .sss-lm-list{list-style:none;margin:0;padding:0}
+  .sss-lm-list li{padding:11px 0;border-top:1px solid #eef1f5;display:flex;gap:12px;align-items:baseline}
+  .sss-lm-n{flex:0 0 auto;width:24px;color:#c0392b;font-weight:700;
+    font-family:"Louize 205 Tf",Georgia,serif}
+  .t-women-lm .sss-lm-n{color:#976518}
+  .sss-lm-lt{color:#071f3d;font-weight:400;font-size:16px;line-height:1.25}
+  .sss-lm-ref{display:block;color:#647184;font-size:13.5px;margin-top:1px}
+</style>
+
+<div style="position:relative;width:100%;max-width:1200px;margin:0 auto;line-height:0">
+  <img src="https://sundayschoolsimplified.netlify.app/assets/sss-landing-packets-v3.png"
+       alt="Choose your packet — Beyond Bumper Stickers and The Gospel According to the Women. Register free or learn more."
+       style="display:block;width:100%;height:auto">
+  <!-- BBS: Register / Learn More -->
+  <a href="https://the-candler-foundry.foxycart.com/cart?name=Beyond%20Bumper%20Stickers&price=0&code=SSS-BEYONDBUMPER&h:course_title=Beyond%20Bumper%20Stickers&h:course_code=SSS-BEYONDBUMPER&category=SSS"
+     aria-label="Register free for Beyond Bumper Stickers"
+     style="position:absolute;left:27.8%;top:79%;width:9.4%;height:5.8%;display:block"></a>
+  <a href="#" onclick="sssLM('bbs');return false" aria-label="Learn more about Beyond Bumper Stickers"
+     style="position:absolute;left:37%;top:79%;width:9.5%;height:5.8%;display:block"></a>
+  <!-- Women: Register / Learn More -->
+  <a href="https://the-candler-foundry.foxycart.com/cart?name=The%20Gospel%20According%20to%20the%20Women&price=0&code=SSS-GOSPELWOMEN&h:course_title=The%20Gospel%20According%20to%20the%20Women&h:course_code=SSS-GOSPELWOMEN&category=SSS"
+     aria-label="Register free for The Gospel According to the Women"
+     style="position:absolute;left:76.9%;top:79%;width:9.4%;height:5.8%;display:block"></a>
+  <a href="#" onclick="sssLM('women');return false" aria-label="Learn more about The Gospel According to the Women"
+     style="position:absolute;left:86.2%;top:79%;width:9.6%;height:5.8%;display:block"></a>
+</div>
+
+<!-- Learn More modal -->
+<div class="sss-lm-scrim" id="sssLMscrim" onclick="if(event.target===this)sssLMclose()">
+  <div class="sss-lm-card" id="sssLMcard" role="dialog" aria-modal="true">
+    <button class="sss-lm-x" onclick="sssLMclose()" aria-label="Close">&times;</button>
+    <p class="sss-lm-eyebrow" id="sssLMeyebrow">Six lessons</p>
+    <h3 class="sss-lm-title" id="sssLMtitle"></h3>
+    <ul class="sss-lm-list" id="sssLMlist"></ul>
+  </div>
+</div>
+
+<script>
+  var D=String.fromCharCode(0x2013);  // en dash
+  var MID=" "+String.fromCharCode(0xB7)+" ";  // middot
+  var SSS_LESSONS = {
+    bbs: { eyebrow:"Volume 1"+MID+"Six lessons", title:"Beyond Bumper Stickers", cls:"", lessons:[
+      ["For I Know the Plans I Have for You","Jeremiah 29:1, 4"+D+"14"],
+      ["Be Still, and Know That I Am God","Psalm 46"],
+      ["Have Dominion Over the Earth","Genesis 1:1"+D+"2:4a; 2:15"],
+      ["I Can Do All Things Through Christ","Philippians 2:2"+D+"11; 4:10"+D+"13"],
+      ["All Scripture Is Inspired by God","2 Timothy 3:14"+D+"17; Genesis 2:4"+D+"7"],
+      ["Love Is Patient, Love Is Kind","1 Corinthians 13:1"+D+"13"] ] },
+    women: { eyebrow:"Volume 2"+MID+"Six lessons", title:"The Gospel According to the Women", cls:"t-women-lm", lessons:[
+      ["Hannah","1 Samuel 1:1"+D+"20"],
+      ["The Two Daughters","Mark 5:21"+D+"43"],
+      ["Shiphrah & Puah","Exodus 1:8"+D+"22"],
+      ["Daughters of Zelophehad","Numbers 26:52"+D+"56; 27:1"+D+"11"],
+      ["Tamar","Genesis 38:6"+D+"26"],
+      ["The Widow of Zarephath","1 Kings 17:1"+D+"16"] ] }
+  };
+  function sssLM(key){
+    var d=SSS_LESSONS[key]; if(!d)return;
+    document.getElementById('sssLMeyebrow').textContent=d.eyebrow;
+    document.getElementById('sssLMtitle').textContent=d.title;
+    document.getElementById('sssLMcard').className='sss-lm-card '+(d.cls||'');
+    var ul=document.getElementById('sssLMlist'); ul.innerHTML='';
+    d.lessons.forEach(function(l,i){
+      var li=document.createElement('li');
+      li.innerHTML='<span class="sss-lm-n">'+(i+1)+'</span><span class="sss-lm-lt">'+l[0]+
+        '<span class="sss-lm-ref">'+l[1]+'</span></span>';
+      ul.appendChild(li);
+    });
+    document.getElementById('sssLMscrim').classList.add('open');
+  }
+  function sssLMclose(){ document.getElementById('sssLMscrim').classList.remove('open'); }
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape')sssLMclose(); });
+</script>

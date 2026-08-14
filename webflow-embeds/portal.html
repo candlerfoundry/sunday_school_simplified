@@ -1,0 +1,108 @@
+<!-- =====================================================================
+     SUNDAY SCHOOL SIMPLIFIED — LOGGED-IN CUSTOMER PORTAL (My Lessons)
+     3 separate Webflow HTML Embeds, stacked in order (1, 2, 3).
+     Requires foxy-logic.js on the page (already on the portal).
+     ===================================================================== -->
+
+
+<!-- ############### PORTAL BLOCK 1 of 3 — HERO ############### -->
+<div style="position:relative;width:100%;line-height:0">
+  <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-hero-v3.png"
+       alt="Sunday School, Simplified — Your lessons are ready!"
+       style="width:100%;display:block;border-radius:26px 26px 0 0">
+</div>
+
+
+<!-- ############### PORTAL BLOCK 2 of 3 — LET'S LEARN, [NAME] ############### -->
+<style>
+  @font-face{font-family:'Thierry Leonie';
+    src:url('https://sundayschoolsimplified.netlify.app/engine/assets/fonts/thierry.woff2') format('woff2');
+    font-weight:400 800;font-display:block;}
+  .sss-ll{position:relative;width:100%;line-height:0}
+  .sss-ll>img{width:100%;display:block}
+  .sss-ll .ll-name{position:absolute;left:58.4%;right:10%;top:0;height:28.3%;
+    display:flex;align-items:flex-end;justify-content:flex-start;overflow:hidden}
+  .sss-ll .ll-name .t{white-space:nowrap;line-height:.86;color:#1e2530;
+    font-family:'Thierry Leonie','Poppins',Arial,sans-serif;font-weight:800;letter-spacing:.005em}
+  .sss-ll .ll-src{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .sss-ll a.hs{position:absolute;display:block}
+</style>
+<div class="sss-ll">
+  <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-letslearn.png"
+       alt="Let's learn — your lessons are below. Log in if you don't see them, or browse more lessons.">
+  <span class="ll-src" foxy-logic-display="customer-first-name"></span>
+  <span class="ll-name"><span class="t" id="llText">FRIEND</span></span>
+  <a class="hs" href="/customer-portal/account"  style="left:52.5%;top:66%;width:8.5%;height:6%"  aria-label="Log in"></a>
+  <a class="hs" href="/sunday-school-simplified" style="left:64%;top:77%;width:7.5%;height:6%" aria-label="Browse available lessons"></a>
+</div>
+<script>
+  (function(){
+    var MAXLEN=16, MIN_RATIO=0.62;
+    function base(){ return document.querySelector('.sss-ll').clientWidth*0.0443; } // matches baked heading cap-height
+    function apply(raw){
+      var box=document.querySelector('.sss-ll .ll-name'), t=document.getElementById('llText');
+      var n=(raw||'').trim(), b=base();
+      t.textContent=(!n||n.length>MAXLEN) ? 'FRIEND' : n.toUpperCase();
+      t.style.fontSize=b+'px';
+      var s=b, m=b*MIN_RATIO, g=0;                       // shrink-to-fit (applies to FRIEND too)
+      while(t.scrollWidth>box.clientWidth && s>m && g<90){ s-=1; t.style.fontSize=s+'px'; g++; }
+    }
+    var src=document.querySelector('.sss-ll .ll-src');
+    new MutationObserver(function(){apply(src.textContent)}).observe(src,{childList:true,characterData:true,subtree:true});
+    addEventListener('resize',function(){apply(src.textContent)});
+    addEventListener('load',function(){apply(src.textContent)});
+    apply(src.textContent);
+  })();
+</script>
+
+
+<!-- ############### PORTAL BLOCK 3 of 3 — YOUR PACKETS (gated per-packet) ############### -->
+<style>
+  @font-face{font-family:'Thierry Leonie';
+    src:url('https://sundayschoolsimplified.netlify.app/engine/assets/fonts/thierry.woff2') format('woff2');
+    font-weight:400 800;font-display:block;}
+  .pk3{background:#dce2ee;padding:34px 4% 46px;color:#24364b;
+    font-family:"Avenir Next Arabic Light","Avenir Next",Avenir,"Segoe UI",system-ui,-apple-system,sans-serif}
+  .pk3 *{box-sizing:border-box}
+  .pk3 .pk-head{text-align:center;margin:0 0 4px;color:#071f3d;
+    font-family:'Thierry Leonie',sans-serif;font-weight:800;font-size:clamp(30px,4vw,46px);letter-spacing:.01em}
+  .pk3 .pk-sub{text-align:center;margin:0 0 30px;color:#465468;font-size:16px}
+  .pk3 .pk-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:26px;max-width:1180px;margin:0 auto}
+  .pk3 .pk-grid>div{flex:1 1 470px;max-width:540px}
+  .pk3 .tile{position:relative;width:100%;line-height:0}
+  .pk3 .tile img{width:100%;display:block;border-radius:2.6%;box-shadow:0 12px 30px rgba(12,38,66,.16)}
+  .pk3 .tile a{position:absolute;display:block}
+  @media (max-width:980px){.pk3 .pk-grid>div{flex-basis:100%}}
+</style>
+<div class="pk3">
+  <h2 class="pk-head">Your Packets</h2>
+  <p class="pk-sub">Each includes six lessons, online &amp; printable.</p>
+  <div class="pk-grid">
+
+    <div foxy-logic-transaction-includes="SSS-BEYONDBUMPER">
+      <div class="tile">
+        <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-tile-bbs.png"
+             alt="Beyond Bumper Stickers — Volume 1, six lessons, online & printable.">
+        <a href="/sss/beyond-bumper-stickers"
+           style="left:55.5%;top:80%;width:19.5%;height:7.5%" aria-label="Open Beyond Bumper Stickers booklet"></a>
+        <a href="#" onclick="return sssPDF('https://sundayschoolsimplified.netlify.app/packets/beyond-bumper-stickers/Beyond%20Bumper%20Stickers.pdf')"
+           style="left:75%;top:80%;width:19.5%;height:7.5%" aria-label="Beyond Bumper Stickers printable PDF"></a>
+      </div>
+    </div>
+
+    <div foxy-logic-transaction-includes="SSS-GOSPELWOMEN">
+      <div class="tile">
+        <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-tile-women.png"
+             alt="The Gospel According to the Women — Volume 2, six lessons, online & printable.">
+        <a href="/sss/gospel-according-to-the-women"
+           style="left:55.5%;top:80%;width:19.5%;height:7.5%" aria-label="Open The Gospel According to the Women booklet"></a>
+        <a href="#" onclick="return sssPDF('https://sundayschoolsimplified.netlify.app/packets/gospel-according-to-the-women/The%20Gospel%20According%20to%20the%20Women.pdf')"
+           style="left:75%;top:80%;width:19.5%;height:7.5%" aria-label="The Gospel According to the Women printable PDF"></a>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+  function sssPDF(url){ window.open(url,'sssPdf','width=980,height=1150,scrollbars=yes,resizable=yes'); return false; }
+</script>
