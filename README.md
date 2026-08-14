@@ -14,6 +14,45 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 
 ---
 
+## ▶ START HERE — current status (updated Sat 2026-08-14; supersedes the older "Monday 2026-08-10" block below)
+
+**Three workstreams are mid-flight. Read this first.**
+
+**1) BBS videos — 3 captioned, awaiting Emily's review (HARD GATE before Vimeo).**
+`3MB-283` (Jeremiah / L1), `287` (2 Timothy / L5), `288` (1 Corinthians / L6) are spliced with the
+corrected title cards, captioned at Whisper-**medium** + AI-proofed, and **re-burned 2026-08-14 with
+proofing fixes** (287 "Church"→"church"; 283 "Washington DC"→"Washington, D.C."; "scripture"→
+"Scripture" normalized; Greek/Hebrew transliterations verified public-friendly). Review copies live in
+`…\Dropbox\3MB\NEW VIDEOS GO HERE\_CAPTIONED FOR REVIEW\`. **Next after Emily approves:** Vimeo (public)
+→ Airtable (Transcript + Vimeo Link) → wire BBS **L1/L5/L6** `videoUrl` in `content.js` → re-cut the BBS
+PDF. **Also open:** L4 **Philippians (`3MB-44`)** — captioned (Feb) + filed already; Emily to decide
+**upload as-is vs re-caption at medium**. Canonical runbook = the pipeline-folder README
+(`…\Dropbox\3MB\SSS 3MB Captioning Pipeline\`).
+
+**2) Webflow marketing surfaces — public landing + logged-in "My Lessons" portal.**
+**Canonical embed code now lives in [`webflow-embeds/`](webflow-embeds/)** (`landing.html`, `portal.html`,
+`README.md`) — do NOT reconstruct it. Built from Canva **`DAHRnlJvmA4`** (shortlink
+`canva.link/l2565l075ywv8cs`), pages 5-10. New assets in `assets/` (`sss-landing-hero-v3`,
+`sss-landing-getstarted-v2`, `sss-landing-packets-v3`, `sss-portal-hero-v3`, `sss-portal-letslearn`,
+`sss-portal-tile-bbs`, `sss-portal-tile-women`). The personalized greeting uses self-hosted **Thierry
+Leonie** (`engine/assets/fonts/thierry.woff2`, CORS via repo `_headers`; sizing factor **0.0443** —
+Thierry caps are 96% of the em). Landing (hero / get-started / choose-packet) + portal (hero /
+let's-learn / your-packets) are DONE except the open issue:
+   - **⚠ OPEN ISSUE — portal "Your Packets" (section 3):** the current build **crops Canva slide 10 into
+     two gated tiles + a live header**, which reads as a reconstruction, not Emily's exact asset (a single
+     baked image can't gate per-packet). **AGREED FIX (Emily, 2026-08-14):** Emily will design **each
+     packet as its own self-contained Canva tile**; Claude then drops each tile image into a
+     `foxy-logic-transaction-includes` wrapper and shows only owned ones (100% her asset, no cropping).
+     **TBD when her tiles arrive:** header baked-in-tile vs separate strip; section background color.
+     Details in [`webflow-embeds/README.md`](webflow-embeds/README.md).
+
+**3) Women packet — Emily is reviewing the Canva lesson art** (design **`DAHOtl4BNMk`**) for
+**The Gospel According to the Women**; she is **currently on the Tamar lesson** (L5, Genesis 38:6-26).
+Resume her review there. Her edits feed the flipbook art (image pages) + `content.js` + the Women PDF
+(`tools/make_women_pdf.js`).
+
+---
+
 ## The one rule that matters most: how code lands here
 
 This repo is mirrored into a **cloud-synced Dropbox folder** where a live `.git` and
