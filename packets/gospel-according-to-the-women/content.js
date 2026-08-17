@@ -18,7 +18,7 @@ window.BBS_CONTENT = {
     "tagline": "Six women who move the story of God forward",
     "subtitle": "A Six-Lesson Packet",
     "site": "candlerfoundry.org",
-    "footerNote": "Conversation questions + a free 3-Minute Bible video with every lesson",
+    "footerNote": "Conversation questions + a free 3 Minute Bible video with every lesson",
     "letter": {
       "heading": "A Letter from The Candler Foundry",
       "paragraphs": [
@@ -34,7 +34,7 @@ window.BBS_CONTENT = {
       "steps": [
         "Open with prayer.",
         "Read the passage out loud as a group.",
-        "Watch the provided 3-Minute Bible video.",
+        "Watch the provided 3 Minute Bible video.",
         "Talk through the questions.",
         "Close with prayer."
       ],
@@ -46,7 +46,7 @@ window.BBS_CONTENT = {
     }
   },
   "contentsIntro": "",
-  "howto": "Each lesson stands on its own and takes about an hour. Open with prayer, read the passage aloud, watch the 3-Minute Bible video together, then talk through the questions. Close with prayer.",
+  "howto": "Each lesson stands on its own and takes about an hour. Open with prayer, read the passage aloud, watch the 3 Minute Bible video together, then talk through the questions. Close with prayer.",
   "lessons": [
     {
       "n": 1,
@@ -59,7 +59,7 @@ window.BBS_CONTENT = {
       "openingPrayer": "Gracious God, quiet our minds as we read the story of Hannah. Open our ears to hear what the Holy Spirit is saying to us through these ancient words. Show us what this story reveals about you, and the lives you call us to lead. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "Loving God, you are the one who meets us exactly where we are – in our longing, grief, and hope. Give us the courage to bring our whole selves before you. Give us compassion for ourselves and for others. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "1 Samuel 1:1–20",
-      "videoTitle": "3-Minute Bible",
+      "videoTitle": "3 Minute Bible",
       "videoSubtitle": "Grace: The Story of Hannah",
       "pageImages": ["assets/pages/hannah-a.png", "assets/pages/hannah-b.png"],
       "hotspots": {
@@ -77,7 +77,7 @@ window.BBS_CONTENT = {
       "videoUrl": "https://player.vimeo.com/video/1214331973",
       "optionalVideo": {
         "title": "Orphan, Widow, and Stranger",
-        "subtitle": "3-Minute Bible · optional (coming soon)",
+        "subtitle": "3 Minute Bible · optional (coming soon)",
         "url": ""
       },
       "scriptureText": "<h4>1 Samuel 1:1–20</h4>\n<p><span class=\"vn\">1</span>There was a certain man of Ramathaim, a Zuphite from the hill country of Ephraim, whose name was Elkanah son of Jeroham son of Elihu son of Tohu son of Zuph, an Ephraimite. <span class=\"vn\">2</span>He had two wives; the name of one was Hannah, and the name of the other Peninnah. Peninnah had children, but Hannah had no children.</p>\n<p><span class=\"vn\">3</span>Now this man used to go up year by year from his town to worship and to sacrifice to the Lord of hosts at Shiloh, where the two sons of Eli, Hophni and Phinehas, were priests of the Lord. <span class=\"vn\">4</span>On the day when Elkanah sacrificed, he would give portions to his wife Peninnah and to all her sons and daughters, <span class=\"vn\">5</span>but to Hannah he gave a double portion because he loved her, though the Lord had closed her womb. <span class=\"vn\">6</span>Her rival used to provoke her severely, to irritate her, because the Lord had closed her womb. <span class=\"vn\">7</span>So it went on year by year; as often as she went up to the house of the Lord, she used to provoke her. Therefore Hannah wept and would not eat. <span class=\"vn\">8</span>Her husband Elkanah said to her, “Hannah, why do you weep? Why do you not eat? Why is your heart sad? Am I not more to you than ten sons?”</p>\n<p><span class=\"vn\">9</span>After they had eaten and drunk at Shiloh, Hannah rose and presented herself before the Lord. Now Eli the priest was sitting on the seat beside the doorpost of the temple of the Lord. <span class=\"vn\">10</span>She was deeply distressed and prayed to the Lord and wept bitterly. <span class=\"vn\">11</span>She made this vow: “O Lord of hosts, if only you will look on the misery of your servant and remember me and not forget your servant but will give to your servant a male child, then I will set him before you as a nazirite until the day of his death. He shall drink neither wine nor intoxicants, and no razor shall touch his head.”</p>\n<p><span class=\"vn\">12</span>As she continued praying before the Lord, Eli observed her mouth. <span class=\"vn\">13</span>Hannah was praying silently; only her lips moved, but her voice was not heard; therefore Eli thought she was drunk. <span class=\"vn\">14</span>So Eli said to her, “How long will you make a drunken spectacle of yourself? Put away your wine.” <span class=\"vn\">15</span>But Hannah answered, “No, my lord, I am a woman deeply troubled; I have drunk neither wine nor strong drink, but I have been pouring out my soul before the Lord. <span class=\"vn\">16</span>Do not regard your servant as a worthless woman, for I have been speaking out of my great anxiety and vexation all this time.” <span class=\"vn\">17</span>Then Eli answered, “Go in peace; the God of Israel grant the petition you have made to him.” <span class=\"vn\">18</span>And she said, “Let your servant find favor in your sight.” Then the woman went her way and ate and drank with her husband, and her countenance was sad no longer.</p>\n<p><span class=\"vn\">19</span>They rose early in the morning and worshiped before the Lord; then they went back to their house at Ramah. Elkanah knew his wife Hannah, and the Lord remembered her. <span class=\"vn\">20</span>In due time Hannah conceived and bore a son. She named him Samuel, for she said, “I have asked him of the Lord.”</p>",
@@ -94,7 +94,7 @@ window.BBS_CONTENT = {
       "openingPrayer": "God of compassion, still our hearts as we hear the stories of these two daughters. Help us sit with the fear, suffering, faith, and hope. Through the Holy Spirit, show us what this passage reveals about your healing love and the life you call us to share. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "God of love, you call each of us as your beloved children. No person is beyond your notice or care. Help us to follow in the way of Jesus, having tender hearts and compassion for our neighbors. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "Mark 5:21–43",
-      "videoTitle": "3-Minute Bible",
+      "videoTitle": "3 Minute Bible",
       "videoSubtitle": "What is a Markan sandwich?",
       "pageImages": ["assets/pages/two-daughters-a.png", "assets/pages/two-daughters-b.png"],
       "hotspots": {
@@ -113,7 +113,7 @@ window.BBS_CONTENT = {
       "videoUrl": "https://player.vimeo.com/video/1210281687",
       "optionalVideo": {
         "title": "Mark's Secret Messiah",
-        "subtitle": "3-Minute Bible · optional",
+        "subtitle": "3 Minute Bible · optional",
         "url": "https://vimeo.com/1210281410"
       },
       "optionalReadings": [
@@ -138,7 +138,7 @@ window.BBS_CONTENT = {
       "openingPrayer": "God of courage, quiet our hearts as we hear the story of Shiphrah and Puah. Open our eyes to the choices they made in the face of fear and power. Through the Holy Spirit, help us discern what is right and trust that you have equipped us to act with wisdom and faith. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "Faithful God, you give us courage to choose what is right, even when it comes at a cost. Give us wisdom to recognize injustice, strength to resist it, and trust that even small acts of faithfulness can help bring life and hope. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "Exodus 1:8–22",
-      "videoTitle": "3-Minute Bible",
+      "videoTitle": "3 Minute Bible",
       "videoSubtitle": "Background to the Exodus",
       "pageImages": ["assets/pages/shiphrah-puah-a.png", "assets/pages/shiphrah-puah-b.png"],
       "hotspots": {
@@ -170,7 +170,7 @@ window.BBS_CONTENT = {
       "openingPrayer": "Gracious God, gather our attention as we turn to Scripture. We ask that you deepen our understanding of who you are and how you call us to live together. By your Spirit, give us curiosity, wisdom, and openness to hear something new. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "Steadfast God, you hear the voices of those who ask to be seen and treated justly. Give us courage to speak, humility to listen, and wisdom to change what causes harm. Help us care for the gifts you have entrusted to us. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "Numbers 26:52–56; 27:1–11",
-      "videoTitle": "3-Minute Bible",
+      "videoTitle": "3 Minute Bible",
       "videoSubtitle": "The Daughters of Zelophehad",
       "pageImages": ["assets/pages/zelophehad-a.png", "assets/pages/zelophehad-b.png"],
       "hotspots": {
@@ -188,7 +188,7 @@ window.BBS_CONTENT = {
       "videoUrl": "https://player.vimeo.com/video/1214332026",
       "optionalVideo": {
         "title": "Orphan, Widow, and Stranger",
-        "subtitle": "3-Minute Bible · optional (coming soon)",
+        "subtitle": "3 Minute Bible · optional (coming soon)",
         "url": ""
       },
       "scriptureText": "<h4>Numbers 26:52–56</h4>\n<p><span class=\"vn\">52</span>The Lord spoke to Moses, saying, <span class=\"vn\">53</span>“To these the land shall be apportioned for inheritance according to the number of names. <span class=\"vn\">54</span>To a large tribe you shall give a large inheritance, and to a small tribe you shall give a small inheritance; every tribe shall be given its inheritance according to its enrollment. <span class=\"vn\">55</span>But the land shall be apportioned by lot; according to the names of their ancestral tribes they shall inherit. <span class=\"vn\">56</span>Their inheritance shall be apportioned according to lot between the larger and the smaller.”</p>\n<h4>Numbers 27:1–11</h4>\n<p><span class=\"vn\">1</span>Then the daughters of Zelophehad came forward. Zelophehad was son of Hepher son of Gilead son of Machir son of Manasseh, of the clans of Manasseh, son of Joseph. The names of his daughters were Mahlah, Noah, Hoglah, Milcah, and Tirzah. <span class=\"vn\">2</span>They stood before Moses, Eleazar the priest, the leaders, and all the congregation, at the entrance of the tent of meeting, saying, <span class=\"vn\">3</span>“Our father died in the wilderness; he was not among the congregation of those who gathered themselves together against the Lord in the congregation of Korah but died for his own sin, and he had no sons. <span class=\"vn\">4</span>Why should the name of our father be taken away from his clan because he had no son? Give to us a possession among our father’s brothers.”</p>\n<p><span class=\"vn\">5</span>Moses brought their case before the Lord. <span class=\"vn\">6</span>And the Lord spoke to Moses, saying, <span class=\"vn\">7</span>“The daughters of Zelophehad are right in what they are saying; you shall indeed let them possess an inheritance among their father’s brothers and pass the inheritance of their father on to them. <span class=\"vn\">8</span>You shall also speak to the Israelites, saying: If a man dies and has no son, then you shall pass his inheritance on to his daughter. <span class=\"vn\">9</span>If he has no daughter, then you shall give his inheritance to his brothers. <span class=\"vn\">10</span>If he has no brothers, then you shall give his inheritance to his father’s brothers. <span class=\"vn\">11</span>And if his father has no brothers, then you shall give his inheritance to the nearest kinsman of his clan, and he shall possess it. It shall be for the Israelites a statute and ordinance, as the Lord commanded Moses.”</p>",
@@ -205,7 +205,7 @@ window.BBS_CONTENT = {
       "openingPrayer": "God of love, open our hearts and minds as we turn to the tangled story of Tamar. We ask that you meet us in what is uncomfortable and teach us where you are at work. Through the Holy Spirit, give us compassion to hear this passage well. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "God of mercy, you are faithful to us when things get messy and complicated. Send us out with courage, knowing that you are at work in all of the unfinished places of our lives. Help us to remain faithful to you and each other. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "Genesis 38:6–26",
-      "videoTitle": "3-Minute Bible",
+      "videoTitle": "3 Minute Bible",
       "videoSubtitle": "Tamar: Righteousness When the System Fails",
       "pageImages": ["assets/pages/tamar-a.png", "assets/pages/tamar-b.png"],
       "hotspots": {
@@ -248,7 +248,7 @@ window.BBS_CONTENT = {
       "openingPrayer": "God of provision, you provide for us in our places of scarcity and fear. As we turn to Scripture, help us notice your everlasting faithfulness as you work through unlikely people. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "Generous God, you are gracious in providing for us when our jars are empty. You work through our neighbors and strangers alike. Help us to notice your goodness, welcome the stranger, and trust in your provision. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "1 Kings 17:1–24",
-      "videoTitle": "3-Minute Bible",
+      "videoTitle": "3 Minute Bible",
       "videoSubtitle": "The Widow of Zarephath",
       "pageImages": ["assets/pages/widow-a.png", "assets/pages/widow-b.png"],
       "hotspots": {
