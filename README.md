@@ -14,16 +14,32 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 
 ---
 
-## ▶ START HERE — current status (updated Mon 2026-08-17; supersedes the older "Monday 2026-08-10" block below)
+## ▶ START HERE — current status (updated Mon 2026-08-17)
 
-**Three workstreams are mid-flight. Read this first.**
+**This block is the current state of the project — read it first.** Anything left over from the older
+2026-08-07 priority list now lives under **"Carried-forward open items"** near the bottom of this file.
+Three workstreams; two are essentially done and the third is waiting on Emily.
 
-**1) BBS videos — ✅ 283/287/288 PUBLISHED + WIRED (2026-08-17).** Emily approved and asked for them
-embedded, so they were uploaded public, wired into `content.js`, written to Airtable, and both PDFs
-re-cut. **L1 = 1218983605, L5 = 1218983645, L6 = 1218983700.** The only BBS lesson still without a
-video is — none. **✅ L4 Philippians (`3MB-44`) went up 2026-08-17 too** (Emily: upload as-is), so
-**all six BBS lessons now have an embedded video**. The Women packet's **L6 (Widow, `3MB-280`)** is the
-only empty slot left across both packets — that master is genuinely held. Historical detail below.
+**1) Videos — ✅ ALL DONE except one held master (2026-08-17).** Emily approved the corrected batch and
+said "embed all of the videos", so four went up public in one session, all wired, all verified playing
+live, all written to Airtable:
+
+| Packet · lesson | 3MB code | Vimeo | Vimeo title |
+|---|---|---|---|
+| BBS L1 | `3MB-283` | `1218983605` | The Story of Jerusalem |
+| BBS L4 | `3MB-44`  | `1218993379` | Did the biblical texts have chapters, verses, and section headings? |
+| BBS L5 | `3MB-287` | `1218983645` | Scripture Inspired by God |
+| BBS L6 | `3MB-288` | `1218983700` | Love Is Patient, Love Is Kind |
+
+**All six BBS lessons now have a video.** The Women packet has five of six — **L6 (Widow, `3MB-280`) is
+the only empty slot left across both packets**, and that master is genuinely held (no corrected cut
+exists yet). Titles for 283/287/288 are the **on-screen slide titles with no series suffix**, per Emily;
+`3MB-44` has no short slide title so its Vimeo name came from the **Airtable `Name`** field — rename it
+if that reads long. Two things to know for next time: the whole batch deliberately stays
+**Status = "Draft"** in Airtable (matching the six published in July — Status does not track publication
+in that table), and **`3MB-44` carries the FEBRUARY caption style** (up to 3 lines, different placement)
+rather than the v2 ≤2-line standard the other nine use — it was uploaded as-is at Emily's direction, so
+re-caption at medium and re-burn if the packet should look uniform. Historical detail below.
 
 <details><summary>How they got here (Aug 14 note)</summary>
 
@@ -42,12 +58,32 @@ PDF. **Also open:** L4 **Philippians (`3MB-44`)** — captioned (Feb) + filed al
 **2) Webflow marketing surfaces — public landing + logged-in "My Lessons" portal.**
 **Canonical embed code now lives in [`webflow-embeds/`](webflow-embeds/)** (`landing.html`, `portal.html`,
 `README.md`) — do NOT reconstruct it. Built from Canva **`DAHRnlJvmA4`** (shortlink
-`canva.link/l2565l075ywv8cs`), pages 5-10. New assets in `assets/` (`sss-landing-hero-v3`,
-`sss-landing-getstarted-v2`, `sss-landing-packets-v3`, `sss-portal-hero-v3`, `sss-portal-letslearn`,
-`sss-portal-tile-bbs`, `sss-portal-tile-women`). The personalized greeting uses self-hosted **Thierry
-Leonie** (`engine/assets/fonts/thierry.woff2`, CORS via repo `_headers`; sizing factor **0.0443** —
-Thierry caps are 96% of the em). Landing (hero / get-started / choose-packet) + portal (hero /
-let's-learn / your-packets) are DONE except the open issue:
+`canva.link/l2565l075ywv8cs`). **CURRENT assets in `assets/`** (older versions superseded — use these
+exact names): landing = `sss-landing-hero-v3`, `sss-landing-getstarted-v2`, `sss-landing-packets-v3`;
+portal = `sss-portal-hero-v3`, `sss-portal-letslearn-v2`, `sss-portal-header-v2`,
+`sss-portal-tile-bbs-v3`, `sss-portal-tile-women-v3`. The personalized greeting uses self-hosted
+**Thierry Leonie** (`engine/assets/fonts/thierry.woff2`, CORS via repo `_headers`). **Sizing factor is
+per-band and must be RE-MEASURED whenever the art changes** — Thierry caps are 96% of the em, so
+factor = (baked cap-height / imgWidth) / 0.96. The current compact band (`sss-portal-letslearn-v2`,
+2400x750) uses **`clientWidth * 0.0269`**; the older 2400x1000 band used 0.0443. Landing (hero /
+get-started / choose-packet) + portal (hero / let's-learn / your-packets) are built. **Two things are
+waiting on Emily, and nothing changes on the live site until she does them:**
+   - **⚠ PASTE THE SECTION-3 EMBED.** The rebuilt "Your Packets" code sits in
+     [`webflow-embeds/portal.html`](webflow-embeds/portal.html) but has **not** been pasted into the
+     Webflow embed yet.
+   - **⚠ THE `SSSThierry` FONT ISSUE IS STILL OPEN** (portal section 2). The live "LET'S LEARN, NAME"
+     text fell back to a system font on Emily's Webflow page. Playwright proved the Netlify font loads
+     fine cross-origin (200, `Access-Control-Allow-Origin: *`), so it is **Webflow-environment-specific**
+     — either a CSP on `candlerfoundry.emory.edu` blocking the cross-origin font, or a conflicting
+     "Thierry Leonie" already in Webflow. The shipped fix renames the `@font-face` to a unique
+     **`SSSThierry`** so it cannot clash, and falls back to `'Thierry Leonie'`. **Emily to do:** upload
+     `thierry.woff2` to **Webflow → Project Settings → Fonts** named exactly **"Thierry Leonie"** (serves
+     it same-origin, CSP-proof). **If it is still wrong after that upload it IS a CSP** — have her open
+     the live page console (F12) and look for a red CSP / `thierry.woff2` / `netlify` error.
+     **LESSON: always test the DEPLOYED setup via Playwright; a local same-origin @font-face test hides
+     CORS/CSP problems.**
+
+Section-3 detail:
    - **✅ REBUILT (2026-08-17) — portal "Your Packets" (section 3) now matches the landing page.**
      Emily: the logged-in band looked "sad and empty". Causes, all measured: each tile PNG carried
      **46-73px of baked white padding** on top of the CSS padding; a lone owned tile was capped at
@@ -67,13 +103,23 @@ let's-learn / your-packets) are DONE except the open issue:
      "Printable PDF" pill has a baked drop shadow the *BBS* tile lacks.
 
 **3) Women packet — Emily's copy review is DONE and shipped (2026-08-17).** She reworked all six
-lessons in Canva **`DAHOtl4BNMk` pages 19-30** (shortlink `canva.link/acnz1mieryl38ts`) — note the
-range MOVED (it was 8-19), so **always re-read the design, never trust stored page numbers**. All 12
-pages were re-exported, verified, and pushed; `content.js` was re-synced to the art; and the printable
-PDF was re-cut in the **Beyond Bumper Stickers format** via the new **`tools/make_women_pdf.py`**.
-See "Packet #2" below for the full detail. **Remaining on this packet:** the Vimeo `videoUrl`s for
-L1/L3/L4/L5 are wired, **L6 (Widow, 3MB-280) is still held** with no master, and the letter +
-packet-wide prayer pass are still Emily's open items.
+lessons in Canva **`DAHOtl4BNMk` pages 19-30** (shortlink `canva.link/acnz1mieryl38ts`) — the range
+**MOVED** (it was 8-19), so **always re-read the design; never trust stored page numbers**. All 12 pages
+were re-exported, verified and pushed; `content.js` was re-synced to the art; hotspots were re-measured;
+and the printable PDF was re-cut in the Beyond Bumper Stickers format. See "Packet #2" below for the
+per-lesson list of what changed. **Still open on this packet:** **L6 (Widow, `3MB-280`) video** —
+master held; and the **letter + a packet-wide prayer pass**, which are Emily's own writing items.
+
+**Everything that is genuinely still open, in one place:**
+
+| # | Item | Owner | Where |
+|---|---|---|---|
+| 1 | Paste the section-3 embed into Webflow | Emily | `webflow-embeds/portal.html` |
+| 2 | Upload `thierry.woff2` to Webflow Fonts as "Thierry Leonie" | Emily | portal section 2 |
+| 3 | Women L6 Widow video (`3MB-280`) — master still held | production | 3MB pipeline |
+| 4 | Women letter + packet-wide prayer pass | Emily | `content.js` |
+| 5 | Re-caption `3MB-44` at medium so captions match the other nine (optional) | Claude, on request | 3MB pipeline |
+| 6 | Webflow URL reorg + exec-dashboard SSS card | Emily / Claude | see "Carried-forward" below |
 
 ---
 
@@ -148,6 +194,39 @@ Render the changed pages and eyeball them before committing:
   ALSO keep `fit()`'s `SPINE_W`/`TAB_W` constants in sync with the CSS variables —
   they drifted once (96 vs 132) and silently squeezed every margin. Verify at
   1536x816, 1280x680, 1920x1080, and iPad 1180x820 minimum.
+
+**Traps that have actually cost time here — check these first (added 2026-08-17):**
+
+- **Editing `content.js` — do NOT hand-edit or blind-rewrite it.** Parse the JSON out of
+  `window.BBS_CONTENT = {...};` and re-emit through a **format-preserving serializer**, then assert the
+  round-trip is **byte-identical BEFORE applying any change**. Do that and the diff contains only real
+  edits. Gotcha: the two packets were hand-formatted **oppositely** — the Women file keeps
+  `pageImages` / `hotspots` collapsed on one line, BBS keeps them expanded, and BBS keeps
+  `meta.letter.quotes` multi-line — so the writer must sniff the original text per file. When sniffing,
+  match **same-line** patterns (`[^\S
+]*`, i.e. horizontal space only); a plain `\s*` spans newlines and
+  will happily "detect" the expanded form as compact.
+- **Re-measure the Women lesson hotspots after EVERY re-export**, and beware the detector trap: the
+  outer **gold page frame** is itself a full-height gold rule, so a naive scan locks onto the page frame
+  (x71/x1547) instead of the scripture box (x142/x1476). Filter out columns whose gold run spans the page,
+  then take the rule-pair whose interior is empty. Also **the six pages are not identical** — the Widow's
+  opening prayer is 3 lines instead of 5, so her boxes sit ~0.7% higher and she needs her own values.
+  Always confirm with a drawn overlay before trusting numbers.
+- **Verifying a PDF:** check with PyMuPDF for **both** out-of-bounds blocks **and overlapping** blocks —
+  an overlap is how the end-page URL collision hid (nothing was outside the frame, two things were simply
+  on top of each other). Then render every page and actually look at it.
+- **Testing "the PDF opens in a pop-out":** headless Chromium has **no PDF viewer**, so *any* navigation
+  to a PDF is reported as a **download**. That is a test artifact, not a bug. Prove the behaviour by
+  intercepting `window.open` and asserting the URL, window name and feature string, plus
+  `event.defaultPrevented`.
+- **GitHub's blob endpoint 503s intermittently.** `POST /git/blobs` can return
+  *"No server is currently available to service your request"* with no rate-limit headers, sometimes for
+  many minutes on one file while other pushes succeed. Retry with backoff; if it stays down, fall back to
+  the **Contents API** (`PUT /repos/.../contents/<path>` with the file's current `sha`), which is a
+  different code path and has worked when Git Data was failing.
+- **Writing Windows paths into docs from a script:** use `chr(92)` or raw strings. A non-raw Python
+  literal turned `\\3MB` into a `0x03` control character and silently corrupted a README line to
+  `\DropboxMBMB VideosMB-44`. Scan for control characters (`ord(ch) < 32`) before pushing prose.
 
 ---
 
@@ -677,19 +756,18 @@ the "Orphan, Widow, and Stranger" optional, still pending) · the printable PDF 
 Foxy/portal access (below).
 
 **PDF re-cut in the BBS format — DONE (2026-08-17).** Emily asked for the Women printable packet to
-follow the **same design/format as Beyond Bumper Stickers**, so `tools/make_women_pdf.py` is a sibling
-of `tools/make_pdf.py` with the identical layout (no graph paper/icons/header art; thin page border,
-outlined section boxes, Thierry question numbers, Hello-Handmade display + Mulish body; scripture
-QR+link on every lesson, video QR+link when `videoUrl` is set else a "coming soon" note). **Only the
-palette differs**, echoing this packet's own art the way the BBS PDF echoes its own: mustard **GOLD
-`#B8860B`** where BBS uses red, brown **`#6D4F26`** where BBS uses smoky, navy body ink. It also adds
-two things BBS doesn't need: the Additional Resources page **paginates** (this packet has 3 optional
-videos + 4 optional readings = 2 pages), and it renders **`optionalReadings`** as well as
-`optionalVideo`. **It supersedes `tools/make_women_pdf.js`** (kept only for reference). Output = 18
-pages, verified with PyMuPDF for out-of-bounds AND overlapping text blocks (0 of each) and eyeballed
-page by page. Cover embeds at full 1632x2112; the file is ~394KB (down from ~1MB) purely because the
-fonts are now subset. **Read the font-instancing warning in the BBS PDF section above before re-cutting
-anything.**
+follow the **same design/format as Beyond Bumper Stickers**. It now literally does: the layout lives in
+the shared **[`tools/packet_pdf.py`](tools/packet_pdf.py)** and `tools/make_women_pdf.py` is a thin
+wrapper that only selects the `women` palette (mustard **GOLD `#B8860B`** where BBS uses red, brown
+**`#6D4F26`** where BBS uses smoky, same navy body ink — each packet's PDF echoes its own art).
+**It supersedes `tools/make_women_pdf.js`**, which is kept only for reference. Two behaviours this
+packet needs and BBS doesn't: the Additional Resources page **paginates** (3 optional videos + 4 optional
+readings), and it renders **`optionalReadings`** as well as `optionalVideo`.
+**Output = 19 pages** (it grew by one when Emily's larger type pushed Shiphrah & Puah's questions onto a
+"Discussion Questions (cont.)" page — the pagination is automatic, and the closing prayer stays with the
+last question). Verified with PyMuPDF for out-of-bounds AND overlapping text blocks (0 of each) and
+eyeballed page by page. Cover embeds at full 1632x2112; the file is ~397KB (down from ~1MB) purely
+because the fonts are now subset. **Read the font trap in "The PDF" section before re-cutting anything.**
 
 ## Access / registration + portal model (packets)
 
@@ -942,31 +1020,26 @@ at checkout (SSS-only optional gift; see the Foxy checkout section above). **Rem
 Upgrade path if leakage ever matters (not built): a Netlify Edge Function checking a Foxy JWT +
 per-product entitlement.
 
-## Next session — Monday 2026-08-10 (START HERE)
+## Carried-forward open items (was "Next session — Monday 2026-08-10")
 
-Priorities set by Emily on 2026-08-07 (she'll open a fresh chat). Do them in this order.
-Cross-cutting rules: **GitHub `main` is source of truth**; author in a native temp dir, `node --check`
-any JS, push via the Git Data API, verify byte parity. **Re-cut the affected PDF and re-verify with
-Playwright screenshots after any content change.** Remember the split brains: **Women packet's VISIBLE
-flipbook pages are Canva art** (`pageImages`, Canva design `DAHOtl4BNMk`, pages 8–19) — `content.js` is
-only the PDF source + written record; **BBS is engine-rendered from `content.js`** so editing it changes
-the flipbook AND the PDF.
+**The ▶ START HERE block at the top of this file is the current state — read that first.** The items
+below are what is left from Emily's 2026-08-07 priority list. Cross-cutting rules still apply: **GitHub
+`main` is source of truth**; author in a native temp dir, `node --check` any JS, push via the Git Data
+API, verify byte parity; **re-cut the affected PDF and re-verify after any content change.** Remember
+the split brains: the **Women packet's VISIBLE flipbook pages are Canva art** (`pageImages`, design
+`DAHOtl4BNMk`, **pages 19-30** as of 2026-08-17) so `content.js` there is only the PDF source + written
+record, while **BBS is engine-rendered from `content.js`** so editing it changes the flipbook AND the PDF.
 
-1. **TOP PRIORITY — clean up the copy of the flipbooks and PDFs** (both packets, lesson by lesson:
-   prayers, questions, scripture intros, letter, tile/packet descriptions; fix typos).
-   - **Beyond Bumper Stickers:** edit `packets/beyond-bumper-stickers/content.js` → updates the flipbook
-     AND is the PDF source → re-run **`tools/make_pdf.py`** (reportlab). Known open item: lesson 4 header
-     **art reads "Through Christ" but `title`/TOC say "Through Him"** — decide one and make them match
-     (art fix = re-export the header image; text fix = `content.js`).
-   - **Gospel According to the Women:** the visible flipbook copy is in **Canva `DAHOtl4BNMk`** — to change
-     what readers see, edit Canva → `export-design` the affected page(s) → verify PNG sig + `IEND` + PIL
-     decode → **re-measure the scripture/video hotspots** → push to `packets/gospel-according-to-the-women/assets/pages/`.
-     Also reconcile `content.js` to match, then re-run **`tools/make_women_pdf.js`** (playwright-core HTML→PDF)
-     so the PDF matches. (Its letter + a packet-wide prayer pass were the last known draft items.)
-   - Tidy the landing/portal **Canva slide-4 typo** ("below Perfect for groups" → add the period) in Canva
-     `DAHRnlJvmA4` if that art is reused; the live portal HTML already reads correctly.
+1. ~~**Clean up the copy of the flipbooks and PDFs.**~~ **✅ DONE.** BBS copy was cleaned Aug 13 (incl.
+   the old lesson-4 "Through Him"/"Through Christ" mismatch — the title is now **"I Can Do All Things
+   Through Christ"** and BBS is image-based, so there is no separate header art to reconcile). The Women
+   packet's full copy rework shipped **2026-08-17** (Canva pages 19-30 → art + `content.js` + PDF).
+   Both PDFs were re-cut 2026-08-17 with Emily's larger type. Only her letter + prayer pass remain.
+   - Still worth doing if that art is ever reused: the landing/portal **Canva slide-4 typo**
+     ("below Perfect for groups" → add the period) in `DAHRnlJvmA4`; the live portal HTML already reads
+     correctly.
 
-2. **Clean up the URL folders on Webflow.** **Plan set Aug 10 2026 (with Emily):** the
+2. **Clean up the URL folders on Webflow.** *(still open)* **Plan set Aug 10 2026 (with Emily):** the
    **landing/register page moves OUT of the `sss` folder to top-level `/sunday-school-simplified`** —
    Webflow folders can't have an index page of their own, which is exactly why the landing was awkwardly
    nested at `/sss/sunday-school-simplified`. Top-level makes it the clean public front door. It's
@@ -984,13 +1057,15 @@ the flipbook AND the PDF.
    - (Reminder: the wrapper iframe `src` is fixed, so `/sss/<slug>?lesson=N` deep links don't pass through
      unless a one-line script appends `location.search` to the iframe `src`.)
 
-3. **Update the Additional Resources sections** (both flipbooks + PDFs). The Additional Resources spread
-   is **engine-rendered from `content.js`** (`optionalVideo` + `optionalReadings`) for BOTH packets — even
-   the Women packet (only its lesson pages are Canva art, not the resources spread). So edit `content.js`
-   → re-cut the PDF. Still-pending inputs: several **Vimeo `optionalVideo` links** (e.g. "Orphan, Widow,
-   and Stranger" under Hannah + Zelophehad; "Background to the Exodus"). Ask Emily what to add/refresh.
+3. **Update the Additional Resources sections** *(partly open)*. The spread is **engine-rendered from
+   `content.js`** (`optionalVideo` + `optionalReadings`) for BOTH packets — even the Women packet (only
+   its lesson pages are Canva art, not the resources spread). So edit `content.js` → re-cut the PDF.
+   **"Background to the Exodus" is no longer pending** — it is live as the Women L3 lesson video
+   (`1214331923`). Still missing: the **"Orphan, Widow, and Stranger"** optional video, stubbed with an
+   empty `url` under BOTH Hannah and Zelophehad, which renders as a "coming soon" note box. Ask Emily
+   whether that one exists yet.
 
-4. **LOWER — rewire the Executive dashboard SSS card to the flipbooks.** Repo
+4. **LOWER — rewire the Executive dashboard SSS card to the flipbooks.** *(still open)* Repo
    `candlerfoundry/executive-bi-dashboard` (local `C:\Scripts\executive-bi-dashboard`, prod
    `candlerfoundry.netlify.app`) — **read its `CANONICAL.md` first**; separate repo + push flow. The
    "Sunday School Simplified" offering card currently maps to the `graphic-1-reader-presenter.png`
@@ -1002,31 +1077,63 @@ Memory (Cowork) also carries this: `project-sss-landing-portal` + `reference-fox
 
 ## The PDF (secondary, print-friendly product)
 
-**Rebuilt July 2026** in the binder-era design (generator: `tools/make_pdf.py`, which
-documents the full re-cut procedure). US Letter, 17 pages: full-color cover, ink-light
-interior (white bg, navy text, outlined boxes, red hand-drawn icons), letter, contents
-(+rhythm strip), two pages per lesson with Emily's header art, additional resources,
-Foundry end page with NRSVUE attribution. Each lesson: **scripture = hyperlink + QR to
-the exact Bible Gateway NRSVUE passage**; **video = Vimeo link + QR when
-`videoUrl`/`optionalVideo.url` is set, otherwise a "coming soon" note with no QR**
-(Emily prefers Vimeo links over flipbook deep-links in print). **Re-cut the PDF when
-the Vimeo URLs land in content.js.** The engine's `?lesson=N` deep links remain
-available for sharing even though the PDF no longer uses them.
+Each packet ships a printable US-Letter PDF alongside the flipbook. **As of 2026-08-17 the layout lives
+in ONE shared module — [`tools/packet_pdf.py`](tools/packet_pdf.py)** — and `tools/make_pdf.py` (BBS) and
+`tools/make_women_pdf.py` (Women) are thin wrappers that do nothing but pick a palette. That was
+deliberate: Emily wants the two packets consistent, and they had already drifted once. **Edit the shared
+module, never one packet's copy of the layout.** `tools/make_women_pdf.js` (the old playwright-core
+HTML→PDF pipeline) is **superseded** and kept only for reference.
 
-**The Gospel According to the Women PDF — built July 2026** (`The Gospel According to the
-Women.pdf`, 17 pages). Same ink-light, print-friendly philosophy, but a **separate
-generator** (`tools/make_women_pdf.js`) because this packet has the mustard/brown facelift
-and extra fields. It's an **HTML-to-PDF** pipeline (a print-optimized page rendered by
-headless Chromium via `playwright-core` + `qrcode`) rather than BBS's reportlab — no font
-conversion needed, reuses the packet's own webfonts (Hello Handmade / Mulish) and palette
-(gold `#B8860B` headings, brown `#6d4f26` ink, white pages). Full-color Canva cover; clean
-text lesson headers (the flipbook's headers are baked into the full-page art, so the PDF
-draws its own eyebrow + gold title + reference + rule); QR+link scripture (Bible Gateway
-NRSVUE) and videos; `funFact` "Did you know?" notes; Additional Resources cards for
-`optionalVideo`/`optionalReadings`. Content comes straight from `content.js`, which is kept
-synced to the Canva art (prayers + questions + letter), so the **PDF matches the flipbook**.
-**Re-cut when the art/content or videoUrls change** (procedure in the script header). Only
-lesson 2 currently has a live Vimeo QR; the rest show "coming soon."
+**Current output:** Beyond Bumper Stickers **17 pages**, The Gospel According to the Women **19 pages**
+(its resources spread and one questions page run long). Structure is identical: full-color Canva cover,
+letter, contents (+ rhythm strip), two pages per lesson, Additional Resources (paginates), Foundry end
+page with the NRSVUE notice.
+
+**Palettes** (`PALETTES` in the module) — each packet's PDF echoes its OWN art, which is why they differ:
+
+| | accent (border, numerals, rules, links) | secondary (eyebrows, refs, footers) | body ink |
+|---|---|---|---|
+| `bbs` | red `#FB1616` | `#2F5972` | navy `#0A274C` |
+| `women` | mustard gold `#B8860B` | brown `#6D4F26` | navy `#0A274C` |
+
+**Type scale — Emily's brief (2026-08-17):** *"the font could generally be bigger… at least consistent
+with 12 point Times New Roman… a lot of users will be older and we should make this as user-friendly and
+readable as possible."* That floor was met by measurement, not eyeball: Times New Roman's x-height is
+**0.4473 em** (5.37pt at 12pt) and Mulish's is **0.5000 em**, so questions + prayers are set at **13pt**
+(6.50pt x-height = **121% of 12pt Times**), prose at 12pt, box titles 13.5, captions 11, section labels
+16.5. **Never set Mulish below ~10.75pt or you drop under her floor.**
+
+**Other rules baked into the module — do not regress these:**
+- **Question numerals are vertically centred on their question block.** They used to sit at the top of
+  multi-line questions and Emily flagged it. Thierry's digits centre **0.469 em above the baseline**
+  (`THIERRY_DIGIT_CENTRE`); that constant is what makes them look true rather than roughly centred.
+- **Video boxes print the Vimeo URL as text** beside the QR — a printed packet has to be usable without
+  a phone. Both the QR and the printed link point at **`vimeo.com/<id>`**, never the bare
+  `player.vimeo.com` embed (that URL is an embed target, not a page a human should land on).
+  Bible Gateway URLs are deliberately **not** printed: they are 90+ character encoded query strings that
+  wrap badly and cannot be typed. Scripture keeps QR + hyperlink only.
+- **Boxes size themselves from their content and question pages paginate** ("Discussion Questions
+  (cont.)"), so a type-size bump can never silently overflow.
+- A lesson with no `videoUrl` renders a **"coming soon" note box with no QR** instead of a link box.
+
+**Re-cut procedure** (also in the module header): `pip install reportlab qrcode pillow fonttools brotli
+cu2qu pymupdf`; put `content.json` (the `window.BBS_CONTENT` object dumped from that packet's
+`content.js`), `cover.png` and `fonts/` beside the wrapper; run it; **verify with PyMuPDF for BOTH
+out-of-bounds and overlapping text blocks, then eyeball every page**; push. Re-cut whenever the art,
+copy, or `videoUrl`s change.
+
+> ### ⚠ The font trap — read before any re-cut
+> `fonts/Mulish-normal-500/700/800.ttf` and `Mulish-italic-500.ttf` must be **real static instances** of
+> the google/fonts variable font. The copies reused for months were **not**: they still carried an `fvar`
+> table with `usWeightClass 200`, and 500 and 700 were **byte-identical**. reportlab therefore rendered
+> **every Mulish weight as ExtraLight** — body, bold and extra-bold all the same thin stroke — and it
+> shipped undetected. Much of Emily's "the font is too small" complaint was actually this.
+> **Fix:** `fontTools.varLib.instancer.instantiateVariableFont(f, {"wght": N})` per weight, then set
+> `OS/2.usWeightClass`. **Verify:** no `fvar`, correct `usWeightClass`, and the `I` stem width differs
+> per weight (**93 / 129 / 156** units at 500 / 700 / 800). Correct weights are also *wider*, so re-check
+> page fit after fixing — that is exactly what pushed the end-page blurb from 2 lines to 3 and made it
+> collide with a fixed-y URL (the module now flows that URL from the paragraph's real bottom).
+> Prepared TTFs persist in old session scratchpads, but **re-instance the Mulish ones before trusting them.**
 
 ## Adding a new packet
 
