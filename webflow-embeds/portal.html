@@ -14,15 +14,19 @@
 
 
 <!-- ############### PORTAL BLOCK 2 of 3 — LET'S LEARN, [NAME] ############### -->
+<!-- Font: uses a UNIQUE @font-face name ('SSSThierry') so it can't clash with any font
+     already in Webflow. Falls back to 'Thierry Leonie' — so if your domain's CSP blocks the
+     Netlify-hosted font, uploading thierry.woff2 to Webflow as "Thierry Leonie" makes it work
+     same-origin. -->
 <style>
-  @font-face{font-family:'Thierry Leonie';
+  @font-face{font-family:'SSSThierry';
     src:url('https://sundayschoolsimplified.netlify.app/engine/assets/fonts/thierry.woff2') format('woff2');
-    font-weight:400 800;font-display:block;}
+    font-weight:400 800;font-display:swap;}
   .sss-ll{position:relative;width:100%;line-height:0}
   .sss-ll>img{width:100%;display:block}
   .sss-ll .ll-name{position:absolute;left:52%;right:14%;bottom:69%;
     white-space:nowrap;line-height:1;color:#1e2530;
-    font-family:'Thierry Leonie','Poppins',Arial,sans-serif;font-weight:800;letter-spacing:.005em}
+    font-family:'SSSThierry','Thierry Leonie','Poppins',Arial,sans-serif;font-weight:800;letter-spacing:.005em}
   .sss-ll .ll-src{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
   .sss-ll a.hs{position:absolute;display:block}
 </style>
@@ -50,6 +54,7 @@
     new MutationObserver(function(){apply(src.textContent)}).observe(src,{childList:true,characterData:true,subtree:true});
     addEventListener('resize',function(){apply(src.textContent)});
     addEventListener('load',function(){apply(src.textContent)});
+    if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){apply(src.textContent)});} // re-fit once the font loads
     apply(src.textContent);
   })();
 </script>
