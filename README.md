@@ -21,9 +21,9 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 **1) BBS videos — ✅ 283/287/288 PUBLISHED + WIRED (2026-08-17).** Emily approved and asked for them
 embedded, so they were uploaded public, wired into `content.js`, written to Airtable, and both PDFs
 re-cut. **L1 = 1218983605, L5 = 1218983645, L6 = 1218983700.** The only BBS lesson still without a
-video is **L4 Philippians (`3MB-44`)** — captioned in Feb and filed, never uploaded; Emily still owes
-a decision on **upload-as-is vs re-caption at medium**. The Women packet's **L6 (Widow, `3MB-280`)**
-also remains empty — that master is genuinely held. Historical detail below.
+video is — none. **✅ L4 Philippians (`3MB-44`) went up 2026-08-17 too** (Emily: upload as-is), so
+**all six BBS lessons now have an embedded video**. The Women packet's **L6 (Widow, `3MB-280`)** is the
+only empty slot left across both packets — that master is genuinely held. Historical detail below.
 
 <details><summary>How they got here (Aug 14 note)</summary>
 
@@ -445,8 +445,17 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
   on-screen slide titles with **no series suffix**, per Emily. All three transcoded, `anybody`/public
   embed. Airtable `Transcript` (proofed, overwriting the draft) + `Vimeo Link` updated for each; note
   the whole batch stays **Status = Draft**, matching the six published in July (Status is not tracking
-  publication). **Only L4 Philippians (`3MB-44`) is still unwired** — it is captioned + filed but has
-  never been uploaded, and Emily's open decision is upload-as-is vs re-caption at medium. (Draft on-brand **title cards** for 283/287/288 were designed +
+  publication). **✅ L4 Philippians (`3MB-44`) is now wired too** — `player.vimeo.com/video/1218993379`.
+  Emily said upload as-is, so the **February captioned master** went up unchanged from
+  `…\Dropbox\3MB\3MB Videos\3MB-44 - Did the biblical texts…\…Horizontal (Captioned).mp4`
+  (byte-parity verified off the mount; 1920×1080 h264, 3:29). Its Vimeo **title comes from the Airtable
+  `Name`** — *"Did the biblical texts have chapters, verses, and section headings?"* — because unlike
+  283/287/288 this video has no short on-screen slide title; rename it if that reads long. Airtable got
+  the **Vimeo Link only** (its `Transcript` was already final and `Status` already Complete).
+  **⚠ Caption-style mismatch:** this master uses the **February** style (up to 3 lines, different
+  placement) rather than the v2 **≤2-line** standard the other nine use. Re-caption at medium and
+  re-burn if the packet should look uniform. **The Dropbox URL is in Airtable** (`Video - Dropbox URL
+  (Captioned)` / `Final Dropbox URL`) if the local copy is ever missing. (Draft on-brand **title cards** for 283/287/288 were designed +
   handed to Emily with an `ffmpeg` overlay command that preserves the voiceover.)
 
 **PDF v3 — DONE (2026-08-17), Emily's readability pass.** The layout now lives in ONE shared module,
