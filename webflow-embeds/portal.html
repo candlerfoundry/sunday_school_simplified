@@ -20,32 +20,31 @@
     font-weight:400 800;font-display:block;}
   .sss-ll{position:relative;width:100%;line-height:0}
   .sss-ll>img{width:100%;display:block}
-  .sss-ll .ll-name{position:absolute;left:58.4%;right:10%;top:0;height:28.3%;
-    display:flex;align-items:flex-end;justify-content:flex-start;overflow:hidden}
-  .sss-ll .ll-name .t{white-space:nowrap;line-height:.86;color:#1e2530;
+  .sss-ll .ll-name{position:absolute;left:52%;right:14%;bottom:69%;
+    white-space:nowrap;line-height:1;color:#1e2530;
     font-family:'Thierry Leonie','Poppins',Arial,sans-serif;font-weight:800;letter-spacing:.005em}
   .sss-ll .ll-src{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
   .sss-ll a.hs{position:absolute;display:block}
 </style>
 <div class="sss-ll">
-  <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-letslearn.png"
+  <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-letslearn-v2.png"
        alt="Let's learn — your lessons are below. Log in if you don't see them, or browse more lessons.">
   <span class="ll-src" foxy-logic-display="customer-first-name"></span>
   <span class="ll-name"><span class="t" id="llText">FRIEND</span></span>
-  <a class="hs" href="/customer-portal/account"  style="left:52.5%;top:66%;width:8.5%;height:6%"  aria-label="Log in"></a>
-  <a class="hs" href="/sunday-school-simplified" style="left:64%;top:77%;width:7.5%;height:6%" aria-label="Browse available lessons"></a>
+  <a class="hs" href="/customer-portal/account"  style="left:52.5%;top:67%;width:6.5%;height:6%"  aria-label="Log in"></a>
+  <a class="hs" href="/sunday-school-simplified" style="left:60%;top:76.5%;width:8%;height:6%" aria-label="Browse available lessons"></a>
 </div>
 <script>
   (function(){
     var MAXLEN=16, MIN_RATIO=0.62;
-    function base(){ return document.querySelector('.sss-ll').clientWidth*0.0443; } // matches baked heading cap-height
+    function base(){ return document.querySelector('.sss-ll').clientWidth*0.0269; } // matches new compact heading cap-height
     function apply(raw){
       var box=document.querySelector('.sss-ll .ll-name'), t=document.getElementById('llText');
       var n=(raw||'').trim(), b=base();
       t.textContent=(!n||n.length>MAXLEN) ? 'FRIEND' : n.toUpperCase();
       t.style.fontSize=b+'px';
       var s=b, m=b*MIN_RATIO, g=0;                       // shrink-to-fit (applies to FRIEND too)
-      while(t.scrollWidth>box.clientWidth && s>m && g<90){ s-=1; t.style.fontSize=s+'px'; g++; }
+      while(box.scrollWidth>box.clientWidth && s>m && g<90){ s-=1; t.style.fontSize=s+'px'; g++; }
     }
     var src=document.querySelector('.sss-ll .ll-src');
     new MutationObserver(function(){apply(src.textContent)}).observe(src,{childList:true,characterData:true,subtree:true});
