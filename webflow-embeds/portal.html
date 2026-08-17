@@ -61,44 +61,57 @@
 
 
 <!-- ############### PORTAL BLOCK 3 of 3 — YOUR PACKETS (gated per-packet) ############### -->
-<!-- Tiles = Emily's isolated Canva tiles (design DAHRnlJvmA4 pages 11/12), baked on WHITE.
-     Keep the section background WHITE so the tiles blend seamlessly. To use a colored
-     background, re-export the tiles on that color (or ask Claude to re-crop + add CSS shadow). -->
+<!-- Tiles are now background-INDEPENDENT: cropped tight to Emily's card with transparent
+     rounded corners (v3), so the section can use the landing page's lavender field.
+     To go back to a plain white section, set --pk-bg:#fff below. Nothing else changes. -->
 <style>
-  .pk3{background:#ffffff;padding:34px 4% 46px;color:#24364b}
+  .pk3{--pk-bg:#DFE6F4;            /* matches SSS landing "Choose your packet" */
+       --pk-card:45.6%;            /* card width, landing proportion */
+       --pk-gap:3.25%;
+       background:var(--pk-bg);color:#24364b;padding:1.7% 2.6% 4.1%}
   .pk3 *{box-sizing:border-box}
-  .pk3 .pk-head-img{display:block;width:100%;max-width:1180px;height:auto;margin:0 auto 20px}
-  .pk3 .pk-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;max-width:1180px;margin:0 auto}
-  .pk3 .pk-grid>div{flex:1 1 500px;max-width:560px}
-  .pk3 .tile{position:relative;width:100%;line-height:0}
+  .pk3 .pk-head{display:block;width:38%;min-width:250px;max-width:700px;height:auto;margin:0 auto 4.2%}
+  .pk3 .pk-grid{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
+       gap:var(--pk-gap);margin:0 auto}
+  .pk3 .pk-cell{flex:0 1 var(--pk-card);max-width:1095px;min-width:0}
+  .pk3.pk-one .pk-cell{flex-basis:62%}          /* a lone packet reads as a feature card */
+  .pk3 .tile{position:relative;width:100%;line-height:0;
+       filter:drop-shadow(0 12px 24px rgba(24,36,64,.20))}
   .pk3 .tile img{width:100%;display:block}
-  .pk3 .tile a{position:absolute;display:block}
-  @media (max-width:980px){.pk3 .pk-grid>div{flex-basis:100%}}
+  .pk3 .tile a{position:absolute;display:block;border-radius:99px}
+  .pk3 .tile a:focus-visible{outline:3px solid #0A274C;outline-offset:3px}
+  @media (max-width:900px){
+    .pk3{padding:4% 5% 7%}
+    .pk3 .pk-head{width:66%;margin-bottom:6%}
+    .pk3 .pk-cell,.pk3.pk-one .pk-cell{flex-basis:100%}
+    .pk3 .pk-grid{gap:6%}
+    .pk3 .tile a{top:78.3%!important;height:14%!important}   /* bigger tap targets */
+  }
 </style>
-<div class="pk3">
-  <img class="pk-head-img" src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-header.png"
-       alt="Your Packets — each includes six lessons, online & printable.">
+<div class="pk3" id="pk3">
+  <img class="pk-head" src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-header-v2.png"
+       alt="Your Packets — each includes six lessons, online &amp; printable.">
   <div class="pk-grid">
 
-    <div foxy-logic-transaction-includes="SSS-BEYONDBUMPER">
+    <div class="pk-cell" foxy-logic-transaction-includes="SSS-BEYONDBUMPER">
       <div class="tile">
-        <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-tile-bbs-v2.png"
-             alt="Beyond Bumper Stickers — Volume 1, six lessons, online & printable.">
+        <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-tile-bbs-v3.png"
+             alt="Beyond Bumper Stickers — Volume 1, six lessons, online &amp; printable.">
         <a href="/sss/beyond-bumper-stickers"
-           style="left:52.5%;top:75.5%;width:17%;height:7.5%" aria-label="Open Beyond Bumper Stickers booklet"></a>
+           style="left:55.4%;top:80.5%;width:19.6%;height:9.5%" aria-label="Open the Beyond Bumper Stickers booklet"></a>
         <a href="#" onclick="return sssPDF('https://sundayschoolsimplified.netlify.app/packets/beyond-bumper-stickers/Beyond%20Bumper%20Stickers.pdf')"
-           style="left:69.5%;top:75.5%;width:17.5%;height:7.5%" aria-label="Beyond Bumper Stickers printable PDF"></a>
+           style="left:75.4%;top:80.5%;width:19.8%;height:9.5%" aria-label="Beyond Bumper Stickers printable PDF"></a>
       </div>
     </div>
 
-    <div foxy-logic-transaction-includes="SSS-GOSPELWOMEN">
+    <div class="pk-cell" foxy-logic-transaction-includes="SSS-GOSPELWOMEN">
       <div class="tile">
-        <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-tile-women-v2.png"
-             alt="The Gospel According to the Women — Volume 2, six lessons, online & printable.">
+        <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-tile-women-v3.png"
+             alt="The Gospel According to the Women — Volume 2, six lessons, online &amp; printable.">
         <a href="/sss/gospel-according-to-the-women"
-           style="left:52.5%;top:75.5%;width:17%;height:7.5%" aria-label="Open The Gospel According to the Women booklet"></a>
+           style="left:55.4%;top:80.5%;width:19.6%;height:9.5%" aria-label="Open The Gospel According to the Women booklet"></a>
         <a href="#" onclick="return sssPDF('https://sundayschoolsimplified.netlify.app/packets/gospel-according-to-the-women/The%20Gospel%20According%20to%20the%20Women.pdf')"
-           style="left:69.5%;top:75.5%;width:17.5%;height:7.5%" aria-label="The Gospel According to the Women printable PDF"></a>
+           style="left:75.4%;top:80.5%;width:19.8%;height:9.5%" aria-label="The Gospel According to the Women printable PDF"></a>
       </div>
     </div>
 
@@ -106,4 +119,19 @@
 </div>
 <script>
   function sssPDF(url){ window.open(url,'sssPdf','width=980,height=1150,scrollbars=yes,resizable=yes'); return false; }
+  (function(){
+    function sync(){                         // foxy-logic reveals tiles asynchronously
+      var secs=document.querySelectorAll('.pk3');
+      for(var s=0;s<secs.length;s++){
+        var cells=secs[s].querySelectorAll('.pk-cell'), shown=0;
+        for(var i=0;i<cells.length;i++){ if(cells[i].offsetParent!==null) shown++; }
+        secs[s].classList.toggle('pk-one', shown===1);
+      }
+    }
+    new MutationObserver(sync).observe(document.body,{attributes:true,subtree:true,
+      attributeFilter:['style','class','hidden']});
+    addEventListener('resize',sync); addEventListener('load',sync);
+    var n=0, t=setInterval(function(){ sync(); if(++n>20) clearInterval(t); },250);
+    sync();
+  })();
 </script>
