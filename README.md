@@ -18,7 +18,16 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 
 **Three workstreams are mid-flight. Read this first.**
 
-**1) BBS videos — 3 captioned, awaiting Emily's review (HARD GATE before Vimeo).**
+**1) BBS videos — ✅ 283/287/288 PUBLISHED + WIRED (2026-08-17).** Emily approved and asked for them
+embedded, so they were uploaded public, wired into `content.js`, written to Airtable, and both PDFs
+re-cut. **L1 = 1218983605, L5 = 1218983645, L6 = 1218983700.** The only BBS lesson still without a
+video is **L4 Philippians (`3MB-44`)** — captioned in Feb and filed, never uploaded; Emily still owes
+a decision on **upload-as-is vs re-caption at medium**. The Women packet's **L6 (Widow, `3MB-280`)**
+also remains empty — that master is genuinely held. Historical detail below.
+
+<details><summary>How they got here (Aug 14 note)</summary>
+
+**3 captioned, awaiting Emily's review (HARD GATE before Vimeo).**
 `3MB-283` (Jeremiah / L1), `287` (2 Timothy / L5), `288` (1 Corinthians / L6) are spliced with the
 corrected title cards, captioned at Whisper-**medium** + AI-proofed, and **re-burned 2026-08-14 with
 proofing fixes** (287 "Church"→"church"; 283 "Washington DC"→"Washington, D.C."; "scripture"→
@@ -28,6 +37,7 @@ proofing fixes** (287 "Church"→"church"; 283 "Washington DC"→"Washington, D.
 PDF. **Also open:** L4 **Philippians (`3MB-44`)** — captioned (Feb) + filed already; Emily to decide
 **upload as-is vs re-caption at medium**. Canonical runbook = the pipeline-folder README
 (`…\Dropbox\3MB\SSS 3MB Captioning Pipeline\`).
+</details>
 
 **2) Webflow marketing surfaces — public landing + logged-in "My Lessons" portal.**
 **Canonical embed code now lives in [`webflow-embeds/`](webflow-embeds/)** (`landing.html`, `portal.html`,
