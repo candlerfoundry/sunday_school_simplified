@@ -263,7 +263,7 @@ window.BBS_CONTENT = {
         "Have you ever needed to rely on someone more vulnerable, or less powerful, than you for help or hospitality? How can giving or accepting hospitality be an act of grace?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Kings%2017%3A1-24&version=NRSVUE",
-      "videoUrl": "",
+      "videoUrl": "https://player.vimeo.com/video/1219007254",
       "optionalVideo": null,
       "optionalReadings": [
         {
