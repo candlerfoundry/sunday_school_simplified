@@ -14,7 +14,7 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 
 ---
 
-## ▶ START HERE — current status (updated Sat 2026-08-14; supersedes the older "Monday 2026-08-10" block below)
+## ▶ START HERE — current status (updated Mon 2026-08-17; supersedes the older "Monday 2026-08-10" block below)
 
 **Three workstreams are mid-flight. Read this first.**
 
@@ -38,16 +38,32 @@ PDF. **Also open:** L4 **Philippians (`3MB-44`)** — captioned (Feb) + filed al
 Leonie** (`engine/assets/fonts/thierry.woff2`, CORS via repo `_headers`; sizing factor **0.0443** —
 Thierry caps are 96% of the em). Landing (hero / get-started / choose-packet) + portal (hero /
 let's-learn / your-packets) are DONE except the open issue:
-   - **✅ RESOLVED (2026-08-17) — portal "Your Packets" (section 3):** Emily designed each packet as its
-     own isolated Canva tile (`DAHRnlJvmA4` pages **11** BBS / **12** Women, clean card on **white**).
-     Each is cropped to the card + gated with `foxy-logic-transaction-includes` (`sss-portal-tile-bbs-v2`
-     / `sss-portal-tile-women-v2`); the section background is **white** so the on-white tiles blend
-     seamlessly. Details in [`webflow-embeds/README.md`](webflow-embeds/README.md).
+   - **✅ REBUILT (2026-08-17) — portal "Your Packets" (section 3) now matches the landing page.**
+     Emily: the logged-in band looked "sad and empty". Causes, all measured: each tile PNG carried
+     **46-73px of baked white padding** on top of the CSS padding; a lone owned tile was capped at
+     `max-width:560px`; and the header PNG was a 704px ink blob centred in a 2400px canvas. **Fix =
+     background-independent tiles** — cropped tight to the card's black stroke (**1095x832, corner
+     radius 52, transparent rounded corners**: `sss-portal-tile-bbs-v3` / `sss-portal-tile-women-v3`),
+     shadow re-added in CSS via `filter:drop-shadow()`; header cropped to its ink
+     (`sss-portal-header-v2`, 716x162). That removed the "must stay white" constraint, so the section
+     now uses the landing's flat lavender **`#DFE6F4`**, exposed as `--pk-bg` (set `#fff` to revert).
+     Landing proportions reused (card **45.6%**, gap **3.25%**, side pad **2.6%**); a lone owned packet
+     gets `.pk-one` -> `flex-basis:62%` via JS counting cells with `offsetParent!==null`. Both cards are
+     the SAME 1095x832 (the old 73-vs-46 difference was only shadow spread). Hotspots re-measured:
+     Open Booklet `left:55.4% top:80.5% w:19.6% h:9.5%`, Printable PDF `left:75.4% w:19.8%`.
+     Gating unchanged (`foxy-logic-transaction-includes`). Code in
+     [`webflow-embeds/portal.html`](webflow-embeds/portal.html) — **Emily must paste it into the
+     Webflow embed; nothing changes live until she does.** Art nit for later: the *Women* tile's
+     "Printable PDF" pill has a baked drop shadow the *BBS* tile lacks.
 
-**3) Women packet — Emily is reviewing the Canva lesson art** (design **`DAHOtl4BNMk`**) for
-**The Gospel According to the Women**; she is **currently on the Tamar lesson** (L5, Genesis 38:6-26).
-Resume her review there. Her edits feed the flipbook art (image pages) + `content.js` + the Women PDF
-(`tools/make_women_pdf.js`).
+**3) Women packet — Emily's copy review is DONE and shipped (2026-08-17).** She reworked all six
+lessons in Canva **`DAHOtl4BNMk` pages 19-30** (shortlink `canva.link/acnz1mieryl38ts`) — note the
+range MOVED (it was 8-19), so **always re-read the design, never trust stored page numbers**. All 12
+pages were re-exported, verified, and pushed; `content.js` was re-synced to the art; and the printable
+PDF was re-cut in the **Beyond Bumper Stickers format** via the new **`tools/make_women_pdf.py`**.
+See "Packet #2" below for the full detail. **Remaining on this packet:** the Vimeo `videoUrl`s for
+L1/L3/L4/L5 are wired, **L6 (Widow, 3MB-280) is still held** with no master, and the letter +
+packet-wide prayer pass are still Emily's open items.
 
 ---
 
@@ -192,9 +208,13 @@ layout — no top bar, no page indicator).
   progress (`.binder.flipping`, driven by StPageFlip's `changeState`).
 - **Download:** a **"Printable Packet" tab** at the bottom of the tab rail (July 2026 —
   this replaced the old fixed vertical side ribbon at Emily's request; the ribbon read as
-  a tethered label, the tab reads as part of the binder). It's a real `<a ... download>`
-  styled as a `.tab.download`, rendered by the engine only when the packet ships a PDF
-  (`meta.pdf`); the click handler skips it so the browser handles the download. Colored via
+  a tethered label, the tab reads as part of the binder). It's an `<a>` styled as a
+  `.tab.download`, rendered by the engine only when the packet ships a PDF (`meta.pdf`).
+  **It must never auto-download** (Emily, repeatedly): as of 2026-08-17 `render.js` binds a
+  click listener that opens the PDF in its **own pop-out window** (`window.open(..., "sssPdf",
+  "width=980,height=1150,...")`) — "a separate box", matching the portal tile's `sssPDF()`.
+  There is **no `download` attribute**; if the popup is blocked the handler does NOT
+  `preventDefault`, so the anchor's `target="_blank"` still opens it in a tab. Colored via
   `--red` so it grabs the eye — bright **yellow `#FFD21E`** (navy text) on the women packet,
   red on Beyond Bumper Stickers — packets re-theme `.tab.download`. The fit formula is
   unchanged: scale = min((vw-130)/(68+1632+132), (vh-24)/1056).
@@ -423,6 +443,17 @@ reportlab (font prep documented in the script header). Content comes from the sy
 "coming soon" note on L1/L4/L5/L6. 17 pages, rendered with PyMuPDF and eyeballed. Re-run when the
 art/content or videoUrls change (`content.json` dump + `fonts/` prep + `python make_pdf.py`).
 
+> **⚠ OPEN BUG (found 2026-08-17 while building the Women PDF) — the `fonts/` Mulish files were never
+> actually instanced.** They still carried an `fvar` table with `usWeightClass 200`, and
+> `Mulish-normal-500.ttf` and `Mulish-normal-700.ttf` were **byte-identical**, so reportlab rendered
+> every Mulish weight as **ExtraLight** — body, bold and extra-bold all the same. Fix (used for the
+> Women build): `fontTools.varLib.instancer.instantiateVariableFont(f, {"wght": N})` per weight, then
+> set `OS/2.usWeightClass`. Verify with: no `fvar`, correct `usWeightClass`, and the `I` stem width
+> differing per weight (93 / 129 / 156 units at 500 / 700 / 800). **The BBS PDF still needs this fix
+> + a re-cut**; expect text to get slightly wider, so re-check page fit (on the Women build the end
+> page's blurb went from 2 lines to 3 and collided with a fixed-y URL — that generator now flows the
+> URL from the paragraph's real bottom).
+
 **Still pending:**
 - **New back cover** in the blue design (optional — back page currently dropped).
 
@@ -461,7 +492,30 @@ transcripts + a theme/scripture chart (Dropbox).
   live-video lesson, contents/letter, modal, resources) with no overflow; Beyond Bumper
   Stickers confirmed pixel-unchanged. Cover is Emily's Canva cover (`assets/cover.png`,
   1632×2112, gold-on-yellow, integrity-verified).
-- **All six lessons now render from Emily's own Canva art (July 2026).** Emily reworked every lesson's two pages herself in Canva (she was unhappy with the engine-drawn variant-B layouts), and all six are now in via the image-based mechanism above: `assets/pages/<slug>-a.png` + `-b.png` (1632×2112, exported through the Canva connector from design `DAHOtl4BNMk` pages 8–19 — hannah 8–9, two-daughters 10–11, shiphrah-puah 12–13, zelophehad 14–15, tamar 16–17, widow 18–19). The layout is a shared template, so the **hotspots are identical across all six** (measured + overlay-verified July 2026): scripture `x 8.7 / y 48.06 / w 81.74 / h 7.05`, video `x 14.77 / y 62.5 / w 70.4 / h 31.06` (video box 1149×656 ≈ 16:9). **Re-measure the hotspots every time the art is re-exported** — detect the empty gold scripture box + the dark video rectangle (dark-pixel density projection, robust to the white “3 Minute Bible” text inside the box) and confirm with a drawn overlay before trusting the numbers. The art is authoritative **visually**; the `content.js` prayer/question fields remain the written record + PDF source and may differ from the art. **Only Lesson 2 (Two Daughters) has a live `videoUrl`** (`player.vimeo.com/video/1210281687`) — it plays in-frame with a ⭢ pop-out; the other five show their own “3 Minute Bible” placeholder until Vimeo links land, at which point the in-frame player + pop-out light up automatically. Four art typos were fixed in Canva before export (SHIPHRAH headline, “Jairus”, “how they deliberated”, “jars are empty”) plus Hannah’s “Nazirite” spelling; Hannah’s visible opening prayer now reads “Gracious God…”.
+- **✅ COPY REWORK SHIPPED (2026-08-17) — all six lessons updated to Emily's corrected Canva copy.**
+  Source = **`DAHOtl4BNMk` pages 19-30** (`canva.link/acnz1mieryl38ts`), 1632x2112, exported through the
+  Canva connector, PNG-verified (signature + chunk walk + full PIL decode) and pushed to
+  `assets/pages/`. **The page range MOVED from 8-19 to 19-30 — re-read the design every time.**
+  What actually changed: **Hannah** Q3 (the Nazirite framing and "no wrong answers" are gone) and Q4
+  ("five" -> "five more children"); **Shiphrah & Puah** Q1 and Q4; **Zelophehad** Q1/Q3/Q4 ("Moses'"
+  -> "Moses's"); **all five Tamar questions** rewritten plus the opening prayer ("God of Love" ->
+  "God of love"); **Widow** Q1/Q3/Q4 and the opening prayer ("God of Provision" -> "God of provision").
+  **The Widow's passage widened from 1 Kings 17:1-16 to `1 Kings 17:1-24`** — `reference`,
+  `scriptureRef`, the Bible Gateway `scriptureUrl` and the modal `scriptureText` were all updated, with
+  vv17-24 (Elijah revives the widow's son, NRSVUE) appended as a second `<p>` and Bible Gateway's
+  section heading dropped per packet convention. Also normalised **"3-Minute Bible" -> "3 Minute
+  Bible"** (12x) to match the art and Emily's Aug-13 ruling. `content.js` was edited by parsing it as
+  JSON and re-emitting through a **format-preserving serializer** (it round-trips byte-identical, so
+  the diff contains only real changes) — see `tools/` notes; keep that approach.
+  **HOTSPOTS RE-MEASURED on the new export** (do this every time): scripture
+  `x 8.7 / y 47.96 / w 81.8 / h 7.34`, video `x 14.77 / y 62.5 / w 70.47 / h 31.11` (1150x657 px,
+  exactly 16:9) — **except the Widow**, whose opening prayer is 3 lines instead of 5, so her boxes sit
+  higher: scripture `y 47.25`, video `y 62.36`. Detector gotcha: the outer **gold page frame** is also
+  a full-height gold rule, so filter out columns whose gold count spans the page before taking the
+  scripture box's x-range, and pick the rule-pair whose interior is empty.
+  **Emily fixed a typo in-session** on slide 24 (L3 Q4 read "there's burning bush"); that page was
+  re-exported after her fix and verified.
+- **All six lessons render from Emily's own Canva art (July 2026).** Emily reworked every lesson's two pages herself in Canva (she was unhappy with the engine-drawn variant-B layouts), and all six are now in via the image-based mechanism above: `assets/pages/<slug>-a.png` + `-b.png` (1632×2112, exported through the Canva connector). **⚠ The page numbers first recorded here (8–19) are STALE — as of 2026-08-17 the lessons live at pages 19–30; see the Aug-17 entry above. Canva page numbers in this design move; always re-read the design.** The layout is a shared template, so the **hotspots are identical across all six** (measured + overlay-verified). **⚠ Superseded 2026-08-17 — current values are in the Aug-17 entry above (scripture y 47.96 h 7.34; the Widow differs at y 47.25). The numbers in this July note are stale.** **Re-measure the hotspots every time the art is re-exported** — detect the empty gold scripture box + the dark video rectangle (dark-pixel density projection, robust to the white “3 Minute Bible” text inside the box) and confirm with a drawn overlay before trusting the numbers. The art is authoritative **visually**; the `content.js` prayer/question fields remain the written record + PDF source and may differ from the art. **As of 2026-08-17 five of six lessons have a live `videoUrl`** — L1 Hannah `1214331973` (3MB-278), L2 Two Daughters `1210281687`, L3 Shiphrah & Puah `1214331923` (3MB-277), L4 Zelophehad `1214332026` (3MB-281), L5 Tamar `1214332107` (3MB-282); **only L6 (Widow, 3MB-280) is still empty** because that master is held. Each plays in-frame with a ⭢ pop-out; a lesson with no `videoUrl` shows its own “3 Minute Bible” placeholder and lights up automatically when the link lands. Four art typos were fixed in Canva before export (SHIPHRAH headline, “Jairus”, “how they deliberated”, “jars are empty”) plus Hannah’s “Nazirite” spelling; Hannah’s visible opening prayer now reads “Gracious God…”.
 - **Lesson 1 (Hannah) questions are FINAL** — exactly Emily's five, with one edit she
   approved (Samuel "raised at the sanctuary, not at home with Hannah" — the earlier draft
   said "the temple," anachronistic here). All six lessons' questions have now been
@@ -575,8 +629,23 @@ the **letter** and a **packet-wide final prayer pass** (do not distribute links 
 Emily signs off on the full content) · remaining Vimeo
 `videoUrl`s (lesson 2 has its video; the rest, incl. "Background to the Exodus" and
 the "Orphan, Widow, and Stranger" optional, still pending) · the printable PDF is **built**
-(`tools/make_women_pdf.js`; re-cut when videoUrls/content change) · wire the
+(now **`tools/make_women_pdf.py`**; re-cut when videoUrls/content change) · wire the
 Foxy/portal access (below).
+
+**PDF re-cut in the BBS format — DONE (2026-08-17).** Emily asked for the Women printable packet to
+follow the **same design/format as Beyond Bumper Stickers**, so `tools/make_women_pdf.py` is a sibling
+of `tools/make_pdf.py` with the identical layout (no graph paper/icons/header art; thin page border,
+outlined section boxes, Thierry question numbers, Hello-Handmade display + Mulish body; scripture
+QR+link on every lesson, video QR+link when `videoUrl` is set else a "coming soon" note). **Only the
+palette differs**, echoing this packet's own art the way the BBS PDF echoes its own: mustard **GOLD
+`#B8860B`** where BBS uses red, brown **`#6D4F26`** where BBS uses smoky, navy body ink. It also adds
+two things BBS doesn't need: the Additional Resources page **paginates** (this packet has 3 optional
+videos + 4 optional readings = 2 pages), and it renders **`optionalReadings`** as well as
+`optionalVideo`. **It supersedes `tools/make_women_pdf.js`** (kept only for reference). Output = 18
+pages, verified with PyMuPDF for out-of-bounds AND overlapping text blocks (0 of each) and eyeballed
+page by page. Cover embeds at full 1632x2112; the file is ~394KB (down from ~1MB) purely because the
+fonts are now subset. **Read the font-instancing warning in the BBS PDF section above before re-cutting
+anything.**
 
 ## Access / registration + portal model (packets)
 
