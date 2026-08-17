@@ -429,11 +429,35 @@ misuse: Jeremiah 29, Psalm 46, Genesis 1-2, Philippians 2 & 4, 2 Timothy 3 (+ Ge
   (`.../1214332189`, 3MB-285). Both play in the in-frame pop-out.
 - **Pending upload/correction:** L1 Jeremiah (3MB-283, held for a corrected title slide) · L4
   Philippians (3MB-44 — captioned in Dropbox but **not yet on Vimeo**) · L5 2 Timothy (3MB-287, held)
-  · L6 1 Corinthians (3MB-288, held). 283/287/288 are being re-cut by the production team; wire each
-  as its public Vimeo link lands. (Draft on-brand **title cards** for 283/287/288 were designed +
+  · L6 1 Corinthians (3MB-288). **✅ 2026-08-17 — 283/287/288 uploaded public and wired:**
+  L1 = `player.vimeo.com/video/1218983605` (*The Story of Jerusalem*), L5 = `…/1218983645`
+  (*Scripture Inspired by God*), L6 = `…/1218983700` (*Love Is Patient, Love Is Kind*) — titles are the
+  on-screen slide titles with **no series suffix**, per Emily. All three transcoded, `anybody`/public
+  embed. Airtable `Transcript` (proofed, overwriting the draft) + `Vimeo Link` updated for each; note
+  the whole batch stays **Status = Draft**, matching the six published in July (Status is not tracking
+  publication). **Only L4 Philippians (`3MB-44`) is still unwired** — it is captioned + filed but has
+  never been uploaded, and Emily's open decision is upload-as-is vs re-caption at medium. (Draft on-brand **title cards** for 283/287/288 were designed +
   handed to Emily with an `ffmpeg` overlay command that preserves the voiceover.)
 
-**PDF re-cut — DONE (Aug 2026), clean/print-friendly v2.** `tools/make_pdf.py` was **rewritten**
+**PDF v3 — DONE (2026-08-17), Emily's readability pass.** The layout now lives in ONE shared module,
+**`tools/packet_pdf.py`**; `tools/make_pdf.py` and `tools/make_women_pdf.py` are thin wrappers that
+only choose a palette, so the two packets can't drift. Emily's brief: *"the font could generally be
+bigger… at least consistent with 12 point Times New Roman… a lot of users will be older and we should
+make this as user-friendly and readable as possible."* Times New Roman's x-height is **0.4473 em**
+(5.37pt at 12pt) and Mulish's is **0.5000 em**, so: questions + prayers **13pt** (6.50pt x-height =
+**121% of 12pt Times**), letter/prose **12pt**, box titles 13.5, captions 11, section labels 16.5.
+**Never set Mulish below ~10.75pt or you drop under her floor.** Also fixed this round: **question
+numerals are vertically centred on their question block** (they used to sit at the top of multi-line
+questions — Thierry's digits centre **0.469 em** above the baseline, hence the constant in the module);
+**video boxes print the Vimeo URL as text** beside the QR, and both QR and printed link point at
+`vimeo.com/<id>`, not the bare `player.vimeo.com` embed; boxes size themselves from their content and
+**question pages paginate** ("Discussion Questions (cont.)") so bigger type can never overflow.
+Much of the *perceived* smallness was also the ExtraLight font bug below — fixed, so both packets
+gained real weight. Verified: 0 out-of-bounds and 0 overlapping text blocks in both PDFs.
+
+<details><summary>Previous (Aug 2026) v2 note — superseded by the above</summary>
+
+`tools/make_pdf.py` was **rewritten**
 per Emily's brief ("clean and easy to print, no graphics, replicate the fonts, keep the borders,
 minimal color"): no graph-paper/icons/header-art; a **thin red page border**, navy outlined section
 boxes, **RED Thierry question numbers**, and the **packet fonts** (Hello-Handmade display, Mulish
@@ -442,8 +466,9 @@ reportlab (font prep documented in the script header). Content comes from the sy
 **scripture QR+link (Bible Gateway NRSVUE)** on every lesson, **video QR+link (Vimeo)** on L2 + L3,
 "coming soon" note on L1/L4/L5/L6. 17 pages, rendered with PyMuPDF and eyeballed. Re-run when the
 art/content or videoUrls change (`content.json` dump + `fonts/` prep + `python make_pdf.py`).
+</details>
 
-> **⚠ OPEN BUG (found 2026-08-17 while building the Women PDF) — the `fonts/` Mulish files were never
+> **⚠ FONT TRAP (found + FIXED 2026-08-17) — the `fonts/` Mulish files were never
 > actually instanced.** They still carried an `fvar` table with `usWeightClass 200`, and
 > `Mulish-normal-500.ttf` and `Mulish-normal-700.ttf` were **byte-identical**, so reportlab rendered
 > every Mulish weight as **ExtraLight** — body, bold and extra-bold all the same. Fix (used for the
@@ -451,8 +476,8 @@ art/content or videoUrls change (`content.json` dump + `fonts/` prep + `python m
 > set `OS/2.usWeightClass`. Verify with: no `fvar`, correct `usWeightClass`, and the `I` stem width
 > differing per weight (93 / 129 / 156 units at 500 / 700 / 800). **The BBS PDF still needs this fix
 > + a re-cut**; expect text to get slightly wider, so re-check page fit (on the Women build the end
-> page's blurb went from 2 lines to 3 and collided with a fixed-y URL — that generator now flows the
-> URL from the paragraph's real bottom).
+> page's blurb went from 2 lines to 3 and collided with a fixed-y URL — the shared module now flows the
+> URL from the paragraph's real bottom). **Both PDFs were re-cut with correct weights on 2026-08-17.**
 
 **Still pending:**
 - **New back cover** in the blue design (optional — back page currently dropped).
