@@ -3,8 +3,10 @@
    July 2026), and 3 (Shiphrah & Puah) questions are Emily-approved (final).
    Lessons 4 (Daughters of Zelophehad), 5 (Tamar), and 6 (Widow of Zarephath) questions
    were workshopped and revised with Emily (July 2026; Tamar's prayers were also tuned
-   this round). All six lessons' questions are now Emily's reviewed wording; the letter
-   and a packet-wide final prayer pass are still pending. All six scripture modals carry
+   this round). Re-synced Aug 17 2026 to Emily's corrected Canva copy (design DAHOtl4BNMk,
+   pages 19-30): Hannah Q3/Q4, Shiphrah & Puah Q1/Q4, Zelophehad Q1/Q3/Q4, all of Tamar,
+   Widow Q1/Q3/Q4, Tamar + Widow opening prayers, and the Widow's passage widened to
+   1 Kings 17:1-24. The letter and a packet-wide final prayer pass are still pending. All six scripture modals carry
    the full NRSVUE passage text (added July 2026, matching the Beyond Bumper Stickers
    packet); the pop-out also links to Bible Gateway, which shows the NRSVUE copyright
    notice. */
@@ -55,21 +57,21 @@ window.BBS_CONTENT = {
       "title": "Hannah",
       "subtitle": "",
       "openingPrayer": "Gracious God, quiet our minds as we read the story of Hannah. Open our ears to hear what the Holy Spirit is saying to us through these ancient words. Show us what this story reveals about you, and the lives you call us to lead. In the name of your Son Jesus Christ we pray. Amen.",
-      "closingPrayer": "Loving God, you are the one who meets us exactly where we are - in our longing, grief, and hope. Give us the courage to bring our whole selves before you. Give us compassion for ourselves and for others. In the name of your Son Jesus Christ we pray. Amen.",
+      "closingPrayer": "Loving God, you are the one who meets us exactly where we are – in our longing, grief, and hope. Give us the courage to bring our whole selves before you. Give us compassion for ourselves and for others. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "1 Samuel 1:1–20",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Grace: The Story of Hannah",
       "pageImages": ["assets/pages/hannah-a.png", "assets/pages/hannah-b.png"],
       "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
+        "scripture": { "x": 8.7, "y": 47.96, "w": 81.8, "h": 7.34 },
+        "video": { "x": 14.77, "y": 62.5, "w": 70.47, "h": 31.11 }
       },
       "questions": [
         "How does the narrator describe Hannah’s relationship with her family, including her husband Elkanah and his other wife Peninnah? To what extent does Hannah’s childless state inform those relationships?",
-        "With no male offspring to support her, Hannah faced a potentially ruinous eventuality of becoming a childless widow - one of the most vulnerable members of society. Further, in the patriarchal setting of this narrative, Hannah’s prestige was tied to her fertility. How does this context inform Hannah’s prayers and concerns?",
-        "Hannah vows to give away the very son she is begging for back to God as a Nazirite. As a Nazirite, her son would not be raised at home by Hannah. Why do you think Hannah made this promise, and what do you make of it? (There are no wrong answers!)",
-        "As the video explains, Hannah’s infertility was understood as God’s withholding of pregnancy, such that the “cure” for it was prayer. Indeed, God hears Hannah’s prayer - she eventually bears five children (1 Sam. 2:21). How have Hannah’s social prospects changed as a result of her childbearing? What is the narrator communicating about the nature of God’s concern for our real-world problems?",
-        "Hannah prays “out of [her] great anxiety and vexation” - she’s so distressed that the priest Eli mistakenly believes her to be drunk. When you are in real grief, what does your own praying tend to look like?"
+        "With no male offspring to support her, Hannah faced a potentially ruinous eventuality of becoming a childless widow – one of the most vulnerable members of society. Further, in the patriarchal setting of this narrative, Hannah’s prestige was tied to her fertility. How does this context inform Hannah’s prayers and concerns?",
+        "Hannah vows to give away the very son she is begging for back to God. In practice, this meant her son would not be raised at home by Hannah. Why do you think Hannah made this promise, and what do you make of it?",
+        "As the video explains, Hannah’s infertility was understood as God’s withholding of pregnancy, such that the “cure” for it was prayer. Indeed, God hears Hannah’s prayer – she eventually bears five more children (1 Sam. 2:21). How have Hannah’s social prospects changed as a result of her childbearing? What is the narrator communicating about the nature of God’s concern for our real-world problems?",
+        "Hannah prays “out of [her] great anxiety and vexation” – she’s so distressed that the priest Eli mistakenly believes her to be drunk. When you are in real grief, what does your own praying tend to look like?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Samuel%201%3A1-20&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1214331973",
@@ -96,15 +98,15 @@ window.BBS_CONTENT = {
       "videoSubtitle": "What is a Markan sandwich?",
       "pageImages": ["assets/pages/two-daughters-a.png", "assets/pages/two-daughters-b.png"],
       "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
+        "scripture": { "x": 8.7, "y": 47.96, "w": 81.8, "h": 7.34 },
+        "video": { "x": 14.77, "y": 62.5, "w": 70.47, "h": 31.11 }
       },
       "questions": [
         "Mark is famously sparse with words, telling the reader only the necessary information without much descriptive detail. Take a few minutes and imagine the details that Mark omitted. What sights, smells, and sounds do you imagine as you read? What tones of voice were used by each person as they spoke?",
         "What context does Mark give about the bleeding woman? Aside from her physical condition, how does Mark indicate the other ways she suffers?",
         "Being on the social fringes as she was, the bleeding woman was especially bold in struggling through the crowd to touch Jesus. What emotions do you imagine she feels as she reaches for Jesus’s cloak?",
         "Jesus gives life to both the woman and the girl, but in very different contexts. What does restoration and healing look like for each of them?",
-        "The bleeding woman’s lowly social status contrasts with that of Jairus - a prominent synagogue leader. Even so, he begs at Jesus’s feet. In what ways does this narrative show Jesus’s power to overcome boundaries - including social boundaries and death itself?",
+        "The bleeding woman’s lowly social status contrasts with that of Jairus – a prominent synagogue leader. Even so, he begs at Jesus’s feet. In what ways does this narrative show Jesus’s power to overcome boundaries – including social boundaries and death itself?",
         "How does this narrative reveal a Jesus who is divine but also tender and human?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Mark%205%3A21-43&version=NRSVUE",
@@ -140,14 +142,14 @@ window.BBS_CONTENT = {
       "videoSubtitle": "Background to the Exodus",
       "pageImages": ["assets/pages/shiphrah-puah-a.png", "assets/pages/shiphrah-puah-b.png"],
       "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
+        "scripture": { "x": 8.7, "y": 47.96, "w": 81.8, "h": 7.34 },
+        "video": { "x": 14.77, "y": 62.5, "w": 70.47, "h": 31.11 }
       },
       "questions": [
-        "The story never tells us how Shiphrah and Puah responded when Pharaoh gave them his command. He apparently expected them to obey, and the narrative doesn't tell us how they deliberated between themselves or formed a plan. Using your imagination, help fill in these narrative gaps. What might the women have said to Pharaoh and one another? To the other midwives in their community, and to expectant Hebrew mothers?",
+        "The story never tells us how Shiphrah and Puah initially responded to Pharaoh’s command. The narrative doesn't tell us how they deliberated between themselves or formed a plan. Using your imagination, help fill in these narrative gaps. What might the women have said to Pharaoh and one another? To the other midwives in their community, and to expectant Hebrew mothers?",
         "Scholars debate whether Shiphrah and Puah were Hebrew midwives or non-Hebrew midwives who served Hebrew women. How does the story change if they were protecting people outside their own community? What risks did they face for their defiance? What might have led them to take that risk?",
         "Pharaoh orders the midwives to kill the boys but lets the girls live, apparently assuming that girls pose no threat to him. Yet women repeatedly defeat his plan. What does Pharaoh fail to understand about where true power resides?",
-        "Shiphrah and Puah receive no instructions from God—no burning bush, no voice from above. What does this tell us about our human capacity to discern God’s will, even when we cannot hear God’s voice?",
+        "Shiphrah and Puah receive no instructions from God – there’s no burning bush, no voice from above – and yet they obey God’s will. What does this tell us about our human capacity to discern God’s call in our lives, even when it seems God hasn’t spoken?",
         "Looking back, it’s easy for us to see Pharaoh’s command as evil, and the midwives’ acts as faithful disobedience. In our own lives, it’s often harder to discern where we are called to disobey on moral or ethical grounds. Have you ever faced a choice between your conscience and following an authority? How did you respond?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Exodus%201%3A8-22&version=NRSVUE",
@@ -172,14 +174,14 @@ window.BBS_CONTENT = {
       "videoSubtitle": "The Daughters of Zelophehad",
       "pageImages": ["assets/pages/zelophehad-a.png", "assets/pages/zelophehad-b.png"],
       "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
+        "scripture": { "x": 8.7, "y": 47.96, "w": 81.8, "h": 7.34 },
+        "video": { "x": 14.77, "y": 62.5, "w": 70.47, "h": 31.11 }
       },
       "questions": [
-        "This lesson’s passages reflect the Israelites’ plans to allocate the promised land among the various families. Distributing the land fairly was essential, because the Israelites survived primarily on food grown on their respective families’ land. Land was passed patrilineally, meaning through male heirs. Keeping this in mind, what are the daughters’ circumstances in the wake of their father’s death, and how are they now uniquely vulnerable?",
+        "As shown in the reading, the Israelites intended to allocate the promised land among the various families. Allocating the land equitably was essential, as families relied heavily on food their own land produced. Land was passed patrilineally, meaning through male heirs. Keeping this in mind, what’s at stake for the daughters in the wake of their father’s death, and how are they now uniquely vulnerable?",
         "How does the narrator build dramatic tension as the daughters approach Moses? What makes their legal claim, and the manner in which they present it, particularly bold?",
-        "How is the issue at hand relevant beyond the daughters themselves? How does the outcome affect their descendants? Other men without sons, and their daughters? The community at large?",
-        "What is Moses’ role in resolving the question the daughters pose? Who actually owns and controls the land and determines its use, and ultimately creates the laws?",
+        "How is the issue at hand relevant beyond the daughters themselves? How does the outcome affect their descendants? How does it affect other men without sons, and their daughters? How does it affect the community at large?",
+        "What is Moses’s role in resolving the question the daughters pose? Who actually owns and controls the land and determines its use, and ultimately creates the laws?",
         "As modern readers, how does the outcome of this story inform our responsibility to care for the land and the vulnerable members of our communities? How does the narrative suggest that fulfilling these responsibilities is a matter of being faithful and obedient to God?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Numbers%2026%3A52-56%3B%2027%3A1-11&version=NRSVUE",
@@ -200,22 +202,22 @@ window.BBS_CONTENT = {
       "shortRef": "Genesis 38",
       "title": "Tamar",
       "subtitle": "",
-      "openingPrayer": "God of Love, open our hearts and minds as we turn to the tangled story of Tamar. We ask that you meet us in what is uncomfortable and teach us where you are at work. Through the Holy Spirit, give us compassion to hear this passage well. In the name of your Son Jesus Christ we pray. Amen.",
+      "openingPrayer": "God of love, open our hearts and minds as we turn to the tangled story of Tamar. We ask that you meet us in what is uncomfortable and teach us where you are at work. Through the Holy Spirit, give us compassion to hear this passage well. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "God of mercy, you are faithful to us when things get messy and complicated. Send us out with courage, knowing that you are at work in all of the unfinished places of our lives. Help us to remain faithful to you and each other. In the name of your Son Jesus Christ we pray. Amen.",
       "scriptureRef": "Genesis 38:6–26",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "Tamar: Righteousness When the System Fails",
       "pageImages": ["assets/pages/tamar-a.png", "assets/pages/tamar-b.png"],
       "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
+        "scripture": { "x": 8.7, "y": 47.96, "w": 81.8, "h": 7.34 },
+        "video": { "x": 14.77, "y": 62.5, "w": 70.47, "h": 31.11 }
       },
       "questions": [
-        "In ancient Israel, access to land, and having male offspring to farm and inherit land, was key to survival. This made childless widows among the most vulnerable members of society. With this in mind, consider the aspects of this story that, as modern readers, strike us as odd and disturbing but make more sense within this context. What are Judah's instructions to Onan, and what motivates that instruction? What motivates Tamar, and what is she fighting for?",
-        "Who are the villains and protagonists in this story? Is the narrator inviting us to perceive Tamar's trickery as problematic, or heroic? What aspects of the narrative prompt your responses?",
-        "A recurring Old Testament motif is the courageous underdog who defeats a more powerful opponent using trickery. (Bonus points if you can think of any other examples!) What narrative clues establish Judah as a powerful figure? Why are stories of trickery so resonant across time?",
-        "The narrator indicates that Onan's behavior was so displeasing to God that God \"put him to death.\" Remembering the context from question 1, why was Onan's behavior so displeasing? (See Deut. 25:5–10 for additional context.) How does God’s displeasure for Onan demonstrate God's care for Tamar? What is the narrative telling us about God's care for the socially vulnerable, and our duty of care for them as well?",
-        "Remembering that there are no wrong answers, to what extent are you comfortable finding theological meaning in a story that is troublesome to our modern eyes and ears?"
+        "In the social setting of this story, childless widows were among the community’s most vulnerable members, as male offspring helped ensure a woman’s security. How do these factors help us, as modern readers, understand the strange and disturbing aspects of this story? What motivates Tamar, and what is she fighting for?",
+        "Who are the villains and protagonists in this story? Is the narrator inviting us to perceive Tamar's behavior as problematic, heroic, or both? What aspects of the narrative prompt your responses?",
+        "A recurring Old Testament motif is the courageous underdog who defeats a more powerful opponent using trickery. (Bonus points if you can think of any other examples!) What narrative clues establish Judah as powerful in this story? Why are stories of trickery so resonant across time?",
+        "Onan's behavior so displeased God that God “put him to death.” Remembering the context from question 1, why was Onan's behavior so displeasing? (See Deut. 25:5–10 for additional context.) What does God’s judgment of Onan suggest about God’s concern for Tamar, and for the socially vulnerable more generally?",
+        "Do you feel comfortable finding theological meaning in biblical stories that are troublesome to our modern eyes and ears? Have you ever found “good news” in a biblical text that you initially found challenging?"
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%2038%3A6-26&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1214332107",
@@ -239,28 +241,28 @@ window.BBS_CONTENT = {
       "n": 6,
       "tabRef": "The Widow",
       "accent": "#6D4F26",
-      "reference": "1 Kings 17:1–16",
+      "reference": "1 Kings 17:1–24",
       "shortRef": "1 Kings 17",
       "title": "The Widow of Zarephath",
       "subtitle": "",
-      "openingPrayer": "God of Provision, you provide for us in our places of scarcity and fear. As we turn to Scripture, help us notice your everlasting faithfulness as you work through unlikely people. In the name of your Son Jesus Christ we pray. Amen.",
+      "openingPrayer": "God of provision, you provide for us in our places of scarcity and fear. As we turn to Scripture, help us notice your everlasting faithfulness as you work through unlikely people. In the name of your Son Jesus Christ we pray. Amen.",
       "closingPrayer": "Generous God, you are gracious in providing for us when our jars are empty. You work through our neighbors and strangers alike. Help us to notice your goodness, welcome the stranger, and trust in your provision. In the name of your Son Jesus Christ we pray. Amen.",
-      "scriptureRef": "1 Kings 17:1–16",
+      "scriptureRef": "1 Kings 17:1–24",
       "videoTitle": "3-Minute Bible",
       "videoSubtitle": "The Widow of Zarephath",
       "pageImages": ["assets/pages/widow-a.png", "assets/pages/widow-b.png"],
       "hotspots": {
-        "scripture": { "x": 8.7, "y": 48.06, "w": 81.74, "h": 7.05 },
-        "video": { "x": 14.77, "y": 62.5, "w": 70.4, "h": 31.06 }
+        "scripture": { "x": 8.7, "y": 47.25, "w": 81.8, "h": 7.34 },
+        "video": { "x": 14.77, "y": 62.36, "w": 70.47, "h": 31.11 }
       },
       "questions": [
-        "The widow doesn't seem to have received any message from God, and yet in verse 9 we are told that God has said, \"I have commanded a widow there to feed you.\" Look back at the similar statement about the ravens in verse 4. What do these two passages suggest about what \"command\" can mean? How might God be at work through us even when we have not heard God's voice directly?",
+        "In verse 9, God says, “I have commanded a widow there to feed you,” even as the widow seems unaware of any command from God. Compare this with God’s statement about commanding the ravens in verse 4. What do these two passages suggest about how God works through creation? Can we participate in God’s purposes without realizing it?",
         "Elijah, one of the most prominent figures in the Old Testament, is called to speak God's word to kings. Yet God chooses a widow, someone with little social power and almost no food, to sustain him. What do you make of God placing Elijah's survival in her hands?",
-        "God sends Elijah outside Israel to Zarephath - a center of Baal worship. The widow who lives there is a foreigner, yet she demonstrates faith in Israel's God. What might it mean that Elijah experiences God's power and provision through a foreigner? How does the narrator weigh the importance of faith against ethnic or national identity? What lessons might the original Israelite readers have been meant to learn from this passage?",
-        "In the video we learn that extending hospitality was a source of honor in ancient Israel. God could have provided for Elijah without involving the widow. Instead, God instructs Elijah to enter the widow's home, where she becomes his host. How does this address the widow's social needs?",
+        "God sends Elijah outside Israel to Zarephath – a center of Baal worship. The widow who lives there is a foreigner, yet she demonstrates faith in Israel's God. What might it mean that Elijah experiences God's power and provision through a foreigner? How does the narrator weigh the importance of faith against ethnic identity? What lessons might the original Israelite readers have been meant to learn from this passage?",
+        "As Dr. Arnold explains in the video, extending hospitality was a source of honor in ancient Israel. God could have provided for Elijah without involving the widow. Instead, God instructs Elijah to enter the widow's home, where she becomes his host. How does this address the widow's own social needs?",
         "Have you ever needed to rely on someone more vulnerable, or less powerful, than you for help or hospitality? How can giving or accepting hospitality be an act of grace?"
       ],
-      "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Kings%2017%3A1-16&version=NRSVUE",
+      "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Kings%2017%3A1-24&version=NRSVUE",
       "videoUrl": "",
       "optionalVideo": null,
       "optionalReadings": [
@@ -270,7 +272,7 @@ window.BBS_CONTENT = {
           "url": "https://www.biblegateway.com/passage/?search=Luke%204%3A25-26&version=NRSVUE"
         }
       ],
-      "scriptureText": "<h4>1 Kings 17:1–16</h4>\n<p><span class=\"vn\">1</span>Now Elijah the Tishbite, of Tishbe in Gilead, said to Ahab, “As the Lord the God of Israel lives, before whom I stand, there shall be neither dew nor rain these years, except by my word.” <span class=\"vn\">2</span>The word of the Lord came to him [Elijah], saying, <span class=\"vn\">3</span>“Go from here and turn eastward, and hide yourself by the Wadi Cherith, which is east of the Jordan. <span class=\"vn\">4</span>You shall drink from the wadi, and I have commanded the ravens to feed you there.” <span class=\"vn\">5</span>So he went and did according to the word of the Lord; he went and lived by the Wadi Cherith, which is east of the Jordan. <span class=\"vn\">6</span>The ravens brought him bread and meat in the morning and bread and meat in the evening, and he drank from the wadi. <span class=\"vn\">7</span>But after a while the wadi dried up because there was no rain in the land.</p>\n<p><span class=\"vn\">8</span>Then the word of the Lord came to him, saying, <span class=\"vn\">9</span>“Go now to Zarephath, which belongs to Sidon, and live there, for I have commanded a widow there to feed you.” <span class=\"vn\">10</span>So he set out and went to Zarephath. When he came to the gate of the town, a widow was there gathering sticks; he called to her and said, “Bring me a little water in a vessel, so that I may drink.” <span class=\"vn\">11</span>As she was going to bring it, he called to her and said, “Bring me a morsel of bread in your hand.” <span class=\"vn\">12</span>But she said, “As the Lord your God lives, I have nothing baked, only a handful of meal in a jar and a little oil in a jug; I am now gathering a couple of sticks so that I may go home and prepare it for myself and my son, that we may eat it and die.” <span class=\"vn\">13</span>Elijah said to her, “Do not be afraid; go and do as you have said, but first make me a little cake of it and bring it to me, and afterward make something for yourself and your son. <span class=\"vn\">14</span>For thus says the Lord the God of Israel: The jar of meal will not be emptied and the jug of oil will not fail until the day that the Lord sends rain on the earth.” <span class=\"vn\">15</span>She went and did as Elijah said, so that she as well as he and her household ate for many days. <span class=\"vn\">16</span>The jar of meal was not emptied, neither did the jug of oil fail, according to the word of the Lord that he spoke by Elijah.</p>",
+      "scriptureText": "<h4>1 Kings 17:1–24</h4>\n<p><span class=\"vn\">1</span>Now Elijah the Tishbite, of Tishbe in Gilead, said to Ahab, “As the Lord the God of Israel lives, before whom I stand, there shall be neither dew nor rain these years, except by my word.” <span class=\"vn\">2</span>The word of the Lord came to him [Elijah], saying, <span class=\"vn\">3</span>“Go from here and turn eastward, and hide yourself by the Wadi Cherith, which is east of the Jordan. <span class=\"vn\">4</span>You shall drink from the wadi, and I have commanded the ravens to feed you there.” <span class=\"vn\">5</span>So he went and did according to the word of the Lord; he went and lived by the Wadi Cherith, which is east of the Jordan. <span class=\"vn\">6</span>The ravens brought him bread and meat in the morning and bread and meat in the evening, and he drank from the wadi. <span class=\"vn\">7</span>But after a while the wadi dried up because there was no rain in the land.</p>\n<p><span class=\"vn\">8</span>Then the word of the Lord came to him, saying, <span class=\"vn\">9</span>“Go now to Zarephath, which belongs to Sidon, and live there, for I have commanded a widow there to feed you.” <span class=\"vn\">10</span>So he set out and went to Zarephath. When he came to the gate of the town, a widow was there gathering sticks; he called to her and said, “Bring me a little water in a vessel, so that I may drink.” <span class=\"vn\">11</span>As she was going to bring it, he called to her and said, “Bring me a morsel of bread in your hand.” <span class=\"vn\">12</span>But she said, “As the Lord your God lives, I have nothing baked, only a handful of meal in a jar and a little oil in a jug; I am now gathering a couple of sticks so that I may go home and prepare it for myself and my son, that we may eat it and die.” <span class=\"vn\">13</span>Elijah said to her, “Do not be afraid; go and do as you have said, but first make me a little cake of it and bring it to me, and afterward make something for yourself and your son. <span class=\"vn\">14</span>For thus says the Lord the God of Israel: The jar of meal will not be emptied and the jug of oil will not fail until the day that the Lord sends rain on the earth.” <span class=\"vn\">15</span>She went and did as Elijah said, so that she as well as he and her household ate for many days. <span class=\"vn\">16</span>The jar of meal was not emptied, neither did the jug of oil fail, according to the word of the Lord that he spoke by Elijah.</p>\n<p><span class=\"vn\">17</span>After this the son of the woman, the mistress of the house, became ill; his illness was so severe that there was no breath left in him. <span class=\"vn\">18</span>She then said to Elijah, “What have you against me, O man of God? You have come to me to bring my sin to remembrance and to cause the death of my son!” <span class=\"vn\">19</span>But he said to her, “Give me your son.” He took him from her bosom, carried him up into the upper chamber where he was lodging, and laid him on his own bed. <span class=\"vn\">20</span>He cried out to the Lord, “O Lord my God, have you brought calamity even upon the widow with whom I am staying, by killing her son?” <span class=\"vn\">21</span>Then he stretched himself upon the child three times and cried out to the Lord, “O Lord my God, let this child’s life come into him again.” <span class=\"vn\">22</span>The Lord listened to the voice of Elijah; the life of the child came into him again, and he revived. <span class=\"vn\">23</span>Elijah took the child, brought him down from the upper chamber into the house, and gave him to his mother; then Elijah said, “See, your son is alive.” <span class=\"vn\">24</span>So the woman said to Elijah, “Now I know that you are a man of God and that the word of the Lord in your mouth is truth.”</p>",
       "headerImage": null
     }
   ]
