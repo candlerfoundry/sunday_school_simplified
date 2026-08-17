@@ -30,10 +30,12 @@ live, all written to Airtable:
 | BBS L4 | `3MB-44`  | `1218993379` | Did the biblical texts have chapters, verses, and section headings? |
 | BBS L5 | `3MB-287` | `1218983645` | Scripture Inspired by God |
 | BBS L6 | `3MB-288` | `1218983700` | Love Is Patient, Love Is Kind |
+| Women L6 | `3MB-280` | `1219007254` | The Widow of Zarephath |
 
-**All six BBS lessons now have a video.** The Women packet has five of six — **L6 (Widow, `3MB-280`) is
-the only empty slot left across both packets**, and that master is genuinely held (no corrected cut
-exists yet). Titles for 283/287/288 are the **on-screen slide titles with no series suffix**, per Emily;
+**✅ EVERY LESSON IN BOTH PACKETS NOW HAS AN EMBEDDED VIDEO — 12 of 12.** The Widow master finally
+landed and went through the full pipeline on 2026-08-17 (see the Packet #2 section for its splice,
+which did NOT follow the usual template). Titles are the **on-screen slide titles with no series
+suffix**, per Emily;
 `3MB-44` has no short slide title so its Vimeo name came from the **Airtable `Name`** field — rename it
 if that reads long. Two things to know for next time: the whole batch deliberately stays
 **Status = "Draft"** in Airtable (matching the six published in July — Status does not track publication
@@ -107,8 +109,8 @@ lessons in Canva **`DAHOtl4BNMk` pages 19-30** (shortlink `canva.link/acnz1miery
 **MOVED** (it was 8-19), so **always re-read the design; never trust stored page numbers**. All 12 pages
 were re-exported, verified and pushed; `content.js` was re-synced to the art; hotspots were re-measured;
 and the printable PDF was re-cut in the Beyond Bumper Stickers format. See "Packet #2" below for the
-per-lesson list of what changed. **Still open on this packet:** **L6 (Widow, `3MB-280`) video** —
-master held; and the **letter + a packet-wide prayer pass**, which are Emily's own writing items.
+per-lesson list of what changed. **Still open on this packet:** the **letter + a packet-wide prayer pass**, which are Emily's own
+writing items. Its L6 video landed 2026-08-17, so the packet is otherwise complete.
 
 **Everything that is genuinely still open, in one place:**
 
@@ -116,9 +118,9 @@ master held; and the **letter + a packet-wide prayer pass**, which are Emily's o
 |---|---|---|---|
 | 1 | Paste the section-3 embed into Webflow | Emily | `webflow-embeds/portal.html` |
 | 2 | Upload `thierry.woff2` to Webflow Fonts as "Thierry Leonie" | Emily | portal section 2 |
-| 3 | Women L6 Widow video (`3MB-280`) — master still held | production | 3MB pipeline |
-| 4 | Women letter + packet-wide prayer pass | Emily | `content.js` |
-| 5 | Re-caption `3MB-44` at medium so captions match the other nine (optional) | Claude, on request | 3MB pipeline |
+| 3 | Women letter + packet-wide prayer pass | Emily | `content.js` |
+| 4 | Re-caption `3MB-44` at medium so captions match the others (optional) | Claude, on request | 3MB pipeline |
+| 5 | "Orphan, Widow, and Stranger" optional video — does it exist yet? | Emily | resources page |
 | 6 | Webflow URL reorg + exec-dashboard SSS card | Emily / Claude | see "Carried-forward" below |
 
 ---
@@ -755,6 +757,26 @@ the "Orphan, Widow, and Stranger" optional, still pending) · the printable PDF 
 (now **`tools/make_women_pdf.py`**; re-cut when videoUrls/content change) · wire the
 Foxy/portal access (below).
 
+**✅ L6 VIDEO LANDED (2026-08-17) — and its title-card splice did NOT follow the usual template.**
+The delivered master (`NEW VIDEOS GO HERE\Widow of Sidon.mp4`, 1920x1080, **23.976fps**, 3:00) had the
+wrong on-screen title ("Widow of Sidon"), so Emily made a corrected slide at **Canva `DAHOtl4BNMk`
+page 34** ("The Widow of Zarephath") and it was spliced in **before** captioning, per the pipeline
+README §3b. **Two things differ from 283/287/288 and will bite anyone who assumes the stored recipe:**
+(1) this video's title card is **MID-VIDEO (~13.0–16.8s)**, after the presenter has already been
+speaking — not in the 3–8s opening; and (2) it **crossfades** in and out instead of hard-cutting, so
+there is **no clean-navy gap** to key the overlay off. Measured on this master: the old title is first
+visible **~13.00** and fully gone **~16.80**. So the navy blocker **fades in** (`st=12.70 d=0.25`,
+fully opaque by 12.95 while the frame is still clean footage) and does not begin dissolving until
+`OUT=16.85`; the new card fades in at 13.05. Frame-verified on both fades — no "Widow of Sidon" ghost.
+**Measurement trap:** `ffmpeg -ss` BEFORE `-i` is input seeking and is NOT frame-accurate; it shifted
+every timing reading and produced a first splice with the old title visible. Use `-i file -ss t`
+(output seeking) for verification frames, and trust the rendered frames over a brightness metric.
+Captioning then ran normally (Whisper **medium**, intro cut **17.0s** for Arnold — which here also
+lands just after the mid-roll card; 44 cues → 40 captions). Two manual proof fixes the narrow AI prompt
+left alone, both confirmed against the human Airtable draft: **"Now I take that back" → "No, I take
+that back"** and **"gentile" → "Gentile"**. Vimeo `1219007254`, Airtable `3MB-280` Transcript +
+Vimeo Link, full working set archived to `3MB Videos\3MB-280 - The Widow of Zarephath - Arnold\`.
+
 **PDF re-cut in the BBS format — DONE (2026-08-17).** Emily asked for the Women printable packet to
 follow the **same design/format as Beyond Bumper Stickers**. It now literally does: the layout lives in
 the shared **[`tools/packet_pdf.py`](tools/packet_pdf.py)** and `tools/make_women_pdf.py` is a thin
@@ -763,7 +785,9 @@ wrapper that only selects the `women` palette (mustard **GOLD `#B8860B`** where 
 **It supersedes `tools/make_women_pdf.js`**, which is kept only for reference. Two behaviours this
 packet needs and BBS doesn't: the Additional Resources page **paginates** (3 optional videos + 4 optional
 readings), and it renders **`optionalReadings`** as well as `optionalVideo`.
-**Output = 19 pages** (it grew by one when Emily's larger type pushed Shiphrah & Puah's questions onto a
+**Output = 19 pages**, re-cut again on 2026-08-17 once L6's video landed — the only "coming soon" notes
+left in the whole packet are the **"Orphan, Widow, and Stranger" optional** video, which still has no
+URL. (It grew to 19 when Emily's larger type pushed Shiphrah & Puah's questions onto a
 "Discussion Questions (cont.)" page — the pagination is automatic, and the closing prayer stays with the
 last question). Verified with PyMuPDF for out-of-bounds AND overlapping text blocks (0 of each) and
 eyeballed page by page. Cover embeds at full 1632x2112; the file is ~397KB (down from ~1MB) purely
