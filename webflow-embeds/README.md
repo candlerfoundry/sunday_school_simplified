@@ -35,16 +35,13 @@ the Git Data API. Netlify serves them + auto-deploys.
   `/customer-portal/account`. Browse → `/sunday-school-simplified`. Open Booklet → `/sss/<slug>`.
   Printable PDF → `window.open` popout of `/packets/<slug>/<PDF>`.
 
-## ⚠️ OPEN ISSUE — portal "Your Packets" (section 3) — resolve Monday
-The current section 3 **crops slide 10 into two tiles** + a **live "YOUR PACKETS" header** on a
-solid `#dce2ee` background. Emily's verdict: it reads as a **reconstruction, not her exact asset**
-(bg shade / spacing / header differ from her single cohesive slide-10 image). A single baked image
-can't gate per-packet, hence the split.
-
-**AGREED RESOLUTION (Emily, Aug 14):** Emily will **design each packet as its own self-contained
-tile in Canva** (its own card, exactly as she wants it). Then Claude drops each tile image into a
-`foxy-logic-transaction-includes` wrapper and shows only owned ones — every tile is 100% her asset,
-no cropping. **TBD when her tiles arrive:** (a) is the "Your Packets" header baked into a tile or a
-separate always-shown strip? (b) what section background color sits behind the tiles? Replace
-`sss-portal-tile-bbs.png` / `sss-portal-tile-women.png` with her new per-packet tiles and drop the
-slide-10 cropping.
+## ✅ RESOLVED — portal "Your Packets" (section 3) — Emily's isolated tiles (Aug 17 2026)
+Emily designed **each packet as its own self-contained Canva tile** (design `DAHRnlJvmA4` **pages 11 =
+BBS, 12 = Women**), each a clean card on **white**. Claude crops each to the card (centered, unified
+1322×1062 on white) → `assets/sss-portal-tile-bbs-v2.png` / `sss-portal-tile-women-v2.png`, wraps each
+in its `foxy-logic-transaction-includes` gate + Open Booklet / Printable PDF hotspots. **Section
+background is WHITE** so the tiles (baked on white, with their own drop shadow) blend seamlessly — the
+old gradient-seam problem is gone. Header = live Thierry "Your Packets". Single owned tile centers.
+**If a colored section background is ever wanted:** re-export the tiles on that color in Canva, OR
+re-crop tight to the card + add CSS `border-radius`/`box-shadow` (as the earlier `-v1` tiles did).
+(Superseded `sss-portal-tile-bbs.png`/`women.png` were slide-10 crops — no longer referenced.)

@@ -57,20 +57,23 @@
 
 
 <!-- ############### PORTAL BLOCK 3 of 3 — YOUR PACKETS (gated per-packet) ############### -->
+<!-- Tiles = Emily's isolated Canva tiles (design DAHRnlJvmA4 pages 11/12), baked on WHITE.
+     Keep the section background WHITE so the tiles blend seamlessly. To use a colored
+     background, re-export the tiles on that color (or ask Claude to re-crop + add CSS shadow). -->
 <style>
   @font-face{font-family:'Thierry Leonie';
     src:url('https://sundayschoolsimplified.netlify.app/engine/assets/fonts/thierry.woff2') format('woff2');
     font-weight:400 800;font-display:block;}
-  .pk3{background:#dce2ee;padding:34px 4% 46px;color:#24364b;
+  .pk3{background:#ffffff;padding:34px 4% 46px;color:#24364b;
     font-family:"Avenir Next Arabic Light","Avenir Next",Avenir,"Segoe UI",system-ui,-apple-system,sans-serif}
   .pk3 *{box-sizing:border-box}
   .pk3 .pk-head{text-align:center;margin:0 0 4px;color:#071f3d;
     font-family:'Thierry Leonie',sans-serif;font-weight:800;font-size:clamp(30px,4vw,46px);letter-spacing:.01em}
   .pk3 .pk-sub{text-align:center;margin:0 0 30px;color:#465468;font-size:16px}
-  .pk3 .pk-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:26px;max-width:1180px;margin:0 auto}
-  .pk3 .pk-grid>div{flex:1 1 470px;max-width:540px}
+  .pk3 .pk-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;max-width:1180px;margin:0 auto}
+  .pk3 .pk-grid>div{flex:1 1 500px;max-width:560px}
   .pk3 .tile{position:relative;width:100%;line-height:0}
-  .pk3 .tile img{width:100%;display:block;border-radius:2.6%;box-shadow:0 12px 30px rgba(12,38,66,.16)}
+  .pk3 .tile img{width:100%;display:block}
   .pk3 .tile a{position:absolute;display:block}
   @media (max-width:980px){.pk3 .pk-grid>div{flex-basis:100%}}
 </style>
@@ -81,23 +84,23 @@
 
     <div foxy-logic-transaction-includes="SSS-BEYONDBUMPER">
       <div class="tile">
-        <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-tile-bbs.png"
+        <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-tile-bbs-v2.png"
              alt="Beyond Bumper Stickers — Volume 1, six lessons, online & printable.">
         <a href="/sss/beyond-bumper-stickers"
-           style="left:55.5%;top:80%;width:19.5%;height:7.5%" aria-label="Open Beyond Bumper Stickers booklet"></a>
+           style="left:52.5%;top:75.5%;width:17%;height:7.5%" aria-label="Open Beyond Bumper Stickers booklet"></a>
         <a href="#" onclick="return sssPDF('https://sundayschoolsimplified.netlify.app/packets/beyond-bumper-stickers/Beyond%20Bumper%20Stickers.pdf')"
-           style="left:75%;top:80%;width:19.5%;height:7.5%" aria-label="Beyond Bumper Stickers printable PDF"></a>
+           style="left:69.5%;top:75.5%;width:17.5%;height:7.5%" aria-label="Beyond Bumper Stickers printable PDF"></a>
       </div>
     </div>
 
     <div foxy-logic-transaction-includes="SSS-GOSPELWOMEN">
       <div class="tile">
-        <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-tile-women.png"
+        <img src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-tile-women-v2.png"
              alt="The Gospel According to the Women — Volume 2, six lessons, online & printable.">
         <a href="/sss/gospel-according-to-the-women"
-           style="left:55.5%;top:80%;width:19.5%;height:7.5%" aria-label="Open The Gospel According to the Women booklet"></a>
+           style="left:52.5%;top:75.5%;width:17%;height:7.5%" aria-label="Open The Gospel According to the Women booklet"></a>
         <a href="#" onclick="return sssPDF('https://sundayschoolsimplified.netlify.app/packets/gospel-according-to-the-women/The%20Gospel%20According%20to%20the%20Women.pdf')"
-           style="left:75%;top:80%;width:19.5%;height:7.5%" aria-label="The Gospel According to the Women printable PDF"></a>
+           style="left:69.5%;top:75.5%;width:17.5%;height:7.5%" aria-label="The Gospel According to the Women printable PDF"></a>
       </div>
     </div>
 
