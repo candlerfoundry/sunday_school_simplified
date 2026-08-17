@@ -38,13 +38,11 @@ PDF. **Also open:** L4 **Philippians (`3MB-44`)** — captioned (Feb) + filed al
 Leonie** (`engine/assets/fonts/thierry.woff2`, CORS via repo `_headers`; sizing factor **0.0443** —
 Thierry caps are 96% of the em). Landing (hero / get-started / choose-packet) + portal (hero /
 let's-learn / your-packets) are DONE except the open issue:
-   - **⚠ OPEN ISSUE — portal "Your Packets" (section 3):** the current build **crops Canva slide 10 into
-     two gated tiles + a live header**, which reads as a reconstruction, not Emily's exact asset (a single
-     baked image can't gate per-packet). **AGREED FIX (Emily, 2026-08-14):** Emily will design **each
-     packet as its own self-contained Canva tile**; Claude then drops each tile image into a
-     `foxy-logic-transaction-includes` wrapper and shows only owned ones (100% her asset, no cropping).
-     **TBD when her tiles arrive:** header baked-in-tile vs separate strip; section background color.
-     Details in [`webflow-embeds/README.md`](webflow-embeds/README.md).
+   - **✅ RESOLVED (2026-08-17) — portal "Your Packets" (section 3):** Emily designed each packet as its
+     own isolated Canva tile (`DAHRnlJvmA4` pages **11** BBS / **12** Women, clean card on **white**).
+     Each is cropped to the card + gated with `foxy-logic-transaction-includes` (`sss-portal-tile-bbs-v2`
+     / `sss-portal-tile-women-v2`); the section background is **white** so the on-white tiles blend
+     seamlessly. Details in [`webflow-embeds/README.md`](webflow-embeds/README.md).
 
 **3) Women packet — Emily is reviewing the Canva lesson art** (design **`DAHOtl4BNMk`**) for
 **The Gospel According to the Women**; she is **currently on the Tamar lesson** (L5, Genesis 38:6-26).
