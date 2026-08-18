@@ -8,6 +8,43 @@ window.BBS_CONTENT = {
     "subtitle": "A Six-Lesson Packet",
     "site": "candlerfoundry.org",
     "footerNote": "Conversation questions + a free 3 Minute Bible video with every lesson",
+    "recommendedReading": [
+      {
+        "title": "Women's Bible Commentary, Third Edition (Revised and Updated)",
+        "authors": "Ed. Carol A. Newsom, Sharon H. Ringe & Jacqueline E. Lapsley · Westminster John Knox",
+        "isbn13": "978-0-664-23707-3",
+        "amazon": "https://www.amazon.com/dp/066423707X",
+        "bookshop": "https://bookshop.org/book/9780664237073"
+      },
+      {
+        "title": "Theological Bible Commentary",
+        "authors": "Ed. Gail R. O'Day & David L. Petersen · Westminster John Knox",
+        "isbn13": "978-0-664-22711-1",
+        "amazon": "https://www.amazon.com/dp/0664227112",
+        "bookshop": ""
+      },
+      {
+        "title": "The New Testament in Color: A Multiethnic Bible Commentary",
+        "authors": "Ed. Esau McCaulley, Janette H. Ok, Osvaldo Padilla & Amy L. B. Peeler · IVP Academic",
+        "isbn13": "978-0-8308-1409-1",
+        "amazon": "https://www.amazon.com/dp/0830814094",
+        "bookshop": "https://bookshop.org/book/9780830814091"
+      },
+      {
+        "title": "Womanist Midrash: A Reintroduction to the Women of the Torah and the Throne",
+        "authors": "Wilda C. Gafney · Westminster John Knox",
+        "isbn13": "978-0-664-23903-9",
+        "amazon": "https://www.amazon.com/dp/066423903X",
+        "bookshop": "https://bookshop.org/book/9780664239039"
+      },
+      {
+        "title": "Womanist Midrash, Volume 2: A Reintroduction to the Women of Joshua, Judges, Samuel, and Kings",
+        "authors": "Wilda C. Gafney · Westminster John Knox",
+        "isbn13": "978-0-664-26601-1",
+        "amazon": "https://www.amazon.com/dp/0664266010",
+        "bookshop": "https://bookshop.org/book/9780664266011"
+      }
+    ],
     "letter": {
       "heading": "A Letter from The Candler Foundry",
       "paragraphs": [
