@@ -124,6 +124,22 @@ writing items. Its L6 video landed 2026-08-17, so the packet is otherwise comple
 | 6 | `3MB-280` captions start at 17.0s, so the opening ~14s of speech is uncaptioned — re-burn from ~12.3s? | Emily decides | 3MB pipeline |
 | 7 | Webflow URL reorg + exec-dashboard SSS card | Emily / Claude | see "Carried-forward" below |
 
+**Smaller open questions — one-line answers from Emily, then Claude does them:**
+
+| # | Question | Where |
+|---|---|---|
+| a | `3MB-44`'s Vimeo title is the long Airtable `Name` ("Did the biblical texts have chapters, verses, and section headings?"). Rename to "Un-Structuring the Bible"? | Vimeo `1218993379` |
+| b | Airtable `Status` is inconsistent: `3MB-44` = Complete, the other nine = Draft. Align them, or leave it (Status isn't tracking publication)? | Airtable `tblS1Bk29cXyGGUdo` |
+| c | The **Women** portal tile's "Printable PDF" pill has a baked drop shadow the **BBS** tile lacks — pre-existing in Canva, cosmetic | `DAHRnlJvmA4` p11/p12 |
+| d | Bible Gateway URLs are deliberately **not** printed in the PDF (90+ char encoded query strings). Print them anyway? | `tools/packet_pdf.py` |
+| e | Canva `DAHRnlJvmA4` slide-4 typo ("below Perfect for groups" → add the period) — only matters if that art is reused; the live HTML reads correctly | `DAHRnlJvmA4` |
+
+**Not a to-do:** the PDF build's fonts. They were previously un-reproducible, but
+[`tools/prep_fonts.py`](tools/prep_fonts.py) now regenerates them from this repo — verified to rebuild
+both PDFs pixel-identically. Nothing is required of Emily. **Claude: never source these fonts from an
+old session scratchpad** — un-instanced copies are still lying around there and they render everything
+ExtraLight *without failing*.
+
 ---
 
 ## The one rule that matters most: how code lands here
