@@ -19,6 +19,43 @@ window.BBS_CONTENT = {
     "subtitle": "A Six-Lesson Packet",
     "site": "candlerfoundry.org",
     "footerNote": "Conversation questions + a free 3 Minute Bible video with every lesson",
+    "recommendedReading": [
+      {
+        "title": "Women's Bible Commentary, Third Edition (Revised and Updated)",
+        "authors": "Ed. Carol A. Newsom, Sharon H. Ringe & Jacqueline E. Lapsley · Westminster John Knox",
+        "isbn13": "978-0-664-23707-3",
+        "amazon": "https://www.amazon.com/dp/066423707X",
+        "bookshop": "https://bookshop.org/book/9780664237073"
+      },
+      {
+        "title": "Theological Bible Commentary",
+        "authors": "Ed. Gail R. O'Day & David L. Petersen · Westminster John Knox",
+        "isbn13": "978-0-664-22711-1",
+        "amazon": "https://www.amazon.com/dp/0664227112",
+        "bookshop": ""
+      },
+      {
+        "title": "The New Testament in Color: A Multiethnic Bible Commentary",
+        "authors": "Ed. Esau McCaulley, Janette H. Ok, Osvaldo Padilla & Amy L. B. Peeler · IVP Academic",
+        "isbn13": "978-0-8308-1409-1",
+        "amazon": "https://www.amazon.com/dp/0830814094",
+        "bookshop": "https://bookshop.org/book/9780830814091"
+      },
+      {
+        "title": "Womanist Midrash: A Reintroduction to the Women of the Torah and the Throne",
+        "authors": "Wilda C. Gafney · Westminster John Knox",
+        "isbn13": "978-0-664-23903-9",
+        "amazon": "https://www.amazon.com/dp/066423903X",
+        "bookshop": "https://bookshop.org/book/9780664239039"
+      },
+      {
+        "title": "Womanist Midrash, Volume 2: A Reintroduction to the Women of Joshua, Judges, Samuel, and Kings",
+        "authors": "Wilda C. Gafney · Westminster John Knox",
+        "isbn13": "978-0-664-26601-1",
+        "amazon": "https://www.amazon.com/dp/0664266010",
+        "bookshop": "https://bookshop.org/book/9780664266011"
+      }
+    ],
     "letter": {
       "heading": "A Letter from The Candler Foundry",
       "paragraphs": [
@@ -75,11 +112,25 @@ window.BBS_CONTENT = {
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Samuel%201%3A1-20&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1214331973",
-      "optionalVideo": {
-        "title": "What is khanun?",
-        "subtitle": "3 Minute Bible · optional (coming soon)",
-        "url": ""
-      },
+      "optionalVideos": [
+        {
+          "title": "What is khanun?",
+          "subtitle": "3 Minute Bible · optional (coming soon)",
+          "url": ""
+        }
+      ],
+      "artwork": [
+        {
+          "title": "Hannah before Eli the High Priest",
+          "subtitle": "Malnazar · Getty Museum (Google Art Project)",
+          "url": "https://commons.wikimedia.org/wiki/File:Malnazar_-_Hannah_before_Eli_the_High_Priest_-_Google_Art_Project.jpg"
+        },
+        {
+          "title": "The Infant Samuel Brought by Hannah to Eli",
+          "subtitle": "Gerbrand van den Eeckhout · Ashmolean Museum",
+          "url": "https://commons.wikimedia.org/wiki/File:Eeckhout,_Gerbrand_van_den_-_The_Infant_Samuel_brought_by_Hannah_to_Eli_-_Ashmolean_Museum.jpg"
+        }
+      ],
       "scriptureText": "<h4>1 Samuel 1:1–20</h4>\n<p><span class=\"vn\">1</span>There was a certain man of Ramathaim, a Zuphite from the hill country of Ephraim, whose name was Elkanah son of Jeroham son of Elihu son of Tohu son of Zuph, an Ephraimite. <span class=\"vn\">2</span>He had two wives; the name of one was Hannah, and the name of the other Peninnah. Peninnah had children, but Hannah had no children.</p>\n<p><span class=\"vn\">3</span>Now this man used to go up year by year from his town to worship and to sacrifice to the Lord of hosts at Shiloh, where the two sons of Eli, Hophni and Phinehas, were priests of the Lord. <span class=\"vn\">4</span>On the day when Elkanah sacrificed, he would give portions to his wife Peninnah and to all her sons and daughters, <span class=\"vn\">5</span>but to Hannah he gave a double portion because he loved her, though the Lord had closed her womb. <span class=\"vn\">6</span>Her rival used to provoke her severely, to irritate her, because the Lord had closed her womb. <span class=\"vn\">7</span>So it went on year by year; as often as she went up to the house of the Lord, she used to provoke her. Therefore Hannah wept and would not eat. <span class=\"vn\">8</span>Her husband Elkanah said to her, “Hannah, why do you weep? Why do you not eat? Why is your heart sad? Am I not more to you than ten sons?”</p>\n<p><span class=\"vn\">9</span>After they had eaten and drunk at Shiloh, Hannah rose and presented herself before the Lord. Now Eli the priest was sitting on the seat beside the doorpost of the temple of the Lord. <span class=\"vn\">10</span>She was deeply distressed and prayed to the Lord and wept bitterly. <span class=\"vn\">11</span>She made this vow: “O Lord of hosts, if only you will look on the misery of your servant and remember me and not forget your servant but will give to your servant a male child, then I will set him before you as a nazirite until the day of his death. He shall drink neither wine nor intoxicants, and no razor shall touch his head.”</p>\n<p><span class=\"vn\">12</span>As she continued praying before the Lord, Eli observed her mouth. <span class=\"vn\">13</span>Hannah was praying silently; only her lips moved, but her voice was not heard; therefore Eli thought she was drunk. <span class=\"vn\">14</span>So Eli said to her, “How long will you make a drunken spectacle of yourself? Put away your wine.” <span class=\"vn\">15</span>But Hannah answered, “No, my lord, I am a woman deeply troubled; I have drunk neither wine nor strong drink, but I have been pouring out my soul before the Lord. <span class=\"vn\">16</span>Do not regard your servant as a worthless woman, for I have been speaking out of my great anxiety and vexation all this time.” <span class=\"vn\">17</span>Then Eli answered, “Go in peace; the God of Israel grant the petition you have made to him.” <span class=\"vn\">18</span>And she said, “Let your servant find favor in your sight.” Then the woman went her way and ate and drank with her husband, and her countenance was sad no longer.</p>\n<p><span class=\"vn\">19</span>They rose early in the morning and worshiped before the Lord; then they went back to their house at Ramah. Elkanah knew his wife Hannah, and the Lord remembered her. <span class=\"vn\">20</span>In due time Hannah conceived and bore a son. She named him Samuel, for she said, “I have asked him of the Lord.”</p>",
       "headerImage": null
     },
@@ -111,11 +162,35 @@ window.BBS_CONTENT = {
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Mark%205%3A21-43&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1210281687",
-      "optionalVideo": {
-        "title": "Mark's Secret Messiah",
-        "subtitle": "3 Minute Bible · optional",
-        "url": "https://vimeo.com/1210281410"
-      },
+      "optionalVideos": [
+        {
+          "title": "Mark's Secret Messiah",
+          "subtitle": "3 Minute Bible · optional",
+          "url": "https://vimeo.com/1210281410"
+        },
+        {
+          "title": "What is pistis?",
+          "subtitle": "3 Minute Bible · optional (coming soon)",
+          "url": ""
+        }
+      ],
+      "artwork": [
+        {
+          "title": "The Woman with an Issue of Blood",
+          "subtitle": "James Tissot · Brooklyn Museum",
+          "url": "https://commons.wikimedia.org/wiki/File:Brooklyn_Museum_-_The_Woman_with_an_Issue_of_Blood_(L%27h%C3%A9moro%C3%AFsse)_-_James_Tissot.jpg"
+        },
+        {
+          "title": "The Daughter of Jairus",
+          "subtitle": "James Tissot · Brooklyn Museum",
+          "url": "https://commons.wikimedia.org/wiki/File:Brooklyn_Museum_-_The_Daughter_of_Jairus_(La_fille_de_Z%C3%A4ire)_-_James_Tissot_-_overall.jpg"
+        },
+        {
+          "title": "Healing of the Daughter of Jairus",
+          "subtitle": "JESUS MAFA · Vanderbilt (ACT)",
+          "url": "https://act.library.vanderbilt.edu/artworks/56455"
+        }
+      ],
       "optionalReadings": [
         {
           "title": "The Gospel of Mark",
@@ -154,11 +229,25 @@ window.BBS_CONTENT = {
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Exodus%201%3A8-22&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1214331923",
-      "optionalVideo": {
-        "title": "What is Torah?",
-        "subtitle": "3 Minute Bible · optional",
-        "url": "https://vimeo.com/1219255056"
-      },
+      "optionalVideos": [
+        {
+          "title": "What is Torah?",
+          "subtitle": "3 Minute Bible · optional",
+          "url": "https://vimeo.com/1219255056"
+        }
+      ],
+      "artwork": [
+        {
+          "title": "Pharaoh and the Midwives",
+          "subtitle": "James Tissot · The Jewish Museum, NY",
+          "url": "https://commons.wikimedia.org/wiki/File:Tissot_Pharaoh_and_the_Midwives.jpg"
+        },
+        {
+          "title": "Infancy of Moses (Shiphrah, Puah, Jochebed, Miriam & Pharaoh's Daughter)",
+          "subtitle": "Dura-Europos Synagogue · Vanderbilt (ACT)",
+          "url": "https://act.library.vanderbilt.edu/artworks/55961"
+        }
+      ],
       "funFact": "The Pharaoh in this story, the most powerful man in the world, is never named. The two midwives are: Shiphrah and Puah.",
       "scriptureText": "<h4>Exodus 1:8–22</h4>\n<p><span class=\"vn\">8</span>Now a new king arose over Egypt who did not know Joseph. <span class=\"vn\">9</span>He said to his people, “Look, the Israelite people are more numerous and more powerful than we. <span class=\"vn\">10</span>Come, let us deal shrewdly with them, or they will increase and, in the event of war, join our enemies and fight against us and escape from the land.” <span class=\"vn\">11</span>Therefore they set taskmasters over them to oppress them with forced labor. They built supply cities, Pithom and Rameses, for Pharaoh. <span class=\"vn\">12</span>But the more they were oppressed, the more they multiplied and spread, so that the Egyptians came to dread the Israelites. <span class=\"vn\">13</span>The Egyptians subjected the Israelites to hard servitude <span class=\"vn\">14</span>and made their lives bitter with hard servitude in mortar and bricks and in every kind of field labor. They were ruthless in all the tasks that they imposed on them.</p>\n<p><span class=\"vn\">15</span>The king of Egypt said to the Hebrew midwives, one of whom was named Shiphrah and the other Puah, <span class=\"vn\">16</span>“When you act as midwives to the Hebrew women and see them on the birthstool, if it is a son, kill him, but if it is a daughter, she shall live.” <span class=\"vn\">17</span>But the midwives feared God; they did not do as the king of Egypt commanded them, but they let the boys live. <span class=\"vn\">18</span>So the king of Egypt summoned the midwives and said to them, “Why have you done this and allowed the boys to live?” <span class=\"vn\">19</span>The midwives said to Pharaoh, “Because the Hebrew women are not like the Egyptian women, for they are vigorous and give birth before the midwife comes to them.” <span class=\"vn\">20</span>So God dealt well with the midwives, and the people multiplied and became very strong. <span class=\"vn\">21</span>And because the midwives feared God, he gave them families. <span class=\"vn\">22</span>Then Pharaoh commanded all his people, “Every son that is born to the Hebrews you shall throw into the Nile, but you shall let every daughter live.”</p>",
       "headerImage": null
@@ -190,11 +279,20 @@ window.BBS_CONTENT = {
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Numbers%2026%3A52-56%3B%2027%3A1-11&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1214332026",
-      "optionalVideo": {
-        "title": "What is mishpat?",
-        "subtitle": "3 Minute Bible · optional (coming soon)",
-        "url": ""
-      },
+      "optionalVideos": [
+        {
+          "title": "What is mishpat?",
+          "subtitle": "3 Minute Bible · optional (coming soon)",
+          "url": ""
+        }
+      ],
+      "artwork": [
+        {
+          "title": "The Daughters of Zelophehad",
+          "subtitle": "after F. R. Pickersgill · Dalziels' Bible Gallery · The Met",
+          "url": "https://www.metmuseum.org/art/collection/search/641671"
+        }
+      ],
       "scriptureText": "<h4>Numbers 26:52–56</h4>\n<p><span class=\"vn\">52</span>The Lord spoke to Moses, saying, <span class=\"vn\">53</span>“To these the land shall be apportioned for inheritance according to the number of names. <span class=\"vn\">54</span>To a large tribe you shall give a large inheritance, and to a small tribe you shall give a small inheritance; every tribe shall be given its inheritance according to its enrollment. <span class=\"vn\">55</span>But the land shall be apportioned by lot; according to the names of their ancestral tribes they shall inherit. <span class=\"vn\">56</span>Their inheritance shall be apportioned according to lot between the larger and the smaller.”</p>\n<h4>Numbers 27:1–11</h4>\n<p><span class=\"vn\">1</span>Then the daughters of Zelophehad came forward. Zelophehad was son of Hepher son of Gilead son of Machir son of Manasseh, of the clans of Manasseh, son of Joseph. The names of his daughters were Mahlah, Noah, Hoglah, Milcah, and Tirzah. <span class=\"vn\">2</span>They stood before Moses, Eleazar the priest, the leaders, and all the congregation, at the entrance of the tent of meeting, saying, <span class=\"vn\">3</span>“Our father died in the wilderness; he was not among the congregation of those who gathered themselves together against the Lord in the congregation of Korah but died for his own sin, and he had no sons. <span class=\"vn\">4</span>Why should the name of our father be taken away from his clan because he had no son? Give to us a possession among our father’s brothers.”</p>\n<p><span class=\"vn\">5</span>Moses brought their case before the Lord. <span class=\"vn\">6</span>And the Lord spoke to Moses, saying, <span class=\"vn\">7</span>“The daughters of Zelophehad are right in what they are saying; you shall indeed let them possess an inheritance among their father’s brothers and pass the inheritance of their father on to them. <span class=\"vn\">8</span>You shall also speak to the Israelites, saying: If a man dies and has no son, then you shall pass his inheritance on to his daughter. <span class=\"vn\">9</span>If he has no daughter, then you shall give his inheritance to his brothers. <span class=\"vn\">10</span>If he has no brothers, then you shall give his inheritance to his father’s brothers. <span class=\"vn\">11</span>And if his father has no brothers, then you shall give his inheritance to the nearest kinsman of his clan, and he shall possess it. It shall be for the Israelites a statute and ordinance, as the Lord commanded Moses.”</p>",
       "headerImage": null
     },
@@ -225,11 +323,25 @@ window.BBS_CONTENT = {
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%2038%3A6-26&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1214332107",
-      "optionalVideo": {
-        "title": "Are Old Testament figures meant to be models of faithfulness?",
-        "subtitle": "3 Minute Bible · optional",
-        "url": "https://vimeo.com/1219254921"
-      },
+      "optionalVideos": [
+        {
+          "title": "Are Old Testament figures meant to be models of faithfulness?",
+          "subtitle": "3 Minute Bible · optional",
+          "url": "https://vimeo.com/1219254921"
+        }
+      ],
+      "artwork": [
+        {
+          "title": "Judah and Tamar",
+          "subtitle": "Ferdinand Bol · Museum of Fine Arts, Boston",
+          "url": "https://commons.wikimedia.org/wiki/File:Ferdinand_Bol_-_Judah_and_Tamar_-_17.3268_-_Museum_of_Fine_Arts.jpg"
+        },
+        {
+          "title": "Judah and Tamar",
+          "subtitle": "Pieter Lastman · The Met",
+          "url": "https://www.metmuseum.org/art/collection/search/398636"
+        }
+      ],
       "optionalReadings": [
         {
           "title": "Rahab Hides the Spies",
@@ -272,11 +384,30 @@ window.BBS_CONTENT = {
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Kings%2017%3A1-24&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1219007254",
-      "optionalVideo": {
-        "title": "Orphan, widow, stranger",
-        "subtitle": "3 Minute Bible · optional",
-        "url": "https://vimeo.com/1219255238"
-      },
+      "optionalVideos": [
+        {
+          "title": "Orphan, widow, stranger",
+          "subtitle": "3 Minute Bible · optional",
+          "url": "https://vimeo.com/1219255238"
+        }
+      ],
+      "artwork": [
+        {
+          "title": "Elijah and the Widow of Zarephath",
+          "subtitle": "North Netherlands stained glass · Cleveland Museum of Art",
+          "url": "https://www.clevelandart.org/art/1951.337"
+        },
+        {
+          "title": "Elijah and the Widow's Son",
+          "subtitle": "after Ford Madox Brown · Dalziels' Bible Gallery · The Met",
+          "url": "https://www.metmuseum.org/art/collection/search/642925"
+        },
+        {
+          "title": "The Prophet Elijah and the Widow of Zarephath",
+          "subtitle": "Cornelis van Poelenburch · National Gallery of Art",
+          "url": "https://www.nga.gov/artworks/131041-prophet-elijah-and-widow-zarephath"
+        }
+      ],
       "optionalReadings": [
         {
           "title": "Jesus Recalls the Widow of Zarephath",
