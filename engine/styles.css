@@ -193,6 +193,13 @@ a.rcard:hover{border-color:var(--navy);transform:translateX(2px);}
 .buy:hover{border-color:var(--navy);background:#fff;}
 .buy i{font-size:9px;margin-left:4px;}
 .rnone{font-weight:600;font-style:italic;font-size:16px;color:var(--smoky);}
+/* Candler Foundry sign-off at the bottom of the resources (final) page */
+.resfoot{flex:0 0 auto;margin-top:16px;padding-top:16px;border-top:2px dotted var(--dot);
+  display:flex;flex-direction:column;align-items:center;gap:7px;}
+.resfoot-logo{display:block;line-height:0;}
+.resfoot-logo img{width:154px;height:auto;display:block;}
+.resfoot-url{font-weight:800;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--navy);text-decoration:none;}
+.resfoot-url:hover{color:var(--red);text-decoration:underline;}
 /* ===== end page ===== */
 .endpg{align-items:center;justify-content:center;text-align:center;gap:22px;}
 .endpg .redrule{margin:0 auto;}
