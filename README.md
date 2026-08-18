@@ -16,6 +16,15 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 
 ## ▶ START HERE — current status (updated Mon 2026-08-17)
 
+> ### ⚑ TWO STANDING RULES FROM EMILY — apply these every session
+> 1. **Never refer to a 3 Minute Bible by number alone.** Emily does not know them by number.
+>    Always write **`3MB-<code>` + the title** — e.g. "3MB-85, *Orphan, widow, stranger*". This applies
+>    to questions, status updates, commit messages and anything she reads.
+> 2. **Airtable is the authoritative list of which 3MBs exist** — base `appiL0Z2RilcAT2Cw`,
+>    table `tblS1Bk29cXyGGUdo` (206 records as of 2026-08-17). Before saying a video does or doesn't
+>    exist, **look it up there**. Do not infer it from the Dropbox folder or from Vimeo, both of which
+>    are incomplete.
+
 **This block is the current state of the project — read it first.** Anything left over from the older
 2026-08-07 priority list now lives under **"Carried-forward open items"** near the bottom of this file.
 Three workstreams; two are essentially done and the third is waiting on Emily.
@@ -112,27 +121,53 @@ and the printable PDF was re-cut in the Beyond Bumper Stickers format. See "Pack
 per-lesson list of what changed. **Still open on this packet:** the **letter + a packet-wide prayer pass**, which are Emily's own
 writing items. Its L6 video landed 2026-08-17, so the packet is otherwise complete.
 
+**4) NEW + BIG — caption the whole 3 Minute Bible back catalogue.** Emily (2026-08-17): the new 3MBs
+"all need captions burned in with whisper medium, using AI to check and correct the transcriptions that
+are created and focusing in particular on greek and hebrew words, biblical naming conventions and
+spelling, and other academic and punctuation errors." That is exactly what `caption_pipeline.py`
+already does — this is a **backlog run of the existing pipeline**, not new tooling. Scope from Airtable
+on 2026-08-17: **206 records total · 163 have a Dropbox video · 199 have some transcript · only 11 have
+a Vimeo link → ~195 unpublished, of which ~163 have a file to work from.** Budget roughly **5–6 minutes
+of Whisper-medium per 3-minute video on this CPU**, plus AI proof and burn. Practical plan: work in
+batches, keep Emily's review gate, and see **"Re-doing a video that is already published"** below for
+the mechanics. Confirm the batch order with Emily — the SSS-linked ones are already done.
+
 **Everything that is genuinely still open, in one place:**
 
-| # | Item | Owner | Where |
-|---|---|---|---|
-| 1 | Paste the section-3 embed into Webflow | Emily | `webflow-embeds/portal.html` |
-| 2 | Upload `thierry.woff2` to Webflow Fonts as "Thierry Leonie" | Emily | portal section 2 |
-| 3 | Women letter + packet-wide prayer pass | Emily | `content.js` |
-| 4 | Re-caption `3MB-44` at medium so captions match the others (optional) | Claude, on request | 3MB pipeline |
-| 5 | "Orphan, Widow, and Stranger" optional video — does it exist yet? | Emily | resources page |
-| 6 | `3MB-280` captions start at 17.0s, so the opening ~14s of speech is uncaptioned — re-burn from ~12.3s? | Emily decides | 3MB pipeline |
-| 7 | Webflow URL reorg + exec-dashboard SSS card | Emily / Claude | see "Carried-forward" below |
+**A. Emily's actions**
 
-**Smaller open questions — one-line answers from Emily, then Claude does them:**
-
-| # | Question | Where |
+| # | Item | Where |
 |---|---|---|
-| a | `3MB-44`'s Vimeo title is the long Airtable `Name` ("Did the biblical texts have chapters, verses, and section headings?"). Rename to "Un-Structuring the Bible"? | Vimeo `1218993379` |
-| b | Airtable `Status` is inconsistent: `3MB-44` = Complete, the other nine = Draft. Align them, or leave it (Status isn't tracking publication)? | Airtable `tblS1Bk29cXyGGUdo` |
-| c | The **Women** portal tile's "Printable PDF" pill has a baked drop shadow the **BBS** tile lacks — pre-existing in Canva, cosmetic | `DAHRnlJvmA4` p11/p12 |
-| d | Bible Gateway URLs are deliberately **not** printed in the PDF (90+ char encoded query strings). Print them anyway? | `tools/packet_pdf.py` |
-| e | Canva `DAHRnlJvmA4` slide-4 typo ("below Perfect for groups" → add the period) — only matters if that art is reused; the live HTML reads correctly | `DAHRnlJvmA4` |
+| A1 | Upload `thierry.woff2` to Webflow → Project Settings → Fonts as **"Thierry Leonie"** — fixes the live greeting font. If still wrong afterwards it IS a CSP; send the F12 console error | Webflow |
+| A2 | Women packet **letter + packet-wide prayer pass** (her writing) | `content.js` |
+| A3 | Fix the **Women** portal tile's "Printable PDF" pill — it has a baked drop shadow the **BBS** tile lacks | Canva `DAHRnlJvmA4` p12 |
+| A4 | Decide the batch order / priority for the big captioning backlog (workstream 4 above) | — |
+
+*(A1 is all that remains of the portal work — Emily embedded the section-3 code in Webflow on 2026-08-17.)*
+
+**B. Claude's queue — approved, just needs doing**
+
+| # | Item | Notes |
+|---|---|---|
+| B1 | **Re-splice `3MB-44`** with the new title card (Canva `DAHOtl4BNMk` **page 35**, "Understanding Biblical Structure") | It is already published, so follow **"Re-doing a video that is already published"** below. Vimeo canNOT replace a file in place → new id → re-wire BBS L4 + re-cut the BBS PDF. Vimeo title already renamed to "Understanding Biblical Structure" (2026-08-17). |
+| B2 | Upload **`3MB-85`, *Orphan, widow, stranger*** to Vimeo and wire it as the `optionalVideo` under **Women L1 Hannah** and **L4 Zelophehad**, then re-cut the Women PDF | Airtable says Status Complete with a Dropbox file but **no Vimeo link**, which is why it still renders "coming soon". Check whether it needs captioning first. |
+| B3 | **Bitly-shorten the scripture links in the PDF** so a printed Bible Gateway URL is typable | Emily's call (2026-08-17). Currently QR + hyperlink only, because the raw URLs are 90+ char encoded query strings. **Needs a Bitly account/API token — ask Emily where it lives.** |
+| B4 | Webflow greeting should read **"LET'S LEARN, EMILY!"** — add the exclamation mark | `webflow-embeds/portal.html` section 2. **Batch with B5** so Emily only re-pastes once. |
+| B5 | The **landing-page header animation** exists in the design but not in the Webflow embed code — identify it and reproduce it | `webflow-embeds/landing.html`. **Batch with B4.** |
+| B6 | Big captioning backlog (workstream 4) once Emily sets the order | ~163 videos with files |
+| B7 | Optional: re-caption `3MB-44` at Whisper medium so its captions match the other nine | It carries the FEBRUARY caption style (up to 3 lines) vs the v2 ≤2-line standard. Can be folded into B1. |
+
+**C. Larger / not started**
+
+| # | Item |
+|---|---|
+| C1 | Webflow URL reorg — landing moves to top-level `/sunday-school-simplified`; flipbook wrappers stay in `/sss/` (see "Carried-forward" below) |
+| C2 | Rewire the Executive dashboard SSS card to the flipbooks/portal (separate repo — read its `CANONICAL.md` first) |
+| C3 | Canva `DAHRnlJvmA4` slide-4 typo ("below Perfect for groups" → add the period) — only if that art is reused; the live HTML reads correctly |
+
+**Settled 2026-08-17 — do not re-ask:** `3MB-280` *The Widow of Zarephath* captions are correct and
+start at the right time (no re-burn). All 12 wired lesson videos are Airtable **Status = Complete**.
+`3MB-44` is renamed on Vimeo. `3MB-85` *Orphan, widow, stranger* **does exist** (it is in Airtable).
 
 **Not a to-do:** the PDF build's fonts. They were previously un-reproducible, but
 [`tools/prep_fonts.py`](tools/prep_fonts.py) now regenerates them from this repo — verified to rebuild
@@ -1197,6 +1232,84 @@ checking that a glyf table exists — the weaker check passed on files reportlab
 > page fit after fixing — that is exactly what pushed the end-page blurb from 2 lines to 3 and made it
 > collide with a fixed-y URL (the module now flows that URL from the paragraph's real bottom).
 > Prepared TTFs persist in old session scratchpads, but **re-instance the Mulish ones before trusting them.**
+
+## Re-doing a video that is already published (re-burn / re-splice)
+
+Emily changes a title card, or a caption error surfaces, **after** the video is live. **Do NOT re-run
+the whole pipeline** — the archived working set makes this cheap. Every published video has 8 files in
+`…\Dropbox\3MB\3MB Videos\3MB-<code> - <Title> - <Speaker>\`:
+
+| file | what it is / why you need it |
+|---|---|
+| `… - Horizontal - Uncaptioned.mp4` | the clean video **after** any title splice, **before** captions — **always re-burn onto THIS** |
+| `… (Captioned).mp4` | exactly what went to Vimeo |
+| `… (Captions).srt` | the burned cues only (intro already trimmed) |
+| `… - Transcript (Clean).txt` | the full transcript — this is what goes to Airtable |
+| `… - Transcript (Time-Stamped).srt`, `… .vtt` | full transcript, other formats |
+| `… .corrected.json` | AI-proofed cues + the intro cut time |
+| `… .words.json` | **the Whisper word-level cache — this is what makes re-runs cheap** (`--from-raw`) |
+
+### Case 1 — caption TEXT fix, video unchanged
+
+1. Edit `(Captions).srt`. **Mirror the same fix into** `Transcript (Clean).txt`,
+   `Transcript (Time-Stamped).srt`, `.vtt` and `.corrected.json` so the written record matches what is
+   on screen — they are separate files and nothing syncs them.
+2. Re-burn onto the **Uncaptioned** master. Copy the SRT to a plain `_sub.srt` **first** — commas and
+   colons in the real filename break ffmpeg's `subtitles=` filter — and run from that directory:
+
+```
+ffmpeg -y -i "<base> - Horizontal - Uncaptioned.mp4"   -vf "subtitles=_sub.srt:force_style='Fontname=Arial,Fontsize=18,Outline=1,Shadow=0,BorderStyle=1,Spacing=1,MarginV=60'"   -c:v libx264 -preset medium -crf 20 -c:a copy "<base> (Captioned).mp4"
+```
+
+3. Verify a frame at the changed cue, then re-upload / re-wire / re-cut (see **Vimeo** below).
+4. Update the Airtable `Transcript` if the wording changed.
+
+### Case 2 — NEW TITLE CARD on an already-published video (the `3MB-44` case)
+
+1. Export the new slide via the Canva connector (PNG, 1920×1080). Verify it decodes and that its
+   background really is `(30,37,48)` — a full-screen replacement only looks seamless because it matches.
+2. **MEASURE THIS VIDEO'S OWN CARD. Never reuse another video's IN/OUT.** There are **two templates**
+   in this batch (see §3b in the pipeline README): *Case A* — card in the opening (~3.4–7.5s) reached
+   by a **hard cut**, so a clean-navy instant exists; *Case B* — card **mid-roll** and **crossfaded**,
+   so no clean gap exists and the navy blocker needs its own fade-in.
+3. **Extract verification frames with OUTPUT seeking — `ffmpeg -i file -ss t`.** `-ss` placed *before*
+   `-i` is input seeking and is **not frame-accurate**; it shifted every reading and produced one
+   entirely wrong splice. Crop to the title band and find (a) the last frame **before** the old title
+   appears and (b) the first frame **after** it is gone. **Trust the rendered frames, not a brightness
+   metric** — a metric over the wrong band "confirmed" a clean gap that did not exist.
+4. Splice into the **Uncaptioned** master (never the captioned one — you would be burning over the
+   existing captions).
+5. **Re-burn the existing `(Captions).srt`** onto the spliced result. The captions themselves are
+   unchanged, so there is **no re-transcription** — this is the whole reason to keep the archive.
+6. Frame-verify **both** fades plus one caption frame.
+7. Re-upload, re-wire, re-cut the PDF, update Airtable, and archive the new working set over the old.
+
+### Vimeo: you canNOT replace a video's file in place
+
+Checked 2026-08-17: the `/videos/<id>/versions` connection is **GET-only** with our token (scopes:
+`private edit upload video_files public`). So **a re-cut means a NEW upload → a NEW video id → re-wire
+that lesson's `videoUrl` → re-cut that packet's PDF.** The old video can be deleted
+(`metadata.interactions.delete` is available) or left up — **ask Emily**, don't delete on your own.
+**Never assume a Vimeo URL survives a re-cut.**
+
+### What we did in the past (copy these)
+
+- **`3MB-283` *The Story of Jerusalem*, `3MB-287` *Scripture Inspired by God*, `3MB-288` *Love Is
+  Patient, Love Is Kind*** (Aug 13–17) — Case A splice. Values: **283 IN=3.33 / OUT=7.40**;
+  **287 IN=3.40 / OUT=7.40**; **288 IN=3.40 / OUT=7.15**. Then the full pipeline.
+- **`3MB-280` *The Widow of Zarephath*** (Aug 17) — Case B. **NAVY_IN=12.70 d=0.25 · CARD_IN=13.05
+  d=0.30 · OUT=16.85 d=0.45 · OUTEND=17.30**, and it is **23.976fps** (`-r 24000/1001`), not 24.
+- **Manual caption fixes** (the AI proof deliberately leaves these alone — see below):
+  `3MB-287` "Church"→"church" ×5 and "scripture"→"Scripture"; `3MB-283` "Washington DC"→"Washington,
+  D.C."; `3MB-280` "Now I take that back"→"**No,** I take that back" and "gentile"→"**G**entile".
+
+### Why a human proof pass is still required
+
+`caption_pipeline.py`'s AI step is deliberately narrow: it fixes **Hebrew/Greek terms**, normalises
+**scripture references to `Book Chapter:Verse`**, and repairs **obvious ASR errors** — and it **never
+rewords**. So plausible-but-wrong words survive it ("Now" for "No"). **Always diff the new transcript
+against the record's existing Airtable transcript**, which is human-written, and hand-fix the
+differences. That diff is how every fix listed above was found.
 
 ## Adding a new packet
 
