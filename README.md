@@ -1285,6 +1285,27 @@ ffmpeg -y -i "<base> - Horizontal - Uncaptioned.mp4"   -vf "subtitles=_sub.srt:f
 6. Frame-verify **both** fades plus one caption frame.
 7. Re-upload, re-wire, re-cut the PDF, update Airtable, and archive the new working set over the old.
 
+**DONE 2026-08-18 — and it turned out to be a THIRD template, not one of the two above.** On `3MB-44`
+the orange brand card **diagonally wipes** into an opening title card, and the old title is already
+legible *during* the wipe, so there is no clean-navy instant (same problem as Case B, different cause).
+Fade the navy blocker in over the tail of the ORANGE card. Values (**exactly 24fps**):
+`NAVY_IN=2.75 d=0.25`, `CARD_IN=3.05 d=0.30`, `OUT=10.95 d=0.45`, `OUTEND=11.40`. The branded wipe is
+unavoidably lost (becomes a short orange→navy dissolve) — Emily approved that trade-off; don't try to
+rebuild the wipe. New card was Canva **page 35**; new Vimeo id **1219267316**.
+
+**Measure by FRAME NUMBER, not by time.** Output seeking still misread this one — an `-ss` strip and a
+`fps=` contact sheet disagreed by ~0.5s. Use
+`-vf "select='between(n\,A\,B)',tile=..." -vsync 0`; frame `n` is exactly `n/fps` seconds.
+
+**The Canva title slides place the CF logo higher and larger than the logo burned into the footage**, so
+it doubles briefly during the fade-out. All four slides (283/287/288/44) do this and the first three
+shipped, so it is the established look — do not "correct" it on one video alone.
+
+**⚠ Do not tidy the Dropbox filename after swapping a video.** Overwriting the file in place is safe
+(Dropbox logs an `EDIT`, the id and its public link survive). **Renaming or moving it with the local
+client is delete+add** — new file id, and the public shared link in Airtable dies. If a rename is truly
+needed, use the Dropbox **server-side move API**. This bit us on 3MB-44.
+
 ### Vimeo: you canNOT replace a video's file in place
 
 Checked 2026-08-17: the `/videos/<id>/versions` connection is **GET-only** with our token (scopes:
