@@ -121,36 +121,84 @@
     return '<div class="pg imgpage"><img class="pgimg" src="' + esc(l.pageImages[1]) + '" alt="Lesson ' + l.n + ' — ' + esc(l.title) + ' (continued)"></div>';
   }
 
-  // rendered only when the lesson has extras waiting in the back; a real <button>
-  // (buttons don't trigger StPageFlip's click-to-flip) that jumps to Additional Resources
-  function moreBtn(l) {
-    if (!l.optionalVideo && !(l.optionalReadings && l.optionalReadings.length)) return "";
-    return '<button class="morebtn" type="button" data-gotores="1">More on this lesson <i class="fa-solid fa-arrow-right"></i></button>';
+  // A lesson's resources, normalized. optionalVideos (array) is the current shape;
+  // optionalVideo (single object) is still accepted for backward compatibility.
+  function resNorm(l) {
+    var vids = l.optionalVideos || (l.optionalVideo ? [l.optionalVideo] : []);
+    var arts = l.artwork || [];
+    var reads = l.optionalReadings || [];
+    return { vids: vids, arts: arts, reads: reads, count: vids.length + arts.length + reads.length };
   }
 
+  // rendered only when the lesson has extras waiting in the back; a real <button>
+  // (buttons don't trigger StPageFlip's click-to-flip) jumps to Additional Resources
+  // and auto-opens this lesson's accordion row (data-gotores carries the lesson n).
+  function moreBtn(l) {
+    if (!resNorm(l).count) return "";
+    return '<button class="morebtn" type="button" data-gotores="' + l.n + '">More on this lesson <i class="fa-solid fa-arrow-right"></i></button>';
+  }
+
+  // one resource card (video / artwork / reading). Videos with no url render as a
+  // non-link "coming soon" chip; everything else links out in a new tab.
+  function resCard(o, kind) {
+    var icon = kind === "art" ? "fa-image" : kind === "read" ? "fa-book-open" : "fa-play";
+    var defSub = kind === "art" ? "Artwork" : kind === "read" ? "Free online reading" : "3 Minute Bible · optional";
+    var soon = kind === "vid" && !o.url;
+    var go = soon ? "Coming soon" : (kind === "vid" ? 'Watch <i class="fa-solid fa-arrow-up-right-from-square"></i>' : 'Open <i class="fa-solid fa-arrow-up-right-from-square"></i>');
+    var inner = '<span class="rp"><i class="fa-solid ' + icon + '"></i></span>' +
+      '<span class="rmid"><span class="rtl">' + esc(o.title) + '</span><span class="rsub">' + esc(o.subtitle || defSub) + '</span></span>' +
+      '<span class="rgo">' + go + '</span>';
+    var cls = "rcard r" + kind + (soon ? " rsoon" : "");
+    return (o.url && !soon)
+      ? '<a class="' + cls + '" href="' + esc(o.url) + '" target="_blank" rel="noopener">' + inner + '</a>'
+      : '<div class="' + cls + '">' + inner + '</div>';
+  }
+
+  function bookCard(b) {
+    var buys = "";
+    if (b.amazon) buys += '<a class="buy" href="' + esc(b.amazon) + '" target="_blank" rel="noopener">Amazon <i class="fa-solid fa-arrow-up-right-from-square"></i></a>';
+    if (b.bookshop) buys += '<a class="buy" href="' + esc(b.bookshop) + '" target="_blank" rel="noopener">Bookshop.org <i class="fa-solid fa-arrow-up-right-from-square"></i></a>';
+    return '<div class="book"><span class="rp"><i class="fa-solid fa-book"></i></span>' +
+      '<span class="bookm"><span class="booktl">' + esc(b.title) + '</span>' +
+      '<span class="bookby">' + esc(b.authors) + '</span>' +
+      (b.isbn13 ? '<span class="bookisbn">ISBN ' + esc(b.isbn13) + '</span>' : '') +
+      '<span class="buys">' + buys + '</span></span></div>';
+  }
+
+  function accRow(id, chip, chipCls, title, sub, count, bodyHtml) {
+    return '<div class="accrow" data-accrow="' + id + '">' +
+      '<button class="acchead" type="button">' +
+        '<span class="accchip ' + chipCls + '">' + chip + '</span>' +
+        '<span class="accti"><span class="acctl">' + esc(title) + '</span><span class="accsub">' + esc(sub) + '</span></span>' +
+        '<span class="acccount">' + esc(count) + '</span>' +
+        '<span class="acccaret"><i class="fa-solid fa-chevron-right"></i></span>' +
+      '</button>' +
+      '<div class="accbody"><div class="accbodyin">' + bodyHtml + '</div></div></div>';
+  }
+
+  // Additional Resources = a dropdown accordion: one row per lesson that has extras,
+  // plus a shared "Recommended Reading" row (meta.recommendedReading) for the packet.
   function resourcesPage() {
-    function rcard(l, o, kind) {
-      var icon = kind === "read" ? "fa-book-open" : "fa-play";
-      var defSub = kind === "read" ? "Free online reading" : "3 Minute Bible · optional";
-      var inner = '<span class="rp"><i class="fa-solid ' + icon + '"></i></span>' +
-        '<span class="rmid"><span class="rtl">' + esc(o.title) + '</span><span class="rsub">' + esc(o.subtitle || defSub) + '</span></span>' +
-        '<span class="rref">Lesson ' + l.n + ' &middot; ' + esc(l.tabRef || l.shortRef) + '</span>';
-      var cls = "rcard" + (kind === "read" ? " rread" : "");
-      return o.url
-        ? '<a class="' + cls + '" href="' + esc(o.url) + '" target="_blank" rel="noopener">' + inner + '</a>'
-        : '<div class="' + cls + '">' + inner + '</div>';
+    var rows = "";
+    C.lessons.forEach(function (l) {
+      var r = resNorm(l);
+      if (!r.count) return;
+      var body = r.vids.map(function (v) { return resCard(v, "vid"); }).join("") +
+        r.arts.map(function (a) { return resCard(a, "art"); }).join("") +
+        r.reads.map(function (x) { return resCard(x, "read"); }).join("");
+      rows += accRow("L" + l.n, l.n, "", l.title, l.shortRef || l.reference,
+        r.count + " resource" + (r.count > 1 ? "s" : ""), body);
+    });
+    var rr = C.meta.recommendedReading || [];
+    if (rr.length) {
+      rows += accRow("READ", '<i class="fa-solid fa-book"></i>', "accchip-read",
+        "Recommended Reading", "For every lesson in this packet",
+        rr.length + " books", rr.map(bookCard).join(""));
     }
-    var cards = C.lessons.map(function (l) {
-      var out = "";
-      if (l.optionalVideo) out += rcard(l, l.optionalVideo, "video");
-      (l.optionalReadings || []).forEach(function (r) { out += rcard(l, r, "read"); });
-      return out;
-    }).join("");
-    if (!cards) cards = '<div class="rnone">Optional videos and readings will appear here as they are added.</div>';
+    if (!rows) rows = '<div class="rnone">Optional videos, artwork, and readings will appear here as they are added.</div>';
     return '<div class="pg resources"><div class="chead">Additional Resources</div>' +
-      '<div class="lede">Optional viewing and reading for classes that want to go deeper.</div>' +
-      '<div class="rlist">' + cards + '</div>' +
-      '<div class="rnote">More optional videos and readings will appear here as they’re added to future lessons.</div></div>';
+      '<div class="lede">Optional viewing, artwork, and reading for classes that want to go deeper. Tap a lesson to open its resources.</div>' +
+      '<div class="acc" id="resacc">' + rows + '</div></div>';
   }
 
   function endPage() {
@@ -341,7 +389,30 @@
   tscrim.addEventListener("click", function (e) { if (e.target === tscrim || e.target.closest(".tmclose")) closeTip(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeTip(); });
 
+  /* ---------- resources accordion ---------- */
+  function accRows() { return document.querySelectorAll("#resacc .accrow"); }
+  function accClose(row) {
+    row.classList.remove("open");
+    var b = row.querySelector(".accbody");
+    if (b) b.style.maxHeight = "0px";
+  }
+  function accOpen(row) {
+    Array.prototype.forEach.call(accRows(), function (o) { if (o !== row) accClose(o); });
+    row.classList.add("open");
+    var b = row.querySelector(".accbody"), inner = b.querySelector(".accbodyin");
+    b.style.maxHeight = inner.scrollHeight + "px";
+    // bring the opened row into view; the .acc column scrolls if the body is tall
+    setTimeout(function () { row.scrollIntoView({ block: "nearest" }); }, 220);
+  }
+  function accToggle(row) { row.classList.contains("open") ? accClose(row) : accOpen(row); }
+  function accOpenLesson(n) {
+    var row = document.querySelector('#resacc [data-accrow="L' + n + '"]');
+    if (row) accOpen(row);
+  }
+
   flipEl.addEventListener("click", function (e) {
+    var ah = e.target.closest(".acchead");
+    if (ah) { e.stopPropagation(); accToggle(ah.parentNode); return; }
     var vp = e.target.closest("[data-vpop]");
     if (vp) { e.stopPropagation(); openVideo(parseInt(vp.getAttribute("data-vpop"), 10)); return; }
     var card = e.target.closest("[data-scrip]");
@@ -349,7 +420,13 @@
     var tp = e.target.closest("[data-tip]");
     if (tp) { e.stopPropagation(); openTip(parseInt(tp.getAttribute("data-tip"), 10)); return; }
     var m = e.target.closest("[data-gotores]");
-    if (m) { e.stopPropagation(); flip.flip(RESOURCES_IDX); return; }
+    if (m) {
+      e.stopPropagation();
+      var ln = parseInt(m.getAttribute("data-gotores"), 10);
+      flip.flip(RESOURCES_IDX);
+      if (ln) setTimeout(function () { accOpenLesson(ln); }, 460);
+      return;
+    }
     var t = e.target.closest("[data-goto]");
     if (t) gotoLesson(parseInt(t.getAttribute("data-goto"), 10));
   });
