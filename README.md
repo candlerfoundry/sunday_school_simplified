@@ -121,7 +121,8 @@ writing items. Its L6 video landed 2026-08-17, so the packet is otherwise comple
 | 3 | Women letter + packet-wide prayer pass | Emily | `content.js` |
 | 4 | Re-caption `3MB-44` at medium so captions match the others (optional) | Claude, on request | 3MB pipeline |
 | 5 | "Orphan, Widow, and Stranger" optional video — does it exist yet? | Emily | resources page |
-| 6 | Webflow URL reorg + exec-dashboard SSS card | Emily / Claude | see "Carried-forward" below |
+| 6 | `3MB-280` captions start at 17.0s, so the opening ~14s of speech is uncaptioned — re-burn from ~12.3s? | Emily decides | 3MB pipeline |
+| 7 | Webflow URL reorg + exec-dashboard SSS card | Emily / Claude | see "Carried-forward" below |
 
 ---
 
