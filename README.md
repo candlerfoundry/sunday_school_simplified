@@ -1140,11 +1140,33 @@ readable as possible."* That floor was met by measurement, not eyeball: Times Ne
   (cont.)"), so a type-size bump can never silently overflow.
 - A lesson with no `videoUrl` renders a **"coming soon" note box with no QR** instead of a link box.
 
-**Re-cut procedure** (also in the module header): `pip install reportlab qrcode pillow fonttools brotli
-cu2qu pymupdf`; put `content.json` (the `window.BBS_CONTENT` object dumped from that packet's
-`content.js`), `cover.png` and `fonts/` beside the wrapper; run it; **verify with PyMuPDF for BOTH
-out-of-bounds and overlapping text blocks, then eyeball every page**; push. Re-cut whenever the art,
-copy, or `videoUrl`s change.
+**Re-cut procedure** (also in the module header):
+
+```
+pip install reportlab qrcode pillow fonttools brotli cu2qu pymupdf
+python tools/prep_fonts.py --out fonts        # regenerates all six TTFs; verifies them
+# then, beside each wrapper: content.json + cover.png + fonts/
+python tools/make_pdf.py          # or make_women_pdf.py
+```
+
+`content.json` is the `window.BBS_CONTENT` object dumped out of that packet's `content.js`.
+**Verify with PyMuPDF for BOTH out-of-bounds and overlapping text blocks, then eyeball every page**,
+and push. Re-cut whenever the art, copy, or `videoUrl`s change.
+
+**[`tools/prep_fonts.py`](tools/prep_fonts.py) makes the build reproducible from this repo alone** —
+added 2026-08-17 because the six TTFs previously existed only in a throwaway session scratchpad, so a
+fresh session could not re-cut a PDF at all. It derives **Thierry** and **Hello-Handmade** from this
+repo's own `engine/assets/fonts/*.woff2` and fetches **Mulish** from google/fonts, pinning real static
+instances. Verified: a clean checkout + this script rebuilds **both** PDFs **pixel-identically** to the
+published ones (identical text, mean pixel difference < 0.001).
+
+Converting Hello-Handmade from CFF to TrueType needs three things, and missing any one of them fails
+in a different place: build `glyf` outlines with cu2qu, **flip the sfnt header from `OTTO` to the
+TrueType tag** (otherwise reportlab says *"postscript outlines are not supported"* even though a glyf
+table is present), and **move `maxp` from version 0.5 to 1.0 and recalc it** (otherwise reportlab says
+*"Unknown maxp table version 0.5000"*; `maxp.recalc` also needs each pen-built glyph's bbox computed
+first). The script's verification therefore **registers every font with reportlab** rather than merely
+checking that a glyf table exists — the weaker check passed on files reportlab then refused.
 
 > ### ⚠ The font trap — read before any re-cut
 > `fonts/Mulish-normal-500/700/800.ttf` and `Mulish-italic-500.ttf` must be **real static instances** of
