@@ -115,7 +115,7 @@ window.BBS_CONTENT = {
       "optionalVideos": [
         {
           "title": "What is khanun?",
-          "subtitle": "3 Minute Bible · optional (coming soon)",
+          "subtitle": "3 Minute Bible",
           "url": ""
         }
       ],
@@ -165,13 +165,13 @@ window.BBS_CONTENT = {
       "optionalVideos": [
         {
           "title": "Mark's Secret Messiah",
-          "subtitle": "3 Minute Bible · optional",
+          "subtitle": "3 Minute Bible",
           "url": "https://vimeo.com/1210281410"
         },
         {
           "title": "What is pistis?",
-          "subtitle": "3 Minute Bible · optional (coming soon)",
-          "url": ""
+          "subtitle": "3 Minute Bible",
+          "url": "https://vimeo.com/1219313246"
         }
       ],
       "artwork": [
@@ -189,13 +189,6 @@ window.BBS_CONTENT = {
           "title": "Healing of the Daughter of Jairus",
           "subtitle": "JESUS MAFA · Vanderbilt (ACT)",
           "url": "https://act.library.vanderbilt.edu/artworks/56455"
-        }
-      ],
-      "optionalReadings": [
-        {
-          "title": "The Gospel of Mark",
-          "subtitle": "Yale Bible Study · free videos and study guides for groups",
-          "url": "https://yalebiblestudy.org/courses/the-gospel-of-mark/"
         }
       ],
       "funFact": "Mark preserves Jesus's actual Aramaic words to the girl - talitha koum, 'little girl, get up.' It's one of the few places in the Gospels where we hear Jesus in his own language.",
@@ -232,7 +225,7 @@ window.BBS_CONTENT = {
       "optionalVideos": [
         {
           "title": "What is Torah?",
-          "subtitle": "3 Minute Bible · optional",
+          "subtitle": "3 Minute Bible",
           "url": "https://vimeo.com/1219255056"
         }
       ],
@@ -282,7 +275,7 @@ window.BBS_CONTENT = {
       "optionalVideos": [
         {
           "title": "What is mishpat?",
-          "subtitle": "3 Minute Bible · optional (coming soon)",
+          "subtitle": "3 Minute Bible",
           "url": ""
         }
       ],
@@ -326,7 +319,7 @@ window.BBS_CONTENT = {
       "optionalVideos": [
         {
           "title": "Are Old Testament figures meant to be models of faithfulness?",
-          "subtitle": "3 Minute Bible · optional",
+          "subtitle": "3 Minute Bible",
           "url": "https://vimeo.com/1219254921"
         }
       ],
@@ -387,7 +380,7 @@ window.BBS_CONTENT = {
       "optionalVideos": [
         {
           "title": "Orphan, widow, stranger",
-          "subtitle": "3 Minute Bible · optional",
+          "subtitle": "3 Minute Bible",
           "url": "https://vimeo.com/1219255238"
         }
       ],
