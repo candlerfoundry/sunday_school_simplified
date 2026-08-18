@@ -14,7 +14,7 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 
 ---
 
-## ▶ START HERE — current status (updated Mon 2026-08-17)
+## ▶ START HERE — current status (updated 2026-08-18)
 
 > ### ⚑ TWO STANDING RULES FROM EMILY — apply these every session
 > 1. **Never refer to a 3 Minute Bible by number alone.** Emily does not know them by number.
@@ -24,6 +24,86 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 >    table `tblS1Bk29cXyGGUdo` (206 records as of 2026-08-17). Before saying a video does or doesn't
 >    exist, **look it up there**. Do not infer it from the Dropbox folder or from Vimeo, both of which
 >    are incomplete.
+
+> ### ⚡ THIRD STANDING RULE (2026-08-18)
+> **Burned captions never start until BOTH the title card AND the name/intro card have cleared** (13–17s;
+> Bonfiglio ≈15.5s, Arnold ≈17s). The silent, uncaptioned opening is INTENTIONAL — never "fix" it, even
+> for word studies (they start talking ~3s but the name card runs to ~8–13s). Full detail: the pipeline
+> README (`…\Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) §0/§4/§9.
+
+## ▶▶ LATEST (2026-08-18) — read this first; it supersedes older status below
+
+**Additional Resources page was REDESIGNED as a dropdown accordion (shared engine).** `resourcesPage()`
+in `engine/render.js` now builds one collapsible row per lesson that has extras + a shared **Recommended
+Reading** row. **The separate end page is GONE** — the Candler Foundry sign-off (a **shrunk, LINKABLE**
+logo `assets/candler-foundry-logo.png` + **linkable** `candlerfoundry.emory.edu`) now sits at the bottom
+of the resources page. (The old end-page URL said `candlerfoundry.org` — WRONG; fixed everywhere.)
+**Video labels no longer say "· optional."** Schema now: per-lesson **`optionalVideos`** (ARRAY;
+singular `optionalVideo` still accepted for back-compat) + **`artwork`** (array, link-out) + meta-level
+**`recommendedReading`** (array). Verified live on both packets; the page fits the fixed 816×1056 page
+with the fullest row open (`.acc` is flex:1 scroll, footer flex:0).
+
+**Women "extra 3MB per lesson" (Additional Resources) — status:**
+
+| Women lesson | supplemental 3MB | Vimeo | state |
+|---|---|---|---|
+| L1 Hannah | `3MB-273` *khanun* | — | **ON HOLD** — see below |
+| L2 Two Daughters | `3MB-258` *pistis* | `1219313246` | LIVE (L2 also keeps *Mark's Secret Messiah* `1210281410`) |
+| L3 Shiphrah & Puah | `3MB-68` *What is Torah?* | `1219255056` | LIVE |
+| L4 Zelophehad | `3MB-267` *mishpat* | `1219343599` | LIVE |
+| L5 Tamar | `3MB-65` *Are OT figures a model of faithfulness?* | `1219254921` | LIVE |
+| L6 Widow | `3MB-85` *Orphan, widow, stranger* | `1219255238` | LIVE |
+
+- **`3MB-273` *khanun* is ON HOLD.** Its baked name lower-third reads only **"LARRY"**; the speaker is
+  **Rev. Larry Varghese**, NOT Bonfiglio — and **Airtable's `Instructor/Speaker` for 3MB-273 wrongly says
+  Bonfiglio**. **The producer is re-cutting ALL of Larry's videos to fix the name card**; wire khanun
+  (and any other Larry 3MBs) only when those corrected masters arrive. Then: caption → Vimeo → Airtable
+  (also fix the speaker field) → wire Women L1 → re-cut Women PDF. Do NOT publish the current file.
+- **Per-lesson ARTWORK** (link-out, 2–3 per Women lesson) is wired from Emily's list. **BBS artwork is
+  PENDING** (Emily's Codex is researching it).
+- **Yale "The Gospel of Mark" reading was removed** from Women L2 (Emily's call).
+
+**Recommended Reading (5 commentaries) is on BOTH packets** (`meta.recommendedReading`): Women's Bible
+Commentary 3e `9780664237073`; Theological Bible Commentary `9780664227111` (**Amazon-only — not on
+Bookshop**); NT in Color `9780830814091`; Womanist Midrash v1 `9780664239039`; v2 `9780664266011`.
+Amazon = `amazon.com/dp/<isbn10>`, Bookshop = `bookshop.org/book/<isbn13>`.
+
+**Both printable PDFs were re-cut** (`tools/packet_pdf.py` updated): resources section reads
+`optionalVideos[]` + `artwork[]` + `optionalReadings` + a Recommended Reading section (new `book_box`),
+and **the end page now uses the real logo IMAGE (linkable) instead of the flipbook-font wordmark**, URL
+`candlerfoundry.emory.edu` (logo + URL both linkable). PDF build = **Python 3.14** (`/c/Python314/python`
+has reportlab/qrcode/pymupdf/fontTools/cu2qu/brotli); reconstruct the repo tree, run
+`tools/prep_fonts.py --out fonts`, put `content.json`(from content.js)+`cover.png`+**`logo.png`**(=
+packet `assets/candler-foundry-logo.png`) beside `make_pdf.py`/`make_women_pdf.py`. PDFs live at
+`packets/<pkg>/<meta.pdf>`.
+
+**⚠ VIMEO FOLDER FILING PENDING — Emily to do (or give an `interact`-scoped token).** These 5 published
+videos are public but could NOT be filed into the **"3 Minute Bible"** folder (project `27506621`) via
+API — the token scope is `private edit upload video_files public` (no `interact`), so the folder PUT
+returns 403. Drag them into the folder in the Vimeo UI:
+`3MB-65` (1219254921) · `3MB-68` (1219255056) · `3MB-85` (1219255238) · `3MB-258` (1219313246) ·
+`3MB-267` (1219343599).
+
+**▶ NEXT SESSION — supplemental 3MBs for the BEYOND BUMPER STICKERS Additional Resources.** Emily will
+supply additional 3MB videos to attach to BBS lessons (same pattern as the Women set above). For EACH:
+1. **Look it up in Airtable first** (base `appiL0Z2RilcAT2Cw`, table `tblS1Bk29cXyGGUdo`) — code, `Name`,
+   `Instructor/Speaker`, existing transcript/Vimeo. Refer to it by **`3MB-<code>` + title**, never number.
+2. **If it lacks a captioned master, caption it** via the pipeline (`…\Dropbox\3MB\SSS 3MB Captioning
+   Pipeline\`): Whisper **medium** + AI proof (Greek/Hebrew, scripture refs, ASR), **intro-gate**
+   (captions start only after the name card clears — 3rd standing rule), ≤2-line burn. Then Emily's
+   review gate unless she says otherwise. Diff the new transcript vs the Airtable transcript and
+   hand-fix (e.g. "Biblical"→"biblical"). See that README's §3 (naming/filing) + §4 (pipeline).
+3. **Upload to Vimeo PUBLIC** — stage the file OFF the Dropbox mount first (WinError 389 guard), create
+   with `privacy.view=anybody, embed=public`, name = Airtable `Name` (e.g. "What is Torah?"), desc =
+   "A 3 Minute Bible with <Speaker>. From The Candler Foundry…". (Folder add will 403 — see above.)
+4. **Airtable**: write the `Vimeo Link` (and `Transcript` if newly proofed). Status stays "Draft".
+5. **Wire into `packets/beyond-bumper-stickers/content.js`** as `optionalVideos: [ {title, subtitle:"3
+   Minute Bible", url} ]` on the right lesson (do NOT write "optional"). content.js keeps short arrays
+   inline — edit with TARGETED string replacements, never a full `json.dumps` reserialize.
+6. **Re-cut the BBS PDF** (see build note above) and push it to `packets/beyond-bumper-stickers/`.
+7. **Naming/filing taxonomy** for the working files: `3MB-<code> - <Title> - <Speaker last name>\` with
+   `(Captioned).mp4` / `- Horizontal - Uncaptioned.mp4` / transcripts / `.words.json` — pipeline README §3.
+
 
 **This block is the current state of the project — read it first.** Anything left over from the older
 2026-08-07 priority list now lives under **"Carried-forward open items"** near the bottom of this file.
@@ -150,7 +230,7 @@ the mechanics. Confirm the batch order with Emily — the SSS-linked ones are al
 | # | Item | Notes |
 |---|---|---|
 | B1 | **Re-splice `3MB-44`** with the new title card (Canva `DAHOtl4BNMk` **page 35**, "Understanding Biblical Structure") | It is already published, so follow **"Re-doing a video that is already published"** below. Vimeo canNOT replace a file in place → new id → re-wire BBS L4 + re-cut the BBS PDF. Vimeo title already renamed to "Understanding Biblical Structure" (2026-08-17). |
-| B2 | Upload **`3MB-85`, *Orphan, widow, stranger*** to Vimeo and wire it as the `optionalVideo` under **Women L1 Hannah** and **L4 Zelophehad**, then re-cut the Women PDF | Airtable says Status Complete with a Dropbox file but **no Vimeo link**, which is why it still renders "coming soon". Check whether it needs captioning first. |
+| B2 | ~~Upload `3MB-85` and wire under Women L1/L4~~ — **DONE / SUPERSEDED (2026-08-18).** `3MB-85` is now the supplemental video on **Women L6** (`1219255238`); the whole Additional-Resources redesign shipped. See the **▶▶ LATEST** block at the top. |
 | B3 | **Bitly-shorten the scripture links in the PDF** so a printed Bible Gateway URL is typable | Emily's call (2026-08-17). Currently QR + hyperlink only, because the raw URLs are 90+ char encoded query strings. **Needs a Bitly account/API token — ask Emily where it lives.** |
 | B4 | Webflow greeting should read **"LET'S LEARN, EMILY!"** — add the exclamation mark | `webflow-embeds/portal.html` section 2. **Batch with B5** so Emily only re-pastes once. |
 | B5 | The **landing-page header animation** exists in the design but not in the Webflow embed code — identify it and reproduce it | `webflow-embeds/landing.html`. **Batch with B4.** |
@@ -462,10 +542,13 @@ window.BBS_CONTENT = { meta, contentsIntro, lessons: [ ... ] }
 // contentsIntro may be "" — the Contents page renders no lede then (current state;
 // Emily removed the "Six of the Bible's most-quoted lines" blurb).
 
-meta   = { series, title, letter: { heading, paragraphs[], quotes[], paragraphs2[],
-           rhythmTitle, steps[], paragraphs3[], grace, signName } }
-         // rhythmTitle+steps now render on the CONTENTS page (bottom strip),
-         // not in the letter.
+meta   = { series, title, pdf, letter: { heading, paragraphs[], quotes[], paragraphs2[],
+           rhythmTitle, steps[], paragraphs3[], grace, signName },
+           recommendedReading: [ { title, authors, isbn13, amazon, bookshop }, ... ] }
+         // rhythmTitle+steps render on the CONTENTS page (bottom strip), not the letter.
+         // recommendedReading (2026-08-18): shared book list shown ONCE on the Additional
+         //   Resources page (its own accordion row) + the PDF; identical on both packets.
+         //   bookshop may be "" (omitted) when a title is not stocked there.
 
 lesson = { n, accent, reference, shortRef, title,
            tabRef,              // side-tab label, spelled out, e.g. "Jeremiah 29"
@@ -474,12 +557,18 @@ lesson = { n, accent, reference, shortRef, title,
            scriptureRef, scriptureUrl,   // scriptureUrl uses version=NRSVUE
            scriptureText,       // HTML string shown in the popout modal
            videoTitle, videoSubtitle, videoUrl,   // videoUrl empty until Vimeo links exist
-           optionalVideo,       // { title, subtitle, url } or null — renders on the
-                                //   Additional Resources page, NOT on the lesson page
+           optionalVideos,      // [ { title, subtitle, url }, ... ] — supplemental 3MB
+                                //   video(s) on the Additional Resources page (a lesson may
+                                //   have MORE THAN ONE). url "" => renders "Coming soon".
+                                //   subtitle is just "3 Minute Bible" (NOT "· optional").
+                                //   (legacy singular `optionalVideo` is still accepted.)
+           artwork,             // [ { title, subtitle, url }, ... ] or null — link-out to
+                                //   the hosting museum/archive (subtitle = "Artist · Museum").
+                                //   Never host/reproduce the image; link only.
            optionalReadings,    // [ { title, subtitle, url }, ... ] or null — free-access
-                                //   reading LINKS, rendered as book-icon cards on the
-                                //   Additional Resources page (link out only, never
-                                //   reproduce the content)
+                                //   reading LINKS (link out only, never reproduce content).
+                                //   All three render as cards inside that lesson's accordion
+                                //   row: videos, then artwork, then readings.
            funFact,             // string or null — "Did you know?" aside under the
                                 //   video card on lesson page A
            headerImage,         // path or null (engine draws the replica header when null);
