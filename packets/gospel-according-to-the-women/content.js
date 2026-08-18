@@ -76,7 +76,7 @@ window.BBS_CONTENT = {
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Samuel%201%3A1-20&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1214331973",
       "optionalVideo": {
-        "title": "Orphan, Widow, and Stranger",
+        "title": "What is khanun?",
         "subtitle": "3 Minute Bible · optional (coming soon)",
         "url": ""
       },
@@ -154,7 +154,11 @@ window.BBS_CONTENT = {
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Exodus%201%3A8-22&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1214331923",
-      "optionalVideo": null,
+      "optionalVideo": {
+        "title": "What is Torah?",
+        "subtitle": "3 Minute Bible · optional",
+        "url": "https://vimeo.com/1219255056"
+      },
       "funFact": "The Pharaoh in this story, the most powerful man in the world, is never named. The two midwives are: Shiphrah and Puah.",
       "scriptureText": "<h4>Exodus 1:8–22</h4>\n<p><span class=\"vn\">8</span>Now a new king arose over Egypt who did not know Joseph. <span class=\"vn\">9</span>He said to his people, “Look, the Israelite people are more numerous and more powerful than we. <span class=\"vn\">10</span>Come, let us deal shrewdly with them, or they will increase and, in the event of war, join our enemies and fight against us and escape from the land.” <span class=\"vn\">11</span>Therefore they set taskmasters over them to oppress them with forced labor. They built supply cities, Pithom and Rameses, for Pharaoh. <span class=\"vn\">12</span>But the more they were oppressed, the more they multiplied and spread, so that the Egyptians came to dread the Israelites. <span class=\"vn\">13</span>The Egyptians subjected the Israelites to hard servitude <span class=\"vn\">14</span>and made their lives bitter with hard servitude in mortar and bricks and in every kind of field labor. They were ruthless in all the tasks that they imposed on them.</p>\n<p><span class=\"vn\">15</span>The king of Egypt said to the Hebrew midwives, one of whom was named Shiphrah and the other Puah, <span class=\"vn\">16</span>“When you act as midwives to the Hebrew women and see them on the birthstool, if it is a son, kill him, but if it is a daughter, she shall live.” <span class=\"vn\">17</span>But the midwives feared God; they did not do as the king of Egypt commanded them, but they let the boys live. <span class=\"vn\">18</span>So the king of Egypt summoned the midwives and said to them, “Why have you done this and allowed the boys to live?” <span class=\"vn\">19</span>The midwives said to Pharaoh, “Because the Hebrew women are not like the Egyptian women, for they are vigorous and give birth before the midwife comes to them.” <span class=\"vn\">20</span>So God dealt well with the midwives, and the people multiplied and became very strong. <span class=\"vn\">21</span>And because the midwives feared God, he gave them families. <span class=\"vn\">22</span>Then Pharaoh commanded all his people, “Every son that is born to the Hebrews you shall throw into the Nile, but you shall let every daughter live.”</p>",
       "headerImage": null
@@ -187,7 +191,7 @@ window.BBS_CONTENT = {
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Numbers%2026%3A52-56%3B%2027%3A1-11&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1214332026",
       "optionalVideo": {
-        "title": "Orphan, Widow, and Stranger",
+        "title": "What is mishpat?",
         "subtitle": "3 Minute Bible · optional (coming soon)",
         "url": ""
       },
@@ -221,7 +225,11 @@ window.BBS_CONTENT = {
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=Genesis%2038%3A6-26&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1214332107",
-      "optionalVideo": null,
+      "optionalVideo": {
+        "title": "Are Old Testament figures meant to be models of faithfulness?",
+        "subtitle": "3 Minute Bible · optional",
+        "url": "https://vimeo.com/1219254921"
+      },
       "optionalReadings": [
         {
           "title": "Rahab Hides the Spies",
@@ -264,7 +272,11 @@ window.BBS_CONTENT = {
       ],
       "scriptureUrl": "https://www.biblegateway.com/passage/?search=1%20Kings%2017%3A1-24&version=NRSVUE",
       "videoUrl": "https://player.vimeo.com/video/1219007254",
-      "optionalVideo": null,
+      "optionalVideo": {
+        "title": "Orphan, widow, stranger",
+        "subtitle": "3 Minute Bible · optional",
+        "url": "https://vimeo.com/1219255238"
+      },
       "optionalReadings": [
         {
           "title": "Jesus Recalls the Widow of Zarephath",
