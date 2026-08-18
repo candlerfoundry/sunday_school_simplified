@@ -155,6 +155,7 @@ the mechanics. Confirm the batch order with Emily — the SSS-linked ones are al
 | B4 | Webflow greeting should read **"LET'S LEARN, EMILY!"** — add the exclamation mark | `webflow-embeds/portal.html` section 2. **Batch with B5** so Emily only re-pastes once. |
 | B5 | The **landing-page header animation** exists in the design but not in the Webflow embed code — identify it and reproduce it | `webflow-embeds/landing.html`. **Batch with B4.** |
 | B6 | Big captioning backlog (workstream 4) once Emily sets the order | ~163 videos with files |
+| B8 | **Housekeeping - clear published copies out of `_CAPTIONED FOR REVIEW`.** `3MB-283` *The Story of Jerusalem*, `3MB-287` *Scripture Inspired by God* and `3MB-288` *Love Is Patient, Love Is Kind* are published but their review copies still sit there. **LEAVE** `3MB-254/255/256/257` (the word studies) and `3MB-279` *Eve* - those are archive-only and were never reviewed. Emily pre-authorised this in principle but **confirm before deleting anything** | `...\NEW VIDEOS GO HERE\_CAPTIONED FOR REVIEW\` |
 | B7 | Optional: re-caption `3MB-44` at Whisper medium so its captions match the other nine | It carries the FEBRUARY caption style (up to 3 lines) vs the v2 ≤2-line standard. Can be folded into B1. |
 
 **C. Larger / not started**
