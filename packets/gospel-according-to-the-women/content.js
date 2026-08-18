@@ -276,7 +276,7 @@ window.BBS_CONTENT = {
         {
           "title": "What is mishpat?",
           "subtitle": "3 Minute Bible",
-          "url": ""
+          "url": "https://vimeo.com/1219343599"
         }
       ],
       "artwork": [
