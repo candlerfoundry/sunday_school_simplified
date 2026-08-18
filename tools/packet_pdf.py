@@ -187,6 +187,46 @@ def build(work, palette, fonts_dir=None):
         c.drawString(M + 14, y - h + 14, note)
         return y - h
 
+    def book_box(c, y, b):
+        # manual word-wrap of the title to <=2 lines (predictable spacing)
+        maxw = CW - 28
+        words = (b.get('title') or '').split(' ')
+        lines, cur = [], ''
+        for w in words:
+            t = (cur + ' ' + w).strip()
+            if c.stringWidth(t, 'Mulish-Bold', BOX_TITLE) <= maxw:
+                cur = t
+            else:
+                if cur:
+                    lines.append(cur)
+                cur = w
+        if cur:
+            lines.append(cur)
+        lines = lines[:2]
+        h = 66 + 16 * len(lines)
+        box(c, y, h)
+        ty = y - 22
+        c.setFont('Mulish-Bold', BOX_TITLE); c.setFillColor(INK)
+        for ln in lines:
+            c.drawString(M + 14, ty, ln); ty -= 16
+        c.setFont('Mulish', BOX_SUB); c.setFillColor(SECOND)
+        c.drawString(M + 14, ty, (b.get('authors') or '')[:96])
+        ty -= 15
+        if b.get('isbn13'):
+            c.setFont('Mulish-Bold', BOX_SUB); c.setFillColor(INK)
+            c.drawString(M + 14, ty, 'ISBN ' + b['isbn13'])
+        lx = M + 14; ly = y - h + 14
+        for label, url in [('Amazon', b.get('amazon')), ('Bookshop.org', b.get('bookshop'))]:
+            if not url:
+                continue
+            c.setFont('Mulish-Bold', BOX_LINK); c.setFillColor(ACCENT)
+            c.drawString(lx, ly, label)
+            lw = c.stringWidth(label, 'Mulish-Bold', BOX_LINK)
+            c.setStrokeColor(ACCENT); c.setLineWidth(0.6); c.line(lx, ly - 2, lx + lw, ly - 2)
+            c.linkURL(url, (lx, ly - 3, lx + lw, ly + 10), relative=0)
+            lx += lw + 24
+        return y - h
+
     out_path = os.path.join(work, C['meta']['pdf'])
     c = canvas.Canvas(out_path, pagesize=letter)
     c.setTitle('%s — Sunday School Simplified' % C['meta']['title'])
@@ -327,53 +367,73 @@ def build(work, palette, fonts_dir=None):
         c.setFont('Hello', 27); c.setFillColor(DISPLAY)
         c.drawString(M, H - 84, 'Additional Resources' if first else 'Additional Resources (cont.)')
         if first:
-            return para(c, 'Optional viewing and reading for classes that want to go deeper.',
+            return para(c, 'Extra viewing, artwork, and reading for classes that want to go deeper.',
                         st('Mulish-It', BODY, SECOND, leading=BODY_LEAD), M, H - 100, CW) - 22
         return H - 106
 
     items = []
     for l in C['lessons']:
         tag = 'Lesson %d · %s' % (l['n'], l.get('tabRef') or l['shortRef'])
-        o = l.get('optionalVideo')
-        if o:
-            items.append((o['title'], o.get('subtitle'), o.get('url'), tag, True))
+        vids = l.get('optionalVideos') or ([l['optionalVideo']] if l.get('optionalVideo') else [])
+        for o in vids:
+            items.append(('video', o.get('title'), o.get('subtitle'), o.get('url'), tag))
+        for a in (l.get('artwork') or []):
+            items.append(('art', a.get('title'), a.get('subtitle'), a.get('url'), tag))
         for r in (l.get('optionalReadings') or []):
-            items.append((r['title'], r.get('subtitle'), r.get('url'), tag, False))
+            items.append(('read', r.get('title'), r.get('subtitle'), r.get('url'), tag))
 
+    rr = C['meta'].get('recommendedReading') or []
     y = res_header(c, True)
-    if not items:
-        para(c, 'Optional videos and readings will appear here as they are added to future lessons.',
+    if not items and not rr:
+        para(c, 'Extra videos, artwork, and readings will appear here as they are added to future lessons.',
              st('Mulish-It', BODY, SECOND, leading=BODY_LEAD), M, y, CW)
     else:
-        for title, sub, url, tag, is_video in items:
+        for kind, title, sub, url, tag in items:
             if y - 108 < 62:
                 footer(c, C['meta']['title'], page); c.showPage(); page += 1
                 y = res_header(c, False)
             full_sub = ('%s · %s' % (tag, sub)) if sub else tag
-            if url:
-                u = vimeo_watch(url) if is_video else url
-                label = ('Scan the code, or type the link above' if is_video
-                         else 'Open at Bible Gateway — or scan the code')
-                y = link_box(c, y, title, full_sub, u, label,
-                             show_url=u.replace('https://', '') if is_video else None) - 16
-            else:
+            if not url:
                 y = note_box(c, y, title, full_sub,
                              'Coming soon — it will appear in the online flipbook.') - 16
+            elif kind == 'video':
+                u = vimeo_watch(url)
+                y = link_box(c, y, title, full_sub, u, 'Scan the code, or type the link above',
+                             show_url=u.replace('https://', '')) - 16
+            elif kind == 'art':
+                y = link_box(c, y, title, full_sub, url, 'Scan the code to view the artwork') - 16
+            else:
+                y = link_box(c, y, title, full_sub, url, 'Open at Bible Gateway — or scan the code') - 16
+        if rr:
+            if y - 156 < 62:
+                footer(c, C['meta']['title'], page); c.showPage(); page += 1
+                y = res_header(c, False)
+            y = section(c, y - 4, 'Recommended Reading')
+            y = para(c, 'Scholarly commentaries for every lesson in this packet.',
+                     st('Mulish-It', BOX_SUB, SECOND, leading=15), M, y, CW) - 10
+            for b in rr:
+                if y - 132 < 62:
+                    footer(c, C['meta']['title'], page); c.showPage(); page += 1
+                    y = res_header(c, False)
+                y = book_box(c, y, b) - 14
     footer(c, C['meta']['title'], page)
     c.showPage(); page += 1
 
     # ---------- end page ----------
     border(c)
-    c.setFillColor(ACCENT); c.roundRect(W / 2 - 26, H / 2 + 96, 52, 3, 1.5, stroke=0, fill=1)
-    c.setFont('Hello', 30); c.setFillColor(DISPLAY)
-    c.drawCentredString(W / 2, H / 2 + 54, 'The Candler Foundry')
+    c.setFillColor(ACCENT); c.roundRect(W / 2 - 26, H / 2 + 132, 52, 3, 1.5, stroke=0, fill=1)
+    # the actual Candler Foundry logo (linkable), replacing the flipbook-font wordmark
+    _lr = ImageReader(os.path.join(work, 'logo.png')); _iw, _ih = _lr.getSize()
+    _lw = 214.0; _lh = _lw * _ih / _iw; _lx = W / 2 - _lw / 2; _ly = H / 2 + 116 - _lh
+    c.drawImage(_lr, _lx, _ly, _lw, _lh, mask='auto')
+    c.linkURL('https://candlerfoundry.emory.edu', (_lx, _ly, _lx + _lw, _ly + _lh), relative=0)
     ey = para(c, esc('%s is a project of The Candler Foundry, making the best of biblical '
                      'scholarship accessible to everyone.' % C['meta']['series']),
-              st('Mulish-It', BODY, SECOND, leading=BODY_LEAD, align=1), W / 2 - 175, H / 2 + 34, 350)
+              st('Mulish-It', BODY, SECOND, leading=BODY_LEAD, align=1), W / 2 - 175, _ly - 16, 350)
     c.setFont('Mulish-XB', 10.5); c.setFillColor(INK)
-    uy = ey - 26
+    uy = ey - 24
     c.drawCentredString(W / 2, uy, 'CANDLERFOUNDRY.EMORY.EDU')
-    c.linkURL('https://www.candlerfoundry.emory.edu',
+    c.linkURL('https://candlerfoundry.emory.edu',
               (W / 2 - 110, uy - 4, W / 2 + 110, uy + 11), relative=0)
     c.setFont('Mulish', 8.5); c.setFillColor(SECOND)
     c.drawCentredString(W / 2, 47, 'Scripture quotations are from the New Revised Standard Version, Updated Edition.')
