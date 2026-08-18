@@ -142,7 +142,7 @@
   // non-link "coming soon" chip; everything else links out in a new tab.
   function resCard(o, kind) {
     var icon = kind === "art" ? "fa-image" : kind === "read" ? "fa-book-open" : "fa-play";
-    var defSub = kind === "art" ? "Artwork" : kind === "read" ? "Free online reading" : "3 Minute Bible · optional";
+    var defSub = kind === "art" ? "Artwork" : kind === "read" ? "Free online reading" : "3 Minute Bible";
     var soon = kind === "vid" && !o.url;
     var go = soon ? "Coming soon" : (kind === "vid" ? 'Watch <i class="fa-solid fa-arrow-up-right-from-square"></i>' : 'Open <i class="fa-solid fa-arrow-up-right-from-square"></i>');
     var inner = '<span class="rp"><i class="fa-solid ' + icon + '"></i></span>' +
@@ -195,17 +195,17 @@
         "Recommended Reading", "For every lesson in this packet",
         rr.length + " books", rr.map(bookCard).join(""));
     }
-    if (!rows) rows = '<div class="rnone">Optional videos, artwork, and readings will appear here as they are added.</div>';
+    if (!rows) rows = '<div class="rnone">Extra videos, artwork, and readings will appear here as they are added.</div>';
+    // the resources page is now the LAST page: the Candler Foundry sign-off (shrunk,
+    // linkable logo + linkable URL) sits at the bottom, replacing the old end page.
+    var foot = '<div class="resfoot">' +
+      '<a class="resfoot-logo" href="https://candlerfoundry.emory.edu" target="_blank" rel="noopener" aria-label="The Candler Foundry — candlerfoundry.emory.edu">' +
+        '<img src="assets/candler-foundry-logo.png" alt="The Candler Foundry"></a>' +
+      '<a class="resfoot-url" href="https://candlerfoundry.emory.edu" target="_blank" rel="noopener">candlerfoundry.emory.edu</a>' +
+      '</div>';
     return '<div class="pg resources"><div class="chead">Additional Resources</div>' +
-      '<div class="lede">Optional viewing, artwork, and reading for classes that want to go deeper. Tap a lesson to open its resources.</div>' +
-      '<div class="acc" id="resacc">' + rows + '</div></div>';
-  }
-
-  function endPage() {
-    return '<div class="pg endpg"><div class="redrule"></div>' +
-      '<img class="biglogo" src="assets/candler-foundry-logo.png" alt="The Candler Foundry">' +
-      '<div class="em">' + esc(C.meta.series) + ' is a project of The Candler Foundry, making the best of biblical scholarship accessible to everyone.</div>' +
-      '<div class="url">candlerfoundry.org</div></div>';
+      '<div class="lede">Extra viewing, artwork, and reading for classes that want to go deeper. Tap a lesson to open its resources.</div>' +
+      '<div class="acc" id="resacc">' + rows + '</div>' + foot + '</div>';
   }
 
   /* ---------- assemble ---------- */
@@ -225,7 +225,6 @@
   });
   var RESOURCES_IDX = pages.length;
   push(resourcesPage()); pageToLesson.push(-1);
-  push(endPage()); pageToLesson.push(-1);
   // spreads pair (0,1),(2,3)... — total must be even
   if (pages.length % 2 !== 0) { push('<div class="pg"></div>'); pageToLesson.push(-1); }
 
