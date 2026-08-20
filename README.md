@@ -84,8 +84,28 @@ returns 403. Drag them into the folder in the Vimeo UI:
 `3MB-65` (1219254921) · `3MB-68` (1219255056) · `3MB-85` (1219255238) · `3MB-258` (1219313246) ·
 `3MB-267` (1219343599).
 
-**▶ NEXT SESSION — supplemental 3MBs for the BEYOND BUMPER STICKERS Additional Resources.** Emily will
-supply additional 3MB videos to attach to BBS lessons (same pattern as the Women set above). For EACH:
+**✅ DONE (2026-08-20) — 6 supplemental 3MBs wired into BEYOND BUMPER STICKERS.** All uploaded public,
+Airtable `Vimeo Link` set, wired into `content.js` `optionalVideos[]`, and in the re-cut PDF (19pp),
+verified live on Netlify:
+
+| BBS lesson | supplemental 3MB | Vimeo |
+|---|---|---|
+| L1 For I Know the Plans | `3MB-249` *What happened during the exile?* | `1219870379` |
+| L2 Be Still | `3MB-74` *Who wrote the Psalms?* | `1219870516` |
+| L3 Have Dominion | `3MB-262` *What is adam?* | `1219676911` (wired Aug 19) |
+| L4 I Can Do All Things | `3MB-42` *What is an encomium?* | `1219870600` |
+| L5 All Scripture Is Inspired | `3MB-20` *Who wrote the Pauline letters?* + `3MB-25` *What are the Pastorals?* | `1219870709` · `1219870840` |
+| L6 Love Is Patient | `3MB-28` *Understanding Paul's Letters* | `1219870939` |
+
+**⚠ Emily to do:** drag these 6 into the Vimeo "3 Minute Bible" folder (project `27506621`) — the token
+lacks `interact` scope (403). **BBS artwork still PENDING** — Emily's Codex found only 2 pieces (De Morgan
+*By the Waters of Babylon* → L1; Rembrandt *Saint Paul in Prison* → a Paul lesson, likely L4). Because
+several BBS lessons are abstract (not narrative), Claude proposed additions tied to a concrete anchor in
+each text: Michelangelo *Creation of Adam* → L5 (2 Tim "God-breathed" + Gen 2:7), Edward Hicks *Peaceable
+Kingdom* → L3 (dominion-as-care), plus non-painting supports (maps; a word-study "tip" sidebar like L3's;
+Psalm 46 → Luther's "A Mighty Fortress"). Awaiting Emily's pick before wiring `artwork[]` + re-cutting PDF.
+
+**The pattern (for future BBS/Women supplemental additions).** For EACH:
 1. **Look it up in Airtable first** (base `appiL0Z2RilcAT2Cw`, table `tblS1Bk29cXyGGUdo`) — code, `Name`,
    `Instructor/Speaker`, existing transcript/Vimeo. Refer to it by **`3MB-<code>` + title**, never number.
 2. **If it lacks a captioned master, caption it** via the pipeline (`…\Dropbox\3MB\SSS 3MB Captioning
