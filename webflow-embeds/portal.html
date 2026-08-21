@@ -47,9 +47,13 @@
      exact spot the packets appear. Logged IN -> foxy-logic hides it and reveals the per-packet
      tiles; after an inline sign-in we refresh in place so foxy-logic re-evaluates the session. -->
 <style>
+  /* lavender runs full-width; the content is capped at 1200px and centered so the cards
+     render at the SAME scale as the landing "Choose Your Packet" section (which is a 1200px-
+     capped image). %-based sizes below are therefore relative to <=1200px, matching landing. */
   .pk3{--pk-bg:#DFE6F4;--pk-card:45.6%;--pk-gap:3.25%;
-       background:var(--pk-bg);color:#24364b;padding:1.7% 2.6% 4.1%}
+       background:var(--pk-bg);color:#24364b}
   .pk3 *{box-sizing:border-box}
+  .pk3 .pk-wrap{max-width:1200px;margin:0 auto;padding:1.7% 0 4.1%}
   .pk3 .pk-head{display:block;width:40%;min-width:260px;max-width:752px;height:auto;margin:0 auto 4.2%}
   .pk3 .pk-grid{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:var(--pk-gap);margin:0 auto}
   .pk3 .pk-cell{flex:0 1 var(--pk-card);max-width:1095px;min-width:0}
@@ -74,7 +78,7 @@
        --lumo-border-radius-m:11px;--lumo-border-radius-l:11px;--lumo-base-color:#ffffff;
        --lumo-font-family:'Avenir Next','Poppins','Segoe UI',Arial,sans-serif}
   @media (max-width:900px){
-    .pk3{padding:4% 5% 7%}
+    .pk3 .pk-wrap{padding:4% 5% 7%}
     .pk3 .pk-head{width:66%;margin-bottom:6%}
     .pk3 .pk-cell,.pk3.pk-one .pk-cell{flex-basis:100%}
     .pk3 .pk-grid{gap:6%}
@@ -86,6 +90,7 @@
   }
 </style>
 <div class="pk3" id="pk3">
+ <div class="pk-wrap">
   <img class="pk-head" src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-header-v3.png"
        alt="Your Packets — each includes six lessons, online &amp; printable.">
 
@@ -136,6 +141,7 @@
     </div>
 
   </div>
+ </div>
 </div>
 <!-- Foxy customer-portal element (same one the Account page uses) -->
 <script type="module">
