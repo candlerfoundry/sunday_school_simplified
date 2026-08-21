@@ -56,6 +56,20 @@ embeds, stacked). Live: `candlerfoundry.emory.edu/customer-portal/my-lessons`. L
   `signin` event name is ever wrong, sign-in still works; tiles just need one manual refresh. NOT YET OBSERVED
   FIRING LIVE - verify on a real sign-in.
 
+**>> BLOCK-3 TILE REDESIGN (2026-08-21 pt.4).** Emily redesigned the logged-in "Your Packets" tiles for readability
+(Canva `DAHRnlJvmA4` slides 11-14: 11=assembled reference, 12=BBS tile, 13=Women tile, 14=background+header;
+`YOUR PACKETS` header). New tiles are a LANDSCAPE card (cover LEFT; VOLUME + title + description RIGHT; **Open Packet**
+filled pill above **Printable PDF** outlined pill; "6 LESSONS" footer) - same ~1.315 aspect as the old portrait-ish
+tiles so the existing `.pk-grid` layout was reused. Assets (exported via Canva connector, cropped to the card by
+opaque-alpha bbox, 256-color FASTOCTREE PNGs preserving the transparent rounded corners): `sss-portal-tile-bbs-v4.png`
+(1093x831, 45KB), `sss-portal-tile-women-v4.png` (1095x831, 40KB), header `sss-portal-header-v3.png` (752x197, from
+slide 14; section bg stays flat #DFE6F4 = slide-14 bg). **Hotspots RESTACKED** (were side-by-side Open Booklet/PDF):
+both tiles use **Open Packet `left:55.5% top:70% w:28% h:10%`** + **Printable PDF `left:55.5% top:80.3% w:28% h:10%`**
+(color-detected pill bboxes + padding; overlay-verified). Labels "Open the ... packet". **Removed the stale mobile
+`.tile a{top:78.3%;height:14%}` override** (it forced both hotspots to one row - wrong for the stacked layout; the %
+hotspots scale fine on mobile). Header `.pk-head` bumped to width:40%/max 752px. Verified assembled at 1200px. Old
+`sss-portal-tile-bbs/women-v3` + `sss-portal-header-v2` are SUPERSEDED. ⚠ Emily re-pastes portal.html block 3.
+
 ### Foxy `<foxy-customer-portal>` customization - REUSABLE REFERENCE
 Same element as the Account page (`base="https://the-candler-foundry.foxycart.com/s/customer/"`, module
 `https://cdn-js.foxy.io/elements@1/foxy-customer-portal.js` + the i18n `onResourceFetch` hook). Auth is
