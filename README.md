@@ -99,8 +99,21 @@ CLICK HERE to access your lessons." Exported slide 6 -> `assets/sss-landing-gets
 PNG 137KB, live on Netlify). **The "CLICK HERE" hotspot now points to `/customer-portal/my-lessons`** (was
 `/customer-portal/account`) - inline login lives there now. Hotspot re-measured on the new crop:
 `left:44% top:79.5% w:12.5% h:6.5%` (overlay-verified snug over the bold "CLICK HERE"). Alt text refreshed.
-**⚠ Emily still has to PASTE landing.html block 2 into the Webflow embed to go live.** Latest landing.html commit
-supersedes the older one. Remaining tie-in: repoint the **welcome email** link straight at My Lessons.
+Also fixed the block-3 "Learn More" modal Widow ref `1 Kings 17:1-16` -> `17:1-24` (matches the packet).
+
+**BLOCK-3 FULL-BLEED FIX (2026-08-21):** the "Choose Your Packet" lavender band was capped at 1200px (baked into
+`sss-landing-packets-v3.png`), so the color stopped short of the browser edges. Restored the original full-bleed
+intent (README "heroes reshaped" block: art bands full-bleed, tiles at 1200px): block 3's outer div is now
+`width:100%` with the lavender running edge-to-edge via a STRETCHED EDGE-STRIP background
+(`assets/sss-landing-packets-edge.png`, an 8x1200 crop of the panel's left edge, `background-size:100% 100%`) so the
+baked vertical gradient matches seamlessly at the 1200px boundary; the packet-card image stays centered at max
+1200px on top. Verified at 1500px viewport (lavender fills both edges, no seam). If the band still stops short on
+Emily's live page, her HTML Embed is inside a constrained Webflow container (not a full-width section) - move the
+Embed to a full-width section, or switch the wrapper to `width:100vw;margin-left:calc(50% - 50vw)`.
+
+**⚠ Emily still has to PASTE landing.html blocks 2 AND 3 into their Webflow embeds to go live.** Latest landing.html
+commit supersedes the older one. Remaining tie-in: repoint the **welcome email** link straight at My Lessons
+(DONE 2026-08-21 - welcome email refreshed to one-action inline-login flow; lives in Emily's ESP, not the repo).
 
 ### How the portal work was verified
 Tested on the LIVE page via the in-app browser + JS injection on the real Foxy component (hiddencontrols removing
