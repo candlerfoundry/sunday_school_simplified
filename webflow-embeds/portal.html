@@ -62,12 +62,15 @@
   /* inline sign-in card — logged out only. Emily's baked art (lock + heading) + themed Foxy form. */
   .pk3 .pk-login{max-width:600px;margin:0 auto;background:#fff;border-radius:22px;
        box-shadow:0 16px 34px rgba(24,36,64,.16);padding:30px 32px 34px;
-       display:flex;gap:24px;align-items:center;justify-content:center;line-height:normal}
+       display:flex;flex-direction:column;align-items:center;line-height:normal}
+  .pk3 .pk-signhead{display:block;margin:0 auto 22px;width:min(90%,510px);height:auto}  /* centered to the card + larger */
+  .pk3 .pk-login-row{display:flex;gap:24px;align-items:center;justify-content:center;width:100%}
   .pk3 .pk-lock{width:92px;flex:0 0 auto;height:auto;display:block}
   .pk3 .pk-login-body{flex:0 1 400px;min-width:0}
-  .pk3 .pk-signhead{display:block;width:100%;height:auto;margin:0 0 16px}
   .pk3 .pk-login foxy-customer-portal{display:block;width:100%;
-       --lumo-primary-color:#24364b;--lumo-primary-text-color:#ffffff;
+       /* text-color is NAVY (not white) so the tertiary "Get temporary password" link is visible on
+          the white card; the Sign in button keeps its own white label (uses --lumo-primary-contrast-color). */
+       --lumo-primary-color:#24364b;--lumo-primary-text-color:#24364b;
        --lumo-border-radius-m:11px;--lumo-border-radius-l:11px;--lumo-base-color:#ffffff;
        --lumo-font-family:'Avenir Next','Poppins','Segoe UI',Arial,sans-serif}
   @media (max-width:900px){
@@ -75,10 +78,11 @@
     .pk3 .pk-head{width:66%;margin-bottom:6%}
     .pk3 .pk-cell,.pk3.pk-one .pk-cell{flex-basis:100%}
     .pk3 .pk-grid{gap:6%}
-    .pk3 .pk-login{flex-direction:column;text-align:center;padding:26px 22px 30px;gap:16px}
+    .pk3 .pk-login{text-align:center;padding:26px 22px 30px}
+    .pk3 .pk-login-row{flex-direction:column;gap:14px}
     .pk3 .pk-lock{width:84px}
     .pk3 .pk-login-body{flex-basis:auto;width:100%}
-    .pk3 .pk-signhead{margin:0 auto 14px}
+    .pk3 .pk-signhead{width:min(96%,420px);margin:0 auto 16px}
     .pk3 .tile a{top:78.3%!important;height:14%!important}
   }
 </style>
@@ -88,14 +92,16 @@
 
   <!-- LOGGED OUT: sign in here; packets appear in this same spot once you're in -->
   <div class="pk-login" id="sss-login" foxy-logic-authenticated="false">
-    <img class="pk-lock" src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-lock.png" alt="">
-    <div class="pk-login-body">
-      <img class="pk-signhead" src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-signin-head.png"
-           alt="Don't see your lessons? Please sign in below:">
-      <!-- sign-in:header hides Foxy's own "Sign in" heading (yours replaces it); sign-in:signup
-           removes the "Create account" button entirely; "Get temporary password" stays. -->
-      <foxy-customer-portal hiddencontrols="customer:subscriptions sign-in:header sign-in:signup"
-        base="https://the-candler-foundry.foxycart.com/s/customer/"></foxy-customer-portal>
+    <img class="pk-signhead" src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-signin-head.png"
+         alt="Don't see your lessons? Please sign in below:">
+    <div class="pk-login-row">
+      <img class="pk-lock" src="https://sundayschoolsimplified.netlify.app/assets/sss-portal-lock.png" alt="">
+      <div class="pk-login-body">
+        <!-- sign-in:header hides Foxy's own "Sign in" heading (yours replaces it); sign-in:signup
+             removes the "Create account" button; "Get temporary password" stays. -->
+        <foxy-customer-portal hiddencontrols="customer:subscriptions sign-in:header sign-in:signup"
+          base="https://the-candler-foundry.foxycart.com/s/customer/"></foxy-customer-portal>
+      </div>
     </div>
   </div>
 
