@@ -56,6 +56,18 @@ embeds, stacked). Live: `candlerfoundry.emory.edu/customer-portal/my-lessons`. L
   `signin` event name is ever wrong, sign-in still works; tiles just need one manual refresh. NOT YET OBSERVED
   FIRING LIVE - verify on a real sign-in.
 
+**>> COVER TAB + RECOMMENDED-READING SWAP (2026-08-21 pt.6).** (a) **Flipbook Cover tab** — `engine/render.js`
+now renders a **"Cover"** tab (first in the tab column, `fa-book` icon) that jumps back to the front cover
+(`flip.flip(0)`); active when `pageIndex<=1`. Shared engine → both packets. Verified live on BBS (Contents→Cover
+returns `on-cover`, active "cover"). (b) **Recommended Reading swap (BOTH packets)** — dropped both *Womanist
+Midrash* volumes; added **The Old Testament: A Historical and Literary Introduction to the Hebrew Scriptures**
+(Coogan & Chapman, Oxford, **5th ed** 978-0-19-776817-4) + **The Writings of the New Testament: An Interpretation**
+(L.T. Johnson & Todd C. Penner, Fortress, **3rd ed** 978-0-8006-6361-2); both on Amazon + Bookshop (verified live).
+`meta.recommendedReading` updated in both content.js (targeted edit, `·` = U+00B7 separator). **Both PDFs re-cut**
+(`packet_pdf.py`; BBS 19pp, Women 22pp; reading page paginates to an "(cont.)" page — verified render, Coogan 2-line
+title wraps clean, no Womanist). All pushed + Netlify-verified. ⚠ Emily: no paste needed for these (flipbook/PDF are
+repo-served) — but the landing/portal Webflow pastes (pt.4/pt.5) are still pending.
+
 **>> LANDING v4 + PORTAL CLICKABLE COVERS (2026-08-21 pt.5).** (a) **Landing section 2** = new Canva slide 6
 (formatting fixes) -> `assets/sss-landing-getstarted-v4.png`; landing.html block-2 src bumped v3->v4, "CLICK HERE"
 hotspot unchanged (`44/79.5/12.5/6.5`, re-verified). (b) **Landing section 3** = new Canva slide 7 (readability
