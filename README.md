@@ -91,11 +91,16 @@ Same element as the Account page (`base="https://the-candler-foundry.foxycart.co
   drift): "Browse available lessons HERE" -> `/sunday-school-simplified` (left:65.5% top:66% w:5.5% h:6.5%);
   "Email us HERE" -> `mailto:candlerfoundry@emory.edu` (left:51.5% top:75.5% w:5.5% h:6.5%). CONFIRM the email addr.
 
-### >> NEXT (new chat): LANDING page block-2 copy "more seamless" (Canva slide 6)
-Now that My Lessons has inline login, Emily wants the PUBLIC landing page block-2 copy simplified. **This is the
-LANDING embed `webflow-embeds/landing.html`, NOT portal.html.** To do: open Canva slide 6 (design `DAHRnlJvmA4`,
-shortlink `canva.link/l2565l075ywv8cs`), read the new copy, update landing.html block 2 - re-export/host art if it
-changed (`assets/sss-landing-*`), re-measure hotspots. Canva page numbers are FLUID - always re-export and look.
+### >> DONE (2026-08-21): LANDING page block-2 copy refreshed (Canva slide 6)
+Emily's "more seamless" landing block-2 is shipped in `webflow-embeds/landing.html`. Slide 6 (design `DAHRnlJvmA4`)
+was retitled from "Let's get started" to a 3-step **"HERE'S HOW IT WORKS:"** card (1 Register for your FREE
+packet(s) below / 2 Check your inbox / 3 Open packet - each includes SIX lessons) + footer "Already registered?
+CLICK HERE to access your lessons." Exported slide 6 -> `assets/sss-landing-getstarted-v3.png` (2400x1000, 256-color
+PNG 137KB, live on Netlify). **The "CLICK HERE" hotspot now points to `/customer-portal/my-lessons`** (was
+`/customer-portal/account`) - inline login lives there now. Hotspot re-measured on the new crop:
+`left:44% top:79.5% w:12.5% h:6.5%` (overlay-verified snug over the bold "CLICK HERE"). Alt text refreshed.
+**⚠ Emily still has to PASTE landing.html block 2 into the Webflow embed to go live.** Latest landing.html commit
+supersedes the older one. Remaining tie-in: repoint the **welcome email** link straight at My Lessons.
 
 ### How the portal work was verified
 Tested on the LIVE page via the in-app browser + JS injection on the real Foxy component (hiddencontrols removing
