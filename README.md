@@ -56,6 +56,19 @@ embeds, stacked). Live: `candlerfoundry.emory.edu/customer-portal/my-lessons`. L
   `signin` event name is ever wrong, sign-in still works; tiles just need one manual refresh. NOT YET OBSERVED
   FIRING LIVE - verify on a real sign-in.
 
+**>> LANDING v4 + PORTAL CLICKABLE COVERS (2026-08-21 pt.5).** (a) **Landing section 2** = new Canva slide 6
+(formatting fixes) -> `assets/sss-landing-getstarted-v4.png`; landing.html block-2 src bumped v3->v4, "CLICK HERE"
+hotspot unchanged (`44/79.5/12.5/6.5`, re-verified). (b) **Landing section 3** = new Canva slide 7 (readability
+redesign: cream cards, cover-left, buttons now STACKED on the right) -> `assets/sss-landing-packets-v4.png` + regen
+full-bleed edge strip. Register/Learn More hotspots restacked (were side-by-side): BBS Register `27.1/70.7/13.8/8.4`
++ Learn More `27.1/77.7/13.9/8.3`; Women Register `76.3/70.7/13.8/8.4` + Learn More `76.3/77.7/13.9/8.3`. (c)
+**Portal tiles: the packet COVER thumbnail is now clickable** -> `/sss/<slug>` (hotspot `5.5/8.5/46/80`, radius 14),
+added on BOTH tiles alongside Open Packet/Printable PDF. All assets live on Netlify; landing.html + portal.html
+pushed. ⚠ Emily re-pastes landing blocks 2&3 + portal block 3. **STILL OPEN (finalize today):** flipbook COVER tab
+(engine `render.js`); Recommended-Reading swap (drop Womanist Midrash both packets, add L.T. Johnson *Writings of
+the NT* 3e 9780800663612 + Coogan/Chapman *The Old Testament* 4e 9780190608651 or 5e 9780197768174) + re-cut both
+PDFs.
+
 **>> BLOCK-3 TILE REDESIGN (2026-08-21 pt.4).** Emily redesigned the logged-in "Your Packets" tiles for readability
 (Canva `DAHRnlJvmA4` slides 11-14: 11=assembled reference, 12=BBS tile, 13=Women tile, 14=background+header;
 `YOUR PACKETS` header). New tiles are a LANDSCAPE card (cover LEFT; VOLUME + title + description RIGHT; **Open Packet**
