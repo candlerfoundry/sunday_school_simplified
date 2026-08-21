@@ -249,7 +249,8 @@
     '<div class="foundrymark" title="The Candler Foundry"></div>';
 
   var tabsEl = document.getElementById("tabs");
-  var tabsHtml = '<div class="tab small" data-tab="contents"><span class="ti"><i class="fa-solid fa-list"></i></span><span class="tl">Contents</span></div>';
+  var tabsHtml = '<div class="tab small" data-tab="cover"><span class="ti"><i class="fa-solid fa-book"></i></span><span class="tl">Cover</span></div>';
+  tabsHtml += '<div class="tab small" data-tab="contents"><span class="ti"><i class="fa-solid fa-list"></i></span><span class="tl">Contents</span></div>';
   C.lessons.forEach(function (l) {
     tabsHtml += '<div class="tab" data-tab="' + l.n + '"><span class="tn">' + l.n + '</span><span class="tl">' + esc(l.tabRef || l.shortRef) + '</span></div>';
   });
@@ -292,7 +293,8 @@
     prev.disabled = i <= 0; next.disabled = i >= t - 1;
     binderEl.classList.toggle("on-cover", i <= 1);
     var active = null;
-    if (i >= 2 && i <= 3) active = "contents";
+    if (i <= 1) active = "cover";
+    else if (i >= 2 && i <= 3) active = "contents";
     else if (i >= RESOURCES_IDX) active = "resources";
     else if (pageToLesson[i] > 0) active = String(pageToLesson[i]);
     else if (pageToLesson[i + 1] > 0) active = String(pageToLesson[i + 1]);
@@ -320,7 +322,8 @@
     var tb = e.target.closest(".tab"); if (!tb) return;
     var t = tb.getAttribute("data-tab");
     if (t === "download") return;   // handled by the pop-out listener above; never auto-downloads
-    if (t === "contents") flip.flip(2);
+    if (t === "cover") flip.flip(0);
+    else if (t === "contents") flip.flip(2);
     else if (t === "resources") flip.flip(RESOURCES_IDX);
     else gotoLesson(parseInt(t, 10));
   });
