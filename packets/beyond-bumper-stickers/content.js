@@ -31,18 +31,18 @@ window.BBS_CONTENT = {
         "bookshop": "https://bookshop.org/book/9780830814091"
       },
       {
-        "title": "Womanist Midrash: A Reintroduction to the Women of the Torah and the Throne",
-        "authors": "Wilda C. Gafney · Westminster John Knox",
-        "isbn13": "978-0-664-23903-9",
-        "amazon": "https://www.amazon.com/dp/066423903X",
-        "bookshop": "https://bookshop.org/book/9780664239039"
+        "title": "The Old Testament: A Historical and Literary Introduction to the Hebrew Scriptures",
+        "authors": "Michael D. Coogan & Cynthia R. Chapman · Oxford University Press",
+        "isbn13": "978-0-19-776817-4",
+        "amazon": "https://www.amazon.com/dp/0197768172",
+        "bookshop": "https://bookshop.org/book/9780197768174"
       },
       {
-        "title": "Womanist Midrash, Volume 2: A Reintroduction to the Women of Joshua, Judges, Samuel, and Kings",
-        "authors": "Wilda C. Gafney · Westminster John Knox",
-        "isbn13": "978-0-664-26601-1",
-        "amazon": "https://www.amazon.com/dp/0664266010",
-        "bookshop": "https://bookshop.org/book/9780664266011"
+        "title": "The Writings of the New Testament: An Interpretation",
+        "authors": "Luke Timothy Johnson & Todd C. Penner · Fortress Press",
+        "isbn13": "978-0-8006-6361-2",
+        "amazon": "https://www.amazon.com/dp/0800663616",
+        "bookshop": "https://bookshop.org/book/9780800663612"
       }
     ],
     "letter": {
