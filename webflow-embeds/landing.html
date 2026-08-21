@@ -49,7 +49,10 @@
 <!-- Full-bleed lavender band: the panel color runs edge-to-edge (stretched edge-strip so the
      baked gradient matches seamlessly); the packet cards stay centered at max 1200px. -->
 <div style="width:100%;line-height:0;background-image:url('https://sundayschoolsimplified.netlify.app/assets/sss-landing-packets-edge.png');background-size:100% 100%;background-repeat:no-repeat">
-<div style="position:relative;width:100%;max-width:1200px;margin:0 auto;line-height:0">
+<!-- content scales with the container (matching the logged-in portal's card size): max ~native 2400,
+     with 2.6% side padding = the portal's .pk3 side padding, so the cards render at the same scale. -->
+<div style="max-width:2530px;margin:0 auto;padding:0 2.6%;box-sizing:border-box;line-height:0">
+<div style="position:relative;width:100%;line-height:0">
   <img src="https://sundayschoolsimplified.netlify.app/assets/sss-landing-packets-v4.png"
        alt="Choose your packet — Beyond Bumper Stickers and The Gospel According to the Women. Register free or learn more."
        style="display:block;width:100%;height:auto">
@@ -66,6 +69,7 @@
      style="position:absolute;left:76.3%;top:70.7%;width:13.8%;height:8.4%;display:block"></a>
   <a href="#" onclick="sssLM('women');return false" aria-label="Learn more about The Gospel According to the Women"
      style="position:absolute;left:76.3%;top:77.7%;width:13.9%;height:8.3%;display:block"></a>
+</div>
 </div>
 </div>
 
