@@ -56,6 +56,31 @@ embeds, stacked). Live: `candlerfoundry.emory.edu/customer-portal/my-lessons`. L
   `signin` event name is ever wrong, sign-in still works; tiles just need one manual refresh. NOT YET OBSERVED
   FIRING LIVE - verify on a real sign-in.
 
+**>> SECTION-3 SCALE MATCH + NEXT-SESSION PICK-UP (2026-08-21 pt.7). READ THIS FIRST.**
+Emily wants the LANDING "Choose Your Packet" (block 3) and the logged-in PORTAL "Your Packets" (block 3) at the SAME
+card scale, and **prefers the larger portal size**. So: portal.html was left at its original size (do NOT cap it);
+landing.html block 3 was scaled UP to match — removed its `max-width:1200px` cap and wrapped the image in
+`<div style="max-width:2530px;margin:0 auto;padding:0 2.6%;box-sizing:border-box">` (2.6% side padding = the portal
+`.pk3` side padding; the positioned image div stays padding-free so the 4 hotspots keep aligning). Verified: landing
+card 604px vs portal card 605px in a shared 1400px container (both scale linearly → match at every width). NOTE
+landing blocks 1 & 2 (hero, how-it-works) are still `max-width:1200px` — only block 3 widened.
+
+**CURRENT canonical assets (all live on Netlify):** landing = `sss-landing-hero-v3`, `sss-landing-getstarted-v4`
+(slide 6), `sss-landing-packets-v4` (slide 7) + `sss-landing-packets-edge` (full-bleed strip). portal =
+`sss-portal-hero-v3`, `sss-portal-letslearn-v3`, `sss-portal-header-v3` (slide 14), `sss-portal-tile-bbs-v4` /
+`sss-portal-tile-women-v4` (slides 12/13), plus `sss-portal-lock` / `sss-portal-signin-head` (sign-in card).
+
+**DONE + LIVE (repo-served, no paste needed):** flipbook **Cover tab**; **Recommended Reading swap** in both packets
++ both PDFs re-cut (BBS 19pp, Women 22pp); BBS L4 title etc. **DONE in repo, ⚠ EMILY MUST PASTE into Webflow/ESP:**
+`webflow-embeds/landing.html` blocks **2 & 3**, `webflow-embeds/portal.html` block **3** (has clickable covers +
+v4 tiles at preferred size), and the refreshed **welcome-email HTML** (authored this session; lives in Emily's ESP,
+NOT the repo — flow = one action, inline-login language, no password blurb).
+
+**STILL OPEN (Emily's input needed):** (1) **BBS artwork pick** (only De Morgan→L1 + Rembrandt→L4 found; Claude
+proposed Michelangelo→L5, Hicks→L3, maps, word-study tip) → then wire `artwork[]` + re-cut BBS PDF. (2) **3MB-273
+khanun** Women L1 = `url:""` "coming soon", producer hold (LARRY name card). (3) **Drag 11 supplemental Vimeos** into
+the "3 Minute Bible" folder (token lacks interact scope). (4) Optional: widen landing blocks 1 & 2 to match block 3.
+
 **>> COVER TAB + RECOMMENDED-READING SWAP (2026-08-21 pt.6).** (a) **Flipbook Cover tab** — `engine/render.js`
 now renders a **"Cover"** tab (first in the tab column, `fa-book` icon) that jumps back to the front cover
 (`flip.flip(0)`); active when `pageIndex<=1`. Shared engine → both packets. Verified live on BBS (Contents→Cover
