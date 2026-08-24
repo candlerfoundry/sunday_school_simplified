@@ -73,8 +73,9 @@ landing blocks 1 & 2 (hero, how-it-works) are still `max-width:1200px` — only 
 **DONE + LIVE (repo-served, no paste needed):** flipbook **Cover tab**; **Recommended Reading swap** in both packets
 + both PDFs re-cut (BBS 19pp, Women 22pp); BBS L4 title etc. **DONE in repo, ⚠ EMILY MUST PASTE into Webflow/ESP:**
 `webflow-embeds/landing.html` blocks **2 & 3**, `webflow-embeds/portal.html` block **3** (has clickable covers +
-v4 tiles at preferred size), and the refreshed **welcome-email HTML** (authored this session; lives in Emily's ESP,
-NOT the repo — flow = one action, inline-login language, no password blurb).
+v4 tiles at preferred size), and the refreshed **welcome-email HTML** (now stored at `webflow-embeds/welcome-email.html` for recoverability;
+destination = Emily's ESP — flow = one action, inline-login language, no password blurb; keeps the
+`{{=gives["375476935"][...]}}` merge tokens).
 
 **STILL OPEN (Emily's input needed):** (1) **BBS artwork pick** (only De Morgan→L1 + Rembrandt→L4 found; Claude
 proposed Michelangelo→L5, Hicks→L3, maps, word-study tip) → then wire `artwork[]` + re-cut BBS PDF. (2) **3MB-273
