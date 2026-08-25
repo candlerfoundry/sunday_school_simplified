@@ -116,7 +116,7 @@ window.BBS_CONTENT = {
         {
           "title": "What is khanun?",
           "subtitle": "3 Minute Bible",
-          "url": ""
+          "url": "https://player.vimeo.com/video/1221254097"
         }
       ],
       "artwork": [
