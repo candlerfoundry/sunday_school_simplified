@@ -78,9 +78,10 @@ destination = Emily's ESP — flow = one action, inline-login language, no passw
 `{{=gives["375476935"][...]}}` merge tokens).
 
 **STILL OPEN (Emily's input needed):** (1) **BBS artwork pick** (only De Morgan→L1 + Rembrandt→L4 found; Claude
-proposed Michelangelo→L5, Hicks→L3, maps, word-study tip) → then wire `artwork[]` + re-cut BBS PDF. (2) **3MB-273
-khanun** Women L1 = `url:""` "coming soon", producer hold (LARRY name card). (3) **Drag 11 supplemental Vimeos** into
+proposed Michelangelo→L5, Hicks→L3, maps, word-study tip) → then wire `artwork[]` + re-cut BBS PDF. (2) **3MB-273 khanun** — ✅ **2026-08-26 SHIPPED + LIVE**: corrected Larry masters arrived; captioned (name card now "LARRY VARGHESE"), **Vimeo `1221254097`**, wired into Women L1 `optionalVideos`, **Women PDF re-cut (22pp)**, Airtable set (Vimeo/Dropbox/Status/proofed transcript). ⚠ Only remainder: Emily must add "Larry Varghese" as an Airtable `Instructor/Speaker` single-select option (API can't create it) to correct the speaker (currently wrongly Bonfiglio). (3) **Drag 11 supplemental Vimeos** into
 the "3 Minute Bible" folder (token lacks interact scope). (4) Optional: widen landing blocks 1 & 2 to match block 3.
+
+**✅ Vimeo POSTER de-blur (2026-08-26).** Some flipbook Additional-Resources 3MB videos loaded with a **blurry title-card still** (Vimeo auto-picked a poster frame mid-animation; playback was fine). Fixed all **14 optional videos** → crisp title-card posters via the Vimeo pictures API (sample intro frames, pick the sharpest dark title card, set active — no re-upload). The **12 main lesson videos** can get the same treatment (offered).
 
 **>> COVER TAB + RECOMMENDED-READING SWAP (2026-08-21 pt.6).** (a) **Flipbook Cover tab** — `engine/render.js`
 now renders a **"Cover"** tab (first in the tab column, `fa-book` icon) that jumps back to the front cover
