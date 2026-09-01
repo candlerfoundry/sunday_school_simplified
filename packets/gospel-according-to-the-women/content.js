@@ -164,7 +164,7 @@ window.BBS_CONTENT = {
       "videoUrl": "https://player.vimeo.com/video/1210281687",
       "optionalVideos": [
         {
-          "title": "Mark's Secret Messiah",
+          "title": "Motifs in the Gospel",
           "subtitle": "3 Minute Bible",
           "url": "https://vimeo.com/1210281410"
         },
