@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Printable Packet — Sunday School Simplified</title>
+<link rel="icon" type="image/svg+xml" href="/engine/assets/favicon.svg">
+<style>
+  :root{
+    --ink:#0A274C; --second:#2F5972; --line:#D8E2EC;
+    --bg:#EEF2F7; --bar:#ffffff; --accent:#FB1616;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--ink);
+    font-family:'Mulish',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;}
+  /* toolbar */
+  #bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;
+    padding:9px 16px;background:var(--bar);border-bottom:1px solid var(--line);
+    box-shadow:0 1px 6px rgba(10,39,76,.06)}
+  #title{font-weight:800;font-size:15px;letter-spacing:.01em;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+  #bar .grp{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+  #bar button,#bar a.btn{font:inherit;font-weight:700;font-size:13px;cursor:pointer;
+    border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:9px;
+    padding:7px 11px;line-height:1;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+  #bar button:hover,#bar a.btn:hover{background:#F3F7FB;border-color:#C4D3E2}
+  #bar button:active{transform:translateY(1px)}
+  #zlvl{min-width:44px;text-align:center;font-variant-numeric:tabular-nums;color:var(--second);font-size:13px}
+  a.btn.dl{background:var(--ink);color:#fff;border-color:var(--ink)}
+  a.btn.dl:hover{background:#123156;border-color:#123156}
+  /* pages */
+  #viewer{padding:22px 12px 60px;display:flex;flex-direction:column;align-items:center;gap:18px}
+  .page{position:relative;background:#fff;box-shadow:0 6px 22px rgba(10,39,76,.16);
+    border-radius:2px;overflow:hidden;max-width:100%}
+  .page canvas{display:block;max-width:100%;height:auto}
+  /* link hotspots overlaid on each page */
+  .lk{position:absolute;display:block;border-radius:3px;
+    background:rgba(251,22,22,.001);transition:background .12s}
+  .lk:hover{background:rgba(251,22,22,.14);outline:1.5px solid rgba(251,22,22,.5)}
+  #msg{padding:48px 20px;text-align:center;color:var(--second);font-size:15px;line-height:1.5}
+  #msg a{color:var(--accent)}
+  @media (max-width:640px){#title{font-size:13px}#bar{gap:8px;padding:8px 10px}
+    #bar button,#bar a.btn{padding:6px 9px;font-size:12px}}
+</style>
+</head>
+<body>
+  <div id="bar">
+    <div id="title">Printable Packet</div>
+    <div class="grp">
+      <button id="zout" title="Zoom out" aria-label="Zoom out">&#8722;</button>
+      <span id="zlvl">100%</span>
+      <button id="zin" title="Zoom in" aria-label="Zoom in">&#43;</button>
+      <a class="btn dl" id="dl" href="#" target="_blank" rel="noopener">Download / Print</a>
+    </div>
+  </div>
+  <div id="viewer"><div id="msg">Loading the packet&hellip;</div></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var params = new URLSearchParams(location.search);
+    var fileParam = params.get("file") || "";
+    var titleParam = params.get("title") || "";
+    var viewer = document.getElementById("viewer");
+    var titleEl = document.getElementById("title");
+    var dlEl = document.getElementById("dl");
+
+    function fail(html) { viewer.innerHTML = '<div id="msg">' + html + '</div>'; }
+
+    // Only ever load a same-origin PDF (never an arbitrary cross-origin URL).
+    var fileUrl;
+    try {
+      fileUrl = new URL(fileParam, location.href);
+    } catch (e) { fileUrl = null; }
+    if (!fileUrl || fileUrl.origin !== location.origin || !/\.pdf($|\?)/i.test(fileUrl.pathname)) {
+      fail("Sorry — this packet could not be opened.");
+      return;
+    }
+    if (titleParam) { document.title = titleParam + " — Sunday School Simplified"; titleEl.textContent = titleParam; }
+    dlEl.setAttribute("href", fileUrl.href);
+    dlEl.setAttribute("download", (titleParam || "packet").replace(/[^\w \-]+/g, "") + ".pdf");
+
+    if (!window.pdfjsLib) { fail("The packet viewer could not load. <a href=\"" + fileUrl.href + "\">Open the PDF directly.</a>"); return; }
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+    var pdfDoc = null, zoom = 1, rendering = false, rerenderQueued = false;
+    var DPR = Math.min(window.devicePixelRatio || 1, 2);
+    var zlvl = document.getElementById("zlvl");
+
+    function fitScale() {
+      // base scale so a page fits the column width (cap the column at 900 CSS px)
+      var avail = Math.min(viewer.clientWidth - 24, 900);
+      return avail; // pixels of target width; per-page scale computed from the page's own width
+    }
+
+    async function renderAll() {
+      if (rendering) { rerenderQueued = true; return; }
+      rendering = true;
+      viewer.innerHTML = "";
+      var targetW = fitScale();
+      for (var i = 1; i <= pdfDoc.numPages; i++) {
+        var page = await pdfDoc.getPage(i);
+        var base = page.getViewport({ scale: 1 });
+        var scale = (targetW / base.width) * zoom;
+        var vp = page.getViewport({ scale: scale });
+
+        var pageDiv = document.createElement("div");
+        pageDiv.className = "page";
+        pageDiv.style.width = Math.floor(vp.width) + "px";
+
+        var canvas = document.createElement("canvas");
+        canvas.width = Math.floor(vp.width * DPR);
+        canvas.height = Math.floor(vp.height * DPR);
+        canvas.style.width = Math.floor(vp.width) + "px";
+        canvas.style.height = Math.floor(vp.height) + "px";
+        pageDiv.appendChild(canvas);
+        viewer.appendChild(pageDiv);
+
+        await page.render({
+          canvasContext: canvas.getContext("2d"),
+          viewport: vp,
+          transform: DPR !== 1 ? [DPR, 0, 0, DPR, 0, 0] : null
+        }).promise;
+
+        // overlay every external link as a real anchor that opens a NEW TAB
+        var annots = await page.getAnnotations({ intent: "display" });
+        for (var a = 0; a < annots.length; a++) {
+          var an = annots[a];
+          if (an.subtype !== "Link" || !an.url) continue;
+          var r = vp.convertToViewportRectangle(an.rect);
+          var x1 = Math.min(r[0], r[2]), y1 = Math.min(r[1], r[3]);
+          var w = Math.abs(r[2] - r[0]), h = Math.abs(r[3] - r[1]);
+          var link = document.createElement("a");
+          link.className = "lk";
+          link.href = an.url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.title = an.url;
+          link.style.left = x1 + "px";
+          link.style.top = y1 + "px";
+          link.style.width = w + "px";
+          link.style.height = h + "px";
+          pageDiv.appendChild(link);
+        }
+      }
+      zlvl.textContent = Math.round(zoom * 100) + "%";
+      rendering = false;
+      if (rerenderQueued) { rerenderQueued = false; renderAll(); }
+    }
+
+    document.getElementById("zin").addEventListener("click", function () {
+      zoom = Math.min(zoom + 0.2, 3); renderAll();
+    });
+    document.getElementById("zout").addEventListener("click", function () {
+      zoom = Math.max(zoom - 0.2, 0.5); renderAll();
+    });
+    var rz;
+    window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(renderAll, 180); });
+
+    pdfjsLib.getDocument({ url: fileUrl.href }).promise.then(function (doc) {
+      pdfDoc = doc;
+      renderAll();
+    }).catch(function (err) {
+      fail("The packet could not be loaded. <a href=\"" + fileUrl.href + "\">Open the PDF directly.</a>");
+      if (window.console) console.error(err);
+    });
+  })();
+  </script>
+</body>
+</html>
