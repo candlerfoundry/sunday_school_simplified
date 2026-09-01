@@ -53,10 +53,12 @@ Two printable-packet changes Emily asked for:
      `viewport.convertToViewportRectangle(annot.rect)`. Same-origin `?file=` guard, `?title=` for the header,
      Download/Print + zoom, DPR-crisp canvas. Plain HTML anchors => new-tab works in ALL browsers. Commit 202da6f0.
    - **`engine/render.js`** - the flipbook "Printable Packet" tab now opens `/pdfview.html?file=<pdf>&title=<t>`
-     in the same pop-out box (was the raw PDF). Live + verified.
-   - **`webflow-embeds/portal.html`** - `sssPDF()` now opens the Netlify-hosted `/pdfview.html` instead of the raw
-     PDF, so the portal "Printable PDF" tiles match. **Emily must RE-PASTE portal.html block 3 into Webflow** for
-     the portal side to go live (the flipbook + PDFs are repo-served and already live). Commit dc2facf6.
+     in a **NORMAL browser tab** (address bar + back button; `target="sssPdf"` reuses the tab) - NOT the old
+     chromeless `window.open(...,width/height)` pop-out (Emily disliked the box with no back button). Live + verified.
+   - **`webflow-embeds/portal.html`** - `sssPDF()` now opens the Netlify-hosted `/pdfview.html` in a normal tab
+     (`window.open(v,'sssPdf')`, no size features) instead of the raw PDF, so the portal "Printable PDF" tiles
+     match. **Emily must RE-PASTE portal.html BLOCK 3 into Webflow** for the portal side to go live (the flipbook +
+     PDFs are repo-served and already live). Commits dc2facf6 (viewer routing) + 4df0613b (normal tab).
    - **Skipped** the optional `app.launchURL` add-on for downloaded-in-Adobe copies: it would DEAD-LINK the PDF
      for anyone who downloads it and opens it in Chrome/Edge, and the viewer makes it unnecessary. Offer if asked.
 
