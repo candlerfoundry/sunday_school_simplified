@@ -31,6 +31,35 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 > for word studies (they start talking ~3s but the name card runs to ~8â€“13s). Full detail: the pipeline
 > README (`â€¦\Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) Â§0/Â§4/Â§9.
 
+## >> LATEST (2026-09-01) - Resources grouped by lesson + PDF links open in a NEW window. READ FIRST.
+
+Two printable-packet changes Emily asked for:
+
+1. **Additional Resources grouped by lesson.** `tools/packet_pdf.py` no longer lists resources as a flat run
+   with the lesson stamped inside each pill. It now renders one subsection per lesson (accent numeral + lesson
+   title + a hairline rule) with that lesson's resource pills **compact and indented** beneath it; the per-pill
+   "Lesson N" tag is gone. `box()`, `link_box()`, `note_box()` gained `x/w/compact` params (defaults reproduce
+   the old full-size boxes on the lesson pages EXACTLY, so only the resources section changed). Both PDFs re-cut
+   + pushed (BBS 19pp, Women 22pp), rendered + verified, byte-parity confirmed live. Commit 3ab80c7e.
+
+2. **PDF links open in a NEW window - via an in-page pdf.js viewer, NOT a change to the PDF.** The
+   scripture/video/resource links inside the PDF used to replace the PDF's own window with no way back. There is
+   **no way to fix this inside the PDF file** for the browser case: browsers' built-in PDF viewers navigate the
+   same window on a plain URI link and **ignore PDF JavaScript** (the `app.launchURL(url,true)` "new window"
+   trick) - verified two ways in the real browser (a document OpenAction never fired; a JS link annotation did
+   nothing). So the fix lives at the page that PRESENTS the PDF:
+   - **`/pdfview.html`** (NEW, repo root) renders the packet PDF with pdf.js (cdnjs 3.11.174, UMD global
+     `pdfjsLib`) and overlays **every link annotation as a real `<a target="_blank">`**, positioned via
+     `viewport.convertToViewportRectangle(annot.rect)`. Same-origin `?file=` guard, `?title=` for the header,
+     Download/Print + zoom, DPR-crisp canvas. Plain HTML anchors => new-tab works in ALL browsers. Commit 202da6f0.
+   - **`engine/render.js`** - the flipbook "Printable Packet" tab now opens `/pdfview.html?file=<pdf>&title=<t>`
+     in the same pop-out box (was the raw PDF). Live + verified.
+   - **`webflow-embeds/portal.html`** - `sssPDF()` now opens the Netlify-hosted `/pdfview.html` instead of the raw
+     PDF, so the portal "Printable PDF" tiles match. **Emily must RE-PASTE portal.html block 3 into Webflow** for
+     the portal side to go live (the flipbook + PDFs are repo-served and already live). Commit dc2facf6.
+   - **Skipped** the optional `app.launchURL` add-on for downloaded-in-Adobe copies: it would DEAD-LINK the PDF
+     for anyone who downloads it and opens it in Chrome/Edge, and the viewer makes it unnecessary. Offer if asked.
+
 ## >> LATEST (2026-08-21) - MY LESSONS inline login + block-2 redesign (portal). READ FIRST.
 
 **The logged-in "My Lessons" portal page now has an INLINE sign-in** (Aug-19 UX fix). It solved: the welcome
