@@ -114,9 +114,9 @@ def build(work, palette, fonts_dir=None):
         c.drawString(M, y - SECTION + 2, label)
         return y - SECTION - 8
 
-    def box(c, y, h):
+    def box(c, y, h, x=M, w=CW):
         c.setStrokeColor(BOXC); c.setLineWidth(1.1)
-        c.roundRect(M, y - h, CW, h, 7, stroke=1, fill=0)
+        c.roundRect(x, y - h, w, h, 7, stroke=1, fill=0)
 
     def prayer_h(c, text):
         p = Paragraph(esc(text), st('Mulish', PRAYER, INK, leading=PRAYER_LEAD))
@@ -141,50 +141,64 @@ def build(work, palette, fonts_dir=None):
         m = re.search(r'vimeo\.com/(?:video/)?(\d+)', url or '')
         return 'https://vimeo.com/%s' % m.group(1) if m else url
 
-    def link_box(c, y, title, sub, url, link_label, show_url=None):
-        """Height is computed from the content so bigger type can't overflow the frame."""
+    def link_box(c, y, title, sub, url, link_label, show_url=None, x=M, w=CW, compact=False):
+        """Height is computed from the content so bigger type can't overflow the frame.
+        `compact` (used for the per-lesson resource pills) shrinks the type + box and lets
+        the caller indent it under a lesson heading via x/w."""
+        bt = 12 if compact else BOX_TITLE
+        bs = 10 if compact else BOX_SUB
+        bl = 9.5 if compact else BOX_LINK
+        lh = 14 if compact else 15
+        pad = 12 if compact else 14
+        minh = 70 if compact else 80
+        hpad = 24 if compact else 26
         lines = 1 + (1 if sub else 0) + (1 if show_url else 0) + 1
-        h = max(80, 26 + lines * 15)
-        box(c, y, h)
+        h = max(minh, hpad + lines * lh)
+        box(c, y, h, x, w)
         qs = h - 18
-        qx, qy = W - M - qs - 10, y - h + 9
+        qx, qy = x + w - qs - 10, y - h + 9
         c.drawImage(qr_img(url), qx, qy, qs, qs)
         c.linkURL(url, (qx, qy, qx + qs, qy + qs), relative=0)
-        tw = qx - M - 26                                  # text column, clear of the QR
-        ty = y - 24
-        c.setFont('Mulish-Bold', BOX_TITLE); c.setFillColor(INK)
-        c.drawString(M + 14, ty, title[:60])
+        ty = y - (22 if compact else 24)
+        c.setFont('Mulish-Bold', bt); c.setFillColor(INK)
+        c.drawString(x + pad, ty, title[:54 if compact else 60])
         if sub:
-            ty -= 16
-            c.setFont('Mulish', BOX_SUB); c.setFillColor(SECOND)
-            c.drawString(M + 14, ty, sub[:70])
+            ty -= (14 if compact else 16)
+            c.setFont('Mulish', bs); c.setFillColor(SECOND)
+            c.drawString(x + pad, ty, sub[:70])
         if show_url:
-            ty -= 16
-            c.setFont('Mulish-Bold', BOX_SUB); c.setFillColor(INK)
-            c.drawString(M + 14, ty, show_url)
-            uw = c.stringWidth(show_url, 'Mulish-Bold', BOX_SUB)
-            c.linkURL(url, (M + 14, ty - 3, M + 14 + uw, ty + 10), relative=0)
-        ly = y - h + 14
-        c.setFont('Mulish-Bold', BOX_LINK); c.setFillColor(ACCENT)
-        c.drawString(M + 14, ly, link_label)
-        lw = c.stringWidth(link_label, 'Mulish-Bold', BOX_LINK)
+            ty -= (14 if compact else 16)
+            c.setFont('Mulish-Bold', bs); c.setFillColor(INK)
+            c.drawString(x + pad, ty, show_url)
+            uw = c.stringWidth(show_url, 'Mulish-Bold', bs)
+            c.linkURL(url, (x + pad, ty - 3, x + pad + uw, ty + 10), relative=0)
+        ly = y - h + (13 if compact else 14)
+        c.setFont('Mulish-Bold', bl); c.setFillColor(ACCENT)
+        c.drawString(x + pad, ly, link_label)
+        lw = c.stringWidth(link_label, 'Mulish-Bold', bl)
         c.setStrokeColor(ACCENT); c.setLineWidth(0.6)
-        c.line(M + 14, ly - 2, M + 14 + lw, ly - 2)
-        c.linkURL(url, (M + 14, ly - 3, M + 14 + lw, ly + 10), relative=0)
+        c.line(x + pad, ly - 2, x + pad + lw, ly - 2)
+        c.linkURL(url, (x + pad, ly - 3, x + pad + lw, ly + 10), relative=0)
         return y - h
 
-    def note_box(c, y, title, sub, note):
-        h = max(70, 26 + (2 + (1 if sub else 0)) * 15)
-        box(c, y, h)
-        ty = y - 24
-        c.setFont('Mulish-Bold', BOX_TITLE); c.setFillColor(INK)
-        c.drawString(M + 14, ty, title[:60])
+    def note_box(c, y, title, sub, note, x=M, w=CW, compact=False):
+        bt = 12 if compact else BOX_TITLE
+        bs = 10 if compact else BOX_SUB
+        pad = 12 if compact else 14
+        lh = 14 if compact else 15
+        minh = 60 if compact else 70
+        hpad = 24 if compact else 26
+        h = max(minh, hpad + (2 + (1 if sub else 0)) * lh)
+        box(c, y, h, x, w)
+        ty = y - (22 if compact else 24)
+        c.setFont('Mulish-Bold', bt); c.setFillColor(INK)
+        c.drawString(x + pad, ty, title[:54 if compact else 60])
         if sub:
-            ty -= 16
-            c.setFont('Mulish', BOX_SUB); c.setFillColor(SECOND)
-            c.drawString(M + 14, ty, sub[:70])
-        c.setFont('Mulish-It', BOX_SUB); c.setFillColor(SECOND)
-        c.drawString(M + 14, y - h + 14, note)
+            ty -= (14 if compact else 16)
+            c.setFont('Mulish', bs); c.setFillColor(SECOND)
+            c.drawString(x + pad, ty, sub[:70])
+        c.setFont('Mulish-It', bs); c.setFillColor(SECOND)
+        c.drawString(x + pad, y - h + (13 if compact else 14), note)
         return y - h
 
     def book_box(c, y, b):
@@ -371,39 +385,68 @@ def build(work, palette, fonts_dir=None):
                         st('Mulish-It', BODY, SECOND, leading=BODY_LEAD), M, H - 100, CW) - 22
         return H - 106
 
-    items = []
+    def res_lesson_header(c, y, n, title, cont=False):
+        """Per-lesson subsection heading: accent numeral + lesson title + a hairline rule,
+        so each lesson's resources read as their own grouped block."""
+        c.setFont('Thierry', 19); c.setFillColor(ACCENT)
+        c.drawString(M, y - 15, str(n))
+        label = ('%s (cont.)' % title) if cont else title
+        c.setFont('Mulish-XB', 12.5); c.setFillColor(INK)
+        c.drawString(M + 26, y - 13, label[:50])
+        c.setStrokeColor(RULE); c.setLineWidth(0.8)
+        c.line(M, y - 23, W - M, y - 23)
+        return y - 33
+
+    # Group each lesson's extras under its own subsection heading (Emily, 2026-09-01):
+    # the lesson is the heading, not a pill tag; the pills themselves are compact + indented.
+    RES_INDENT = 22
+    groups = []
     for l in C['lessons']:
-        tag = 'Lesson %d · %s' % (l['n'], l.get('tabRef') or l['shortRef'])
+        li = []
         vids = l.get('optionalVideos') or ([l['optionalVideo']] if l.get('optionalVideo') else [])
         for o in vids:
-            items.append(('video', o.get('title'), o.get('subtitle'), o.get('url'), tag))
+            li.append(('video', o.get('title'), o.get('subtitle'), o.get('url')))
         for a in (l.get('artwork') or []):
-            items.append(('art', a.get('title'), a.get('subtitle'), a.get('url'), tag))
+            li.append(('art', a.get('title'), a.get('subtitle'), a.get('url')))
         for r in (l.get('optionalReadings') or []):
-            items.append(('read', r.get('title'), r.get('subtitle'), r.get('url'), tag))
+            li.append(('read', r.get('title'), r.get('subtitle'), r.get('url')))
+        if li:
+            groups.append((l, li))
 
     rr = C['meta'].get('recommendedReading') or []
     y = res_header(c, True)
-    if not items and not rr:
+    if not groups and not rr:
         para(c, 'Extra videos, artwork, and readings will appear here as they are added to future lessons.',
              st('Mulish-It', BODY, SECOND, leading=BODY_LEAD), M, y, CW)
     else:
-        for kind, title, sub, url, tag in items:
-            if y - 108 < 62:
+        xi, wi = M + RES_INDENT, CW - RES_INDENT
+        for l, li in groups:
+            ltitle = l.get('title') or l.get('shortRef') or ('Lesson %d' % l['n'])
+            # keep the heading with its first pill — never orphan a heading at a page foot
+            if y - (33 + 100) < 62:
                 footer(c, C['meta']['title'], page); c.showPage(); page += 1
                 y = res_header(c, False)
-            full_sub = ('%s · %s' % (tag, sub)) if sub else tag
-            if not url:
-                y = note_box(c, y, title, full_sub,
-                             'Coming soon — it will appear in the online flipbook.') - 16
-            elif kind == 'video':
-                u = vimeo_watch(url)
-                y = link_box(c, y, title, full_sub, u, 'Scan the code, or type the link above',
-                             show_url=u.replace('https://', '')) - 16
-            elif kind == 'art':
-                y = link_box(c, y, title, full_sub, url, 'Scan the code to view the artwork') - 16
-            else:
-                y = link_box(c, y, title, full_sub, url, 'Open at Bible Gateway — or scan the code') - 16
+            y = res_lesson_header(c, y, l['n'], ltitle)
+            for kind, title, sub, url in li:
+                if y - 100 < 62:
+                    footer(c, C['meta']['title'], page); c.showPage(); page += 1
+                    y = res_header(c, False)
+                    y = res_lesson_header(c, y, l['n'], ltitle, cont=True)
+                if not url:
+                    y = note_box(c, y, title, sub,
+                                 'Coming soon — it will appear in the online flipbook.',
+                                 x=xi, w=wi, compact=True) - 12
+                elif kind == 'video':
+                    u = vimeo_watch(url)
+                    y = link_box(c, y, title, sub, u, 'Scan the code, or type the link above',
+                                 show_url=u.replace('https://', ''), x=xi, w=wi, compact=True) - 12
+                elif kind == 'art':
+                    y = link_box(c, y, title, sub, url, 'Scan the code to view the artwork',
+                                 x=xi, w=wi, compact=True) - 12
+                else:
+                    y = link_box(c, y, title, sub, url, 'Open at Bible Gateway — or scan the code',
+                                 x=xi, w=wi, compact=True) - 12
+            y -= 6   # a little air between lesson groups
         if rr:
             if y - 156 < 62:
                 footer(c, C['meta']['title'], page); c.showPage(); page += 1
