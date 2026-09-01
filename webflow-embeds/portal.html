@@ -116,7 +116,7 @@
            style="left:5.5%;top:8.5%;width:46%;height:80%;border-radius:14px" aria-label="Open the Beyond Bumper Stickers packet"></a>
         <a href="/sss/beyond-bumper-stickers"
            style="left:55.5%;top:70%;width:28%;height:10%" aria-label="Open the Beyond Bumper Stickers packet"></a>
-        <a href="#" onclick="return sssPDF('https://sundayschoolsimplified.netlify.app/packets/beyond-bumper-stickers/Beyond%20Bumper%20Stickers.pdf')"
+        <a href="#" onclick="return sssPDF('https://sundayschoolsimplified.netlify.app/packets/beyond-bumper-stickers/Beyond%20Bumper%20Stickers.pdf','Beyond Bumper Stickers')"
            style="left:55.5%;top:80.3%;width:28%;height:10%" aria-label="Beyond Bumper Stickers printable PDF"></a>
       </div>
     </div>
@@ -130,7 +130,7 @@
            style="left:5.5%;top:8.5%;width:46%;height:80%;border-radius:14px" aria-label="Open The Gospel According to the Women packet"></a>
         <a href="/sss/gospel-according-to-the-women"
            style="left:55.5%;top:70%;width:28%;height:10%" aria-label="Open The Gospel According to the Women packet"></a>
-        <a href="#" onclick="return sssPDF('https://sundayschoolsimplified.netlify.app/packets/gospel-according-to-the-women/The%20Gospel%20According%20to%20the%20Women.pdf')"
+        <a href="#" onclick="return sssPDF('https://sundayschoolsimplified.netlify.app/packets/gospel-according-to-the-women/The%20Gospel%20According%20to%20the%20Women.pdf','The Gospel According to the Women')"
            style="left:55.5%;top:80.3%;width:28%;height:10%" aria-label="The Gospel According to the Women printable PDF"></a>
       </div>
     </div>
@@ -145,7 +145,13 @@
   I18nElement.onResourceFetch((ns, lang) => fetch(`${i18nBase}/${ns}/${lang}.json`));
 </script>
 <script>
-  function sssPDF(url){ window.open(url,'sssPdf','width=980,height=1150,scrollbars=yes,resizable=yes'); return false; }
+  // Open the printable PDF through the in-page pdf.js viewer so its scripture/video/resource
+  // links open in a NEW browser tab instead of replacing the PDF (Emily, 2026-09-01).
+  function sssPDF(url,title){
+    var v='https://sundayschoolsimplified.netlify.app/pdfview.html?file='+encodeURIComponent(url)
+        +(title?'&title='+encodeURIComponent(title):'');
+    window.open(v,'sssPdf','width=980,height=1150,scrollbars=yes,resizable=yes'); return false;
+  }
   (function(){
     function sync(){                         // foxy-logic reveals tiles asynchronously
       var secs=document.querySelectorAll('.pk3');
