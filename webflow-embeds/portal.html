@@ -145,12 +145,13 @@
   I18nElement.onResourceFetch((ns, lang) => fetch(`${i18nBase}/${ns}/${lang}.json`));
 </script>
 <script>
-  // Open the printable PDF through the in-page pdf.js viewer so its scripture/video/resource
-  // links open in a NEW browser tab instead of replacing the PDF (Emily, 2026-09-01).
+  // Open the printable PDF through the in-page pdf.js viewer so its scripture/video/resource links
+  // open in a NEW browser tab instead of replacing the PDF. Opens in a NORMAL browser tab (address
+  // bar + back button), not a chromeless pop-out; the named target reuses the tab (Emily, 2026-09-01).
   function sssPDF(url,title){
     var v='https://sundayschoolsimplified.netlify.app/pdfview.html?file='+encodeURIComponent(url)
         +(title?'&title='+encodeURIComponent(title):'');
-    window.open(v,'sssPdf','width=980,height=1150,scrollbars=yes,resizable=yes'); return false;
+    window.open(v,'sssPdf'); return false;
   }
   (function(){
     function sync(){                         // foxy-logic reveals tiles asynchronously

@@ -258,22 +258,18 @@
   // download tab (replaces the old fixed side ribbon) — only when the packet ships a PDF
   if (C.meta.pdf) tabsHtml += '<a class="tab small download" data-tab="download" href="' + esc(C.meta.pdf) + '" target="_blank" rel="noopener"><span class="ti"><i class="fa-solid fa-file-pdf"></i></span><span class="tl">Printable Packet</span></a>';
   tabsEl.innerHTML = tabsHtml;
-  // Printable Packet opens in its own pop-out window ("a separate box"), never an auto-download.
-  // It is routed through the in-page PDF viewer (/pdfview.html) so the packet's scripture, video
-  // and resource links open in a NEW browser tab instead of replacing the packet — a browser's
-  // built-in PDF viewer navigates the same window and offers no way back (Emily, 2026-09-01).
-  // If the browser blocks the popup we do NOT preventDefault, so the anchor (also pointed at the
-  // viewer below) still opens it in a new tab.
+  // Printable Packet is routed through the in-page PDF viewer (/pdfview.html) so the packet's
+  // scripture, video and resource links open in a NEW browser tab instead of replacing the packet —
+  // a browser's built-in PDF viewer navigates the same window and offers no way back. It opens in a
+  // NORMAL browser tab (address bar + back button), not a chromeless pop-out; the named target reuses
+  // the same tab on repeat clicks, and never auto-downloads (Emily, 2026-09-01).
   var pdfTab = tabsEl.querySelector("a.tab.download");
   if (pdfTab) {
     var pdfAbs = new URL(C.meta.pdf, location.href).href;
     var pdfViewer = "/pdfview.html?file=" + encodeURIComponent(pdfAbs)
                   + "&title=" + encodeURIComponent(C.meta.title || "Printable Packet");
     pdfTab.setAttribute("href", pdfViewer);
-    pdfTab.addEventListener("click", function (e) {
-      var win = window.open(pdfViewer, "sssPdf", "width=980,height=1150,scrollbars=yes,resizable=yes");
-      if (win) { e.preventDefault(); win.focus(); }
-    });
+    pdfTab.setAttribute("target", "sssPdf");   // normal tab (reused), not a width/height pop-out
   }
 
   /* ---------- flip ---------- */
