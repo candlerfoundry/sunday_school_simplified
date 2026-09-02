@@ -1,0 +1,96 @@
+<!-- Foxy checkout CUSTOM FIELDS (alum checkbox, organization, + SSS optional donation).
+     Lives in the Foxy admin checkout config. Emily pastes this in.
+     The donation block shows only when the cart contains an SSS- item (sssHasPacket), and
+     adds/removes a `code=donation category=SSS` line item. -->
+
+<!-- Candler Alum Checkbox -->
+<div class="fc-form-group">
+  <div class="col-sm-8 col-sm-offset-3 fc-checkout__additional-field--custom-checkbox">
+    <div class="fc-input-group-container fc-input-group-container--checkbox">
+      <label class="fc-input-group-container__title fc-form-label fc-form-label--custom-checkbox">
+        <input type="hidden" name="candler_alum" value="No" />
+        <input type="checkbox"
+               id="candler_alum"
+               name="candler_alum"
+               value="Yes"
+               class="fc-form-control fc-form-control--custom-checkbox"
+               {{ checked(candler_alum == 'Yes') }} />
+        Are you a Candler School of Theology alum?
+      </label>
+    </div>
+  </div>
+</div>
+<br><br>
+
+<!-- Organization Input -->
+<div class="fc-form-group">
+  <div class="col-sm-8 col-sm-offset-3">
+    <div class="fc-input-group-container fc-input-group-container--text">
+      <label class="fc-input-group-container__title fc-form-label">
+        Your organization/church (kindly include name & city):
+      </label>
+      <input type="text"
+             name="organization"
+             class="fc-form-control"
+             value="{{ organization }}" />
+    </div>
+  </div>
+</div>
+<br><br>
+<!-- ===== SSS optional donation ===== -->
+<div id="sss-donation-wrap" class="fc-form-group" style="display:none;">
+  <div class="col-sm-8 col-sm-offset-3">
+    <div class="fc-input-group-container fc-input-group-container--text">
+      <label class="fc-input-group-container__title fc-form-label">If you'd like, add a gift to support our ministry:</label>
+      <input type="text" id="donation" class="fc-form-control" value="{{ donation|default('') }}" placeholder="Amount, e.g. 10" />
+      <button type="button" id="donation_confirm" class="fc-button" style="margin-top:10px;">Add gift</button>
+    </div>
+  </div>
+</div>
+<br><br>
+
+<script>
+(function(){
+  function sssHasPacket(){
+    if (!window.FC || !FC.json || !FC.json.items) return false;
+    for (var i=0; i < FC.json.items.length; i++){ if (/^SSS-/.test(FC.json.items[i].code)) return true; }
+    return false;
+  }
+  function gateDonation(){
+    if (sssHasPacket()) { jQuery('#sss-donation-wrap').show(); } else { jQuery('#sss-donation-wrap').hide(); }
+  }
+  function addGift(){
+    var sa = FC.json.shipping_address, sr = sa.shipping_results, ssd = sa.shipping_service_description, ssi = sa.shipping_service_id;
+    var donation_id, donation_existing = 0;
+    for (var i=0; i < FC.json.items.length; i++){
+      if (FC.json.items[i].code == 'donation'){ donation_id = FC.json.items[i].id; donation_existing = FC.json.items[i].price; }
+    }
+    var donation_new = parseFloat((jQuery('#donation').val()||'').replace(/[^0-9.]/g,'')) || 0;
+    FC.json.donation = donation_new;
+    var add_link = 'https://'+FC.settings.storedomain+'/cart?name=Donation&price='+donation_new+'&code=donation&category=SSS&quantity_max=1';
+    var remove_link = 'https://'+FC.settings.storedomain+'/cart?cart=update&quantity=0&id='+donation_id;
+    function refresh(){
+      FC.json.shipping_address.shipping_results = sr;
+      FC.json.shipping_address.shipping_service_description = ssd;
+      FC.json.shipping_address.shipping_service_id = ssi;
+      FC.checkout.render(); FC.checkout.getShippingOptions({address: FC.json.shipping_address}); gateDonation();
+    }
+    if (donation_id && donation_new != donation_existing && donation_new > 0){
+      FC.client.request(remove_link).done(function(){ FC.client.request(add_link).done(refresh); });
+    } else {
+      var action_link = '';
+      if (donation_id && donation_new == 0){ action_link = remove_link; }
+      if (!donation_id && donation_new > 0){ action_link = add_link; }
+      if (action_link != ''){ FC.client.request(action_link).done(refresh); }
+    }
+  }
+  jQuery('body').off('click.sssDon').on('click.sssDon', '#donation_confirm', function(e){ e.preventDefault(); addGift(); });
+  jQuery('body').off('keypress.sssDon').on('keypress.sssDon', '#donation', function(e){ if (e.which === 13){ e.preventDefault(); addGift(); } });
+  if (window.FC && FC.client && FC.client.on){
+    FC.client.on('ready.done', function(){
+      for (var i=0; i < FC.json.items.length; i++){ if (FC.json.items[i].code == 'donation'){ FC.json.donation = FC.json.items[i].price; } }
+      FC.checkout.renderAdditionalFields(); gateDonation();
+    });
+  }
+})();
+</script>

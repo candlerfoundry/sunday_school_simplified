@@ -1,0 +1,37 @@
+<!-- Foxy checkout CUSTOM FOOTER — per-product account-forcing.
+     Lives in the Foxy admin (store checkout/template configuration → custom footer), NOT auto-served.
+     Emily pastes this in. Store default is "login optional" (default_account); this flips the cart to
+     account_only (no guest) when it contains a must-log-in item.
+     2026-09-02: added the /^SSS-/ code check so Sunday School Simplified packets force login too
+     (they were previously missing → guest checkouts slipped through).
+     CAVEAT: client-side, so a blocker/JS-off/express path can bypass it → back it with a server-side
+     pre-payment webhook for a hard guarantee. -->
+{% if context == 'checkout' %}
+<script>
+const FORCE_LOGIN_CATEGORY = ["On-Demand", "Certificate"];
+function itemForcesLogin(it){
+  // force account creation for On-Demand / Certificate, PLUS any Sunday School Simplified
+  // packet (codes start with "SSS-", the same check the donation script uses)
+  return FORCE_LOGIN_CATEGORY.includes(it.category) || /^SSS-/.test(it.code || "");
+}
+function updateCheckoutMode() {
+  const items = FC.json.items;
+  const hasForceLoginItem = items.some(itemForcesLogin);
+  const desired = hasForceLoginItem
+    ? { checkout_type: "account_only", anonymous_checkout_selected: false }
+    : { checkout_type: "default_account", anonymous_checkout_selected: false };
+  if (
+    FC.json.checkout_type !== desired.checkout_type ||
+    FC.json.anonymous_checkout_selected !== desired.anonymous_checkout_selected
+  ) {
+    Object.assign(FC.json, desired);
+    FC.client.updateJSON(FC.json);
+    FC.checkout.render();
+  }
+};
+FC.client.on("ready.done", updateCheckoutMode);
+FC.client.on("cart-submit.done", updateCheckoutMode);
+FC.client.on("cart-item-quantity-update.done", updateCheckoutMode);
+FC.client.on("cart-item-remove.done", updateCheckoutMode);
+</script>
+{% endif %}

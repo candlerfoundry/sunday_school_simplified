@@ -31,6 +31,23 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 > for word studies (they start talking ~3s but the name card runs to ~8â€“13s). Full detail: the pipeline
 > README (`â€¦\Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) Â§0/Â§4/Â§9.
 
+## >> LATEST (2026-09-02) - Landing block 2 full-width + Foxy checkout code saved. READ FIRST.
+
+- **Landing "HERE'S HOW IT WORKS" (block 2) is now full-width.** It was capped `max-width:1200px` and
+  looked small next to the portal's equivalent "Let's get going" band, which has no cap. Removed the cap
+  so `webflow-embeds/landing.html` block 2 wrapper is just `position:relative;width:100%;line-height:0` -
+  structurally identical to the portal's `.sss-ll`, so it renders at the same scale. Hotspot is %-based
+  (stays aligned); single image (proportional). Commit 4da55fcb. ⚠ **Emily re-pastes landing.html block 2.**
+  (Block 1 hero is still capped at 1200px - widen the same way if you want all three consistent.)
+- **Foxy checkout custom code is now version-controlled in `foxy-embeds/`** (mirrors `webflow-embeds/`;
+  this code lives in the Foxy admin checkout config, NOT auto-served - Emily pastes it). Includes the
+  **account-forcing footer**, whose `FORCE_LOGIN_CATEGORY` had omitted SSS - so SSS checkouts ran
+  guest-allowed and the occasional shopper registered with no account/password. Fixed by also matching the
+  `SSS-` product-code prefix. ⚠ **Emily must paste the corrected footer into Foxy.** It's client-side
+  (bypassable) - a server-side pre-payment webhook is the bulletproof follow-up (not built).
+- **Foundry-wide operational reference:** `Dropbox/Operations/Claude Context Docs/Candler Foundry -
+  Operations Playbook.md` (systems, access, standing rules, procedures, project index).
+
 ## >> LATEST (2026-09-01) - Resources grouped by lesson + PDF links open in a NEW window. READ FIRST.
 
 Two printable-packet changes Emily asked for:
