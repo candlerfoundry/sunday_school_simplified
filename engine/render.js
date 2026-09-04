@@ -201,6 +201,9 @@
     var foot = '<div class="resfoot">' +
       '<a class="resfoot-logo" href="https://candlerfoundry.emory.edu" target="_blank" rel="noopener" aria-label="The Candler Foundry — candlerfoundry.emory.edu">' +
         '<img src="assets/candler-foundry-logo.png" alt="The Candler Foundry"></a>' +
+      '<div class="resfoot-blurb">' + esc((C.meta.series || 'Sunday School Simplified') +
+        ' is a project of The Candler Foundry, an initiative of Emory University’s ' +
+        'Candler School of Theology. We aim to make Bible and theology fun and easy.') + '</div>' +
       '<a class="resfoot-url" href="https://candlerfoundry.emory.edu" target="_blank" rel="noopener">candlerfoundry.emory.edu</a>' +
       '</div>';
     return '<div class="pg resources"><div class="chead">Additional Resources</div>' +

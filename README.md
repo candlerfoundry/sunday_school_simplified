@@ -31,6 +31,76 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 > for word studies (they start talking ~3s but the name card runs to ~8â€“13s). Full detail: the pipeline
 > README (`â€¦\Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) Â§0/Â§4/Â§9.
 
+## >> LATEST (2026-09-04) - No em dashes in the letters, BBS L3 reading extended, TIP in print,
+## clickable contents, new back-page sign-off. READ FIRST.
+
+Five changes Emily asked for. Both packets rebuilt and verified; baseline reproduction was confirmed
+first (a rebuild from unmodified inputs matched the published PDFs pixel-for-pixel on every page), so
+every page listed below changed because we changed it.
+
+1. **Em dashes are gone from the opening letters (both packets).** BBS had two:
+   "noticed - as we have - that" became "noticed, as we have, that", and "to be easy - you can study"
+   became "to be easy. You can study". The Women letter had none, but used a spaced HYPHEN for the same
+   job ("six of these stories - Hannah,"); that is now a colon. The letter page is engine-rendered from
+   `meta.letter`, so this lands in the flipbook AND the PDF from one edit. Line breaks and page fit are
+   unchanged. **Still present elsewhere and NOT touched** (Emily has not ruled on them): the generator's
+   hard-coded "Read at Bible Gateway (NRSVUE) - or scan the code" (6x per packet) and "Open at Bible
+   Gateway - or scan the code" on the Women resources pages, plus four BBS discussion questions
+   (L1 Q4, L2 Q5, L5 Q4, L6 Q4). **Careful with the questions:** they are baked into the Canva art, so
+   editing `content.js` alone would desync the PDF from the flipbook.
+
+2. **BBS Lesson 3 now reads `Genesis 1:1-2:9; 2:15`** (was `1:1-2:4a; 2:15`). The old reading jumped
+   from the end of creation-story one to a single orphaned verse of creation-story two, with nothing to
+   explain who "the man" is or where the garden came from. Adding 2:4b-9 supplies exactly that setup
+   (the barren ground, the human formed from dust, the garden planted) and stops short of the rivers-of-
+   Eden geography. Emily updated the Canva art herself (design `DAHOtl4BNMk` **page 8**) and the new
+   `lesson-3-a.png` is in. **Hotspots did NOT need re-measuring this time** - a pixel diff of old vs new
+   art shows the ONLY changed region is the reference line (x485-1147, y400-461); the scripture, video
+   and TIP boxes are untouched. Always prove that with a diff before trusting it.
+   `scriptureText` gained 2:4b-9 in NRSVUE, following the house pattern already used by BBS L5 (which
+   quotes 2:4-7), including the `<p class="super">Another Account of the Creation</p>` seam.
+
+3. **The Lesson 3 TIP now prints.** It used to exist only in the flipbook (a red starburst baked into
+   the art plus a `hotspots.tip` hotspot), so the printable packet never mentioned it - the
+   inconsistency Emily flagged. `tools/packet_pdf.py` gained **`tip_box()`**: a full-width aside with the
+   red TIP badge, the wrapped tip text, a QR, and the underlined link label, drawn on lesson page A after
+   the video box when a lesson has `tipText`. Height is computed from the wrapped text so it cannot
+   overflow; L3 page A had ~235pt free, and the box did not push the questions onto a new page (BBS is
+   still 19pp). The tip copy was rewritten for the new reading and repointed at **Genesis 2:10-25**
+   (`tipUrl`, `tipLinkText`), and it no longer uses em dashes.
+
+4. **The printable contents page is clickable on screen.** Each "In This Packet" row is now an internal
+   PDF link to that lesson's page A: `c.bookmarkPage('lesson%d')` on each lesson page A, and
+   `c.linkRect('', 'lesson%d', ..., Border='[0 0 0]')` on the contents row (forward references resolve at
+   save time). No annotation border, so **the printed page is unchanged**.
+   **`pdfview.html` had to learn internal links too** - it only ever overlaid `an.url` annotations, so a
+   `dest` link would have been DEAD in our own viewer. It now handles both: `an.url` keeps opening a new
+   tab, while `an.dest` gets a `.lk-in` anchor whose click resolves the destination
+   (`getDestination` -> `getPageIndex`) and smooth-scrolls to that page, offset by the sticky toolbar.
+   The page lookup happens at CLICK time, because pages render in order and the target may not be in the
+   DOM yet when the link is built.
+
+5. **Back page (PDF end page): stubby rule removed, new sign-off copy.** The 52x3pt accent `roundRect`
+   above the logo read as a stray line; it is gone. The blurb is now "<series> is a project of The Candler
+   Foundry, an initiative of Emory University's Candler School of Theology. We aim to make Bible and
+   theology fun and easy." **The flipbook now says the same thing** - `.resfoot` previously carried only
+   the logo and the URL, so `engine/render.js` adds a `.resfoot-blurb` div and `engine/styles.css` styles
+   it (12px italic, max-width 470px) while tightening `.resfoot` margins/gap to claw back the height.
+   NOTE the flipbook keeps its full-width dotted separator above the footer - that is a structural
+   divider between the accordion and the sign-off, not the stubby rule Emily meant.
+
+**Verification (all done, none of it assumed).** Baseline rebuild = pixel-identical to the published
+PDFs. After the changes, the only pages that differ are BBS 2/8/19 and Women 2/22; page counts hold at
+19/22; PyMuPDF found no out-of-bounds and no overlapping text blocks anywhere. **The Browser pane cannot
+verify pdf.js** - the live, unmodified viewer stalls at 1 rendered page there too, so that is an
+environment artifact, not a regression; use **Playwright** instead (`work/verify-pdfview.mjs` pattern).
+Playwright confirmed: 19 pages, 6 internal links on the contents page, all 6 landing on pages 4/6/8/10/
+12/14 with 0px offset, 64 external links all still `target="_blank"`, no console errors. Allow ~3s for
+the smooth scroll to settle before asserting position, or long jumps read as failures. The flipbook was
+checked too: new art loads, the scripture modal header reads "Genesis 1:1-2:9; 2:15" with the garden and
+tree-of-life verses present, the TIP pop-out shows the new copy and the 2:10-25 link, and the new footer
+blurb fits inside the fixed 816x1056 page on both packets.
+
 ## >> LATEST (2026-09-02) - Landing block 2 full-width + Foxy checkout code saved. READ FIRST.
 
 - **Landing "HERE'S HOW IT WORKS" (block 2) is now full-width.** It was capped `max-width:1200px` and

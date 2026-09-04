@@ -38,6 +38,7 @@
   .lk{position:absolute;display:block;border-radius:3px;
     background:rgba(251,22,22,.001);transition:background .12s}
   .lk:hover{background:rgba(251,22,22,.14);outline:1.5px solid rgba(251,22,22,.5)}
+  .lk-in{cursor:pointer}
   #msg{padding:48px 20px;text-align:center;color:var(--second);font-size:15px;line-height:1.5}
   #msg a{color:var(--accent)}
   @media (max-width:640px){#title{font-size:13px}#bar{gap:8px;padding:8px 10px}
@@ -95,6 +96,28 @@
       return avail; // pixels of target width; per-page scale computed from the page's own width
     }
 
+    // A page may not be in the DOM yet when its link is built (pages render in order),
+    // so the lookup happens at CLICK time, not here.
+    function makeJump(dest) {
+      return function (e) {
+        e.preventDefault();
+        Promise.resolve(typeof dest === "string" ? pdfDoc.getDestination(dest) : dest)
+          .then(function (d) {
+            if (!d || !d.length) return null;
+            return pdfDoc.getPageIndex(d[0]);
+          })
+          .then(function (idx) {
+            if (idx === null || idx === undefined) return;
+            var el = viewer.querySelector('.page[data-page="' + (idx + 1) + '"]');
+            if (!el) return;
+            var barH = document.getElementById("bar").offsetHeight || 0;
+            var top = el.getBoundingClientRect().top + window.pageYOffset - barH - 12;
+            window.scrollTo({ top: top, behavior: "smooth" });
+          })
+          .catch(function (err) { if (window.console) console.warn(err); });
+      };
+    }
+
     async function renderAll() {
       if (rendering) { rerenderQueued = true; return; }
       rendering = true;
@@ -108,6 +131,7 @@
 
         var pageDiv = document.createElement("div");
         pageDiv.className = "page";
+        pageDiv.dataset.page = String(i);
         pageDiv.style.width = Math.floor(vp.width) + "px";
 
         var canvas = document.createElement("canvas");
@@ -124,24 +148,35 @@
           transform: DPR !== 1 ? [DPR, 0, 0, DPR, 0, 0] : null
         }).promise;
 
-        // overlay every external link as a real anchor that opens a NEW TAB
+        // Overlay each link annotation as a real anchor. Two kinds:
+        //   an.url  -> external link, opens a NEW TAB (why this viewer exists)
+        //   an.dest -> internal jump (the contents page's lesson rows); browsers' own
+        //              PDF viewers handle these, but pdf.js hands us the raw dest, so
+        //              we resolve it to a page index and scroll there ourselves.
         var annots = await page.getAnnotations({ intent: "display" });
         for (var a = 0; a < annots.length; a++) {
           var an = annots[a];
-          if (an.subtype !== "Link" || !an.url) continue;
+          if (an.subtype !== "Link" || (!an.url && !an.dest)) continue;
           var r = vp.convertToViewportRectangle(an.rect);
           var x1 = Math.min(r[0], r[2]), y1 = Math.min(r[1], r[3]);
           var w = Math.abs(r[2] - r[0]), h = Math.abs(r[3] - r[1]);
           var link = document.createElement("a");
           link.className = "lk";
-          link.href = an.url;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-          link.title = an.url;
           link.style.left = x1 + "px";
           link.style.top = y1 + "px";
           link.style.width = w + "px";
           link.style.height = h + "px";
+          if (an.url) {
+            link.href = an.url;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.title = an.url;
+          } else {
+            link.className = "lk lk-in";
+            link.href = "#";
+            link.title = "Go to this lesson";
+            link.addEventListener("click", makeJump(an.dest));
+          }
           pageDiv.appendChild(link);
         }
       }

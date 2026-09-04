@@ -201,6 +201,36 @@ def build(work, palette, fonts_dir=None):
         c.drawString(x + pad, y - h + (13 if compact else 14), note)
         return y - h
 
+    def tip_box(c, y, text, url=None, link_label=None):
+        """Lesson-page aside that mirrors the flipbook's red TIP badge: optional further
+        reading for classes with time. Height is computed from the wrapped text, so the
+        box can't overflow its frame. Print-usable: QR plus the underlined link label."""
+        pad, badge_w, badge_h, qs = 14, 34, 15, 62
+        has_link = bool(url and link_label)
+        tw = CW - pad * 2 - ((qs + 16) if url else 0)
+        p = Paragraph(esc(text), st('Mulish', 11, INK, leading=15))
+        _, ph = p.wrap(tw, 10000)
+        h = max(qs + 20, ph + badge_h + (50 if has_link else 28))
+        box(c, y, h)
+        if url:
+            qx, qy = M + CW - qs - 10, y - h + (h - qs) / 2
+            c.drawImage(qr_img(url), qx, qy, qs, qs)
+            c.linkURL(url, (qx, qy, qx + qs, qy + qs), relative=0)
+        bx, by = M + pad, y - pad - badge_h
+        c.setFillColor(ACCENT); c.roundRect(bx, by, badge_w, badge_h, 3.5, stroke=0, fill=1)
+        c.setFont('Mulish-XB', 8.5); c.setFillColor(white)
+        c.drawCentredString(bx + badge_w / 2, by + 4.6, 'TIP')
+        p.drawOn(c, M + pad, by - 8 - ph)
+        if has_link:
+            ly = by - 8 - ph - 16
+            c.setFont('Mulish-Bold', BOX_LINK); c.setFillColor(ACCENT)
+            c.drawString(M + pad, ly, link_label)
+            lw = c.stringWidth(link_label, 'Mulish-Bold', BOX_LINK)
+            c.setStrokeColor(ACCENT); c.setLineWidth(0.6)
+            c.line(M + pad, ly - 2, M + pad + lw, ly - 2)
+            c.linkURL(url, (M + pad, ly - 3, M + pad + lw, ly + 10), relative=0)
+        return y - h
+
     def book_box(c, y, b):
         # manual word-wrap of the title to <=2 lines (predictable spacing)
         maxw = CW - 28
@@ -291,6 +321,9 @@ def build(work, palette, fonts_dir=None):
         c.drawString(M + 56, y - rh / 2 - 4, l['title'][:44])
         c.setFont('Mulish-XB', 9); c.setFillColor(SECOND)
         c.drawRightString(W - M - 14, y - rh / 2 - 3.5, l['shortRef'].upper())
+        # on screen the row jumps to that lesson; invisible in print (no annotation border)
+        c.linkRect('', 'lesson%d' % l['n'], (M, y - rh, W - M, y),
+                   relative=0, Border='[0 0 0]')
         y -= rh + 9
     if L.get('rhythmTitle') and L.get('steps'):
         y -= 6
@@ -315,6 +348,7 @@ def build(work, palette, fonts_dir=None):
         lf = '%s · Lesson %02d of %d' % (C['meta']['title'], n, len(C['lessons']))
         # ---- page A ----
         border(c)
+        c.bookmarkPage('lesson%d' % n)   # destination for the contents-page link
         c.setFont('Mulish-XB', 11.5); c.setFillColor(SECOND)
         c.drawCentredString(W / 2, H - 66, spaced('LESSON ' + NUM[n], 1))
         title = l['title']
@@ -339,6 +373,8 @@ def build(work, palette, fonts_dir=None):
         else:
             y = note_box(c, y, l.get('videoSubtitle') or '3 Minute Bible', '3 Minute Bible video',
                          'Video coming soon — it will play in the online flipbook.')
+        if l.get('tipText'):
+            y = tip_box(c, y - 20, l['tipText'], l.get('tipUrl'), l.get('tipLinkText'))
         footer(c, lf, page)
         c.showPage(); page += 1
 
@@ -464,14 +500,15 @@ def build(work, palette, fonts_dir=None):
 
     # ---------- end page ----------
     border(c)
-    c.setFillColor(ACCENT); c.roundRect(W / 2 - 26, H / 2 + 132, 52, 3, 1.5, stroke=0, fill=1)
+    # (no accent rule above the logo — it read as a stubby stray line)
     # the actual Candler Foundry logo (linkable), replacing the flipbook-font wordmark
     _lr = ImageReader(os.path.join(work, 'logo.png')); _iw, _ih = _lr.getSize()
     _lw = 214.0; _lh = _lw * _ih / _iw; _lx = W / 2 - _lw / 2; _ly = H / 2 + 116 - _lh
     c.drawImage(_lr, _lx, _ly, _lw, _lh, mask='auto')
     c.linkURL('https://candlerfoundry.emory.edu', (_lx, _ly, _lx + _lw, _ly + _lh), relative=0)
-    ey = para(c, esc('%s is a project of The Candler Foundry, making the best of biblical '
-                     'scholarship accessible to everyone.' % C['meta']['series']),
+    ey = para(c, esc('%s is a project of The Candler Foundry, an initiative of Emory '
+                     'University’s Candler School of Theology. We aim to make Bible '
+                     'and theology fun and easy.' % C['meta']['series']),
               st('Mulish-It', BODY, SECOND, leading=BODY_LEAD, align=1), W / 2 - 175, _ly - 16, 350)
     c.setFont('Mulish-XB', 10.5); c.setFillColor(INK)
     uy = ey - 24

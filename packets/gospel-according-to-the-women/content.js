@@ -64,7 +64,7 @@ window.BBS_CONTENT = {
       ],
       "quotes": [],
       "paragraphs2": [
-        "**The Gospel According to the Women** invites us to spend time with six of these stories - Hannah, the two daughters of Mark 5, Shiphrah and Puah, the daughters of Zelophehad, Tamar, and the widow of Zarephath. Each offers a distinct witness to the character and work of God. Together, they remind us that God hears our cries, cares for us in our vulnerability, restores life, and works through human courage to bring justice and hope into the world.",
+        "**The Gospel According to the Women** invites us to spend time with six of these stories: Hannah, the two daughters of Mark 5, Shiphrah and Puah, the daughters of Zelophehad, Tamar, and the widow of Zarephath. Each offers a distinct witness to the character and work of God. Together, they remind us that God hears our cries, cares for us in our vulnerability, restores life, and works through human courage to bring justice and hope into the world.",
         "We have designed these lessons to be easy-to-use and adaptable to different settings. You can study on your own or gather with a group, and with or without a discussion leader."
       ],
       "rhythmTitle": "The Rhythm of Each Lesson",
