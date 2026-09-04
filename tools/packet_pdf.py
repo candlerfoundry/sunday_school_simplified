@@ -417,8 +417,12 @@ def build(work, palette, fonts_dir=None):
         c.setFont('Hello', 27); c.setFillColor(DISPLAY)
         c.drawString(M, H - 84, 'Additional Resources' if first else 'Additional Resources (cont.)')
         if first:
-            return para(c, 'Extra viewing, artwork, and reading for classes that want to go deeper.',
-                        st('Mulish-It', BODY, SECOND, leading=BODY_LEAD), M, H - 100, CW) - 22
+            # only promise artwork when this packet actually HAS some (BBS has none yet)
+            has_art = any(l.get('artwork') for l in C['lessons'])
+            lede = '%s for classes that want to go deeper.' % (
+                'Extra viewing, artwork, and reading' if has_art else 'Extra viewing and reading')
+            return para(c, lede, st('Mulish-It', BODY, SECOND, leading=BODY_LEAD),
+                        M, H - 100, CW) - 22
         return H - 106
 
     def res_lesson_header(c, y, n, title, cont=False):

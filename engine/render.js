@@ -206,8 +206,12 @@
         'Candler School of Theology. We aim to make Bible and theology fun and easy.') + '</div>' +
       '<a class="resfoot-url" href="https://candlerfoundry.emory.edu" target="_blank" rel="noopener">candlerfoundry.emory.edu</a>' +
       '</div>';
+    // only promise artwork when this packet actually HAS some (BBS has none yet)
+    var hasArt = C.lessons.some(function (l) { return (l.artwork || []).length > 0; });
+    var lede = (hasArt ? 'Extra viewing, artwork, and reading' : 'Extra viewing and reading') +
+      ' for classes that want to go deeper. Tap a lesson to open its resources.';
     return '<div class="pg resources"><div class="chead">Additional Resources</div>' +
-      '<div class="lede">Extra viewing, artwork, and reading for classes that want to go deeper. Tap a lesson to open its resources.</div>' +
+      '<div class="lede">' + esc(lede) + '</div>' +
       '<div class="acc" id="resacc">' + rows + '</div>' + foot + '</div>';
   }
 

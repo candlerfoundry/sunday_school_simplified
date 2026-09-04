@@ -89,6 +89,18 @@ every page listed below changed because we changed it.
    NOTE the flipbook keeps its full-width dotted separator above the footer - that is a structural
    divider between the accordion and the sign-off, not the stubby rule Emily meant.
 
+6. **The Additional Resources lede no longer promises artwork a packet doesn't have.** Both surfaces
+   said "Extra viewing, artwork, and reading...", but BBS has **no** `artwork[]` on any lesson (still a
+   pending item), so it advertised a category that never appeared. The lede is now derived from the data
+   - `C.lessons.some(l => (l.artwork||[]).length)` in `engine/render.js`, `any(l.get('artwork') ...)` in
+   `res_header()` - so it reads "Extra viewing and reading..." for BBS and keeps the artwork wording for
+   Women. It will start saying "artwork" for BBS automatically the moment artwork is wired, with no code
+   change. Proof it is inert where artwork exists: the rebuilt **Women PDF differs on ZERO pages** (so it
+   was not re-committed); only BBS p16 changed. Watch the comma - "Extra viewing, and reading" is wrong
+   with only two items, so the whole phrase is swapped, not just the middle. The empty-state strings
+   ("Extra videos, artwork, and readings will appear here as they are added") are deliberately left
+   alone: they only fire when a packet has NO resources at all, where they read as forward-looking.
+
 **Verification (all done, none of it assumed).** Baseline rebuild = pixel-identical to the published
 PDFs. After the changes, the only pages that differ are BBS 2/8/19 and Women 2/22; page counts hold at
 19/22; PyMuPDF found no out-of-bounds and no overlapping text blocks anywhere. **The Browser pane cannot
