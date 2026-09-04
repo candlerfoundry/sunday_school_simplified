@@ -654,6 +654,18 @@ Render the changed pages and eyeball them before committing:
   many minutes on one file while other pushes succeed. Retry with backoff; if it stays down, fall back to
   the **Contents API** (`PUT /repos/.../contents/<path>` with the file's current `sha`), which is a
   different code path and has worked when Git Data was failing.
+- **LINE ENDINGS: this repo is MIXED, and a global `core.autocrlf=true` will silently rewrite whole
+  files (cost time 2026-09-04).** The two `packets/*/content.js` are stored **CRLF**; `README.md`,
+  `engine/render.js`, `engine/styles.css`, `pdfview.html` and `tools/packet_pdf.py` are stored **LF**.
+  There is no `.gitattributes` to enforce either. Emily's git has `core.autocrlf=true` globally, so a
+  fresh clone checks everything out as CRLF and commits it back as LF - which turns a 9-line content
+  edit into a 790-line whole-file diff and destroys the "the diff contains only real edits" guarantee.
+  Also, Python's default text read gives you LF regardless, so writing the file back re-flattens it.
+  **Do this:** `git config core.autocrlf false` in the clone, and after editing any text file, compare
+  its line-ending style against `git cat-file -p HEAD:<path>` and restore it byte-for-byte. Then
+  `git diff --stat` should show single-digit line counts for a small edit. If it shows the whole file,
+  STOP - `git diff --ignore-cr-at-eol --stat` will confirm the noise is line endings, and you must fix
+  it before committing, not after.
 - **Writing Windows paths into docs from a script:** use `chr(92)` or raw strings. A non-raw Python
   literal turned `\\3MB` into a `0x03` control character and silently corrupted a README line to
   `\DropboxMBMB VideosMB-44`. Scan for control characters (`ord(ch) < 32`) before pushing prose.
