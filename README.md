@@ -31,6 +31,152 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 > for word studies (they start talking ~3s but the name card runs to ~8â€“13s). Full detail: the pipeline
 > README (`â€¦\Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) Â§0/Â§4/Â§9.
 
+## >> OPEN (2026-09-14) - MOBILE IS BROKEN ON iPhone: unreadable, unflippable, and it CRASHES.
+## Diagnosed only. NOTHING CHANGED YET. READ FIRST.
+
+Emily reported three symptoms on her iPhone: text cannot be enlarged, the page flip does not work,
+and tapping between lessons produces Safari's **"A problem repeatedly occurred"**. All three were
+reproduced and measured against the live site (commit `20841f2b`). No fix has shipped - the packets
+are in active customer use and nothing lands without a sandbox pass and Emily's sign-off.
+
+### The measurement (iPhone 13, 390x664 viewport, both packets identical)
+
+| | |
+|---|---|
+| `--book-scale` | **0.142** |
+| Whole two-page spread on screen | **232 x 150 px** |
+| One page | **116 px wide** (designed at 816) |
+| 16px body text | renders at **2.3 px** |
+| Lesson tab hit targets | **20 x 8 px** (Apple's minimum is 44x44) |
+| Decoded bitmap held in RAM | **219 MB** (BBS) / **179 MB** (Women) |
+
+### Cause 1 - the book is drawn at 1/7 size
+
+`engine/render.js` `fit()` always lays out the **full two-page spread** (1832px incl. spine + tabs)
+and always reserves **130px for the nav arrows**, then scales to fit. On a 390px phone that leaves
+260px for an 1832px book. **`engine/styles.css` contains no `@media` query at all** - there is no
+mobile layout, only one desktop layout shrunk down.
+
+### Cause 2 - pinch-zoom is actively suppressed
+
+`render.js:285` sets `mobileScrollSupport: false`. Inside page-flip 2.0.7 that flag does exactly this
+on every touch: `...mobileScrollSupport || t.preventDefault()`. `preventDefault()` on `touchstart`
+makes iOS discard the default gesture - **including pinch-to-zoom and double-tap-to-zoom**. Verified
+by instrumenting `Event.prototype.preventDefault` (fires once per touch). Neither our viewport meta
+nor Webflow's disables zoom; both are a clean `width=device-width, initial-scale=1`. The listener is
+bound only to `.stf__block` (232x150px), so **pinching the empty background outside the book should
+still zoom** - a usable interim answer for customers, but confirm on a real device.
+
+### Cause 3 - corner-drag is mathematically broken at phone scale
+
+page-flip reads finger position as `clientX - rect.left` with **no compensation for the CSS
+`transform: scale()`** on `#binder-scaler`. It measures the finger in *visual* px but compares against
+the book's *internal* 1632x1056 space. Same slow corner-drag, both sizes:
+
+| | corner touch maps to | result |
+|---|---|---|
+| iPhone (scale 0.142) | 13.9% across, 13.8% down | **nothing happens** |
+| Desktop (scale 0.715) | 71.3% across, 71.1% down | **page turns** |
+
+The bug is proportional to the scale, which is why desktop never showed it. Compounding it,
+`disableFlipByClick: true` (library default is `false`) means **tap-to-turn is off**, so the only
+gesture that still works is a fast flick: >30px horizontal, <60px vertical, **under 250ms**. Anything
+slower falls into the broken corner-drag. That is why flipping feels random rather than dead.
+The arrow buttons and the tab column do still work.
+
+> **⚑ `disableFlipByClick: true` IS DELIBERATE - DO NOT SIMPLY UNDO IT (Emily, 2026-09-14).** It was
+> switched off during the **course/instructor flipbook** work because it caused **accidental page
+> turns**. Any mobile tap-to-turn must therefore be *designed around* that, not reverted: scope it to
+> narrow viewports only, restrict it to a dedicated edge/margin zone, and keep it off anywhere it
+> could fire over the scripture, video or TIP hotspots (which on the lesson pages cover most of the
+> page). If tap-to-turn cannot be made safe, bigger arrow/tab targets (#7) carry mobile navigation
+> instead.
+
+### Cause 4 - "A problem repeatedly occurred" is a memory jettison
+
+That message is iOS killing the WebContent process. Every packet eagerly loads **all** page art at
+full resolution and holds it resident - every `<img>` is `loading=(none) decoding=(none)`:
+
+| Asset | Pixels | Decoded |
+|---|---|---|
+| BBS `cover.png` | 3264x4224 | **52.6 MB** |
+| 12 x lesson page PNGs | 1632x2112 each | **157.5 MB** |
+| `candler-foundry-logo.png` | 2337x939 | **8.4 MB** |
+| | | **219 MB** |
+
+Only 11.8 MB over the wire - PNG decompresses ~19x, and the browser holds `w*h*4` bytes **regardless
+of display size**. On the phone we hold a 1632px bitmap to draw a 116px page. Flipping is the trigger:
+each turn rasterizes new layers and, under pressure, iOS evicts decoded images and must re-decode them
+on the next flip - a decode/evict thrash that ends in the jettison. Desktop never hits it because
+there is no per-tab cap. The `/sss/<slug>` Webflow wrapper makes it worse: the flipbook iframe shares
+one memory budget with jQuery, the Webflow runtime and the Foxy portal scripts.
+
+### ⚠ TRAP - the flipbook and the printable PDF SHARE assets, and the PDF needs print resolution
+
+Do **not** "just downscale the big PNGs". `tools/packet_pdf.py` draws `cover.png` full-bleed across the
+whole letter page (`c.drawImage(cover, 0, 0, W, H)`) and `logo.png` at 214pt wide:
+
+- BBS `cover.png` 3264x4224 = **384 dpi** in print. Halving it drops the printed cover to 192 dpi.
+  (Women's cover is already 1632x2112 = 192 dpi, so that is evidently tolerable - but it is a
+  print-quality decision for Emily, not a free win.)
+- `candler-foundry-logo.png` = **786 dpi** at its 214pt placement. Genuinely over-provisioned;
+  892px is the 300 dpi floor.
+- **The 12 lesson page PNGs are flipbook-only** (`packet_pdf.py` never reads `assets/pages/`), so they
+  are free to optimise. That is also where 157 of the 219 MB lives.
+
+The clean fix is to **decouple**: leave the print originals alone and give the flipbook its own
+screen-resolution derivatives under `assets/web/`.
+
+### Fix menu (none applied)
+
+| | Change | Effect | Risk |
+|---|---|---|---|
+| **1** | `loading="lazy"` + `decoding="async"` on page art | 219 MB -> ~40-60 MB resident, **quality untouched** | Needs testing: pages live off-screen in the flip container; a not-yet-decoded page may flash blank on turn |
+| **2** | `srcset` to `assets/web/` derivatives | phone decodes ~3.3 MB/page instead of 13.1; transfer 11.8 MB -> 5.6 MB PNG / **1.2 MB WebP** | Low - desktop keeps the 1632w source |
+| **3** | `mobileScrollSupport: true` | restores pinch-zoom and double-tap-zoom | Low, but changes touch handling on desktop too |
+| **4** | tap-to-turn on narrow screens, in a safe edge zone only | tap to turn the page | **Medium - see the warning above; a plain `disableFlipByClick: false` re-introduces the accidental page turns it was disabled for** |
+| **5** | `usePortrait: true` + a mobile `@media` block | one page at a time filling the width: **3.4x bigger** type, and frees the 130px the arrows reserve | Medium - first real mobile layout, needs design review |
+| **6** | Divide touch coords by `--book-scale` | fixes corner-drag at every size | Medium - patching library behaviour; `size:"stretch"` may be cleaner |
+| **7** | Bigger tab/arrow hit areas on mobile | tabs become tappable | Low |
+| **8** | A reflowing mobile reader | genuinely readable text, no zooming | Large - but **all the text already exists in `content.js`** (it is the PDF source), so it needs no Canva round-trip |
+
+**WebP fixes transfer, NOT the crash** - decoded size is `w*h*4` whatever the file format. Say so
+before anyone proposes it as the memory fix.
+
+Note the ceiling: even perfect portrait mode puts 16px type at ~7.6px, because an 816px page does not
+fit a 390px screen. #1-#7 make the flipbook *usable*; only #8 makes it *readable* without zooming.
+
+### Derivatives already generated (not committed)
+
+`assets/web/` at 816x1056 for every lesson page + cover, and a 462x186 screen logo, for both packets.
+Originals untouched. Totals: transfer 23.6 -> 11.4 MB (PNG) or **2.4 MB** (WebP); decoded 398 -> 86 MB
+(**4.6x less**). A quality proof at three real display sizes shows them identical on a standard
+desktop and marginally softer on Retina / dpr-3 phones - hence `srcset` rather than replacement.
+
+### ⚑ NEXT SESSION - PICK UP HERE
+
+**Nothing has shipped. Production is untouched.** The derivatives above live only in a session
+scratchpad, so **regenerate them** rather than hunting for them (same trap as the old un-instanced
+Mulish TTFs): the generator resizes `assets/pages/*`, `cover.png` and the logo with Pillow LANCZOS
+into `assets/<slug>/assets/web/`, and takes ~1 minute.
+
+**Agreed first sandbox build** (proposed, Emily has not yet picked): `loading="lazy"` +
+`decoding="async"` (#1), `srcset` -> `assets/web/` (#2), and `mobileScrollSupport: true` (#3). That
+addresses the crash and the zoom with the least surface area. Portrait mode (#5) and the coordinate
+fix (#6) are a separate, design-reviewed change. #8 is its own project.
+
+**Test ladder** (see the mobile plan): local static server + Playwright for iteration; Playwright
+**WebKit** (Safari's engine - **not installed**, `npx playwright install webkit`) for touch/zoom
+fidelity; then a **branch deploy** at `https://<branch>--sundayschoolsimplified.netlify.app` - never
+`main`, and a non-production branch cannot become production in Netlify's model. **The acceptance gate
+is a real iPhone**, because no emulator can reproduce an iOS memory jettison: toggle all six lessons
+repeatedly against the preview URL. Also test it inside a temporary Webflow page iframing the preview,
+since the `/sss/<slug>` wrapper adds real memory pressure.
+
+**Pass/fail:** decoded bitmap < 60 MB (from 219); 16px text >= 7px on screen (from 2.3); tap/drag
+flip works; tab targets >= 44x44; **desktop scale, corner-drag, modals, deep links and the PDF viewer
+all unchanged**.
+
 ## >> LATEST (2026-09-04) - No em dashes in the letters, BBS L3 reading extended, TIP in print,
 ## clickable contents, new back-page sign-off. READ FIRST.
 
