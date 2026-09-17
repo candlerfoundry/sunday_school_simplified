@@ -5,12 +5,172 @@
   "use strict";
   var C = window.BBS_CONTENT;
   if (!C) { console.error("BBS_CONTENT missing"); return; }
+
   var esc = function (s) { return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); };
   var bold = function (s) { return esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"); };
   var ico = function (name) { return '<span class="ic ic-' + name + '"></span>'; };
   var pad2 = function (n) { return n < 10 ? "0" + n : String(n); };
   var SPARKS = '<svg class="hsparks" viewBox="0 0 34 34"><g stroke="#FB1616" stroke-width="4" stroke-linecap="round"><path d="M17 2 L17 12"/><path d="M31 8 L23 15"/><path d="M3 8 L11 15"/></g></svg>';
   var HILLS = '<svg class="vhills" viewBox="0 0 700 150" preserveAspectRatio="none"><path d="M0 90 Q160 40 340 78 T700 66 L700 150 L0 150 Z" fill="#B7D3EE"/><path d="M0 118 Q210 70 430 104 T700 100 L700 150 L0 150 Z" fill="#A6C7E8"/></svg>';
+
+  /* ======================= PHONE GATE (2026-09-16) =======================
+   * Phones get the printable packet; the flipbook is for tablets and up.
+   *
+   * WHY THIS RUNS HERE, FIRST: the lesson art decodes to ~219MB (BBS) /
+   * ~179MB (Women) of bitmap, which is what makes iOS Safari kill the tab
+   * ("A problem repeatedly occurred"). Building the pages and THEN hiding
+   * them would still load and decode every image, so the crash would
+   * survive. Nothing below this block may run on a phone — bail before a
+   * single <img> exists.
+   *
+   * WHY min(screen side), NOT viewport width: an iPhone 14 Pro Max in
+   * landscape is 740px wide; an iPad (gen 11) in portrait is 656px. A
+   * width rule serves the flipbook to the phone and gates the iPad —
+   * exactly backwards. The shorter screen side is a hardware property that
+   * does not change with rotation: every phone is <= 480, every tablet is
+   * >= 600, so 540 sits in a 120px gap no device occupies. It also never
+   * reads the user agent, so iPadOS reporting itself as a Mac (the default
+   * "Request Desktop Website") cannot fool it.
+   *
+   * FAILS TOWARD THE FLIPBOOK (Emily, 2026-09-16): if the screen cannot be
+   * read or matchMedia is missing, show the flipbook. Never gate a tablet.
+   */
+  var PHONE_MAX_SHORT_SIDE = 540;
+  function isPhone() {
+    try {
+      var s = window.screen || {}, w = +s.width || 0, h = +s.height || 0;
+      if (!w || !h) return false;                       // unreadable -> flipbook
+      if (!window.matchMedia) return false;             // no matchMedia -> flipbook
+      if (!window.matchMedia("(pointer: coarse)").matches) return false;  // mouse -> flipbook
+      return Math.min(w, h) < PHONE_MAX_SHORT_SIDE;
+    } catch (e) { return false; }                       // anything unexpected -> flipbook
+  }
+
+  /* ---- the phone reader -------------------------------------------------
+   * Everything a lesson needs, as real reflowing text: opening prayer,
+   * the passage, the video, every discussion question, closing prayer.
+   * All of it already lives in content.js (it is the printable packet's
+   * source), so this costs a few hundred KB of text instead of 219MB of
+   * page art - and unlike the art, it reflows and pinch-zooms.
+   * Hash-routed so the phone's Back button works and a lesson can be linked. */
+
+  function mqVimeoId(u) { var m = /(\d{6,})/.exec(String(u || "")); return m ? m[1] : ""; }
+
+  function mqPdfHref() {
+    if (!C.meta.pdf) return "";
+    return "/pdfview.html?file=" + encodeURIComponent(new URL(C.meta.pdf, location.href).href)
+         + "&title=" + encodeURIComponent(C.meta.title || "Printable Packet");
+  }
+
+  function mqIndex() {
+    var cards = (C.lessons || []).map(function (l) {
+      return '<a class="mq-l" href="#lesson-' + l.n + '">' +
+        '<div class="mq-ln">Lesson ' + l.n + '</div>' +
+        '<div class="mq-lt">' + esc(l.title) + '</div>' +
+        '<div class="mq-lr">' + esc(l.scriptureRef || "") + '</div>' +
+        '<div class="mq-go">Open this lesson</div></a>';
+    }).join("");
+    var pdf = mqPdfHref();
+    return '<div class="mq">' +
+      '<img class="mq-cov" src="assets/cover-thumb.png" alt="' + esc(C.meta.title) + '">' +
+      '<h1 class="mq-t">' + esc(C.meta.title) + '</h1>' +
+      '<p class="mq-p">Tap a lesson to read it here: the prayers, the passage, the video and all the ' +
+        'discussion questions.</p>' +
+      '<div class="mq-ls">' + cards + '</div>' +
+      (pdf ? '<a class="mq-sec" href="' + esc(pdf) + '" target="_blank" rel="noopener">Printable packet (PDF)</a>' : '') +
+      '<p class="mq-n">The interactive flipbook is available on a tablet or computer.</p>' +
+      '<div class="mq-f"><a href="https://www.candlerfoundry.emory.edu" target="_blank" rel="noopener">The Candler Foundry</a></div>' +
+      '</div>';
+  }
+
+  function mqLesson(l) {
+    var qs = (l.questions || []).map(function (q, i) {
+      return '<li><span class="mq-qn">' + (i + 1) + '</span><span class="mq-qt">' + bold(q) + '</span></li>';
+    }).join("");
+
+    var vid = "", vidId = mqVimeoId(l.videoUrl);
+    if (vidId) {
+      vid = '<section class="mq-s"><h2 class="mq-h2">Watch</h2>' +
+        '<button class="mq-play" type="button" data-vid="' + vidId + '">' +
+          '<span class="mq-pi">&#9658;</span>' +
+          '<span class="mq-pt">' + esc(l.videoTitle || "3 Minute Bible") + '</span>' +
+        '</button></section>';
+    }
+
+    var extras = [];
+    (l.optionalVideos || (l.optionalVideo ? [l.optionalVideo] : [])).forEach(function (v) {
+      if (v && v.url) extras.push('<a href="https://vimeo.com/' + mqVimeoId(v.url) + '" target="_blank" rel="noopener">' + esc(v.title || "Extra video") + '</a>');
+    });
+
+    var idx = C.lessons.indexOf(l),
+        prev = idx > 0 ? C.lessons[idx - 1] : null,
+        next = idx > -1 && idx < C.lessons.length - 1 ? C.lessons[idx + 1] : null;
+
+    return '<div class="mq mq-read">' +
+      '<a class="mq-back" href="#">&#8249; All lessons</a>' +
+      '<div class="mq-ln">Lesson ' + l.n + '</div>' +
+      '<h1 class="mq-t2">' + esc(l.title) + '</h1>' +
+      (l.subtitle ? '<p class="mq-sub">' + esc(l.subtitle) + '</p>' : '') +
+
+      (l.openingPrayer ? '<section class="mq-s"><h2 class="mq-h2">Opening Prayer</h2>' +
+        '<p class="mq-pray">' + esc(l.openingPrayer) + '</p></section>' : '') +
+
+      '<section class="mq-s"><h2 class="mq-h2">Read</h2>' +
+        '<p class="mq-ref">' + esc(l.scriptureRef || "") + '</p>' +
+        (l.scriptureText ? '<details class="mq-det"><summary>Show the passage</summary>' +
+          '<div class="mq-scrip">' + l.scriptureText + '</div></details>' : '') +
+        (l.scriptureUrl ? '<a class="mq-link" href="' + esc(l.scriptureUrl) + '" target="_blank" rel="noopener">Open at Bible Gateway (NRSVUE)</a>' : '') +
+      '</section>' +
+
+      vid +
+
+      (qs ? '<section class="mq-s"><h2 class="mq-h2">Discussion Questions</h2>' +
+        '<ol class="mq-q">' + qs + '</ol></section>' : '') +
+
+      (l.closingPrayer ? '<section class="mq-s"><h2 class="mq-h2">Closing Prayer</h2>' +
+        '<p class="mq-pray">' + esc(l.closingPrayer) + '</p></section>' : '') +
+
+      (extras.length ? '<section class="mq-s"><h2 class="mq-h2">Going Further</h2>' +
+        '<div class="mq-lk">' + extras.join("") + '</div></section>' : '') +
+
+      '<nav class="mq-nav">' +
+        (prev ? '<a href="#lesson-' + prev.n + '">&#8249; Lesson ' + prev.n + '</a>' : '<span></span>') +
+        (next ? '<a href="#lesson-' + next.n + '">Lesson ' + next.n + ' &#8250;</a>' : '<span></span>') +
+      '</nav>' +
+      '<div class="mq-f"><a href="#">All lessons</a></div>' +
+      '</div>';
+  }
+
+  function mqRoute() {
+    var m = /^#lesson-(\d+)$/.exec(location.hash || ""), found = null;
+    if (m) {
+      C.lessons.forEach(function (x) { if (String(x.n) === m[1]) found = x; });
+    }
+    document.body.innerHTML = found ? mqLesson(found) : mqIndex();
+    window.scrollTo(0, 0);
+  }
+
+  if (isPhone()) {
+    // The flipbook pins the page: html,body{height:100%} + body{overflow:hidden}.
+    // The reader has to scroll, so mark <html> as well - a body class alone cannot
+    // override a rule that also targets html.
+    document.documentElement.classList.add("mqhtml");
+    document.body.className = "mqbody";
+    mqRoute();
+    window.addEventListener("hashchange", mqRoute);
+    // Videos load only when asked: one player at a time, never all six.
+    document.addEventListener("click", function (e) {
+      var b = e.target.closest && e.target.closest(".mq-play");
+      if (!b) return;
+      var w = document.createElement("div");
+      w.className = "mq-vid";
+      w.innerHTML = '<iframe src="https://player.vimeo.com/video/' + b.getAttribute("data-vid") +
+        '?autoplay=1" title="3 Minute Bible" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+      b.parentNode.replaceChild(w, b);
+    });
+    return;                                 // no pages, no <img>, no page-flip
+  }
+  /* ===================== end PHONE GATE ===================== */
 
   /* ---------- pages ---------- */
   function coverPage() { return '<div class="pg cover"><img class="full" src="assets/cover.png" alt="' + esc(C.meta.title) + '"></div>'; }
