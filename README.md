@@ -31,6 +31,124 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 > for word studies (they start talking ~3s but the name card runs to ~8â€“13s). Full detail: the pipeline
 > README (`â€¦\Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) Â§0/Â§4/Â§9.
 
+## >> LATEST (2026-09-17) - PHONE READER built and deployed to a PREVIEW BRANCH.
+## Not merged. Production is untouched. READ FIRST.
+
+The `>> OPEN (2026-09-14)` block below is the diagnosis (unreadable / unflippable / crashing).
+This block is what we decided and built. **Nothing has shipped:** `main` still serves the flipbook
+to every device.
+
+### The decision
+
+**Phones do not get the flipbook. They get a full lesson reader.** Not a notice, not a PDF dead end.
+Emily, when an earlier PDF-only version was shown: *"the whole point is to let folks access the
+lesson and follow along from their phones, including the discussion questions."* That version was
+rejected and replaced.
+
+Chosen over optimising the flipbook for phones because the device fleet is **unknowable and
+untestable** - this is client-facing, on every kind of phone. When you cannot measure the weakest
+device, **elimination beats optimisation**: if the flipbook never initialises, the 219MB is never
+allocated, which is a guarantee rather than a hope. Precedent: the course/instructor flipbook already
+blocks phones.
+
+Supporting evidence (Vimeo analytics, 1 Aug - 16 Sep, account-wide): iOS is the **largest single OS by
+unique viewers** (53, vs Mac 48 and Windows 29). Mobile is ~35% of views and ~43% of unique viewers,
+so a phone dead end would have been expensive. Caveat: account-wide rather than SSS-only, and Vimeo
+counts iPadOS as "iOS".
+
+### What is built - branch `mobile-gate-preview`, NOT merged
+
+Preview, works on any phone with no login:
+`https://mobile-gate-preview--sundayschoolsimplified.netlify.app/packets/beyond-bumper-stickers/`
+
+- **`engine/render.js`** gains a phone reader: an index of the six lessons, then per lesson the
+  opening prayer, the passage (inline `<details>`, collapsed, plus the Bible Gateway link), the video
+  (loads only when tapped, one player at a time), **every discussion question**, the closing prayer,
+  "Going Further" extras, and prev/next. **Hash-routed** (`#lesson-3`), so the phone's Back button
+  works and a lesson is directly linkable.
+- All of that content **already lives in `content.js`** - it is the printable packet's source - so the
+  phone gets a few hundred KB of reflowing, pinch-zoomable text instead of 219MB of fixed page art.
+- **New asset `packets/*/assets/cover-thumb.png`** (480px). Deliberate: the real `cover.png` is
+  **52.6MB decoded** and using it here would have undone the entire fix.
+- **`engine/styles.css`** gains a block scoped to `body.mqbody` / `html.mqhtml`.
+
+| | Decoded bitmap | Flipbook |
+|---|---|---|
+| Phones (6 configs) | **219MB -> 1.1MB** | replaced by the reader |
+| Tablets (5 configs) | 218.7MB unchanged | intact |
+| Desktop, incl. a 380px-wide window | 218.7MB unchanged | intact |
+
+13 device configurations pass against the deployed preview. The test fails if a gated page so much as
+*requests* a lesson image.
+
+### The gate rule, and why it is not viewport width
+
+```js
+min(screen.width, screen.height) < 540  &&  matchMedia('(pointer: coarse)')
+```
+
+An **iPhone 14 Pro Max in landscape is 740px wide**; an **iPad (gen 11) in portrait is 656px**. A rule
+on viewport width therefore serves the flipbook to the phone and gates the iPad - exactly backwards.
+The shorter screen side is hardware and does not change with rotation. Validated against Playwright's
+device registry: **every phone <= 480, every tablet >= 600**, a 120px gap with no device in it, so 540
+sits in clear air. It also **never reads the user agent**, so iPadOS reporting itself as a Mac (the
+default "Request Desktop Website") cannot fool it. If the screen is unreadable or `matchMedia` is
+missing it **fails toward the flipbook** - Emily's rule is never gate a tablet.
+
+### ⚠ Three traps this cost, in order
+
+1. **The gate must run before any `<img>` is constructed.** Building the pages and then hiding them
+   still loads and decodes all 219MB, so the crash survives. It sits after the helper definitions and
+   ~90 lines before the first `<img>`.
+2. **Putting it too early fails silently.** The first attempt sat above `var esc = function ...`.
+   `esc` is a hoisted `var`, so it was `undefined`, the gate threw, and the page rendered **nothing at
+   all** - not the reader, not the flipbook. "Gate too early" looks exactly like "gate not working".
+3. **The reader could not scroll.** `styles.css` lines 9-10 pin the page for the flipbook's fixed
+   stage: `html,body{height:100%}` plus `body{overflow:hidden}`. A `body.mqbody` class **cannot**
+   override a rule that also targets `html`, so the gate now adds `.mqhtml` to `<html>` and
+   `html.mqhtml, html.mqhtml body.mqbody` restores `height:auto; min-height:100%; overflow-y:auto`.
+   Emily found this on a real iPhone: the device matrix had asserted horizontal overflow and tap
+   targets but never that the page actually scrolls.
+
+### Testing notes
+
+- `scroll-test.mjs` now asserts real scrollability (4 phones x 3 views, both packets) **and** counts
+  non-passive `touchstart`/`touchmove` listeners, which must be 0 - page-flip never initialises on a
+  gated phone, so nothing can swallow the gesture.
+- **Playwright's `mouse.wheel` does NOT scroll under touch emulation.** It reported a false failure
+  after the scroll fix was already working. Drive `window.scrollTo` and assert `scrollY`.
+- Only **Chromium** is installed here; WebKit is absent (`npx playwright install webkit`). **No
+  emulator can reproduce an iOS memory jettison, so a real device is the acceptance gate.**
+
+### Netlify + GitHub facts worth keeping
+
+- **Branch deploys were OFF.** Emily enabled them 2026-09-17 for `mobile-gate-preview`. The production
+  branch stays `main`, so a branch deploy can never reach a customer.
+- **Netlify only builds a branch deploy on a PUSH to that branch.** "Trigger deploy" rebuilds
+  production. After enabling the setting you must push a commit to the branch or nothing appears -
+  this cost a round trip.
+- **The repo PAT cannot open pull requests** (`403 Resource not accessible by personal access token`),
+  so deploy-previews-via-PR are not available. Branch deploys are the route.
+
+### ⚑ PICK UP HERE
+
+**Waiting on Emily:**
+1. **Test the preview on a real iPhone and a real iPad.** The iPad must show the ordinary flipbook,
+   unchanged - if a tablet ever shows the reader, that is a bug. The real test is moving between
+   several lessons repeatedly, which is what used to crash.
+2. **Should the passage default to collapsed or expanded?** Currently collapsed, so the discussion
+   questions are not buried under ~1,700 characters of scripture.
+3. **The course/instructor flipbook's phone-block wording** - asked three times, still unanswered.
+   Wanted so both products say the same thing to users.
+4. **Lazy-loading for tablets before merge?** Recommended. Tablets still load 219MB and an older 2GB
+   iPad is not obviously safe; `loading="lazy"` cuts it to ~40-60MB with no visual change at all.
+
+**Not yet done:** the `assets/web/` 816w screen derivatives were generated once and lost to a
+scratchpad prune - **regenerate them, do not go hunting** (same trap as the un-instanced Mulish TTFs).
+And the reminder that outranks them: **the printable PDF embeds `cover.png` full-bleed and the logo at
+214pt and needs print resolution** - never downscale those originals. Only the lesson page PNGs are
+flipbook-only, and that is where 157 of the 219MB lives.
+
 ## >> OPEN (2026-09-14) - MOBILE IS BROKEN ON iPhone: unreadable, unflippable, and it CRASHES.
 ## Diagnosed only. NOTHING CHANGED YET. READ FIRST.
 
