@@ -119,8 +119,8 @@
         'discussion questions.</p>' +
       '<div class="mq-ls">' + cards + '</div>' +
       (pdf ? '<a class="mq-sec" href="' + esc(pdf) + '" target="_blank" rel="noopener">Printable packet (PDF)</a>' : '') +
-      '<a class="mq-logo" href="https://www.candlerfoundry.emory.edu" target="_blank" rel="noopener">' +
-        '<img src="/engine/assets/candler-foundry-logo-black.png" alt="The Candler Foundry" width="560" height="220">' +
+      '<a class="mq-logo" href="https://candlerfoundry.emory.edu" target="_blank" rel="noopener" aria-label="The Candler Foundry">' +
+        '<span class="mq-logo-mk" aria-hidden="true"></span>' +
       '</a>' +
       '</div>';
   }

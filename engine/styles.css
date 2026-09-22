@@ -29,6 +29,7 @@
   --mq-chip-art:#0A274C;      --mq-chip-art-ink:#FFFDF6;
   --mq-chip-read:#5A7A9E;     --mq-chip-read-ink:#FFFDF6;
   --mq-sec-rule:rgba(10,39,76,.3);  /* the outlined PDF button */
+  --mq-logo:#0A274C;                /* the footer wordmark */
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;}
@@ -328,7 +329,8 @@ html.mqhtml,html.mqhtml body.mqbody{height:auto;min-height:100%;overflow:visible
 body.mqbody{margin:0;background:var(--mq-bg);color:var(--mq-ink);
   font-family:'Mulish',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   -webkit-text-size-adjust:100%;}
-.mq{max-width:560px;margin:0 auto;padding:28px 20px 44px;text-align:center;}
+.mq{max-width:560px;margin:0 auto;text-align:center;
+  padding:28px 20px calc(96px + env(safe-area-inset-bottom,0px));}
 .mq-cov{width:172px;height:auto;border-radius:6px;box-shadow:0 8px 22px rgba(10,39,76,.22);}
 .mq-p{font-size:17px;line-height:1.55;margin:20px auto 22px;max-width:44ch;}
 .mq-btn{display:block;background:var(--mq-ink);color:#fff;text-decoration:none;font-weight:800;font-size:17px;
@@ -341,8 +343,19 @@ body.mqbody{margin:0;background:var(--mq-bg);color:var(--mq-ink);
 .mq-ln{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.55;}
 .mq-lt{font-size:18px;font-weight:800;line-height:1.28;margin:3px 0 3px;}
 .mq-lr{font-size:15px;opacity:.75;margin-bottom:10px;}
-.mq-logo{display:block;margin:30px auto 0;width:150px;max-width:60%;}
-.mq-logo img{display:block;width:100%;height:auto;}
+/* The wordmark is MASKED rather than drawn. The black PNG has no alpha channel
+   (colour type 2, no tRNS) and the SVG is a fixed navy, so neither can be tinted
+   as-is; masking the SVG gives transparency and lets each packet colour it via
+   --mq-logo. Without mask support the SVG paints directly - navy on a transparent
+   ground, which is a fine fallback. */
+.mq-logo{display:block;margin:34px auto 0;width:154px;}
+.mq-logo-mk{display:block;width:154px;height:62px;
+  background:url('assets/candler-foundry-logo.svg') no-repeat center/contain;}
+@supports ((-webkit-mask-image:url(#m)) or (mask-image:url(#m))){
+  .mq-logo-mk{background:var(--mq-logo);
+    -webkit-mask:url('assets/candler-foundry-logo.svg') no-repeat center/contain;
+            mask:url('assets/candler-foundry-logo.svg') no-repeat center/contain;}
+}
 .mq-f{margin-top:26px;font-size:15px;}
 .mq-f a{color:var(--mq-ink);opacity:.75;display:inline-flex;align-items:center;min-height:44px;padding:0 10px;}
 @media (prefers-reduced-motion:no-preference){.mq-btn{transition:transform .12s;}}
