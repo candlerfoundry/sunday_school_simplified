@@ -1,1044 +1,255 @@
 # Sunday School Simplified — flipbook site
 
-Online **flipbooks** (the primary product) plus optional downloadable **PDF packets**
-for the *Sunday School Simplified* series from The Candler Foundry. One shared flipbook
-**engine** powers every packet; each packet supplies only its own content and assets.
+The *Sunday School Simplified* series from The Candler Foundry, published as **three
+surfaces from one source**: the **flipbook** (tablet + desktop), the **phone reader**, and the
+**printable PDF**. One shared **engine** powers every packet; each packet supplies only its own
+`content.js` and assets. See **The Three Surfaces** below before changing anything — they have
+different renderers and different rules.
 
-> **Working on this repo with a Cowork / AI session? START HERE.** This README is the
-> canonical, up-to-date source of truth for the project. Read it in full before making
-> any change — and **keep it current**: any push that changes the design, schema,
-> workflow, or status must update this README in the *same push* (see "Keep this README
-> current" below). (Cowork's own "memory" files, if present, auto-load into the session
-> and live in Cowork's internal store — they are **not** in Dropbox and **not** in this
-> repo, so do not go looking for them in the Dropbox folder.)
 
 ---
 
-## ▶ START HERE — current status (updated 2026-08-18)
-
-> ### ⚑ TWO STANDING RULES FROM EMILY — apply these every session
-> 1. **Never refer to a 3 Minute Bible by number alone.** Emily does not know them by number.
->    Always write **`3MB-<code>` + the title** — e.g. "3MB-85, *Orphan, widow, stranger*". This applies
->    to questions, status updates, commit messages and anything she reads.
-> 2. **Airtable is the authoritative list of which 3MBs exist** — base `appiL0Z2RilcAT2Cw`,
->    table `tblS1Bk29cXyGGUdo` (206 records as of 2026-08-17). Before saying a video does or doesn't
->    exist, **look it up there**. Do not infer it from the Dropbox folder or from Vimeo, both of which
->    are incomplete.
-
-> ### ⛑ FOURTH STANDING RULE (2026-09-22) — VIMEO AUTO-CAPTIONS OFF
-> Our 3MB captions are **burned into the picture**. Vimeo auto-generates its own subtitle track on every
-> upload and marks it active, so a player draws **two sets of captions at once** (exactly what Emily hit on
-> the phone reader). **One-time fix: Vimeo Account settings -> Upload defaults -> uncheck "Allow viewers to
-> enable automatically generated captions".** Then check each new video (**Languages** panel, or
-> `GET /videos/<id>/texttracks` -> `active: false`). ⚠ The Vimeo MCP can **read** text tracks but **not
-> write** them. `?texttrack=false` / `=0` do **not** work, and phone emulation cannot reproduce the bug.
-> The engine's `silenceVimeoCaptions()` is a belt that only reaches videos we embed - not ones opened on
-> vimeo.com. Full runbook: `Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md` §5a.
-> ### ⚡ THIRD STANDING RULE (2026-08-18)
-> **Burned captions never start until BOTH the title card AND the name/intro card have cleared** (13–17s;
-> Bonfiglio ≈15.5s, Arnold ≈17s). The silent, uncaptioned opening is INTENTIONAL — never "fix" it, even
-> for word studies (they start talking ~3s but the name card runs to ~8–13s). Full detail: the pipeline
-> README (`…\Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) §0/§4/§9.
-
-## >> SHIPPED TO PRODUCTION 2026-09-22 - the phone reader is LIVE. READ FIRST.
-
-`mobile-gate-preview` was merged to `main` (fast-forward, 13 commits) and is live on
-`sundayschoolsimplified.netlify.app`. Phones now get the reader; tablets and desktop are unchanged.
-
-**Rollback, if it is ever needed:** production before this release was **`54cf70c`**. Reset `main`
-to it and push; Netlify has no build step, so the old site is back in under a minute.
-
-**Verified on production after deploy**
-
-| Check | Result |
-| --- | --- |
-| Desktop (1920x1080, fine pointer) | gate does NOT fire, flipbook renders, 14 images |
-| Phone (375x812, coarse) | gate fires, reader renders, **0 flipbook images** |
-| Both packets | reader correct; Women L2 shows Video/Video/Art/Art/Art |
-| Lesson title | Hello Handmade; no editorialised subtitle |
-| Back to Lessons | 2 buttons per lesson |
-| Main video | inline, **no autoplay parameter** |
-| Optional Resources | correct heading, Emily's wording, type chips, 2 in-place video buttons |
-| Printable packet | links at the **PDF itself**, `application/pdf`, **no `Content-Disposition`** |
-| Cover page | duplicate title gone |
-| Horizontal overflow | none |
-
-**⚠ The iPad has still not been tested on hardware.** Emily shipped first and is testing after, which
-is a deliberate choice: phones were already broken, so the release can only improve them, and rollback
-is a minute. What *is* established is the arithmetic - the gate is `min(screen.width, screen.height)
-< 540`, the largest iPhone's short side is **440** and the smallest iPad's is **744**, so no Apple
-device sits in the gap. That verifies the rule, **not** what iPadOS actually reports. If an iPad ever
-shows the reader, that is the bug to chase, and the flipbook is one revert away.
+> ## ▶ READ THIS FIRST — and note this is the *only* "read first" block in the file
+>
+> This README is the canonical source of truth: the surfaces, the schema, the rules and the
+> workflow. **Read this block, the Standing Rules, and The Three Surfaces before you touch
+> anything.**
+>
+> **Everything under `## History` at the bottom is a dated session log — context, not
+> instructions.** It is kept because the *reasoning* behind a decision is usually worth more
+> than the decision, but it is history: where it disagrees with the reference sections above
+> it, the reference sections win. Do not treat an old "LATEST" heading as current.
+>
+> **Keep this file current.** Any push that changes a surface, the schema, the workflow or the
+> status must update this README *in the same push*.
+>
+> (AI sessions: your "memory" files, if any, live in the assistant's own store — **not** in
+> Dropbox and **not** in this repo. Don't hunt the Dropbox mount for canonical files.)
 
 ---
 
-## >> LATEST (2026-09-22, third round) - the phone must NOT use /pdfview.html. READ FIRST.
+## ⚑ Standing rules — apply every session
 
-Emily: the printable-packet button *"does not consistently work... I suspect it's the same issue
-that prompted us to get rid of the mobile flipbook in the first place."* **She was right.**
+**About the 3 Minute Bibles**
 
-`pdfview.html`'s `renderAll()` rasterises **every page to its own canvas and keeps them all alive** -
-no virtualisation, nothing released. Letter pages (612x792) at `DPR` 2 on a 375px phone is ~2.5MB of
-canvas per page:
+1. **Never refer to a 3MB by number alone.** Emily does not know them by number. Always write
+   **`3MB-<code>` + the title** — "3MB-85, *Orphan, widow, stranger*". Questions, status
+   updates, commit messages, anything she reads.
+2. **Airtable is the authoritative list of which 3MBs exist** — base `appiL0Z2RilcAT2Cw`,
+   table `tblS1Bk29cXyGGUdo`. Look it up before saying a video does or doesn't exist. Do not
+   infer it from the Dropbox folder or from Vimeo; both are incomplete.
+3. **Burned captions never start until BOTH the title card AND the name/intro card have
+   cleared** (13–17s; Bonfiglio ≈15.5s, Arnold ≈17s). The silent opening is INTENTIONAL —
+   never "fix" it, even for word studies. Detail: pipeline README §0/§4/§9.
+4. **Vimeo auto-captions must be OFF on every upload.** Our captions are burned into the
+   picture; Vimeo auto-generates its own track and marks it active, so a player draws **two
+   sets at once**. One-time fix: **Vimeo Account settings → Upload defaults → uncheck "Allow
+   viewers to enable automatically generated captions"**. Verify per video (**Languages**
+   panel, or `GET /videos/<id>/texttracks` → `active: false`). ⚠ The Vimeo MCP can **read**
+   text tracks but **not write** them. The embed parameters `texttrack=false` / `texttrack=0`
+   do **not** work, and phone emulation cannot reproduce the bug. Detail: pipeline README §5a.
 
-| Packet | Pages | Canvas held at once |
-| --- | --- | --- |
-| Beyond Bumper Stickers | 19 | **~48 MB** |
-| The Gospel According to the Women | 22 | **~56 MB** |
+**About the code**
 
-That is the flipbook's failure in miniature - eager full-document bitmaps, all retained. It also
-opens in a **new tab**, so the reader is still resident behind it and iOS chooses which to jettison,
-which is why it failed **intermittently** rather than every time. Intermittent is the tell.
-
-**Fix: on a phone, `mqPdfHref()` now returns the PDF's own URL.** Same principle as the reader -
-do not optimise a renderer you cannot measure on a fleet you cannot test; take it out of the path.
-iOS's PDF viewer is progressive and OS-managed and gives Share / Save to Files / Print, which is the
-entire point of a printable packet. The two jobs `pdfview.html` exists for - forcing in-PDF links
-into a new tab, and resolving internal `dest` jumps - are **desktop** problems; the native viewer
-handles link taps itself. Verified the files serve as `application/pdf` with **no**
-`Content-Disposition`, so they still open inline and never auto-download.
-
-**Tablets and desktop still use `pdfview.html`; that path is untouched.** But note the same eager
-rasterisation applies there (~56MB on the Women packet), so **an old iPad is not obviously safe**.
-Not changed here on purpose - it belongs with the tablet lazy-loading work, not bundled into the
-phone release, or you will not know which change caused a regression.
-
----
-
-## >> LATEST (2026-09-22, second round) - Optional Resources, inline player, sound. READ FIRST.
-
-Branch `mobile-gate-preview` only. Three more notes from Emily after the round below.
-
-### 1. "Going Further" -> "Optional Resources", and it no longer reads as part of the lesson
-
-Emily: *"it reads as part of the lesson b/c it's the same font."* Correct - it was an ordinary
-`.mq-s` section with an ordinary `.mq-h2` label, indistinguishable from Opening Prayer or Read.
-It is now set apart on every axis available at once, because one signal was clearly not enough:
-
-- heading in **Hello Handmade** (the lesson's own section labels are uppercase Mulish);
-- a **dashed** rule instead of a solid card, on the **page background** instead of the cream used
-  for lesson content - it deliberately does not look like a content card;
-- an explicit line: *"Extras if you want to go further - not part of the lesson."*
-
-Every row carries a **type chip - Video / Art / Reading** - so a painting is not mistaken for a
-video before you tap it. **Artwork and optional readings were not in the reader at all before this**;
-only `optionalVideos` was rendered. The phone now carries everything the lesson offers, which is the
-whole point of the reader. Sources: `optionalVideos` (+ legacy singular `optionalVideo`), `artwork`,
-`optionalReadings`. Classes are `.mq-x*`; `.mq-lk` is gone.
-
-**Extra videos play in place** ("Watch here"), rather than throwing the reader out to vimeo.com -
-Emily, correctly: leaving the site mid-lesson is the wrong trade. They are **tap-to-reveal**, not
-rendered inline like the main lesson video, because 1-3 further 16:9 players would make Optional
-Resources the largest thing on the page - the opposite of what the panel is for. Artwork and readings
-genuinely have to leave (Wikimedia, Bible Gateway), so those stay as links. The revealed player
-carries **no autoplay**, same as the main one; the cost is two taps (reveal, then Vimeo's play
-button) and that second tap is exactly the user gesture that guarantees sound.
-
-### 2. The video is rendered inline - no tap-to-load button
-
-Emily: *"I don't want the video to appear as a drop-down option. It should just automatically appear,
-and the user presses play."* The tap-to-load button was justified by "one player at a time, never all
-six" - but **that reasoning never applied here**: the reader shows a single lesson, so there is only
-ever one main video on screen. The iframe is now in the markup with `loading="lazy"`.
-
-`title=0&byline=0&portrait=0` keeps the player's preview chrome off, which is the same objection
-`videoCard()` records for the flipbook.
-
-### 3. ...which is also what fixes the sound. DO NOT PUT AUTOPLAY BACK.
-
-Emily first said the audio was fine, then found it was not: lessons **1, 2 and 6 had no unmute
-control at all** while the others did.
-
-**It is not the videos.** Checked before changing anything: every lesson video reports
-`separate_av: true` with five DASH streams - identical across the ones that worked and the ones that
-did not. The audio is there.
-
-**It was `?autoplay=1`.** iOS forces muted autoplay, and Vimeo does not reliably draw an unmute
-affordance when it has fallen back to muted - hence "no unmute option" on some videos and not others.
-Removing the parameter removes the whole failure mode: with no autoplay, the viewer's tap lands on
-Vimeo's own play button **inside** the iframe, which is a real user gesture, so playback always starts
-**with sound**, on every platform. This is why the inline player is not merely cosmetic - **re-adding
-autoplay would bring the muted-with-no-unmute bug straight back.**
+5. **Never add autoplay to a video embed in the phone reader.** iOS forces muted autoplay and
+   Vimeo does not reliably offer an unmute control when it does — that is how lessons 1, 2 and
+   6 ended up silent with no way back. With no autoplay the viewer's tap lands on Vimeo's own
+   play button *inside* the iframe, which is a real user gesture, so sound always works. This
+   looks like a free optimisation. It is not.
+6. **Never route a phone at `/pdfview.html`.** It rasterises every page to its own canvas and
+   keeps them all alive (~48–56MB). Phones link straight at the PDF file.
+7. **PDFs never auto-download, and links inside them open in a new tab.** Serve with no
+   `Content-Disposition`. On desktop, opening links in a new tab is what `/pdfview.html` is for.
+8. **Line endings: `packets/*/content.js` are CRLF; everything else is LF.** There is no
+   `.gitattributes`, and Emily's git has `core.autocrlf=true` globally, so a fresh clone can
+   turn a 9-line edit into a 790-line whole-file rewrite. In any clone, set
+   `core.autocrlf` to false first. Check endings **with Python** — reading the file with
+   `newline=""` and counting carriage returns. The obvious `grep -c` one-liner for a carriage
+   return silently degenerates to an empty pattern in Git Bash and reports **every** line as
+   CRLF, which will send you chasing a problem that isn't there.
+9. **When asking Emily a multiple-choice question, ask in plain chat** — the picker tool drops
+   her free-text answers.
 
 ---
 
-## >> LATEST (2026-09-22) - Emily's four review notes on the phone reader. READ FIRST.
+## The three surfaces
 
-Branch `mobile-gate-preview` only. Production (`main`) is still the flipbook for everyone.
-Emily reviewed the preview on a phone and raised four things; all four are fixed and deployed
-to the branch. The 2026-09-17 block below still describes the reader's design and the gate.
+**One `content.js` per packet feeds three different products.** They are not responsive
+variants of one another: different renderers, different constraints, different rules. Most
+mistakes in this repo come from changing one and assuming the others followed.
 
-### 1. Two sets of captions on the videos - and it was NOT the wrong Vimeo
-
-Emily saw our burned-in captions PLUS a second set along the bottom, on the phone but not in
-the flipbook, and reasonably assumed the reader was pointing at different videos. It is not:
-`mqLesson()` pulls the id out of the same `lesson.videoUrl` the flipbook's modal uses, so both
-build the identical `player.vimeo.com/video/<id>?autoplay=1`. **The videos were never the problem.**
-
-The real cause is at the Vimeo end. Every 3MB video carries an auto-generated Vimeo subtitle
-track (`en-x-autogen`, `provenance: autogen_source_audio`) with **`active: true`**, which the
-player config reports as **`default: true`** - so a player that honours the default draws Vimeo's
-AI transcript over our reviewed, burned-in captions. Checked 2026-09-22: **all 12 lesson videos
-have it**, and so do the supplemental ones (spot-checked 3MB-273 *What is khanun?*).
-
-Things that were tried and **do not work** - do not retry them:
-
-| Attempt | Result |
-| --- | --- |
-| `?texttrack=false` | player config still reports `default: true` |
-| `?texttrack=0` | player config still reports `default: true` |
-| Reproducing it in the browser pane under phone emulation | **cannot** - control and treated both report `mode: "disabled"`. This is an iOS-side behaviour (native player / system caption preference). Emulation will not show you this bug. |
-
-What shipped is `silenceVimeoCaptions()` in `render.js`: it asks the player to switch the track
-off over the **postMessage protocol the embed already speaks** - the same thing the Vimeo Player
-SDK's `disableTextTrack()` does, without pulling in the SDK (which would have undone the point of
-a lightweight reader). Re-sent on `play` and `texttrackchange`, capped at 8 sends so it cannot
-loop. Applied to the **flipbook's modal too** - same latent defect there, it just needs an iPad
-with captions switched on to show up.
-
-**This is the belt, not the braces.** The durable fix is clearing `active` on the autogenerated
-track at the Vimeo end, which also fixes the supplemental videos - they open on vimeo.com in a new
-tab, where our embed code cannot reach them at all. **The Vimeo MCP can only READ text tracks
-(`get_text_tracks`); there is no write tool**, so Claude cannot do this - it is Emily, in the Vimeo
-admin, per video. Turning the track off does not reduce accessibility: our captions are burned into
-the picture and always visible.
-
-### 2. The editorialised summary under the lesson title is gone
-
-`lesson.subtitle` - e.g. *"A promise to exiles - not a personal good-luck charm."* The reader was
-its **only** consumer; neither the flipbook nor the printable PDF ever rendered it. (`o.subtitle`
-elsewhere in `render.js` and in `packet_pdf.py` is a *resource* subtitle - a different object. Do
-not confuse them.) The field is still in `content.js` and untouched, so nothing else can break.
-
-### 3. Titles are larger and in the flipbook's display face
-
-`.mq-t2` (lesson) and `.mq-t` (packet) now use **Hello Handmade**, the same face as the flipbook's
-`.htitle`, at `clamp(34px,10.2vw,42px)` and `clamp(30px,8.6vw,36px)` - up from Mulish 800 at 26/25px.
-
-**`font-weight:400` is deliberate.** Hello Handmade ships a single weight; leaving the old `800`
-would make the browser synthesise a fake bold and the face would look smeared. If you add more
-Hello Handmade rules to the reader, set weight 400 there too.
-
-The index's lesson-card titles (`.mq-lt`) were deliberately **left in Mulish 800** - they mirror the
-flipbook's contents rows (`.crow .ct`), which are also Mulish 800. Display titles take the
-handwritten face; list rows do not. This costs the reader one 133KB woff2.
-
-### 4. "< All lessons" is now a real button
-
-It read as decoration. Replaced by `.mq-bk` - **"Back to Lessons"**, 48px tall, outlined at the top
-of the lesson and **filled navy at the foot**, below the prev/next row. `.mq-back`/`.mq-sub` are gone
-from `styles.css`; `.mq-f` is still the index's footer link and was left alone.
-
-### Branch bookkeeping - a trap worth knowing
-
-The 2026-09-17 README commit (`54cf70c`) was pushed to **`main`**, not to `mobile-gate-preview`, so
-the branch never carried its own status block. Merged across on 2026-09-22 so the branch is a clean
-superset of main. If you find the branch missing README history again, check `main` before rewriting it.
-
-### Still open
-
-Unchanged from 17 Sep and still Emily's call: the **real-device test** (iPhone shows the reader,
-iPad must show the ordinary flipbook), **passage collapsed vs expanded**, the **course-flipbook
-phone-block wording**, and **`loading="lazy"` for tablets before merge**. Added 22 Sep: **clearing
-the autogenerated caption tracks in Vimeo**, which is the only complete fix for item 1.
-
----
-
-## >> LATEST (2026-09-17) - PHONE READER built and deployed to a PREVIEW BRANCH.
-## Not merged. Production is untouched. READ FIRST.
-
-The `>> OPEN (2026-09-14)` block below is the diagnosis (unreadable / unflippable / crashing).
-This block is what we decided and built. **Nothing has shipped:** `main` still serves the flipbook
-to every device.
-
-### The decision
-
-**Phones do not get the flipbook. They get a full lesson reader.** Not a notice, not a PDF dead end.
-Emily, when an earlier PDF-only version was shown: *"the whole point is to let folks access the
-lesson and follow along from their phones, including the discussion questions."* That version was
-rejected and replaced.
-
-Chosen over optimising the flipbook for phones because the device fleet is **unknowable and
-untestable** - this is client-facing, on every kind of phone. When you cannot measure the weakest
-device, **elimination beats optimisation**: if the flipbook never initialises, the 219MB is never
-allocated, which is a guarantee rather than a hope. Precedent: the course/instructor flipbook already
-blocks phones.
-
-Supporting evidence (Vimeo analytics, 1 Aug - 16 Sep, account-wide): iOS is the **largest single OS by
-unique viewers** (53, vs Mac 48 and Windows 29). Mobile is ~35% of views and ~43% of unique viewers,
-so a phone dead end would have been expensive. Caveat: account-wide rather than SSS-only, and Vimeo
-counts iPadOS as "iOS".
-
-### What is built - branch `mobile-gate-preview`, NOT merged
-
-Preview, works on any phone with no login:
-`https://mobile-gate-preview--sundayschoolsimplified.netlify.app/packets/beyond-bumper-stickers/`
-
-- **`engine/render.js`** gains a phone reader: an index of the six lessons, then per lesson the
-  opening prayer, the passage (inline `<details>`, collapsed, plus the Bible Gateway link), the video
-  (loads only when tapped, one player at a time), **every discussion question**, the closing prayer,
-  "Going Further" extras, and prev/next. **Hash-routed** (`#lesson-3`), so the phone's Back button
-  works and a lesson is directly linkable.
-- All of that content **already lives in `content.js`** - it is the printable packet's source - so the
-  phone gets a few hundred KB of reflowing, pinch-zoomable text instead of 219MB of fixed page art.
-- **New asset `packets/*/assets/cover-thumb.png`** (480px). Deliberate: the real `cover.png` is
-  **52.6MB decoded** and using it here would have undone the entire fix.
-- **`engine/styles.css`** gains a block scoped to `body.mqbody` / `html.mqhtml`.
-
-| | Decoded bitmap | Flipbook |
-|---|---|---|
-| Phones (6 configs) | **219MB -> 1.1MB** | replaced by the reader |
-| Tablets (5 configs) | 218.7MB unchanged | intact |
-| Desktop, incl. a 380px-wide window | 218.7MB unchanged | intact |
-
-13 device configurations pass against the deployed preview. The test fails if a gated page so much as
-*requests* a lesson image.
-
-### The gate rule, and why it is not viewport width
-
-```js
-min(screen.width, screen.height) < 540  &&  matchMedia('(pointer: coarse)')
-```
-
-An **iPhone 14 Pro Max in landscape is 740px wide**; an **iPad (gen 11) in portrait is 656px**. A rule
-on viewport width therefore serves the flipbook to the phone and gates the iPad - exactly backwards.
-The shorter screen side is hardware and does not change with rotation. Validated against Playwright's
-device registry: **every phone <= 480, every tablet >= 600**, a 120px gap with no device in it, so 540
-sits in clear air. It also **never reads the user agent**, so iPadOS reporting itself as a Mac (the
-default "Request Desktop Website") cannot fool it. If the screen is unreadable or `matchMedia` is
-missing it **fails toward the flipbook** - Emily's rule is never gate a tablet.
-
-### ⚠ Three traps this cost, in order
-
-1. **The gate must run before any `<img>` is constructed.** Building the pages and then hiding them
-   still loads and decodes all 219MB, so the crash survives. It sits after the helper definitions and
-   ~90 lines before the first `<img>`.
-2. **Putting it too early fails silently.** The first attempt sat above `var esc = function ...`.
-   `esc` is a hoisted `var`, so it was `undefined`, the gate threw, and the page rendered **nothing at
-   all** - not the reader, not the flipbook. "Gate too early" looks exactly like "gate not working".
-3. **The reader could not scroll.** `styles.css` lines 9-10 pin the page for the flipbook's fixed
-   stage: `html,body{height:100%}` plus `body{overflow:hidden}`. A `body.mqbody` class **cannot**
-   override a rule that also targets `html`, so the gate now adds `.mqhtml` to `<html>` and
-   `html.mqhtml, html.mqhtml body.mqbody` restores `height:auto; min-height:100%; overflow-y:auto`.
-   Emily found this on a real iPhone: the device matrix had asserted horizontal overflow and tap
-   targets but never that the page actually scrolls.
-
-### Testing notes
-
-- `scroll-test.mjs` now asserts real scrollability (4 phones x 3 views, both packets) **and** counts
-  non-passive `touchstart`/`touchmove` listeners, which must be 0 - page-flip never initialises on a
-  gated phone, so nothing can swallow the gesture.
-- **Playwright's `mouse.wheel` does NOT scroll under touch emulation.** It reported a false failure
-  after the scroll fix was already working. Drive `window.scrollTo` and assert `scrollY`.
-- Only **Chromium** is installed here; WebKit is absent (`npx playwright install webkit`). **No
-  emulator can reproduce an iOS memory jettison, so a real device is the acceptance gate.**
-
-### Netlify + GitHub facts worth keeping
-
-- **Branch deploys were OFF.** Emily enabled them 2026-09-17 for `mobile-gate-preview`. The production
-  branch stays `main`, so a branch deploy can never reach a customer.
-- **Netlify only builds a branch deploy on a PUSH to that branch.** "Trigger deploy" rebuilds
-  production. After enabling the setting you must push a commit to the branch or nothing appears -
-  this cost a round trip.
-- **The repo PAT cannot open pull requests** (`403 Resource not accessible by personal access token`),
-  so deploy-previews-via-PR are not available. Branch deploys are the route.
-
-### ⚑ PICK UP HERE
-
-**Waiting on Emily:**
-1. **Test the preview on a real iPhone and a real iPad.** The iPad must show the ordinary flipbook,
-   unchanged - if a tablet ever shows the reader, that is a bug. The real test is moving between
-   several lessons repeatedly, which is what used to crash.
-2. **Should the passage default to collapsed or expanded?** Currently collapsed, so the discussion
-   questions are not buried under ~1,700 characters of scripture.
-3. **The course/instructor flipbook's phone-block wording** - asked three times, still unanswered.
-   Wanted so both products say the same thing to users.
-4. **Lazy-loading for tablets before merge?** Recommended. Tablets still load 219MB and an older 2GB
-   iPad is not obviously safe; `loading="lazy"` cuts it to ~40-60MB with no visual change at all.
-
-**Not yet done:** the `assets/web/` 816w screen derivatives were generated once and lost to a
-scratchpad prune - **regenerate them, do not go hunting** (same trap as the un-instanced Mulish TTFs).
-And the reminder that outranks them: **the printable PDF embeds `cover.png` full-bleed and the logo at
-214pt and needs print resolution** - never downscale those originals. Only the lesson page PNGs are
-flipbook-only, and that is where 157 of the 219MB lives.
-
-## >> OPEN (2026-09-14) - MOBILE IS BROKEN ON iPhone: unreadable, unflippable, and it CRASHES.
-## Diagnosed only. NOTHING CHANGED YET. READ FIRST.
-
-Emily reported three symptoms on her iPhone: text cannot be enlarged, the page flip does not work,
-and tapping between lessons produces Safari's **"A problem repeatedly occurred"**. All three were
-reproduced and measured against the live site (commit `20841f2b`). No fix has shipped - the packets
-are in active customer use and nothing lands without a sandbox pass and Emily's sign-off.
-
-### The measurement (iPhone 13, 390x664 viewport, both packets identical)
-
-| | |
-|---|---|
-| `--book-scale` | **0.142** |
-| Whole two-page spread on screen | **232 x 150 px** |
-| One page | **116 px wide** (designed at 816) |
-| 16px body text | renders at **2.3 px** |
-| Lesson tab hit targets | **20 x 8 px** (Apple's minimum is 44x44) |
-| Decoded bitmap held in RAM | **219 MB** (BBS) / **179 MB** (Women) |
-
-### Cause 1 - the book is drawn at 1/7 size
-
-`engine/render.js` `fit()` always lays out the **full two-page spread** (1832px incl. spine + tabs)
-and always reserves **130px for the nav arrows**, then scales to fit. On a 390px phone that leaves
-260px for an 1832px book. **`engine/styles.css` contains no `@media` query at all** - there is no
-mobile layout, only one desktop layout shrunk down.
-
-### Cause 2 - pinch-zoom is actively suppressed
-
-`render.js:285` sets `mobileScrollSupport: false`. Inside page-flip 2.0.7 that flag does exactly this
-on every touch: `...mobileScrollSupport || t.preventDefault()`. `preventDefault()` on `touchstart`
-makes iOS discard the default gesture - **including pinch-to-zoom and double-tap-to-zoom**. Verified
-by instrumenting `Event.prototype.preventDefault` (fires once per touch). Neither our viewport meta
-nor Webflow's disables zoom; both are a clean `width=device-width, initial-scale=1`. The listener is
-bound only to `.stf__block` (232x150px), so **pinching the empty background outside the book should
-still zoom** - a usable interim answer for customers, but confirm on a real device.
-
-### Cause 3 - corner-drag is mathematically broken at phone scale
-
-page-flip reads finger position as `clientX - rect.left` with **no compensation for the CSS
-`transform: scale()`** on `#binder-scaler`. It measures the finger in *visual* px but compares against
-the book's *internal* 1632x1056 space. Same slow corner-drag, both sizes:
-
-| | corner touch maps to | result |
-|---|---|---|
-| iPhone (scale 0.142) | 13.9% across, 13.8% down | **nothing happens** |
-| Desktop (scale 0.715) | 71.3% across, 71.1% down | **page turns** |
-
-The bug is proportional to the scale, which is why desktop never showed it. Compounding it,
-`disableFlipByClick: true` (library default is `false`) means **tap-to-turn is off**, so the only
-gesture that still works is a fast flick: >30px horizontal, <60px vertical, **under 250ms**. Anything
-slower falls into the broken corner-drag. That is why flipping feels random rather than dead.
-The arrow buttons and the tab column do still work.
-
-> **⚑ `disableFlipByClick: true` IS DELIBERATE - DO NOT SIMPLY UNDO IT (Emily, 2026-09-14).** It was
-> switched off during the **course/instructor flipbook** work because it caused **accidental page
-> turns**. Any mobile tap-to-turn must therefore be *designed around* that, not reverted: scope it to
-> narrow viewports only, restrict it to a dedicated edge/margin zone, and keep it off anywhere it
-> could fire over the scripture, video or TIP hotspots (which on the lesson pages cover most of the
-> page). If tap-to-turn cannot be made safe, bigger arrow/tab targets (#7) carry mobile navigation
-> instead.
-
-### Cause 4 - "A problem repeatedly occurred" is a memory jettison
-
-That message is iOS killing the WebContent process. Every packet eagerly loads **all** page art at
-full resolution and holds it resident - every `<img>` is `loading=(none) decoding=(none)`:
-
-| Asset | Pixels | Decoded |
-|---|---|---|
-| BBS `cover.png` | 3264x4224 | **52.6 MB** |
-| 12 x lesson page PNGs | 1632x2112 each | **157.5 MB** |
-| `candler-foundry-logo.png` | 2337x939 | **8.4 MB** |
-| | | **219 MB** |
-
-Only 11.8 MB over the wire - PNG decompresses ~19x, and the browser holds `w*h*4` bytes **regardless
-of display size**. On the phone we hold a 1632px bitmap to draw a 116px page. Flipping is the trigger:
-each turn rasterizes new layers and, under pressure, iOS evicts decoded images and must re-decode them
-on the next flip - a decode/evict thrash that ends in the jettison. Desktop never hits it because
-there is no per-tab cap. The `/sss/<slug>` Webflow wrapper makes it worse: the flipbook iframe shares
-one memory budget with jQuery, the Webflow runtime and the Foxy portal scripts.
-
-### ⚠ TRAP - the flipbook and the printable PDF SHARE assets, and the PDF needs print resolution
-
-Do **not** "just downscale the big PNGs". `tools/packet_pdf.py` draws `cover.png` full-bleed across the
-whole letter page (`c.drawImage(cover, 0, 0, W, H)`) and `logo.png` at 214pt wide:
-
-- BBS `cover.png` 3264x4224 = **384 dpi** in print. Halving it drops the printed cover to 192 dpi.
-  (Women's cover is already 1632x2112 = 192 dpi, so that is evidently tolerable - but it is a
-  print-quality decision for Emily, not a free win.)
-- `candler-foundry-logo.png` = **786 dpi** at its 214pt placement. Genuinely over-provisioned;
-  892px is the 300 dpi floor.
-- **The 12 lesson page PNGs are flipbook-only** (`packet_pdf.py` never reads `assets/pages/`), so they
-  are free to optimise. That is also where 157 of the 219 MB lives.
-
-The clean fix is to **decouple**: leave the print originals alone and give the flipbook its own
-screen-resolution derivatives under `assets/web/`.
-
-### Fix menu (none applied)
-
-| | Change | Effect | Risk |
+| | **Flipbook** | **Phone reader** | **Printable PDF** |
 |---|---|---|---|
-| **1** | `loading="lazy"` + `decoding="async"` on page art | 219 MB -> ~40-60 MB resident, **quality untouched** | Needs testing: pages live off-screen in the flip container; a not-yet-decoded page may flash blank on turn |
-| **2** | `srcset` to `assets/web/` derivatives | phone decodes ~3.3 MB/page instead of 13.1; transfer 11.8 MB -> 5.6 MB PNG / **1.2 MB WebP** | Low - desktop keeps the 1632w source |
-| **3** | `mobileScrollSupport: true` | restores pinch-zoom and double-tap-zoom | Low, but changes touch handling on desktop too |
-| **4** | tap-to-turn on narrow screens, in a safe edge zone only | tap to turn the page | **Medium - see the warning above; a plain `disableFlipByClick: false` re-introduces the accidental page turns it was disabled for** |
-| **5** | `usePortrait: true` + a mobile `@media` block | one page at a time filling the width: **3.4x bigger** type, and frees the 130px the arrows reserve | Medium - first real mobile layout, needs design review |
-| **6** | Divide touch coords by `--book-scale` | fixes corner-drag at every size | Medium - patching library behaviour; `size:"stretch"` may be cleaner |
-| **7** | Bigger tab/arrow hit areas on mobile | tabs become tappable | Low |
-| **8** | A reflowing mobile reader | genuinely readable text, no zooming | Large - but **all the text already exists in `content.js`** (it is the PDF source), so it needs no Canva round-trip |
+| Who gets it | tablet + desktop | phones | anyone who taps the link |
+| Built by | `engine/render.js` (page-flip) | `engine/render.js`, the `mq*` functions | `tools/packet_pdf.py` |
+| Selected by | default | the phone gate (below) | user action |
+| Layout | fixed Canva page art | reflowing text | fixed print pages |
+| Weight | **~219MB decoded bitmap** | **~1.1MB** | 0.6–0.7MB file |
+| Main video | pop-out modal | player rendered inline | link |
+| Extras | accordion rows per lesson | "Optional Resources" panel | grouped by lesson |
+| Scripture | pop-out modal | inline `<details>`, collapsed | printed in full |
 
-**WebP fixes transfer, NOT the crash** - decoded size is `w*h*4` whatever the file format. Say so
-before anyone proposes it as the memory fix.
+### Surface 1 — the flipbook (tablet + desktop)
 
-Note the ceiling: even perfect portrait mode puts 16px type at ~7.6px, because an 816px page does not
-fit a 390px screen. #1-#7 make the flipbook *usable*; only #8 makes it *readable* without zooming.
+The original product and still the primary one. Page art is exported from Canva and drawn as
+images; the engine overlays **hotspots** (percentage rectangles) for the scripture and video
+taps. Because the pages are pictures, **the words on them are not editable here** — a wording
+change means Emily re-exports the Canva page.
 
-### Derivatives already generated (not committed)
+- **Canva page numbers MOVE.** Never trust a remembered page number; re-check before asking
+  her to edit one.
+- The video opens in a **modal**, deliberately, so the Vimeo preview chrome never shows.
+- ~219MB of decoded bitmap is why phones cannot have this. **Tablets still carry it** —
+  lazy-loading the images would cut it to roughly 40–60MB and is still not done.
 
-`assets/web/` at 816x1056 for every lesson page + cover, and a 462x186 screen logo, for both packets.
-Originals untouched. Totals: transfer 23.6 -> 11.4 MB (PNG) or **2.4 MB** (WebP); decoded 398 -> 86 MB
-(**4.6x less**). A quality proof at three real display sizes shows them identical on a standard
-desktop and marginally softer on Retina / dpr-3 phones - hence `srcset` rather than replacement.
+### Surface 2 — the phone reader
 
-### ⚑ NEXT SESSION - PICK UP HERE
+Not a shrunken flipbook — a **different rendering of the same lesson** as real reflowing text:
+opening prayer, passage, video, every discussion question, closing prayer, Optional Resources,
+prev/next. Hash-routed (`#lesson-3`) so Back works and a lesson can be linked.
 
-**Nothing has shipped. Production is untouched.** The derivatives above live only in a session
-scratchpad, so **regenerate them** rather than hunting for them (same trap as the old un-instanced
-Mulish TTFs): the generator resizes `assets/pages/*`, `cover.png` and the logo with Pillow LANCZOS
-into `assets/<slug>/assets/web/`, and takes ~1 minute.
+**The gate** — the shorter screen side under 540px, *and* a coarse pointer:
 
-**Agreed first sandbox build** (proposed, Emily has not yet picked): `loading="lazy"` +
-`decoding="async"` (#1), `srcset` -> `assets/web/` (#2), and `mobileScrollSupport: true` (#3). That
-addresses the crash and the zoom with the least surface area. Portrait mode (#5) and the coordinate
-fix (#6) are a separate, design-reviewed change. #8 is its own project.
+- **Not viewport width.** An iPhone 16 Pro Max in landscape is 956px wide; an iPad mini is
+  744px. A width rule serves the flipbook to the phone and the reader to the iPad — backwards.
+- The **shorter screen side** is a hardware property that does not change with rotation.
+  Largest iPhone short side **440**; smallest iPad **744**. No device sits in the gap.
+- It never reads the user agent, so **iPadOS claiming to be a Mac cannot fool it**.
+- **Fails toward the flipbook.** Unreadable screen or no `matchMedia` → flipbook. Never gate a
+  tablet.
+- ⚠ **It must run before a single `<img>` exists**, and after the `var` helpers it uses.
+  Building the pages and then hiding them still decodes all 219MB, so the crash survives — and
+  placing it above `var esc = ...` leaves `esc` undefined, the gate throws, and **the page
+  renders nothing at all**.
 
-**Test ladder** (see the mobile plan): local static server + Playwright for iteration; Playwright
-**WebKit** (Safari's engine - **not installed**, `npx playwright install webkit`) for touch/zoom
-fidelity; then a **branch deploy** at `https://<branch>--sundayschoolsimplified.netlify.app` - never
-`main`, and a non-production branch cannot become production in Netlify's model. **The acceptance gate
-is a real iPhone**, because no emulator can reproduce an iOS memory jettison: toggle all six lessons
-repeatedly against the preview URL. Also test it inside a temporary Webflow page iframing the preview,
-since the `/sss/<slug>` wrapper adds real memory pressure.
+**Rules specific to this surface**
 
-**Pass/fail:** decoded bitmap < 60 MB (from 219); 16px text >= 7px on screen (from 2.3); tap/drag
-flip works; tab targets >= 44x44; **desktop scale, corner-drag, modals, deep links and the PDF viewer
-all unchanged**.
+- **No autoplay, ever** (Standing Rule 5).
+- **The PDF link points at the PDF file, not `/pdfview.html`** (Standing Rule 6).
+- `html,body{height:100%}` + `body{overflow:hidden}` pin the page for the flipbook's fixed
+  stage, so the reader marks **`<html>`** too (`.mqhtml`) or **it cannot scroll**. A body class
+  alone cannot override a rule that also targets html.
+- Optional Resources is deliberately **not** styled like the lesson — display face, dashed
+  rule, page background, an explicit "not part of the lesson" line, and a type chip on every
+  row. In the lesson's own font, people read it as part of the lesson.
+- Extra videos open **in place**; art and readings link out, because they live on Wikimedia and
+  Bible Gateway and there is nothing to embed.
+- Every tap target at least 44px.
 
-## >> LATEST (2026-09-04) - No em dashes in the letters, BBS L3 reading extended, TIP in print,
-## clickable contents, new back-page sign-off. READ FIRST.
+### Surface 3 — the printable PDF
 
-Five changes Emily asked for. Both packets rebuilt and verified; baseline reproduction was confirmed
-first (a rebuild from unmodified inputs matched the published PDFs pixel-for-pixel on every page), so
-every page listed below changed because we changed it.
+Generated by `tools/packet_pdf.py` (fonts via `tools/prep_fonts.py`, regenerable). It is the
+**written record**: for art-based lessons the titles, prayers and questions live in the Canva
+art, but the same text stays in `content.js` precisely so the PDF can set it properly.
 
-1. **Em dashes are gone from the opening letters (both packets).** BBS had two:
-   "noticed - as we have - that" became "noticed, as we have, that", and "to be easy - you can study"
-   became "to be easy. You can study". The Women letter had none, but used a spaced HYPHEN for the same
-   job ("six of these stories - Hannah,"); that is now a colon. The letter page is engine-rendered from
-   `meta.letter`, so this lands in the flipbook AND the PDF from one edit. Line breaks and page fit are
-   unchanged. **Still present elsewhere and NOT touched** (Emily has not ruled on them): the generator's
-   hard-coded "Read at Bible Gateway (NRSVUE) - or scan the code" (6x per packet) and "Open at Bible
-   Gateway - or scan the code" on the Women resources pages, plus four BBS discussion questions
-   (L1 Q4, L2 Q5, L5 Q4, L6 Q4). **Careful with the questions:** they are baked into the Canva art, so
-   editing `content.js` alone would desync the PDF from the flipbook.
+- **12pt Times is the type floor.** Do not go smaller to make something fit.
+- Watch the **Mulish instancing trap** — un-instanced font copies render everything ExtraLight
+  *without failing*.
+- The PDF shares `cover.png` and the logo and needs **print resolution**: never downscale those
+  originals. Only the lesson page PNGs are flipbook-only.
+- **Never auto-download.**
+- ⚠ `/pdfview.html`, the desktop viewer for this file, still rasterises **every page at once** —
+  about 56MB on the Women packet. An old iPad is not obviously safe. Not yet fixed.
 
-2. **BBS Lesson 3 now reads `Genesis 1:1-2:9; 2:15`** (was `1:1-2:4a; 2:15`). The old reading jumped
-   from the end of creation-story one to a single orphaned verse of creation-story two, with nothing to
-   explain who "the man" is or where the garden came from. Adding 2:4b-9 supplies exactly that setup
-   (the barren ground, the human formed from dust, the garden planted) and stops short of the rivers-of-
-   Eden geography. Emily updated the Canva art herself (design `DAHOtl4BNMk` **page 8**) and the new
-   `lesson-3-a.png` is in. **Hotspots did NOT need re-measuring this time** - a pixel diff of old vs new
-   art shows the ONLY changed region is the reference line (x485-1147, y400-461); the scripture, video
-   and TIP boxes are untouched. Always prove that with a diff before trusting it.
-   `scriptureText` gained 2:4b-9 in NRSVUE, following the house pattern already used by BBS L5 (which
-   quotes 2:4-7), including the `<p class="super">Another Account of the Creation</p>` seam.
+### Before you edit — which surface are you touching?
 
-3. **The Lesson 3 TIP now prints.** It used to exist only in the flipbook (a red starburst baked into
-   the art plus a `hotspots.tip` hotspot), so the printable packet never mentioned it - the
-   inconsistency Emily flagged. `tools/packet_pdf.py` gained **`tip_box()`**: a full-width aside with the
-   red TIP badge, the wrapped tip text, a QR, and the underlined link label, drawn on lesson page A after
-   the video box when a lesson has `tipText`. Height is computed from the wrapped text so it cannot
-   overflow; L3 page A had ~235pt free, and the box did not push the questions onto a new page (BBS is
-   still 19pp). The tip copy was rewritten for the new reading and repointed at **Genesis 2:10-25**
-   (`tipUrl`, `tipLinkText`), and it no longer uses em dashes.
-
-4. **The printable contents page is clickable on screen.** Each "In This Packet" row is now an internal
-   PDF link to that lesson's page A: `c.bookmarkPage('lesson%d')` on each lesson page A, and
-   `c.linkRect('', 'lesson%d', ..., Border='[0 0 0]')` on the contents row (forward references resolve at
-   save time). No annotation border, so **the printed page is unchanged**.
-   **`pdfview.html` had to learn internal links too** - it only ever overlaid `an.url` annotations, so a
-   `dest` link would have been DEAD in our own viewer. It now handles both: `an.url` keeps opening a new
-   tab, while `an.dest` gets a `.lk-in` anchor whose click resolves the destination
-   (`getDestination` -> `getPageIndex`) and smooth-scrolls to that page, offset by the sticky toolbar.
-   The page lookup happens at CLICK time, because pages render in order and the target may not be in the
-   DOM yet when the link is built.
-
-5. **Back page (PDF end page): stubby rule removed, new sign-off copy.** The 52x3pt accent `roundRect`
-   above the logo read as a stray line; it is gone. The blurb is now "<series> is a project of The Candler
-   Foundry, an initiative of Emory University's Candler School of Theology. We aim to make Bible and
-   theology fun and easy." **The flipbook now says the same thing** - `.resfoot` previously carried only
-   the logo and the URL, so `engine/render.js` adds a `.resfoot-blurb` div and `engine/styles.css` styles
-   it (12px italic, max-width 470px) while tightening `.resfoot` margins/gap to claw back the height.
-   NOTE the flipbook keeps its full-width dotted separator above the footer - that is a structural
-   divider between the accordion and the sign-off, not the stubby rule Emily meant.
-
-6. **The Additional Resources lede no longer promises artwork a packet doesn't have.** Both surfaces
-   said "Extra viewing, artwork, and reading...", but BBS has **no** `artwork[]` on any lesson (still a
-   pending item), so it advertised a category that never appeared. The lede is now derived from the data
-   - `C.lessons.some(l => (l.artwork||[]).length)` in `engine/render.js`, `any(l.get('artwork') ...)` in
-   `res_header()` - so it reads "Extra viewing and reading..." for BBS and keeps the artwork wording for
-   Women. It will start saying "artwork" for BBS automatically the moment artwork is wired, with no code
-   change. Proof it is inert where artwork exists: the rebuilt **Women PDF differs on ZERO pages** (so it
-   was not re-committed); only BBS p16 changed. Watch the comma - "Extra viewing, and reading" is wrong
-   with only two items, so the whole phrase is swapped, not just the middle. The empty-state strings
-   ("Extra videos, artwork, and readings will appear here as they are added") are deliberately left
-   alone: they only fire when a packet has NO resources at all, where they read as forward-looking.
-
-**Verification (all done, none of it assumed).** Baseline rebuild = pixel-identical to the published
-PDFs. After the changes, the only pages that differ are BBS 2/8/19 and Women 2/22; page counts hold at
-19/22; PyMuPDF found no out-of-bounds and no overlapping text blocks anywhere. **The Browser pane cannot
-verify pdf.js** - the live, unmodified viewer stalls at 1 rendered page there too, so that is an
-environment artifact, not a regression; use **Playwright** instead (`work/verify-pdfview.mjs` pattern).
-Playwright confirmed: 19 pages, 6 internal links on the contents page, all 6 landing on pages 4/6/8/10/
-12/14 with 0px offset, 64 external links all still `target="_blank"`, no console errors. Allow ~3s for
-the smooth scroll to settle before asserting position, or long jumps read as failures. The flipbook was
-checked too: new art loads, the scripture modal header reads "Genesis 1:1-2:9; 2:15" with the garden and
-tree-of-life verses present, the TIP pop-out shows the new copy and the 2:10-25 link, and the new footer
-blurb fits inside the fixed 816x1056 page on both packets.
-
-## >> LATEST (2026-09-02) - Landing block 2 full-width + Foxy checkout code saved. READ FIRST.
-
-- **Landing "HERE'S HOW IT WORKS" (block 2) is now full-width.** It was capped `max-width:1200px` and
-  looked small next to the portal's equivalent "Let's get going" band, which has no cap. Removed the cap
-  so `webflow-embeds/landing.html` block 2 wrapper is just `position:relative;width:100%;line-height:0` -
-  structurally identical to the portal's `.sss-ll`, so it renders at the same scale. Hotspot is %-based
-  (stays aligned); single image (proportional). Commit 4da55fcb. ⚠ **Emily re-pastes landing.html block 2.**
-  (Block 1 hero is still capped at 1200px - widen the same way if you want all three consistent.)
-- **Foxy checkout custom code is now version-controlled in `foxy-embeds/`** (mirrors `webflow-embeds/`;
-  this code lives in the Foxy admin checkout config, NOT auto-served - Emily pastes it). Includes the
-  **account-forcing footer**, whose `FORCE_LOGIN_CATEGORY` had omitted SSS - so SSS checkouts ran
-  guest-allowed and the occasional shopper registered with no account/password. Fixed by also matching the
-  `SSS-` product-code prefix. ⚠ **Emily must paste the corrected footer into Foxy.** It's client-side
-  (bypassable) - a server-side pre-payment webhook is the bulletproof follow-up (not built).
-- **Foundry-wide operational reference:** `Dropbox/Operations/Claude Context Docs/Candler Foundry -
-  Operations Playbook.md` (systems, access, standing rules, procedures, project index).
-
-## >> LATEST (2026-09-01) - Resources grouped by lesson + PDF links open in a NEW window. READ FIRST.
-
-Two printable-packet changes Emily asked for:
-
-1. **Additional Resources grouped by lesson.** `tools/packet_pdf.py` no longer lists resources as a flat run
-   with the lesson stamped inside each pill. It now renders one subsection per lesson (accent numeral + lesson
-   title + a hairline rule) with that lesson's resource pills **compact and indented** beneath it; the per-pill
-   "Lesson N" tag is gone. `box()`, `link_box()`, `note_box()` gained `x/w/compact` params (defaults reproduce
-   the old full-size boxes on the lesson pages EXACTLY, so only the resources section changed). Both PDFs re-cut
-   + pushed (BBS 19pp, Women 22pp), rendered + verified, byte-parity confirmed live. Commit 3ab80c7e.
-
-2. **PDF links open in a NEW window - via an in-page pdf.js viewer, NOT a change to the PDF.** The
-   scripture/video/resource links inside the PDF used to replace the PDF's own window with no way back. There is
-   **no way to fix this inside the PDF file** for the browser case: browsers' built-in PDF viewers navigate the
-   same window on a plain URI link and **ignore PDF JavaScript** (the `app.launchURL(url,true)` "new window"
-   trick) - verified two ways in the real browser (a document OpenAction never fired; a JS link annotation did
-   nothing). So the fix lives at the page that PRESENTS the PDF:
-   - **`/pdfview.html`** (NEW, repo root) renders the packet PDF with pdf.js (cdnjs 3.11.174, UMD global
-     `pdfjsLib`) and overlays **every link annotation as a real `<a target="_blank">`**, positioned via
-     `viewport.convertToViewportRectangle(annot.rect)`. Same-origin `?file=` guard, `?title=` for the header,
-     Download/Print + zoom, DPR-crisp canvas. Plain HTML anchors => new-tab works in ALL browsers. Commit 202da6f0.
-   - **`engine/render.js`** - the flipbook "Printable Packet" tab now opens `/pdfview.html?file=<pdf>&title=<t>`
-     in a **NORMAL browser tab** (address bar + back button; `target="sssPdf"` reuses the tab) - NOT the old
-     chromeless `window.open(...,width/height)` pop-out (Emily disliked the box with no back button). Live + verified.
-   - **`webflow-embeds/portal.html`** - `sssPDF()` now opens the Netlify-hosted `/pdfview.html` in a normal tab
-     (`window.open(v,'sssPdf')`, no size features) instead of the raw PDF, so the portal "Printable PDF" tiles
-     match. **Emily must RE-PASTE portal.html BLOCK 3 into Webflow** for the portal side to go live (the flipbook +
-     PDFs are repo-served and already live). Commits dc2facf6 (viewer routing) + 4df0613b (normal tab).
-   - **Skipped** the optional `app.launchURL` add-on for downloaded-in-Adobe copies: it would DEAD-LINK the PDF
-     for anyone who downloads it and opens it in Chrome/Edge, and the viewer makes it unnecessary. Offer if asked.
-
-## >> LATEST (2026-08-21) - MY LESSONS inline login + block-2 redesign (portal). READ FIRST.
-
-**The logged-in "My Lessons" portal page now has an INLINE sign-in** (Aug-19 UX fix). It solved: the welcome
-email linked to a login page that, once signed in, defaulted to **My Courses** (On-Demand) not My Lessons - and
-most email clicks land LOGGED-OUT (email opens in an isolated in-app browser). New flow: the user signs in **in
-place on My Lessons** and never navigates away. Canonical code: `webflow-embeds/portal.html` (3 Webflow HTML
-embeds, stacked). Live: `candlerfoundry.emory.edu/customer-portal/my-lessons`. Latest portal.html commit: 7a91b5c.
-
-### Block 3 - "Your Packets" + inline sign-in (self-switching by login state)
-- Both states live in ONE section; **`foxy-logic` shows exactly one** (hides the wrong one, reveals the right
-  one - never both). NOTE: previewing the raw HTML with no foxy-logic present shows BOTH; that is a preview
-  artifact only, not the live behavior.
-  - **Logged OUT** -> `.pk-login` card (`foxy-logic-authenticated="false"`).
-  - **Logged IN** -> the packet tiles (`foxy-logic-transaction-includes="SSS-BEYONDBUMPER" / "SSS-GOSPELWOMEN"`).
-- The card = Emily's Canva art for ALL typography (baked transparent PNGs on Netlify) + flat-color backgrounds +
-  the live Foxy form. Assets: `assets/sss-portal-lock.png` (open-padlock woodcut), `assets/sss-portal-signin-head.png`
-  ("Don't see your lessons? Please sign in below:"), header `assets/sss-portal-header-v2.png`. Backgrounds: lavender
-  `#DFE6F4` + white card `#fff` (sampled from Emily's Canva). **NEVER re-render her display fonts live - she vetoed
-  that (renders poorly); all her text is baked PNGs, only the Foxy form fields are live.** Layout: heading centered
-  full-width on top (~510px), then a centered row [lock 92px | Foxy form 400px]; card max-width 600px; stacks on mobile.
-- **After an inline sign-in we `location.reload()`** (on the Foxy element's `signin` event) so foxy-logic
-  re-evaluates the now-logged-in session and swaps to the tiles - same URL, user stays on My Lessons. If the
-  `signin` event name is ever wrong, sign-in still works; tiles just need one manual refresh. NOT YET OBSERVED
-  FIRING LIVE - verify on a real sign-in.
-
-**>> SECTION-3 SCALE MATCH + NEXT-SESSION PICK-UP (2026-08-21 pt.7). READ THIS FIRST.**
-Emily wants the LANDING "Choose Your Packet" (block 3) and the logged-in PORTAL "Your Packets" (block 3) at the SAME
-card scale, and **prefers the larger portal size**. So: portal.html was left at its original size (do NOT cap it);
-landing.html block 3 was scaled UP to match — removed its `max-width:1200px` cap and wrapped the image in
-`<div style="max-width:2530px;margin:0 auto;padding:0 2.6%;box-sizing:border-box">` (2.6% side padding = the portal
-`.pk3` side padding; the positioned image div stays padding-free so the 4 hotspots keep aligning). Verified: landing
-card 604px vs portal card 605px in a shared 1400px container (both scale linearly → match at every width). NOTE
-landing blocks 1 & 2 (hero, how-it-works) are still `max-width:1200px` — only block 3 widened.
-
-**CURRENT canonical assets (all live on Netlify):** landing = `sss-landing-hero-v3`, `sss-landing-getstarted-v4`
-(slide 6), `sss-landing-packets-v4` (slide 7) + `sss-landing-packets-edge` (full-bleed strip). portal =
-`sss-portal-hero-v3`, `sss-portal-letslearn-v3`, `sss-portal-header-v3` (slide 14), `sss-portal-tile-bbs-v4` /
-`sss-portal-tile-women-v4` (slides 12/13), plus `sss-portal-lock` / `sss-portal-signin-head` (sign-in card).
-
-**DONE + LIVE (repo-served, no paste needed):** flipbook **Cover tab**; **Recommended Reading swap** in both packets
-+ both PDFs re-cut (BBS 19pp, Women 22pp); BBS L4 title etc. **DONE in repo, ⚠ EMILY MUST PASTE into Webflow/ESP:**
-`webflow-embeds/landing.html` blocks **2 & 3**, `webflow-embeds/portal.html` block **3** (has clickable covers +
-v4 tiles at preferred size), and the refreshed **welcome-email HTML** (now stored at `webflow-embeds/welcome-email.html` for recoverability;
-destination = Emily's ESP — flow = one action, inline-login language, no password blurb; keeps the
-`{{=gives["375476935"][...]}}` merge tokens).
-
-**STILL OPEN (Emily's input needed):** (1) **BBS artwork pick** (only De Morgan→L1 + Rembrandt→L4 found; Claude
-proposed Michelangelo→L5, Hicks→L3, maps, word-study tip) → then wire `artwork[]` + re-cut BBS PDF. (2) **3MB-273 khanun** — ✅ **2026-08-26 SHIPPED + LIVE**: corrected Larry masters arrived; captioned (name card now "LARRY VARGHESE"), **Vimeo `1221254097`**, wired into Women L1 `optionalVideos`, **Women PDF re-cut (22pp)**, Airtable set (Vimeo/Dropbox/Status/proofed transcript). ⚠ Only remainder: Emily must add "Larry Varghese" as an Airtable `Instructor/Speaker` single-select option (API can't create it) to correct the speaker (currently wrongly Bonfiglio). (3) **Drag 11 supplemental Vimeos** into
-the "3 Minute Bible" folder (token lacks interact scope). (4) Optional: widen landing blocks 1 & 2 to match block 3.
-
-**✅ Vimeo POSTER de-blur (2026-08-26).** Some flipbook Additional-Resources 3MB videos loaded with a **blurry title-card still** (Vimeo auto-picked a poster frame mid-animation; playback was fine). Fixed all **14 optional videos** → crisp title-card posters via the Vimeo pictures API (sample intro frames, pick the sharpest dark title card, set active — no re-upload). The **12 main lesson videos** can get the same treatment (offered).
-
-**⚑ NEXT-SESSION HANDOFF (2026-08-26).** **(A) Webflow nav:** add **"Sunday School Simplified"** to the Candler Foundry homepage **Resources** dropdown → link **`/sunday-school-simplified`** (manual in Webflow Designer — that's the Foundry Webflow site, NOT this Netlify repo; the navbar is likely a global symbol, so one edit applies site-wide; confirm the exact live slug — a scripted GET returned 401). **(B) 3MB backlog:** caption the **17 "missing-record" 3MB videos** (Airtable Type=3MB with no Vimeo link and no captioned master) and add transcripts + Vimeo/Dropbox links; source = the Lavender July-2026 delivery (Arnold 13 + Bonfiglio 15 + Larry 6). ⚠ Several "Bonfiglio"-labeled records are actually **Larry Varghese** (271 hesed, 272 rakhum confirmed). A separate **50** already-captioned records (Status=Complete) just need a Vimeo upload + link. **3 decisions await Emily:** scope (the 17 vs also the 50) / review-gate style / OK to fix mislabeled speakers (+ she must add the "Larry Varghese" Airtable option). Full detail: the 3MB pipeline README (`Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) + memory `project-3mb-july2026-delivery`.
-
-**>> COVER TAB + RECOMMENDED-READING SWAP (2026-08-21 pt.6).** (a) **Flipbook Cover tab** — `engine/render.js`
-now renders a **"Cover"** tab (first in the tab column, `fa-book` icon) that jumps back to the front cover
-(`flip.flip(0)`); active when `pageIndex<=1`. Shared engine → both packets. Verified live on BBS (Contents→Cover
-returns `on-cover`, active "cover"). (b) **Recommended Reading swap (BOTH packets)** — dropped both *Womanist
-Midrash* volumes; added **The Old Testament: A Historical and Literary Introduction to the Hebrew Scriptures**
-(Coogan & Chapman, Oxford, **5th ed** 978-0-19-776817-4) + **The Writings of the New Testament: An Interpretation**
-(L.T. Johnson & Todd C. Penner, Fortress, **3rd ed** 978-0-8006-6361-2); both on Amazon + Bookshop (verified live).
-`meta.recommendedReading` updated in both content.js (targeted edit, `·` = U+00B7 separator). **Both PDFs re-cut**
-(`packet_pdf.py`; BBS 19pp, Women 22pp; reading page paginates to an "(cont.)" page — verified render, Coogan 2-line
-title wraps clean, no Womanist). All pushed + Netlify-verified. ⚠ Emily: no paste needed for these (flipbook/PDF are
-repo-served) — but the landing/portal Webflow pastes (pt.4/pt.5) are still pending.
-
-**>> LANDING v4 + PORTAL CLICKABLE COVERS (2026-08-21 pt.5).** (a) **Landing section 2** = new Canva slide 6
-(formatting fixes) -> `assets/sss-landing-getstarted-v4.png`; landing.html block-2 src bumped v3->v4, "CLICK HERE"
-hotspot unchanged (`44/79.5/12.5/6.5`, re-verified). (b) **Landing section 3** = new Canva slide 7 (readability
-redesign: cream cards, cover-left, buttons now STACKED on the right) -> `assets/sss-landing-packets-v4.png` + regen
-full-bleed edge strip. Register/Learn More hotspots restacked (were side-by-side): BBS Register `27.1/70.7/13.8/8.4`
-+ Learn More `27.1/77.7/13.9/8.3`; Women Register `76.3/70.7/13.8/8.4` + Learn More `76.3/77.7/13.9/8.3`. (c)
-**Portal tiles: the packet COVER thumbnail is now clickable** -> `/sss/<slug>` (hotspot `5.5/8.5/46/80`, radius 14),
-added on BOTH tiles alongside Open Packet/Printable PDF. All assets live on Netlify; landing.html + portal.html
-pushed. ⚠ Emily re-pastes landing blocks 2&3 + portal block 3. **STILL OPEN (finalize today):** flipbook COVER tab
-(engine `render.js`); Recommended-Reading swap (drop Womanist Midrash both packets, add L.T. Johnson *Writings of
-the NT* 3e 9780800663612 + Coogan/Chapman *The Old Testament* 4e 9780190608651 or 5e 9780197768174) + re-cut both
-PDFs.
-
-**>> BLOCK-3 TILE REDESIGN (2026-08-21 pt.4).** Emily redesigned the logged-in "Your Packets" tiles for readability
-(Canva `DAHRnlJvmA4` slides 11-14: 11=assembled reference, 12=BBS tile, 13=Women tile, 14=background+header;
-`YOUR PACKETS` header). New tiles are a LANDSCAPE card (cover LEFT; VOLUME + title + description RIGHT; **Open Packet**
-filled pill above **Printable PDF** outlined pill; "6 LESSONS" footer) - same ~1.315 aspect as the old portrait-ish
-tiles so the existing `.pk-grid` layout was reused. Assets (exported via Canva connector, cropped to the card by
-opaque-alpha bbox, 256-color FASTOCTREE PNGs preserving the transparent rounded corners): `sss-portal-tile-bbs-v4.png`
-(1093x831, 45KB), `sss-portal-tile-women-v4.png` (1095x831, 40KB), header `sss-portal-header-v3.png` (752x197, from
-slide 14; section bg stays flat #DFE6F4 = slide-14 bg). **Hotspots RESTACKED** (were side-by-side Open Booklet/PDF):
-both tiles use **Open Packet `left:55.5% top:70% w:28% h:10%`** + **Printable PDF `left:55.5% top:80.3% w:28% h:10%`**
-(color-detected pill bboxes + padding; overlay-verified). Labels "Open the ... packet". **Removed the stale mobile
-`.tile a{top:78.3%;height:14%}` override** (it forced both hotspots to one row - wrong for the stacked layout; the %
-hotspots scale fine on mobile). Header `.pk-head` bumped to width:40%/max 752px. Verified assembled at 1200px. Old
-`sss-portal-tile-bbs/women-v3` + `sss-portal-header-v2` are SUPERSEDED. ⚠ Emily re-pastes portal.html block 3.
-
-### Foxy `<foxy-customer-portal>` customization - REUSABLE REFERENCE
-Same element as the Account page (`base="https://the-candler-foundry.foxycart.com/s/customer/"`, module
-`https://cdn-js.foxy.io/elements@1/foxy-customer-portal.js` + the i18n `onResourceFetch` hook). Auth is
-**email + password** (NOT magic-link - which is why inline login works without a second webview).
-- **Show/hide sub-controls via `hiddencontrols`** (BooleanSelector, space-separated). The logged-out view
-  (`InternalCustomerPortalLoggedOutView`, `infer=""` so paths are un-prefixed from the element) exposes:
-  `sign-in:header` (Foxy's own "Sign in" + "Please enter your email and password"), `sign-in:signup`
-  ("Create account"), `sign-in:recover` ("Get temporary password" = forgot-password), `sign-in:form`.
-  **We set `hiddencontrols="customer:subscriptions sign-in:header sign-in:signup"`** -> hides the duplicative
-  header (Emily's baked heading replaces it) + truly removes Create-account from the DOM (no phantom click
-  target), and KEEPS "Get temporary password". (A store-level "disable sign-up" toggle would strip Create-account
-  everywhere incl. the real customer portal - Emily won't do that; hiddencontrols is per-embed.)
-- **Theming = Lumo design tokens** (`--lumo-*` on the element). GOTCHAS learned by inspecting the LIVE DOM:
-  - The primary **"Sign in" BUTTON background is NOT themeable** - Foxy paints it its own blue `rgb(22,118,243)`
-    internally, ignores `--lumo-primary-color`, exposes no `::part`. **Button stays Foxy blue (Emily OK with it).**
-    A fully custom form could recolor it but would own the session foxy-logic reads = risky; not worth it.
-  - The tertiary **"Get temporary password" link TEXT color = `--lumo-primary-text-color`**. Set it to NAVY
-    `#24364b` (NOT white - white made the link INVISIBLE on the white card; real bug we fixed). The Sign in button
-    keeps its white label (uses `--lumo-primary-contrast-color`, unaffected).
-  - Also set: `--lumo-primary-color:#24364b`, `--lumo-border-radius-m/l:11px`, `--lumo-base-color:#fff`,
-    `--lumo-font-family:'Avenir Next',...`.
-  - Control-name / part source of truth: `Foxy/foxy-elements` repo,
-    `src/elements/public/CustomerPortal/InternalCustomerPortalLoggedOutView.ts` + `SignInForm/SignInForm.ts`; i18n
-    keys in `cdn-js.foxy.io/elements@1/translations/customer-portal/en.json` (keys under `sign-in-form.*`).
-
-### Block 2 - redesigned "LET'S GET GOING!" (Canva slide 10)
-- **Dropped the personalized "LET'S LEARN, <NAME>"** -> REMOVED the live Thierry name overlay, its shrink-to-fit
-  script, the `@font-face`, and the `foxy-logic-display` source. **This permanently kills the mobile FRIEND-pill /
-  Thierry-font-drift problem, and the old "upload thierry.woff2 to Webflow" to-do is no longer needed for the
-  portal.** Also dropped the "Don't see your lessons? LOG IN" hotspot (login is now inline in block 3). Block 2 is
-  now just the band image + two hotspots.
-- New band image `assets/sss-portal-letslearn-v3.png` (2400x750, same framing as v2). Hotspots (nudge % if they
-  drift): "Browse available lessons HERE" -> `/sunday-school-simplified` (left:65.5% top:66% w:5.5% h:6.5%);
-  "Email us HERE" -> `mailto:candlerfoundry@emory.edu` (left:51.5% top:75.5% w:5.5% h:6.5%). CONFIRM the email addr.
-
-### >> DONE (2026-08-21): LANDING page block-2 copy refreshed (Canva slide 6)
-Emily's "more seamless" landing block-2 is shipped in `webflow-embeds/landing.html`. Slide 6 (design `DAHRnlJvmA4`)
-was retitled from "Let's get started" to a 3-step **"HERE'S HOW IT WORKS:"** card (1 Register for your FREE
-packet(s) below / 2 Check your inbox / 3 Open packet - each includes SIX lessons) + footer "Already registered?
-CLICK HERE to access your lessons." Exported slide 6 -> `assets/sss-landing-getstarted-v3.png` (2400x1000, 256-color
-PNG 137KB, live on Netlify). **The "CLICK HERE" hotspot now points to `/customer-portal/my-lessons`** (was
-`/customer-portal/account`) - inline login lives there now. Hotspot re-measured on the new crop:
-`left:44% top:79.5% w:12.5% h:6.5%` (overlay-verified snug over the bold "CLICK HERE"). Alt text refreshed.
-Also fixed the block-3 "Learn More" modal Widow ref `1 Kings 17:1-16` -> `17:1-24` (matches the packet).
-
-**BLOCK-3 FULL-BLEED FIX (2026-08-21):** the "Choose Your Packet" lavender band was capped at 1200px (baked into
-`sss-landing-packets-v3.png`), so the color stopped short of the browser edges. Restored the original full-bleed
-intent (README "heroes reshaped" block: art bands full-bleed, tiles at 1200px): block 3's outer div is now
-`width:100%` with the lavender running edge-to-edge via a STRETCHED EDGE-STRIP background
-(`assets/sss-landing-packets-edge.png`, an 8x1200 crop of the panel's left edge, `background-size:100% 100%`) so the
-baked vertical gradient matches seamlessly at the 1200px boundary; the packet-card image stays centered at max
-1200px on top. Verified at 1500px viewport (lavender fills both edges, no seam). If the band still stops short on
-Emily's live page, her HTML Embed is inside a constrained Webflow container (not a full-width section) - move the
-Embed to a full-width section, or switch the wrapper to `width:100vw;margin-left:calc(50% - 50vw)`.
-
-**⚠ Emily still has to PASTE landing.html blocks 2 AND 3 into their Webflow embeds to go live.** Latest landing.html
-commit supersedes the older one. Remaining tie-in: repoint the **welcome email** link straight at My Lessons
-(DONE 2026-08-21 - welcome email refreshed to one-action inline-login flow; lives in Emily's ESP, not the repo).
-
-### How the portal work was verified
-Tested on the LIVE page via the in-app browser + JS injection on the real Foxy component (hiddencontrols removing
-the header/create-account, the navy recover link, the centered/enlarged heading) BEFORE baking into portal.html.
-Emily re-pastes each block into the Webflow embeds to go live.
-
-## ▶▶ LATEST (2026-08-18) — read this first; it supersedes older status below
-
-**Additional Resources page was REDESIGNED as a dropdown accordion (shared engine).** `resourcesPage()`
-in `engine/render.js` now builds one collapsible row per lesson that has extras + a shared **Recommended
-Reading** row. **The separate end page is GONE** — the Candler Foundry sign-off (a **shrunk, LINKABLE**
-logo `assets/candler-foundry-logo.png` + **linkable** `candlerfoundry.emory.edu`) now sits at the bottom
-of the resources page. (The old end-page URL said `candlerfoundry.org` — WRONG; fixed everywhere.)
-**Video labels no longer say "· optional."** Schema now: per-lesson **`optionalVideos`** (ARRAY;
-singular `optionalVideo` still accepted for back-compat) + **`artwork`** (array, link-out) + meta-level
-**`recommendedReading`** (array). Verified live on both packets; the page fits the fixed 816×1056 page
-with the fullest row open (`.acc` is flex:1 scroll, footer flex:0).
-
-**Women "extra 3MB per lesson" (Additional Resources) — status:**
-
-| Women lesson | supplemental 3MB | Vimeo | state |
+| Change | Flipbook | Phone reader | PDF |
 |---|---|---|---|
-| L1 Hannah | `3MB-273` *khanun* | — | **ON HOLD** — see below |
-| L2 Two Daughters | `3MB-258` *pistis* | `1219313246` | LIVE (L2 also keeps *Mark's Secret Messiah* `1210281410`) |
-| L3 Shiphrah & Puah | `3MB-68` *What is Torah?* | `1219255056` | LIVE |
-| L4 Zelophehad | `3MB-267` *mishpat* | `1219343599` | LIVE |
-| L5 Tamar | `3MB-65` *Are OT figures a model of faithfulness?* | `1219254921` | LIVE |
-| L6 Widow | `3MB-85` *Orphan, widow, stranger* | `1219255238` | LIVE |
+| Wording inside Canva page art | re-export in Canva | **from `content.js`** | **from `content.js`** |
+| Wording in `content.js` | only if not art-based | yes | yes, re-cut the PDF |
+| A new or changed 3MB video | `videoUrl` | `videoUrl` | `videoUrl` |
+| A new artwork or reading | accordion row | Optional Resources | resources page |
+| Engine look or behaviour | `engine/*` | `engine/*` (the `mq*` functions) | not affected |
+| Anything in `tools/packet_pdf.py` | not affected | not affected | re-cut both PDFs |
 
-- **`3MB-273` *khanun* is ON HOLD.** Its baked name lower-third reads only **"LARRY"**; the speaker is
-  **Rev. Larry Varghese**, NOT Bonfiglio — and **Airtable's `Instructor/Speaker` for 3MB-273 wrongly says
-  Bonfiglio**. **The producer is re-cutting ALL of Larry's videos to fix the name card**; wire khanun
-  (and any other Larry 3MBs) only when those corrected masters arrive. Then: caption → Vimeo → Airtable
-  (also fix the speaker field) → wire Women L1 → re-cut Women PDF. Do NOT publish the current file.
-- **Per-lesson ARTWORK** (link-out, 2–3 per Women lesson) is wired from Emily's list. **BBS artwork is
-  PENDING** (Emily's Codex is researching it).
-- **Yale "The Gospel of Mark" reading was removed** from Women L2 (Emily's call).
+**A wording fix on an art-based lesson page is three jobs, not one**: a Canva re-export, plus a
+`content.js` edit so the reader and the PDF agree. Do not assume one covers the others.
 
-**Recommended Reading (5 commentaries) is on BOTH packets** (`meta.recommendedReading`): Women's Bible
-Commentary 3e `9780664237073`; Theological Bible Commentary `9780664227111` (**Amazon-only — not on
-Bookshop**); NT in Color `9780830814091`; Womanist Midrash v1 `9780664239039`; v2 `9780664266011`.
-Amazon = `amazon.com/dp/<isbn10>`, Bookshop = `bookshop.org/book/<isbn13>`.
+---
 
-**Both printable PDFs were re-cut** (`tools/packet_pdf.py` updated): resources section reads
-`optionalVideos[]` + `artwork[]` + `optionalReadings` + a Recommended Reading section (new `book_box`),
-and **the end page now uses the real logo IMAGE (linkable) instead of the flipbook-font wordmark**, URL
-`candlerfoundry.emory.edu` (logo + URL both linkable). PDF build = **Python 3.14** (`/c/Python314/python`
-has reportlab/qrcode/pymupdf/fontTools/cu2qu/brotli); reconstruct the repo tree, run
-`tools/prep_fonts.py --out fonts`, put `content.json`(from content.js)+`cover.png`+**`logo.png`**(=
-packet `assets/candler-foundry-logo.png`) beside `make_pdf.py`/`make_women_pdf.py`. PDFs live at
-`packets/<pkg>/<meta.pdf>`.
+## Adding a new packet (the packet #3 runbook)
 
-**⚠ VIMEO FOLDER FILING PENDING — Emily to do (or give an `interact`-scoped token).** These 5 published
-videos are public but could NOT be filed into the **"3 Minute Bible"** folder (project `27506621`) via
-API — the token scope is `private edit upload video_files public` (no `interact`), so the folder PUT
-returns 403. Drag them into the folder in the Vimeo UI:
-`3MB-65` (1219254921) · `3MB-68` (1219255056) · `3MB-85` (1219255238) · `3MB-258` (1219313246) ·
-`3MB-267` (1219343599).
+The engine is shared, so **a new packet gets the flipbook and the phone reader for free** the
+moment its `content.js` exists. There is no separate "mobile version" to build — if someone
+asks for one, it already exists. What a new packet actually needs:
 
-**✅ DONE (2026-08-20) — 6 supplemental 3MBs wired into BEYOND BUMPER STICKERS.** All uploaded public,
-Airtable `Vimeo Link` set, wired into `content.js` `optionalVideos[]`, and in the re-cut PDF (19pp),
-verified live on Netlify:
+1. `cp -r packets/gospel-according-to-the-women packets/<new-slug>` — copy the *newer* packet;
+   it has `artwork` and `optionalReadings`, which Beyond Bumper Stickers does not.
+2. **Replace `content.js`.** This is the real work, and it feeds all three surfaces. Follow the
+   schema below exactly. Remember it is **CRLF** (Standing Rule 8).
+3. **Assets in `packets/<slug>/assets/`:**
+   - `cover.png` — full resolution, shared with the PDF, **never downscaled**.
+   - **`cover-thumb.png` — 480px wide.** Easy to forget: the phone reader uses it *because* the
+     real `cover.png` decodes to roughly 52MB. **Never point the reader at `cover.png`.**
+   - lesson page art and header images as the packet needs.
+4. **Add an entry to `packets/index.json`.**
+5. **Cut the PDF** with `tools/packet_pdf.py`; verify the render with PyMuPDF.
+6. **Wire the videos** — each lesson's `videoUrl`, plus `optionalVideos` for supplementals.
+   Check Airtable for what exists (Standing Rule 2) and confirm new uploads have auto-captions
+   off (Standing Rule 4).
+7. **Push to `main`.** Netlify has no build step, so it is a pure file sync — live in 30–60s at
+   `/packets/<new-slug>/`.
+8. **Verify all three surfaces** before calling it done:
+   - desktop → flipbook renders and the gate did **not** fire;
+   - phone width with a coarse pointer → reader renders, **zero** flipbook images;
+   - the PDF opens inline as `application/pdf` with **no** `Content-Disposition`.
+9. **Update this README** in the same push.
 
-| BBS lesson | supplemental 3MB | Vimeo |
+Engine files should not need to change to add a packet. If you find yourself editing
+`engine/*`, you are changing the *design*, which affects every packet — say so out loud.
+
+---
+## Where things stand (updated 2026-09-22)
+
+The single current-status section. The per-packet sections further down carry the detail and
+the history; **this block wins** if they disagree.
+
+**Live on `sundayschoolsimplified.netlify.app`, all three surfaces, both packets:**
+
+| | Beyond Bumper Stickers | The Gospel According to the Women |
 |---|---|---|
-| L1 For I Know the Plans | `3MB-249` *What happened during the exile?* | `1219870379` |
-| L2 Be Still | `3MB-74` *Who wrote the Psalms?* | `1219870516` |
-| L3 Have Dominion | `3MB-262` *What is adam?* | `1219676911` (wired Aug 19) |
-| L4 I Can Do All Things | `3MB-42` *What is an encomium?* | `1219870600` |
-| L5 All Scripture Is Inspired | `3MB-20` *Who wrote the Pauline letters?* + `3MB-25` *What are the Pastorals?* | `1219870709` · `1219870840` |
-| L6 Love Is Patient | `3MB-28` *Understanding Paul's Letters* | `1219870939` |
+| Flipbook | live, 6 lessons | live, 6 lessons |
+| Phone reader | live | live |
+| Printable PDF | live, 19pp | live, 22pp |
+| Main 3MB per lesson | all 6 wired | all 6 wired |
+| Supplemental resources | 7 optional videos | 8 optional videos, artwork, 3 readings |
 
-**⚠ Emily to do:** drag these 6 into the Vimeo "3 Minute Bible" folder (project `27506621`) — the token
-lacks `interact` scope (403). **BBS artwork still PENDING** — Emily's Codex found only 2 pieces (De Morgan
-*By the Waters of Babylon* → L1; Rembrandt *Saint Paul in Prison* → a Paul lesson, likely L4). Because
-several BBS lessons are abstract (not narrative), Claude proposed additions tied to a concrete anchor in
-each text: Michelangelo *Creation of Adam* → L5 (2 Tim "God-breathed" + Gen 2:7), Edward Hicks *Peaceable
-Kingdom* → L3 (dominion-as-care), plus non-painting supports (maps; a word-study "tip" sidebar like L3's;
-Psalm 46 → Luther's "A Mighty Fortress"). Awaiting Emily's pick before wiring `artwork[]` + re-cutting PDF.
+The **phone reader shipped 2026-09-22**. Production immediately before that release was
+**`54cf70c`** — reset `main` to it and push to roll back; there is no build step, so the old
+site is back inside a minute.
 
-**The pattern (for future BBS/Women supplemental additions).** For EACH:
-1. **Look it up in Airtable first** (base `appiL0Z2RilcAT2Cw`, table `tblS1Bk29cXyGGUdo`) — code, `Name`,
-   `Instructor/Speaker`, existing transcript/Vimeo. Refer to it by **`3MB-<code>` + title**, never number.
-2. **If it lacks a captioned master, caption it** via the pipeline (`…\Dropbox\3MB\SSS 3MB Captioning
-   Pipeline\`): Whisper **medium** + AI proof (Greek/Hebrew, scripture refs, ASR), **intro-gate**
-   (captions start only after the name card clears — 3rd standing rule), ≤2-line burn. Then Emily's
-   review gate unless she says otherwise. Diff the new transcript vs the Airtable transcript and
-   hand-fix (e.g. "Biblical"→"biblical"). See that README's §3 (naming/filing) + §4 (pipeline).
-3. **Upload to Vimeo PUBLIC** — stage the file OFF the Dropbox mount first (WinError 389 guard), create
-   with `privacy.view=anybody, embed=public`, name = Airtable `Name` (e.g. "What is Torah?"), desc =
-   "A 3 Minute Bible with <Speaker>. From The Candler Foundry…". (Folder add will 403 — see above.)
-4. **Airtable**: write the `Vimeo Link` (and `Transcript` if newly proofed). Status stays "Draft".
-5. **Wire into `packets/beyond-bumper-stickers/content.js`** as `optionalVideos: [ {title, subtitle:"3
-   Minute Bible", url} ]` on the right lesson (do NOT write "optional"). content.js keeps short arrays
-   inline — edit with TARGETED string replacements, never a full `json.dumps` reserialize.
-6. **Re-cut the BBS PDF** (see build note above) and push it to `packets/beyond-bumper-stickers/`.
-7. **Naming/filing taxonomy** for the working files: `3MB-<code> - <Title> - <Speaker last name>\` with
-   `(Captioned).mp4` / `- Horizontal - Uncaptioned.mp4` / transcripts / `.words.json` — pipeline README §3.
+### Open items
 
+**Needs Emily**
 
-**This block is the current state of the project — read it first.** Anything left over from the older
-2026-08-07 priority list now lives under **"Carried-forward open items"** near the bottom of this file.
-Three workstreams; two are essentially done and the third is waiting on Emily.
+- **Test an iPad.** It must show the **flipbook**. Never tested on hardware — she shipped first
+  and is testing after, deliberately (phones were already broken, so the release could only
+  improve them, and rollback is cheap). The arithmetic is sound — largest iPhone short side
+  440, smallest iPad 744 — but that is not the same as what iPadOS reports. **If an iPad shows
+  the reader, that is the bug.**
+- **Two supplemental Vimeo videos still have auto-captions ON**: *What Happened During the
+  Exile?* (`1219870379`, BBS L1) and **3MB-273, *What is khanun?*** (`1221254097`, Women L1).
+  Every other video in both packets is off.
+- **The Vimeo Upload-defaults checkbox** (Standing Rule 4) — stops this recurring.
+- **Passage in the reader: collapsed or expanded by default?** Currently collapsed, so the
+  questions are not buried under ~1,700 characters of scripture. Reversible either way.
+- **The course/instructor flipbook's phone-block wording** — asked several times, still open.
+  Wanted so both products say the same thing.
 
-**1) Videos — ✅ ALL DONE except one held master (2026-08-17).** Emily approved the corrected batch and
-said "embed all of the videos", so four went up public in one session, all wired, all verified playing
-live, all written to Airtable:
+**Queued work — a "tablet health" pass**
 
-| Packet · lesson | 3MB code | Vimeo | Vimeo title |
-|---|---|---|---|
-| BBS L1 | `3MB-283` | `1218983605` | The Story of Jerusalem |
-| BBS L4 | `3MB-44`  | `1218993379` | Did the biblical texts have chapters, verses, and section headings? |
-| BBS L5 | `3MB-287` | `1218983645` | Scripture Inspired by God |
-| BBS L6 | `3MB-288` | `1218983700` | Love Is Patient, Love Is Kind |
-| Women L6 | `3MB-280` | `1219007254` | The Widow of Zarephath |
+Both of these are the same class of bug as the two already fixed on phones: eager bitmaps that
+are never released. Deliberately *not* bundled with the phone release, so that a regression
+would have an obvious cause.
 
-**✅ EVERY LESSON IN BOTH PACKETS NOW HAS AN EMBEDDED VIDEO — 12 of 12.** The Widow master finally
-landed and went through the full pipeline on 2026-08-17 (see the Packet #2 section for its splice,
-which did NOT follow the usual template). Titles are the **on-screen slide titles with no series
-suffix**, per Emily;
-`3MB-44` has no short slide title so its Vimeo name came from the **Airtable `Name`** field — rename it
-if that reads long. Two things to know for next time: the whole batch deliberately stays
-**Status = "Draft"** in Airtable (matching the six published in July — Status does not track publication
-in that table), and **`3MB-44` carries the FEBRUARY caption style** (up to 3 lines, different placement)
-rather than the v2 ≤2-line standard the other nine use — it was uploaded as-is at Emily's direction, so
-re-caption at medium and re-burn if the packet should look uniform. Historical detail below.
+- **Lazy-load the flipbook art.** Tablets still carry ~219MB; lazy-loading takes it to roughly
+  40–60MB with no visual change. ⚠ Needs testing — the page-flip library may want dimensions up
+  front.
+- **`/pdfview.html` rasterises every page at once** (~56MB on the Women packet). Phones no
+  longer touch it, but tablets and desktop still do.
 
-<details><summary>How they got here (Aug 14 note)</summary>
-
-**3 captioned, awaiting Emily's review (HARD GATE before Vimeo).**
-`3MB-283` (Jeremiah / L1), `287` (2 Timothy / L5), `288` (1 Corinthians / L6) are spliced with the
-corrected title cards, captioned at Whisper-**medium** + AI-proofed, and **re-burned 2026-08-14 with
-proofing fixes** (287 "Church"→"church"; 283 "Washington DC"→"Washington, D.C."; "scripture"→
-"Scripture" normalized; Greek/Hebrew transliterations verified public-friendly). Review copies live in
-`…\Dropbox\3MB\NEW VIDEOS GO HERE\_CAPTIONED FOR REVIEW\`. **Next after Emily approves:** Vimeo (public)
-→ Airtable (Transcript + Vimeo Link) → wire BBS **L1/L5/L6** `videoUrl` in `content.js` → re-cut the BBS
-PDF. **Also open:** L4 **Philippians (`3MB-44`)** — captioned (Feb) + filed already; Emily to decide
-**upload as-is vs re-caption at medium**. Canonical runbook = the pipeline-folder README
-(`…\Dropbox\3MB\SSS 3MB Captioning Pipeline\`).
-</details>
-
-**2) Webflow marketing surfaces — public landing + logged-in "My Lessons" portal.**
-**Canonical embed code now lives in [`webflow-embeds/`](webflow-embeds/)** (`landing.html`, `portal.html`,
-`README.md`) — do NOT reconstruct it. Built from Canva **`DAHRnlJvmA4`** (shortlink
-`canva.link/l2565l075ywv8cs`). **CURRENT assets in `assets/`** (older versions superseded — use these
-exact names): landing = `sss-landing-hero-v3`, `sss-landing-getstarted-v2`, `sss-landing-packets-v3`;
-portal = `sss-portal-hero-v3`, `sss-portal-letslearn-v2`, `sss-portal-header-v2`,
-`sss-portal-tile-bbs-v3`, `sss-portal-tile-women-v3`. The personalized greeting uses self-hosted
-**Thierry Leonie** (`engine/assets/fonts/thierry.woff2`, CORS via repo `_headers`). **Sizing factor is
-per-band and must be RE-MEASURED whenever the art changes** — Thierry caps are 96% of the em, so
-factor = (baked cap-height / imgWidth) / 0.96. The current compact band (`sss-portal-letslearn-v2`,
-2400x750) uses **`clientWidth * 0.0269`**; the older 2400x1000 band used 0.0443. Landing (hero /
-get-started / choose-packet) + portal (hero / let's-learn / your-packets) are built. **Two things are
-waiting on Emily, and nothing changes on the live site until she does them:**
-   - **⚠ PASTE THE SECTION-3 EMBED.** The rebuilt "Your Packets" code sits in
-     [`webflow-embeds/portal.html`](webflow-embeds/portal.html) but has **not** been pasted into the
-     Webflow embed yet.
-   - **⚠ THE `SSSThierry` FONT ISSUE IS STILL OPEN** (portal section 2). The live "LET'S LEARN, NAME"
-     text fell back to a system font on Emily's Webflow page. Playwright proved the Netlify font loads
-     fine cross-origin (200, `Access-Control-Allow-Origin: *`), so it is **Webflow-environment-specific**
-     — either a CSP on `candlerfoundry.emory.edu` blocking the cross-origin font, or a conflicting
-     "Thierry Leonie" already in Webflow. The shipped fix renames the `@font-face` to a unique
-     **`SSSThierry`** so it cannot clash, and falls back to `'Thierry Leonie'`. **Emily to do:** upload
-     `thierry.woff2` to **Webflow → Project Settings → Fonts** named exactly **"Thierry Leonie"** (serves
-     it same-origin, CSP-proof). **If it is still wrong after that upload it IS a CSP** — have her open
-     the live page console (F12) and look for a red CSP / `thierry.woff2` / `netlify` error.
-     **LESSON: always test the DEPLOYED setup via Playwright; a local same-origin @font-face test hides
-     CORS/CSP problems.**
-
-Section-3 detail:
-   - **✅ REBUILT (2026-08-17) — portal "Your Packets" (section 3) now matches the landing page.**
-     Emily: the logged-in band looked "sad and empty". Causes, all measured: each tile PNG carried
-     **46-73px of baked white padding** on top of the CSS padding; a lone owned tile was capped at
-     `max-width:560px`; and the header PNG was a 704px ink blob centred in a 2400px canvas. **Fix =
-     background-independent tiles** — cropped tight to the card's black stroke (**1095x832, corner
-     radius 52, transparent rounded corners**: `sss-portal-tile-bbs-v3` / `sss-portal-tile-women-v3`),
-     shadow re-added in CSS via `filter:drop-shadow()`; header cropped to its ink
-     (`sss-portal-header-v2`, 716x162). That removed the "must stay white" constraint, so the section
-     now uses the landing's flat lavender **`#DFE6F4`**, exposed as `--pk-bg` (set `#fff` to revert).
-     Landing proportions reused (card **45.6%**, gap **3.25%**, side pad **2.6%**); a lone owned packet
-     gets `.pk-one` -> `flex-basis:62%` via JS counting cells with `offsetParent!==null`. Both cards are
-     the SAME 1095x832 (the old 73-vs-46 difference was only shadow spread). Hotspots re-measured:
-     Open Booklet `left:55.4% top:80.5% w:19.6% h:9.5%`, Printable PDF `left:75.4% w:19.8%`.
-     Gating unchanged (`foxy-logic-transaction-includes`). Code in
-     [`webflow-embeds/portal.html`](webflow-embeds/portal.html) — **Emily must paste it into the
-     Webflow embed; nothing changes live until she does.** Art nit for later: the *Women* tile's
-     "Printable PDF" pill has a baked drop shadow the *BBS* tile lacks.
-
-**3) Women packet — Emily's copy review is DONE and shipped (2026-08-17).** She reworked all six
-lessons in Canva **`DAHOtl4BNMk` pages 19-30** (shortlink `canva.link/acnz1mieryl38ts`) — the range
-**MOVED** (it was 8-19), so **always re-read the design; never trust stored page numbers**. All 12 pages
-were re-exported, verified and pushed; `content.js` was re-synced to the art; hotspots were re-measured;
-and the printable PDF was re-cut in the Beyond Bumper Stickers format. See "Packet #2" below for the
-per-lesson list of what changed. **Still open on this packet:** the **letter + a packet-wide prayer pass**, which are Emily's own
-writing items. Its L6 video landed 2026-08-17, so the packet is otherwise complete.
-
-**4) NEW + BIG — caption the whole 3 Minute Bible back catalogue.** Emily (2026-08-17): the new 3MBs
-"all need captions burned in with whisper medium, using AI to check and correct the transcriptions that
-are created and focusing in particular on greek and hebrew words, biblical naming conventions and
-spelling, and other academic and punctuation errors." That is exactly what `caption_pipeline.py`
-already does — this is a **backlog run of the existing pipeline**, not new tooling. Scope from Airtable
-on 2026-08-17: **206 records total · 163 have a Dropbox video · 199 have some transcript · only 11 have
-a Vimeo link → ~195 unpublished, of which ~163 have a file to work from.** Budget roughly **5–6 minutes
-of Whisper-medium per 3-minute video on this CPU**, plus AI proof and burn. Practical plan: work in
-batches, keep Emily's review gate, and see **"Re-doing a video that is already published"** below for
-the mechanics. Confirm the batch order with Emily — the SSS-linked ones are already done.
-
-**Everything that is genuinely still open, in one place:**
-
-**A. Emily's actions**
-
-| # | Item | Where |
-|---|---|---|
-| A1 | Upload `thierry.woff2` to Webflow → Project Settings → Fonts as **"Thierry Leonie"** — fixes the live greeting font. If still wrong afterwards it IS a CSP; send the F12 console error | Webflow |
-| A2 | Women packet **letter + packet-wide prayer pass** (her writing) | `content.js` |
-| A3 | Fix the **Women** portal tile's "Printable PDF" pill — it has a baked drop shadow the **BBS** tile lacks | Canva `DAHRnlJvmA4` p12 |
-| A4 | Decide the batch order / priority for the big captioning backlog (workstream 4 above) | — |
-
-*(A1 is all that remains of the portal work — Emily embedded the section-3 code in Webflow on 2026-08-17.)*
-
-**B. Claude's queue — approved, just needs doing**
-
-| # | Item | Notes |
-|---|---|---|
-| B1 | **Re-splice `3MB-44`** with the new title card (Canva `DAHOtl4BNMk` **page 35**, "Understanding Biblical Structure") | It is already published, so follow **"Re-doing a video that is already published"** below. Vimeo canNOT replace a file in place → new id → re-wire BBS L4 + re-cut the BBS PDF. Vimeo title already renamed to "Understanding Biblical Structure" (2026-08-17). |
-| B2 | ~~Upload `3MB-85` and wire under Women L1/L4~~ — **DONE / SUPERSEDED (2026-08-18).** `3MB-85` is now the supplemental video on **Women L6** (`1219255238`); the whole Additional-Resources redesign shipped. See the **▶▶ LATEST** block at the top. |
-| B3 | **Bitly-shorten the scripture links in the PDF** so a printed Bible Gateway URL is typable | Emily's call (2026-08-17). Currently QR + hyperlink only, because the raw URLs are 90+ char encoded query strings. **Needs a Bitly account/API token — ask Emily where it lives.** |
-| B4 | Webflow greeting should read **"LET'S LEARN, EMILY!"** — add the exclamation mark | `webflow-embeds/portal.html` section 2. **Batch with B5** so Emily only re-pastes once. |
-| B5 | The **landing-page header animation** exists in the design but not in the Webflow embed code — identify it and reproduce it | `webflow-embeds/landing.html`. **Batch with B4.** |
-| B6 | Big captioning backlog (workstream 4) once Emily sets the order | ~163 videos with files |
-| B8 | **Housekeeping - clear published copies out of `_CAPTIONED FOR REVIEW`.** `3MB-283` *The Story of Jerusalem*, `3MB-287` *Scripture Inspired by God* and `3MB-288` *Love Is Patient, Love Is Kind* are published but their review copies still sit there. **LEAVE** `3MB-254/255/256/257` (the word studies) and `3MB-279` *Eve* - those are archive-only and were never reviewed. Emily pre-authorised this in principle but **confirm before deleting anything** | `...\NEW VIDEOS GO HERE\_CAPTIONED FOR REVIEW\` |
-| B7 | Optional: re-caption `3MB-44` at Whisper medium so its captions match the other nine | It carries the FEBRUARY caption style (up to 3 lines) vs the v2 ≤2-line standard. Can be folded into B1. |
-
-**C. Larger / not started**
-
-| # | Item |
-|---|---|
-| C1 | Webflow URL reorg — landing moves to top-level `/sunday-school-simplified`; flipbook wrappers stay in `/sss/` (see "Carried-forward" below) |
-| C2 | Rewire the Executive dashboard SSS card to the flipbooks/portal (separate repo — read its `CANONICAL.md` first) |
-| C3 | Canva `DAHRnlJvmA4` slide-4 typo ("below Perfect for groups" → add the period) — only if that art is reused; the live HTML reads correctly |
-
-**Settled 2026-08-17 — do not re-ask:** `3MB-280` *The Widow of Zarephath* captions are correct and
-start at the right time (no re-burn). All 12 wired lesson videos are Airtable **Status = Complete**.
-`3MB-44` is renamed on Vimeo. `3MB-85` *Orphan, widow, stranger* **does exist** (it is in Airtable).
-
-**Not a to-do:** the PDF build's fonts. They were previously un-reproducible, but
-[`tools/prep_fonts.py`](tools/prep_fonts.py) now regenerates them from this repo — verified to rebuild
-both PDFs pixel-identically. Nothing is required of Emily. **Claude: never source these fonts from an
-old session scratchpad** — un-instanced copies are still lying around there and they render everything
-ExtraLight *without failing*.
+**Also unshipped:** `assets/web/` screen derivatives (816w) were generated once and lost to a
+scratchpad prune — **regenerate, don't hunt for them**.
 
 ---
 
@@ -1348,7 +559,8 @@ meta   = { series, title, pdf, letter: { heading, paragraphs[], quotes[], paragr
 
 lesson = { n, accent, reference, shortRef, title,
            tabRef,              // side-tab label, spelled out, e.g. "Jeremiah 29"
-           subtitle,            // exists but UNUSED — subtitles were removed globally
+           subtitle,            // DEAD on all three surfaces (see the table below);
+                                //   kept only as a record. Do not reintroduce.
            openingPrayer, closingPrayer,
            scriptureRef, scriptureUrl,   // scriptureUrl uses version=NRSVUE
            scriptureText,       // HTML string shown in the popout modal
@@ -1383,8 +595,49 @@ lesson = { n, accent, reference, shortRef, title,
 poetry (line breaks via `<br>`), `<p class="super">` superscriptions/section titles, and
 `<span class="vn">N</span>` red superscript verse numbers.
 
-To change **content**, edit `content.js`. To change the **look or behavior for all
-packets**, edit `engine/render.js` / `engine/styles.css` once.
+To change **content**, edit `content.js` — it feeds **all three surfaces**. To change the
+**look or behaviour for every packet**, edit `engine/render.js` / `engine/styles.css` once (the
+flipbook and the phone reader both live there). To change the **printed** product, edit
+`tools/packet_pdf.py` and re-cut both PDFs.
+
+### Which surface consumes which field
+
+The same field often renders three different ways, and a few are read by only one surface.
+This is the table to check before assuming an edit shows up where you expect.
+
+| Field | Flipbook | Phone reader | PDF |
+|---|---|---|---|
+| `meta.letter` | letter page | — | letter page |
+| `meta.recommendedReading` | Additional Resources | — | resources page |
+| `meta.pdf` | "Printable PDF" tile → `/pdfview.html` | link **straight at the file** | — |
+| `title`, `reference` | **in the art** when `pageImages` is set | heading | printed |
+| `openingPrayer`, `closingPrayer` | **in the art** when `pageImages` is set | own sections | printed |
+| `questions` | **in the art** when `pageImages` is set | numbered list | printed |
+| `scriptureRef`, `scriptureUrl` | hotspot → modal | reference + Bible Gateway link | printed |
+| `scriptureText` | modal | inline `<details>`, collapsed | printed in full |
+| `videoUrl` | hotspot → modal player | **inline player, no autoplay** | link |
+| `videoTitle` | video card | player title | caption |
+| `videoSubtitle` | video card caption | — | caption |
+| `funFact` | "Did you know?" aside | — | aside |
+| `optionalVideos` | accordion row | **Optional Resources → chip "Video", opens in place** | resources page |
+| `artwork` | accordion row | **Optional Resources → chip "Art", links out** | resources page |
+| `optionalReadings` | accordion row | **Optional Resources → chip "Reading", links out** | resources page |
+| `pageImages`, `hotspots` | the whole page | **ignored** | ignored |
+| `headerImage` | lesson header | — | — |
+| `tabRef`, `accent` | side tab, colour | — | — |
+| `subtitle` | — | — | — |
+
+**Consequences worth internalising:**
+
+- **`pageImages` lessons are the dangerous case.** The flipbook shows the *art*; the reader and
+  the PDF show the *fields*. Editing `content.js` there changes two surfaces and not the third,
+  and editing the Canva art changes the third and not the other two. They silently drift apart.
+- **`subtitle` is dead on all three.** It held an editorialised one-liner ("A promise to exiles
+  — not a personal good-luck charm"); the reader was its last consumer until Emily had it
+  removed on 2026-09-22. The field is still in `content.js` as a record. Do not reintroduce it.
+- **The reader ignores `pageImages` and `hotspots` entirely** — that is the whole point. It
+  never touches the heavy art, which is why it is ~1.1MB instead of ~219MB.
+
 
 ## Packet #1 — Beyond Bumper Stickers (status)
 
@@ -2220,14 +1473,1024 @@ differences. That diff is how every fix listed above was found.
 
 ## Adding a new packet
 
-1. `cp -r packets/beyond-bumper-stickers packets/<new-slug>`; replace `content.js`,
-   `assets/`, and the PDF.
-2. Add an entry to `packets/index.json`.
-3. Push to `main`; Netlify redeploys and the packet appears at `/<new-slug>/`.
-
-Engine files never change when adding a packet.
+**Moved to the top of this file** — see "Adding a new packet (the packet #3 runbook)". The old
+three-line version here was wrong by omission: it never mentioned `cover-thumb.png`, the three
+surfaces, or verifying any of them.
 
 ## Local development
 
 Pure static — serve the repo root (`python -m http.server`) and open `/`.
 
+---
+
+# History — dated session notes
+
+**Context, not instructions.** Newest first. These record *why* decisions were made, which is
+usually worth more than the decisions themselves. But they are a log: where one of them
+disagrees with the reference sections at the top of this file, **the reference sections win**,
+and an old "LATEST" heading does not mean current.
+
+### ▶ START HERE — current status (updated 2026-08-18)
+
+
+### >> SHIPPED TO PRODUCTION 2026-09-22 - the phone reader is LIVE.
+
+`mobile-gate-preview` was merged to `main` (fast-forward, 13 commits) and is live on
+`sundayschoolsimplified.netlify.app`. Phones now get the reader; tablets and desktop are unchanged.
+
+**Rollback, if it is ever needed:** production before this release was **`54cf70c`**. Reset `main`
+to it and push; Netlify has no build step, so the old site is back in under a minute.
+
+**Verified on production after deploy**
+
+| Check | Result |
+| --- | --- |
+| Desktop (1920x1080, fine pointer) | gate does NOT fire, flipbook renders, 14 images |
+| Phone (375x812, coarse) | gate fires, reader renders, **0 flipbook images** |
+| Both packets | reader correct; Women L2 shows Video/Video/Art/Art/Art |
+| Lesson title | Hello Handmade; no editorialised subtitle |
+| Back to Lessons | 2 buttons per lesson |
+| Main video | inline, **no autoplay parameter** |
+| Optional Resources | correct heading, Emily's wording, type chips, 2 in-place video buttons |
+| Printable packet | links at the **PDF itself**, `application/pdf`, **no `Content-Disposition`** |
+| Cover page | duplicate title gone |
+| Horizontal overflow | none |
+
+**⚠ The iPad has still not been tested on hardware.** Emily shipped first and is testing after, which
+is a deliberate choice: phones were already broken, so the release can only improve them, and rollback
+is a minute. What *is* established is the arithmetic - the gate is `min(screen.width, screen.height)
+< 540`, the largest iPhone's short side is **440** and the smallest iPad's is **744**, so no Apple
+device sits in the gap. That verifies the rule, **not** what iPadOS actually reports. If an iPad ever
+shows the reader, that is the bug to chase, and the flipbook is one revert away.
+
+---
+
+### >> LATEST (2026-09-22, third round) - the phone must NOT use /pdfview.html.
+
+Emily: the printable-packet button *"does not consistently work... I suspect it's the same issue
+that prompted us to get rid of the mobile flipbook in the first place."* **She was right.**
+
+`pdfview.html`'s `renderAll()` rasterises **every page to its own canvas and keeps them all alive** -
+no virtualisation, nothing released. Letter pages (612x792) at `DPR` 2 on a 375px phone is ~2.5MB of
+canvas per page:
+
+| Packet | Pages | Canvas held at once |
+| --- | --- | --- |
+| Beyond Bumper Stickers | 19 | **~48 MB** |
+| The Gospel According to the Women | 22 | **~56 MB** |
+
+That is the flipbook's failure in miniature - eager full-document bitmaps, all retained. It also
+opens in a **new tab**, so the reader is still resident behind it and iOS chooses which to jettison,
+which is why it failed **intermittently** rather than every time. Intermittent is the tell.
+
+**Fix: on a phone, `mqPdfHref()` now returns the PDF's own URL.** Same principle as the reader -
+do not optimise a renderer you cannot measure on a fleet you cannot test; take it out of the path.
+iOS's PDF viewer is progressive and OS-managed and gives Share / Save to Files / Print, which is the
+entire point of a printable packet. The two jobs `pdfview.html` exists for - forcing in-PDF links
+into a new tab, and resolving internal `dest` jumps - are **desktop** problems; the native viewer
+handles link taps itself. Verified the files serve as `application/pdf` with **no**
+`Content-Disposition`, so they still open inline and never auto-download.
+
+**Tablets and desktop still use `pdfview.html`; that path is untouched.** But note the same eager
+rasterisation applies there (~56MB on the Women packet), so **an old iPad is not obviously safe**.
+Not changed here on purpose - it belongs with the tablet lazy-loading work, not bundled into the
+phone release, or you will not know which change caused a regression.
+
+---
+
+### >> LATEST (2026-09-22, second round) - Optional Resources, inline player, sound.
+
+Branch `mobile-gate-preview` only. Three more notes from Emily after the round below.
+
+### 1. "Going Further" -> "Optional Resources", and it no longer reads as part of the lesson
+
+Emily: *"it reads as part of the lesson b/c it's the same font."* Correct - it was an ordinary
+`.mq-s` section with an ordinary `.mq-h2` label, indistinguishable from Opening Prayer or Read.
+It is now set apart on every axis available at once, because one signal was clearly not enough:
+
+- heading in **Hello Handmade** (the lesson's own section labels are uppercase Mulish);
+- a **dashed** rule instead of a solid card, on the **page background** instead of the cream used
+  for lesson content - it deliberately does not look like a content card;
+- an explicit line: *"Extras if you want to go further - not part of the lesson."*
+
+Every row carries a **type chip - Video / Art / Reading** - so a painting is not mistaken for a
+video before you tap it. **Artwork and optional readings were not in the reader at all before this**;
+only `optionalVideos` was rendered. The phone now carries everything the lesson offers, which is the
+whole point of the reader. Sources: `optionalVideos` (+ legacy singular `optionalVideo`), `artwork`,
+`optionalReadings`. Classes are `.mq-x*`; `.mq-lk` is gone.
+
+**Extra videos play in place** ("Watch here"), rather than throwing the reader out to vimeo.com -
+Emily, correctly: leaving the site mid-lesson is the wrong trade. They are **tap-to-reveal**, not
+rendered inline like the main lesson video, because 1-3 further 16:9 players would make Optional
+Resources the largest thing on the page - the opposite of what the panel is for. Artwork and readings
+genuinely have to leave (Wikimedia, Bible Gateway), so those stay as links. The revealed player
+carries **no autoplay**, same as the main one; the cost is two taps (reveal, then Vimeo's play
+button) and that second tap is exactly the user gesture that guarantees sound.
+
+### 2. The video is rendered inline - no tap-to-load button
+
+Emily: *"I don't want the video to appear as a drop-down option. It should just automatically appear,
+and the user presses play."* The tap-to-load button was justified by "one player at a time, never all
+six" - but **that reasoning never applied here**: the reader shows a single lesson, so there is only
+ever one main video on screen. The iframe is now in the markup with `loading="lazy"`.
+
+`title=0&byline=0&portrait=0` keeps the player's preview chrome off, which is the same objection
+`videoCard()` records for the flipbook.
+
+### 3. ...which is also what fixes the sound. DO NOT PUT AUTOPLAY BACK.
+
+Emily first said the audio was fine, then found it was not: lessons **1, 2 and 6 had no unmute
+control at all** while the others did.
+
+**It is not the videos.** Checked before changing anything: every lesson video reports
+`separate_av: true` with five DASH streams - identical across the ones that worked and the ones that
+did not. The audio is there.
+
+**It was `?autoplay=1`.** iOS forces muted autoplay, and Vimeo does not reliably draw an unmute
+affordance when it has fallen back to muted - hence "no unmute option" on some videos and not others.
+Removing the parameter removes the whole failure mode: with no autoplay, the viewer's tap lands on
+Vimeo's own play button **inside** the iframe, which is a real user gesture, so playback always starts
+**with sound**, on every platform. This is why the inline player is not merely cosmetic - **re-adding
+autoplay would bring the muted-with-no-unmute bug straight back.**
+
+---
+
+### >> LATEST (2026-09-22) - Emily's four review notes on the phone reader.
+
+Branch `mobile-gate-preview` only. Production (`main`) is still the flipbook for everyone.
+Emily reviewed the preview on a phone and raised four things; all four are fixed and deployed
+to the branch. The 2026-09-17 block below still describes the reader's design and the gate.
+
+### 1. Two sets of captions on the videos - and it was NOT the wrong Vimeo
+
+Emily saw our burned-in captions PLUS a second set along the bottom, on the phone but not in
+the flipbook, and reasonably assumed the reader was pointing at different videos. It is not:
+`mqLesson()` pulls the id out of the same `lesson.videoUrl` the flipbook's modal uses, so both
+build the identical `player.vimeo.com/video/<id>?autoplay=1`. **The videos were never the problem.**
+
+The real cause is at the Vimeo end. Every 3MB video carries an auto-generated Vimeo subtitle
+track (`en-x-autogen`, `provenance: autogen_source_audio`) with **`active: true`**, which the
+player config reports as **`default: true`** - so a player that honours the default draws Vimeo's
+AI transcript over our reviewed, burned-in captions. Checked 2026-09-22: **all 12 lesson videos
+have it**, and so do the supplemental ones (spot-checked 3MB-273 *What is khanun?*).
+
+Things that were tried and **do not work** - do not retry them:
+
+| Attempt | Result |
+| --- | --- |
+| `?texttrack=false` | player config still reports `default: true` |
+| `?texttrack=0` | player config still reports `default: true` |
+| Reproducing it in the browser pane under phone emulation | **cannot** - control and treated both report `mode: "disabled"`. This is an iOS-side behaviour (native player / system caption preference). Emulation will not show you this bug. |
+
+What shipped is `silenceVimeoCaptions()` in `render.js`: it asks the player to switch the track
+off over the **postMessage protocol the embed already speaks** - the same thing the Vimeo Player
+SDK's `disableTextTrack()` does, without pulling in the SDK (which would have undone the point of
+a lightweight reader). Re-sent on `play` and `texttrackchange`, capped at 8 sends so it cannot
+loop. Applied to the **flipbook's modal too** - same latent defect there, it just needs an iPad
+with captions switched on to show up.
+
+**This is the belt, not the braces.** The durable fix is clearing `active` on the autogenerated
+track at the Vimeo end, which also fixes the supplemental videos - they open on vimeo.com in a new
+tab, where our embed code cannot reach them at all. **The Vimeo MCP can only READ text tracks
+(`get_text_tracks`); there is no write tool**, so Claude cannot do this - it is Emily, in the Vimeo
+admin, per video. Turning the track off does not reduce accessibility: our captions are burned into
+the picture and always visible.
+
+### 2. The editorialised summary under the lesson title is gone
+
+`lesson.subtitle` - e.g. *"A promise to exiles - not a personal good-luck charm."* The reader was
+its **only** consumer; neither the flipbook nor the printable PDF ever rendered it. (`o.subtitle`
+elsewhere in `render.js` and in `packet_pdf.py` is a *resource* subtitle - a different object. Do
+not confuse them.) The field is still in `content.js` and untouched, so nothing else can break.
+
+### 3. Titles are larger and in the flipbook's display face
+
+`.mq-t2` (lesson) and `.mq-t` (packet) now use **Hello Handmade**, the same face as the flipbook's
+`.htitle`, at `clamp(34px,10.2vw,42px)` and `clamp(30px,8.6vw,36px)` - up from Mulish 800 at 26/25px.
+
+**`font-weight:400` is deliberate.** Hello Handmade ships a single weight; leaving the old `800`
+would make the browser synthesise a fake bold and the face would look smeared. If you add more
+Hello Handmade rules to the reader, set weight 400 there too.
+
+The index's lesson-card titles (`.mq-lt`) were deliberately **left in Mulish 800** - they mirror the
+flipbook's contents rows (`.crow .ct`), which are also Mulish 800. Display titles take the
+handwritten face; list rows do not. This costs the reader one 133KB woff2.
+
+### 4. "< All lessons" is now a real button
+
+It read as decoration. Replaced by `.mq-bk` - **"Back to Lessons"**, 48px tall, outlined at the top
+of the lesson and **filled navy at the foot**, below the prev/next row. `.mq-back`/`.mq-sub` are gone
+from `styles.css`; `.mq-f` is still the index's footer link and was left alone.
+
+### Branch bookkeeping - a trap worth knowing
+
+The 2026-09-17 README commit (`54cf70c`) was pushed to **`main`**, not to `mobile-gate-preview`, so
+the branch never carried its own status block. Merged across on 2026-09-22 so the branch is a clean
+superset of main. If you find the branch missing README history again, check `main` before rewriting it.
+
+### Still open
+
+Unchanged from 17 Sep and still Emily's call: the **real-device test** (iPhone shows the reader,
+iPad must show the ordinary flipbook), **passage collapsed vs expanded**, the **course-flipbook
+phone-block wording**, and **`loading="lazy"` for tablets before merge**. Added 22 Sep: **clearing
+the autogenerated caption tracks in Vimeo**, which is the only complete fix for item 1.
+
+---
+
+### >> LATEST (2026-09-17) - PHONE READER built and deployed to a PREVIEW BRANCH.
+### Not merged. Production is untouched.
+
+The `>> OPEN (2026-09-14)` block below is the diagnosis (unreadable / unflippable / crashing).
+This block is what we decided and built. **Nothing has shipped:** `main` still serves the flipbook
+to every device.
+
+### The decision
+
+**Phones do not get the flipbook. They get a full lesson reader.** Not a notice, not a PDF dead end.
+Emily, when an earlier PDF-only version was shown: *"the whole point is to let folks access the
+lesson and follow along from their phones, including the discussion questions."* That version was
+rejected and replaced.
+
+Chosen over optimising the flipbook for phones because the device fleet is **unknowable and
+untestable** - this is client-facing, on every kind of phone. When you cannot measure the weakest
+device, **elimination beats optimisation**: if the flipbook never initialises, the 219MB is never
+allocated, which is a guarantee rather than a hope. Precedent: the course/instructor flipbook already
+blocks phones.
+
+Supporting evidence (Vimeo analytics, 1 Aug - 16 Sep, account-wide): iOS is the **largest single OS by
+unique viewers** (53, vs Mac 48 and Windows 29). Mobile is ~35% of views and ~43% of unique viewers,
+so a phone dead end would have been expensive. Caveat: account-wide rather than SSS-only, and Vimeo
+counts iPadOS as "iOS".
+
+### What is built - branch `mobile-gate-preview`, NOT merged
+
+Preview, works on any phone with no login:
+`https://mobile-gate-preview--sundayschoolsimplified.netlify.app/packets/beyond-bumper-stickers/`
+
+- **`engine/render.js`** gains a phone reader: an index of the six lessons, then per lesson the
+  opening prayer, the passage (inline `<details>`, collapsed, plus the Bible Gateway link), the video
+  (loads only when tapped, one player at a time), **every discussion question**, the closing prayer,
+  "Going Further" extras, and prev/next. **Hash-routed** (`#lesson-3`), so the phone's Back button
+  works and a lesson is directly linkable.
+- All of that content **already lives in `content.js`** - it is the printable packet's source - so the
+  phone gets a few hundred KB of reflowing, pinch-zoomable text instead of 219MB of fixed page art.
+- **New asset `packets/*/assets/cover-thumb.png`** (480px). Deliberate: the real `cover.png` is
+  **52.6MB decoded** and using it here would have undone the entire fix.
+- **`engine/styles.css`** gains a block scoped to `body.mqbody` / `html.mqhtml`.
+
+| | Decoded bitmap | Flipbook |
+|---|---|---|
+| Phones (6 configs) | **219MB -> 1.1MB** | replaced by the reader |
+| Tablets (5 configs) | 218.7MB unchanged | intact |
+| Desktop, incl. a 380px-wide window | 218.7MB unchanged | intact |
+
+13 device configurations pass against the deployed preview. The test fails if a gated page so much as
+*requests* a lesson image.
+
+### The gate rule, and why it is not viewport width
+
+```js
+min(screen.width, screen.height) < 540  &&  matchMedia('(pointer: coarse)')
+```
+
+An **iPhone 14 Pro Max in landscape is 740px wide**; an **iPad (gen 11) in portrait is 656px**. A rule
+on viewport width therefore serves the flipbook to the phone and gates the iPad - exactly backwards.
+The shorter screen side is hardware and does not change with rotation. Validated against Playwright's
+device registry: **every phone <= 480, every tablet >= 600**, a 120px gap with no device in it, so 540
+sits in clear air. It also **never reads the user agent**, so iPadOS reporting itself as a Mac (the
+default "Request Desktop Website") cannot fool it. If the screen is unreadable or `matchMedia` is
+missing it **fails toward the flipbook** - Emily's rule is never gate a tablet.
+
+### ⚠ Three traps this cost, in order
+
+1. **The gate must run before any `<img>` is constructed.** Building the pages and then hiding them
+   still loads and decodes all 219MB, so the crash survives. It sits after the helper definitions and
+   ~90 lines before the first `<img>`.
+2. **Putting it too early fails silently.** The first attempt sat above `var esc = function ...`.
+   `esc` is a hoisted `var`, so it was `undefined`, the gate threw, and the page rendered **nothing at
+   all** - not the reader, not the flipbook. "Gate too early" looks exactly like "gate not working".
+3. **The reader could not scroll.** `styles.css` lines 9-10 pin the page for the flipbook's fixed
+   stage: `html,body{height:100%}` plus `body{overflow:hidden}`. A `body.mqbody` class **cannot**
+   override a rule that also targets `html`, so the gate now adds `.mqhtml` to `<html>` and
+   `html.mqhtml, html.mqhtml body.mqbody` restores `height:auto; min-height:100%; overflow-y:auto`.
+   Emily found this on a real iPhone: the device matrix had asserted horizontal overflow and tap
+   targets but never that the page actually scrolls.
+
+### Testing notes
+
+- `scroll-test.mjs` now asserts real scrollability (4 phones x 3 views, both packets) **and** counts
+  non-passive `touchstart`/`touchmove` listeners, which must be 0 - page-flip never initialises on a
+  gated phone, so nothing can swallow the gesture.
+- **Playwright's `mouse.wheel` does NOT scroll under touch emulation.** It reported a false failure
+  after the scroll fix was already working. Drive `window.scrollTo` and assert `scrollY`.
+- Only **Chromium** is installed here; WebKit is absent (`npx playwright install webkit`). **No
+  emulator can reproduce an iOS memory jettison, so a real device is the acceptance gate.**
+
+### Netlify + GitHub facts worth keeping
+
+- **Branch deploys were OFF.** Emily enabled them 2026-09-17 for `mobile-gate-preview`. The production
+  branch stays `main`, so a branch deploy can never reach a customer.
+- **Netlify only builds a branch deploy on a PUSH to that branch.** "Trigger deploy" rebuilds
+  production. After enabling the setting you must push a commit to the branch or nothing appears -
+  this cost a round trip.
+- **The repo PAT cannot open pull requests** (`403 Resource not accessible by personal access token`),
+  so deploy-previews-via-PR are not available. Branch deploys are the route.
+
+### ⚑ PICK UP HERE
+
+**Waiting on Emily:**
+1. **Test the preview on a real iPhone and a real iPad.** The iPad must show the ordinary flipbook,
+   unchanged - if a tablet ever shows the reader, that is a bug. The real test is moving between
+   several lessons repeatedly, which is what used to crash.
+2. **Should the passage default to collapsed or expanded?** Currently collapsed, so the discussion
+   questions are not buried under ~1,700 characters of scripture.
+3. **The course/instructor flipbook's phone-block wording** - asked three times, still unanswered.
+   Wanted so both products say the same thing to users.
+4. **Lazy-loading for tablets before merge?** Recommended. Tablets still load 219MB and an older 2GB
+   iPad is not obviously safe; `loading="lazy"` cuts it to ~40-60MB with no visual change at all.
+
+**Not yet done:** the `assets/web/` 816w screen derivatives were generated once and lost to a
+scratchpad prune - **regenerate them, do not go hunting** (same trap as the un-instanced Mulish TTFs).
+And the reminder that outranks them: **the printable PDF embeds `cover.png` full-bleed and the logo at
+214pt and needs print resolution** - never downscale those originals. Only the lesson page PNGs are
+flipbook-only, and that is where 157 of the 219MB lives.
+
+### >> OPEN (2026-09-14) - MOBILE IS BROKEN ON iPhone: unreadable, unflippable, and it CRASHES.
+### Diagnosed only. NOTHING CHANGED YET.
+
+Emily reported three symptoms on her iPhone: text cannot be enlarged, the page flip does not work,
+and tapping between lessons produces Safari's **"A problem repeatedly occurred"**. All three were
+reproduced and measured against the live site (commit `20841f2b`). No fix has shipped - the packets
+are in active customer use and nothing lands without a sandbox pass and Emily's sign-off.
+
+### The measurement (iPhone 13, 390x664 viewport, both packets identical)
+
+| | |
+|---|---|
+| `--book-scale` | **0.142** |
+| Whole two-page spread on screen | **232 x 150 px** |
+| One page | **116 px wide** (designed at 816) |
+| 16px body text | renders at **2.3 px** |
+| Lesson tab hit targets | **20 x 8 px** (Apple's minimum is 44x44) |
+| Decoded bitmap held in RAM | **219 MB** (BBS) / **179 MB** (Women) |
+
+### Cause 1 - the book is drawn at 1/7 size
+
+`engine/render.js` `fit()` always lays out the **full two-page spread** (1832px incl. spine + tabs)
+and always reserves **130px for the nav arrows**, then scales to fit. On a 390px phone that leaves
+260px for an 1832px book. **`engine/styles.css` contains no `@media` query at all** - there is no
+mobile layout, only one desktop layout shrunk down.
+
+### Cause 2 - pinch-zoom is actively suppressed
+
+`render.js:285` sets `mobileScrollSupport: false`. Inside page-flip 2.0.7 that flag does exactly this
+on every touch: `...mobileScrollSupport || t.preventDefault()`. `preventDefault()` on `touchstart`
+makes iOS discard the default gesture - **including pinch-to-zoom and double-tap-to-zoom**. Verified
+by instrumenting `Event.prototype.preventDefault` (fires once per touch). Neither our viewport meta
+nor Webflow's disables zoom; both are a clean `width=device-width, initial-scale=1`. The listener is
+bound only to `.stf__block` (232x150px), so **pinching the empty background outside the book should
+still zoom** - a usable interim answer for customers, but confirm on a real device.
+
+### Cause 3 - corner-drag is mathematically broken at phone scale
+
+page-flip reads finger position as `clientX - rect.left` with **no compensation for the CSS
+`transform: scale()`** on `#binder-scaler`. It measures the finger in *visual* px but compares against
+the book's *internal* 1632x1056 space. Same slow corner-drag, both sizes:
+
+| | corner touch maps to | result |
+|---|---|---|
+| iPhone (scale 0.142) | 13.9% across, 13.8% down | **nothing happens** |
+| Desktop (scale 0.715) | 71.3% across, 71.1% down | **page turns** |
+
+The bug is proportional to the scale, which is why desktop never showed it. Compounding it,
+`disableFlipByClick: true` (library default is `false`) means **tap-to-turn is off**, so the only
+gesture that still works is a fast flick: >30px horizontal, <60px vertical, **under 250ms**. Anything
+slower falls into the broken corner-drag. That is why flipping feels random rather than dead.
+The arrow buttons and the tab column do still work.
+
+> **⚑ `disableFlipByClick: true` IS DELIBERATE - DO NOT SIMPLY UNDO IT (Emily, 2026-09-14).** It was
+> switched off during the **course/instructor flipbook** work because it caused **accidental page
+> turns**. Any mobile tap-to-turn must therefore be *designed around* that, not reverted: scope it to
+> narrow viewports only, restrict it to a dedicated edge/margin zone, and keep it off anywhere it
+> could fire over the scripture, video or TIP hotspots (which on the lesson pages cover most of the
+> page). If tap-to-turn cannot be made safe, bigger arrow/tab targets (#7) carry mobile navigation
+> instead.
+
+### Cause 4 - "A problem repeatedly occurred" is a memory jettison
+
+That message is iOS killing the WebContent process. Every packet eagerly loads **all** page art at
+full resolution and holds it resident - every `<img>` is `loading=(none) decoding=(none)`:
+
+| Asset | Pixels | Decoded |
+|---|---|---|
+| BBS `cover.png` | 3264x4224 | **52.6 MB** |
+| 12 x lesson page PNGs | 1632x2112 each | **157.5 MB** |
+| `candler-foundry-logo.png` | 2337x939 | **8.4 MB** |
+| | | **219 MB** |
+
+Only 11.8 MB over the wire - PNG decompresses ~19x, and the browser holds `w*h*4` bytes **regardless
+of display size**. On the phone we hold a 1632px bitmap to draw a 116px page. Flipping is the trigger:
+each turn rasterizes new layers and, under pressure, iOS evicts decoded images and must re-decode them
+on the next flip - a decode/evict thrash that ends in the jettison. Desktop never hits it because
+there is no per-tab cap. The `/sss/<slug>` Webflow wrapper makes it worse: the flipbook iframe shares
+one memory budget with jQuery, the Webflow runtime and the Foxy portal scripts.
+
+### ⚠ TRAP - the flipbook and the printable PDF SHARE assets, and the PDF needs print resolution
+
+Do **not** "just downscale the big PNGs". `tools/packet_pdf.py` draws `cover.png` full-bleed across the
+whole letter page (`c.drawImage(cover, 0, 0, W, H)`) and `logo.png` at 214pt wide:
+
+- BBS `cover.png` 3264x4224 = **384 dpi** in print. Halving it drops the printed cover to 192 dpi.
+  (Women's cover is already 1632x2112 = 192 dpi, so that is evidently tolerable - but it is a
+  print-quality decision for Emily, not a free win.)
+- `candler-foundry-logo.png` = **786 dpi** at its 214pt placement. Genuinely over-provisioned;
+  892px is the 300 dpi floor.
+- **The 12 lesson page PNGs are flipbook-only** (`packet_pdf.py` never reads `assets/pages/`), so they
+  are free to optimise. That is also where 157 of the 219 MB lives.
+
+The clean fix is to **decouple**: leave the print originals alone and give the flipbook its own
+screen-resolution derivatives under `assets/web/`.
+
+### Fix menu (none applied)
+
+| | Change | Effect | Risk |
+|---|---|---|---|
+| **1** | `loading="lazy"` + `decoding="async"` on page art | 219 MB -> ~40-60 MB resident, **quality untouched** | Needs testing: pages live off-screen in the flip container; a not-yet-decoded page may flash blank on turn |
+| **2** | `srcset` to `assets/web/` derivatives | phone decodes ~3.3 MB/page instead of 13.1; transfer 11.8 MB -> 5.6 MB PNG / **1.2 MB WebP** | Low - desktop keeps the 1632w source |
+| **3** | `mobileScrollSupport: true` | restores pinch-zoom and double-tap-zoom | Low, but changes touch handling on desktop too |
+| **4** | tap-to-turn on narrow screens, in a safe edge zone only | tap to turn the page | **Medium - see the warning above; a plain `disableFlipByClick: false` re-introduces the accidental page turns it was disabled for** |
+| **5** | `usePortrait: true` + a mobile `@media` block | one page at a time filling the width: **3.4x bigger** type, and frees the 130px the arrows reserve | Medium - first real mobile layout, needs design review |
+| **6** | Divide touch coords by `--book-scale` | fixes corner-drag at every size | Medium - patching library behaviour; `size:"stretch"` may be cleaner |
+| **7** | Bigger tab/arrow hit areas on mobile | tabs become tappable | Low |
+| **8** | A reflowing mobile reader | genuinely readable text, no zooming | Large - but **all the text already exists in `content.js`** (it is the PDF source), so it needs no Canva round-trip |
+
+**WebP fixes transfer, NOT the crash** - decoded size is `w*h*4` whatever the file format. Say so
+before anyone proposes it as the memory fix.
+
+Note the ceiling: even perfect portrait mode puts 16px type at ~7.6px, because an 816px page does not
+fit a 390px screen. #1-#7 make the flipbook *usable*; only #8 makes it *readable* without zooming.
+
+### Derivatives already generated (not committed)
+
+`assets/web/` at 816x1056 for every lesson page + cover, and a 462x186 screen logo, for both packets.
+Originals untouched. Totals: transfer 23.6 -> 11.4 MB (PNG) or **2.4 MB** (WebP); decoded 398 -> 86 MB
+(**4.6x less**). A quality proof at three real display sizes shows them identical on a standard
+desktop and marginally softer on Retina / dpr-3 phones - hence `srcset` rather than replacement.
+
+### ⚑ NEXT SESSION - PICK UP HERE
+
+**Nothing has shipped. Production is untouched.** The derivatives above live only in a session
+scratchpad, so **regenerate them** rather than hunting for them (same trap as the old un-instanced
+Mulish TTFs): the generator resizes `assets/pages/*`, `cover.png` and the logo with Pillow LANCZOS
+into `assets/<slug>/assets/web/`, and takes ~1 minute.
+
+**Agreed first sandbox build** (proposed, Emily has not yet picked): `loading="lazy"` +
+`decoding="async"` (#1), `srcset` -> `assets/web/` (#2), and `mobileScrollSupport: true` (#3). That
+addresses the crash and the zoom with the least surface area. Portrait mode (#5) and the coordinate
+fix (#6) are a separate, design-reviewed change. #8 is its own project.
+
+**Test ladder** (see the mobile plan): local static server + Playwright for iteration; Playwright
+**WebKit** (Safari's engine - **not installed**, `npx playwright install webkit`) for touch/zoom
+fidelity; then a **branch deploy** at `https://<branch>--sundayschoolsimplified.netlify.app` - never
+`main`, and a non-production branch cannot become production in Netlify's model. **The acceptance gate
+is a real iPhone**, because no emulator can reproduce an iOS memory jettison: toggle all six lessons
+repeatedly against the preview URL. Also test it inside a temporary Webflow page iframing the preview,
+since the `/sss/<slug>` wrapper adds real memory pressure.
+
+**Pass/fail:** decoded bitmap < 60 MB (from 219); 16px text >= 7px on screen (from 2.3); tap/drag
+flip works; tab targets >= 44x44; **desktop scale, corner-drag, modals, deep links and the PDF viewer
+all unchanged**.
+
+### >> LATEST (2026-09-04) - No em dashes in the letters, BBS L3 reading extended, TIP in print,
+### clickable contents, new back-page sign-off.
+
+Five changes Emily asked for. Both packets rebuilt and verified; baseline reproduction was confirmed
+first (a rebuild from unmodified inputs matched the published PDFs pixel-for-pixel on every page), so
+every page listed below changed because we changed it.
+
+1. **Em dashes are gone from the opening letters (both packets).** BBS had two:
+   "noticed - as we have - that" became "noticed, as we have, that", and "to be easy - you can study"
+   became "to be easy. You can study". The Women letter had none, but used a spaced HYPHEN for the same
+   job ("six of these stories - Hannah,"); that is now a colon. The letter page is engine-rendered from
+   `meta.letter`, so this lands in the flipbook AND the PDF from one edit. Line breaks and page fit are
+   unchanged. **Still present elsewhere and NOT touched** (Emily has not ruled on them): the generator's
+   hard-coded "Read at Bible Gateway (NRSVUE) - or scan the code" (6x per packet) and "Open at Bible
+   Gateway - or scan the code" on the Women resources pages, plus four BBS discussion questions
+   (L1 Q4, L2 Q5, L5 Q4, L6 Q4). **Careful with the questions:** they are baked into the Canva art, so
+   editing `content.js` alone would desync the PDF from the flipbook.
+
+2. **BBS Lesson 3 now reads `Genesis 1:1-2:9; 2:15`** (was `1:1-2:4a; 2:15`). The old reading jumped
+   from the end of creation-story one to a single orphaned verse of creation-story two, with nothing to
+   explain who "the man" is or where the garden came from. Adding 2:4b-9 supplies exactly that setup
+   (the barren ground, the human formed from dust, the garden planted) and stops short of the rivers-of-
+   Eden geography. Emily updated the Canva art herself (design `DAHOtl4BNMk` **page 8**) and the new
+   `lesson-3-a.png` is in. **Hotspots did NOT need re-measuring this time** - a pixel diff of old vs new
+   art shows the ONLY changed region is the reference line (x485-1147, y400-461); the scripture, video
+   and TIP boxes are untouched. Always prove that with a diff before trusting it.
+   `scriptureText` gained 2:4b-9 in NRSVUE, following the house pattern already used by BBS L5 (which
+   quotes 2:4-7), including the `<p class="super">Another Account of the Creation</p>` seam.
+
+3. **The Lesson 3 TIP now prints.** It used to exist only in the flipbook (a red starburst baked into
+   the art plus a `hotspots.tip` hotspot), so the printable packet never mentioned it - the
+   inconsistency Emily flagged. `tools/packet_pdf.py` gained **`tip_box()`**: a full-width aside with the
+   red TIP badge, the wrapped tip text, a QR, and the underlined link label, drawn on lesson page A after
+   the video box when a lesson has `tipText`. Height is computed from the wrapped text so it cannot
+   overflow; L3 page A had ~235pt free, and the box did not push the questions onto a new page (BBS is
+   still 19pp). The tip copy was rewritten for the new reading and repointed at **Genesis 2:10-25**
+   (`tipUrl`, `tipLinkText`), and it no longer uses em dashes.
+
+4. **The printable contents page is clickable on screen.** Each "In This Packet" row is now an internal
+   PDF link to that lesson's page A: `c.bookmarkPage('lesson%d')` on each lesson page A, and
+   `c.linkRect('', 'lesson%d', ..., Border='[0 0 0]')` on the contents row (forward references resolve at
+   save time). No annotation border, so **the printed page is unchanged**.
+   **`pdfview.html` had to learn internal links too** - it only ever overlaid `an.url` annotations, so a
+   `dest` link would have been DEAD in our own viewer. It now handles both: `an.url` keeps opening a new
+   tab, while `an.dest` gets a `.lk-in` anchor whose click resolves the destination
+   (`getDestination` -> `getPageIndex`) and smooth-scrolls to that page, offset by the sticky toolbar.
+   The page lookup happens at CLICK time, because pages render in order and the target may not be in the
+   DOM yet when the link is built.
+
+5. **Back page (PDF end page): stubby rule removed, new sign-off copy.** The 52x3pt accent `roundRect`
+   above the logo read as a stray line; it is gone. The blurb is now "<series> is a project of The Candler
+   Foundry, an initiative of Emory University's Candler School of Theology. We aim to make Bible and
+   theology fun and easy." **The flipbook now says the same thing** - `.resfoot` previously carried only
+   the logo and the URL, so `engine/render.js` adds a `.resfoot-blurb` div and `engine/styles.css` styles
+   it (12px italic, max-width 470px) while tightening `.resfoot` margins/gap to claw back the height.
+   NOTE the flipbook keeps its full-width dotted separator above the footer - that is a structural
+   divider between the accordion and the sign-off, not the stubby rule Emily meant.
+
+6. **The Additional Resources lede no longer promises artwork a packet doesn't have.** Both surfaces
+   said "Extra viewing, artwork, and reading...", but BBS has **no** `artwork[]` on any lesson (still a
+   pending item), so it advertised a category that never appeared. The lede is now derived from the data
+   - `C.lessons.some(l => (l.artwork||[]).length)` in `engine/render.js`, `any(l.get('artwork') ...)` in
+   `res_header()` - so it reads "Extra viewing and reading..." for BBS and keeps the artwork wording for
+   Women. It will start saying "artwork" for BBS automatically the moment artwork is wired, with no code
+   change. Proof it is inert where artwork exists: the rebuilt **Women PDF differs on ZERO pages** (so it
+   was not re-committed); only BBS p16 changed. Watch the comma - "Extra viewing, and reading" is wrong
+   with only two items, so the whole phrase is swapped, not just the middle. The empty-state strings
+   ("Extra videos, artwork, and readings will appear here as they are added") are deliberately left
+   alone: they only fire when a packet has NO resources at all, where they read as forward-looking.
+
+**Verification (all done, none of it assumed).** Baseline rebuild = pixel-identical to the published
+PDFs. After the changes, the only pages that differ are BBS 2/8/19 and Women 2/22; page counts hold at
+19/22; PyMuPDF found no out-of-bounds and no overlapping text blocks anywhere. **The Browser pane cannot
+verify pdf.js** - the live, unmodified viewer stalls at 1 rendered page there too, so that is an
+environment artifact, not a regression; use **Playwright** instead (`work/verify-pdfview.mjs` pattern).
+Playwright confirmed: 19 pages, 6 internal links on the contents page, all 6 landing on pages 4/6/8/10/
+12/14 with 0px offset, 64 external links all still `target="_blank"`, no console errors. Allow ~3s for
+the smooth scroll to settle before asserting position, or long jumps read as failures. The flipbook was
+checked too: new art loads, the scripture modal header reads "Genesis 1:1-2:9; 2:15" with the garden and
+tree-of-life verses present, the TIP pop-out shows the new copy and the 2:10-25 link, and the new footer
+blurb fits inside the fixed 816x1056 page on both packets.
+
+### >> LATEST (2026-09-02) - Landing block 2 full-width + Foxy checkout code saved.
+
+- **Landing "HERE'S HOW IT WORKS" (block 2) is now full-width.** It was capped `max-width:1200px` and
+  looked small next to the portal's equivalent "Let's get going" band, which has no cap. Removed the cap
+  so `webflow-embeds/landing.html` block 2 wrapper is just `position:relative;width:100%;line-height:0` -
+  structurally identical to the portal's `.sss-ll`, so it renders at the same scale. Hotspot is %-based
+  (stays aligned); single image (proportional). Commit 4da55fcb. ⚠ **Emily re-pastes landing.html block 2.**
+  (Block 1 hero is still capped at 1200px - widen the same way if you want all three consistent.)
+- **Foxy checkout custom code is now version-controlled in `foxy-embeds/`** (mirrors `webflow-embeds/`;
+  this code lives in the Foxy admin checkout config, NOT auto-served - Emily pastes it). Includes the
+  **account-forcing footer**, whose `FORCE_LOGIN_CATEGORY` had omitted SSS - so SSS checkouts ran
+  guest-allowed and the occasional shopper registered with no account/password. Fixed by also matching the
+  `SSS-` product-code prefix. ⚠ **Emily must paste the corrected footer into Foxy.** It's client-side
+  (bypassable) - a server-side pre-payment webhook is the bulletproof follow-up (not built).
+- **Foundry-wide operational reference:** `Dropbox/Operations/Claude Context Docs/Candler Foundry -
+  Operations Playbook.md` (systems, access, standing rules, procedures, project index).
+
+### >> LATEST (2026-09-01) - Resources grouped by lesson + PDF links open in a NEW window.
+
+Two printable-packet changes Emily asked for:
+
+1. **Additional Resources grouped by lesson.** `tools/packet_pdf.py` no longer lists resources as a flat run
+   with the lesson stamped inside each pill. It now renders one subsection per lesson (accent numeral + lesson
+   title + a hairline rule) with that lesson's resource pills **compact and indented** beneath it; the per-pill
+   "Lesson N" tag is gone. `box()`, `link_box()`, `note_box()` gained `x/w/compact` params (defaults reproduce
+   the old full-size boxes on the lesson pages EXACTLY, so only the resources section changed). Both PDFs re-cut
+   + pushed (BBS 19pp, Women 22pp), rendered + verified, byte-parity confirmed live. Commit 3ab80c7e.
+
+2. **PDF links open in a NEW window - via an in-page pdf.js viewer, NOT a change to the PDF.** The
+   scripture/video/resource links inside the PDF used to replace the PDF's own window with no way back. There is
+   **no way to fix this inside the PDF file** for the browser case: browsers' built-in PDF viewers navigate the
+   same window on a plain URI link and **ignore PDF JavaScript** (the `app.launchURL(url,true)` "new window"
+   trick) - verified two ways in the real browser (a document OpenAction never fired; a JS link annotation did
+   nothing). So the fix lives at the page that PRESENTS the PDF:
+   - **`/pdfview.html`** (NEW, repo root) renders the packet PDF with pdf.js (cdnjs 3.11.174, UMD global
+     `pdfjsLib`) and overlays **every link annotation as a real `<a target="_blank">`**, positioned via
+     `viewport.convertToViewportRectangle(annot.rect)`. Same-origin `?file=` guard, `?title=` for the header,
+     Download/Print + zoom, DPR-crisp canvas. Plain HTML anchors => new-tab works in ALL browsers. Commit 202da6f0.
+   - **`engine/render.js`** - the flipbook "Printable Packet" tab now opens `/pdfview.html?file=<pdf>&title=<t>`
+     in a **NORMAL browser tab** (address bar + back button; `target="sssPdf"` reuses the tab) - NOT the old
+     chromeless `window.open(...,width/height)` pop-out (Emily disliked the box with no back button). Live + verified.
+   - **`webflow-embeds/portal.html`** - `sssPDF()` now opens the Netlify-hosted `/pdfview.html` in a normal tab
+     (`window.open(v,'sssPdf')`, no size features) instead of the raw PDF, so the portal "Printable PDF" tiles
+     match. **Emily must RE-PASTE portal.html BLOCK 3 into Webflow** for the portal side to go live (the flipbook +
+     PDFs are repo-served and already live). Commits dc2facf6 (viewer routing) + 4df0613b (normal tab).
+   - **Skipped** the optional `app.launchURL` add-on for downloaded-in-Adobe copies: it would DEAD-LINK the PDF
+     for anyone who downloads it and opens it in Chrome/Edge, and the viewer makes it unnecessary. Offer if asked.
+
+### >> LATEST (2026-08-21) - MY LESSONS inline login + block-2 redesign (portal).
+
+**The logged-in "My Lessons" portal page now has an INLINE sign-in** (Aug-19 UX fix). It solved: the welcome
+email linked to a login page that, once signed in, defaulted to **My Courses** (On-Demand) not My Lessons - and
+most email clicks land LOGGED-OUT (email opens in an isolated in-app browser). New flow: the user signs in **in
+place on My Lessons** and never navigates away. Canonical code: `webflow-embeds/portal.html` (3 Webflow HTML
+embeds, stacked). Live: `candlerfoundry.emory.edu/customer-portal/my-lessons`. Latest portal.html commit: 7a91b5c.
+
+### Block 3 - "Your Packets" + inline sign-in (self-switching by login state)
+- Both states live in ONE section; **`foxy-logic` shows exactly one** (hides the wrong one, reveals the right
+  one - never both). NOTE: previewing the raw HTML with no foxy-logic present shows BOTH; that is a preview
+  artifact only, not the live behavior.
+  - **Logged OUT** -> `.pk-login` card (`foxy-logic-authenticated="false"`).
+  - **Logged IN** -> the packet tiles (`foxy-logic-transaction-includes="SSS-BEYONDBUMPER" / "SSS-GOSPELWOMEN"`).
+- The card = Emily's Canva art for ALL typography (baked transparent PNGs on Netlify) + flat-color backgrounds +
+  the live Foxy form. Assets: `assets/sss-portal-lock.png` (open-padlock woodcut), `assets/sss-portal-signin-head.png`
+  ("Don't see your lessons? Please sign in below:"), header `assets/sss-portal-header-v2.png`. Backgrounds: lavender
+  `#DFE6F4` + white card `#fff` (sampled from Emily's Canva). **NEVER re-render her display fonts live - she vetoed
+  that (renders poorly); all her text is baked PNGs, only the Foxy form fields are live.** Layout: heading centered
+  full-width on top (~510px), then a centered row [lock 92px | Foxy form 400px]; card max-width 600px; stacks on mobile.
+- **After an inline sign-in we `location.reload()`** (on the Foxy element's `signin` event) so foxy-logic
+  re-evaluates the now-logged-in session and swaps to the tiles - same URL, user stays on My Lessons. If the
+  `signin` event name is ever wrong, sign-in still works; tiles just need one manual refresh. NOT YET OBSERVED
+  FIRING LIVE - verify on a real sign-in.
+
+**>> SECTION-3 SCALE MATCH + NEXT-SESSION PICK-UP (2026-08-21 pt.7). READ THIS FIRST.**
+Emily wants the LANDING "Choose Your Packet" (block 3) and the logged-in PORTAL "Your Packets" (block 3) at the SAME
+card scale, and **prefers the larger portal size**. So: portal.html was left at its original size (do NOT cap it);
+landing.html block 3 was scaled UP to match — removed its `max-width:1200px` cap and wrapped the image in
+`<div style="max-width:2530px;margin:0 auto;padding:0 2.6%;box-sizing:border-box">` (2.6% side padding = the portal
+`.pk3` side padding; the positioned image div stays padding-free so the 4 hotspots keep aligning). Verified: landing
+card 604px vs portal card 605px in a shared 1400px container (both scale linearly → match at every width). NOTE
+landing blocks 1 & 2 (hero, how-it-works) are still `max-width:1200px` — only block 3 widened.
+
+**CURRENT canonical assets (all live on Netlify):** landing = `sss-landing-hero-v3`, `sss-landing-getstarted-v4`
+(slide 6), `sss-landing-packets-v4` (slide 7) + `sss-landing-packets-edge` (full-bleed strip). portal =
+`sss-portal-hero-v3`, `sss-portal-letslearn-v3`, `sss-portal-header-v3` (slide 14), `sss-portal-tile-bbs-v4` /
+`sss-portal-tile-women-v4` (slides 12/13), plus `sss-portal-lock` / `sss-portal-signin-head` (sign-in card).
+
+**DONE + LIVE (repo-served, no paste needed):** flipbook **Cover tab**; **Recommended Reading swap** in both packets
++ both PDFs re-cut (BBS 19pp, Women 22pp); BBS L4 title etc. **DONE in repo, ⚠ EMILY MUST PASTE into Webflow/ESP:**
+`webflow-embeds/landing.html` blocks **2 & 3**, `webflow-embeds/portal.html` block **3** (has clickable covers +
+v4 tiles at preferred size), and the refreshed **welcome-email HTML** (now stored at `webflow-embeds/welcome-email.html` for recoverability;
+destination = Emily's ESP — flow = one action, inline-login language, no password blurb; keeps the
+`{{=gives["375476935"][...]}}` merge tokens).
+
+**STILL OPEN (Emily's input needed):** (1) **BBS artwork pick** (only De Morgan→L1 + Rembrandt→L4 found; Claude
+proposed Michelangelo→L5, Hicks→L3, maps, word-study tip) → then wire `artwork[]` + re-cut BBS PDF. (2) **3MB-273 khanun** — ✅ **2026-08-26 SHIPPED + LIVE**: corrected Larry masters arrived; captioned (name card now "LARRY VARGHESE"), **Vimeo `1221254097`**, wired into Women L1 `optionalVideos`, **Women PDF re-cut (22pp)**, Airtable set (Vimeo/Dropbox/Status/proofed transcript). ⚠ Only remainder: Emily must add "Larry Varghese" as an Airtable `Instructor/Speaker` single-select option (API can't create it) to correct the speaker (currently wrongly Bonfiglio). (3) **Drag 11 supplemental Vimeos** into
+the "3 Minute Bible" folder (token lacks interact scope). (4) Optional: widen landing blocks 1 & 2 to match block 3.
+
+**✅ Vimeo POSTER de-blur (2026-08-26).** Some flipbook Additional-Resources 3MB videos loaded with a **blurry title-card still** (Vimeo auto-picked a poster frame mid-animation; playback was fine). Fixed all **14 optional videos** → crisp title-card posters via the Vimeo pictures API (sample intro frames, pick the sharpest dark title card, set active — no re-upload). The **12 main lesson videos** can get the same treatment (offered).
+
+**⚑ NEXT-SESSION HANDOFF (2026-08-26).** **(A) Webflow nav:** add **"Sunday School Simplified"** to the Candler Foundry homepage **Resources** dropdown → link **`/sunday-school-simplified`** (manual in Webflow Designer — that's the Foundry Webflow site, NOT this Netlify repo; the navbar is likely a global symbol, so one edit applies site-wide; confirm the exact live slug — a scripted GET returned 401). **(B) 3MB backlog:** caption the **17 "missing-record" 3MB videos** (Airtable Type=3MB with no Vimeo link and no captioned master) and add transcripts + Vimeo/Dropbox links; source = the Lavender July-2026 delivery (Arnold 13 + Bonfiglio 15 + Larry 6). ⚠ Several "Bonfiglio"-labeled records are actually **Larry Varghese** (271 hesed, 272 rakhum confirmed). A separate **50** already-captioned records (Status=Complete) just need a Vimeo upload + link. **3 decisions await Emily:** scope (the 17 vs also the 50) / review-gate style / OK to fix mislabeled speakers (+ she must add the "Larry Varghese" Airtable option). Full detail: the 3MB pipeline README (`Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) + memory `project-3mb-july2026-delivery`.
+
+**>> COVER TAB + RECOMMENDED-READING SWAP (2026-08-21 pt.6).** (a) **Flipbook Cover tab** — `engine/render.js`
+now renders a **"Cover"** tab (first in the tab column, `fa-book` icon) that jumps back to the front cover
+(`flip.flip(0)`); active when `pageIndex<=1`. Shared engine → both packets. Verified live on BBS (Contents→Cover
+returns `on-cover`, active "cover"). (b) **Recommended Reading swap (BOTH packets)** — dropped both *Womanist
+Midrash* volumes; added **The Old Testament: A Historical and Literary Introduction to the Hebrew Scriptures**
+(Coogan & Chapman, Oxford, **5th ed** 978-0-19-776817-4) + **The Writings of the New Testament: An Interpretation**
+(L.T. Johnson & Todd C. Penner, Fortress, **3rd ed** 978-0-8006-6361-2); both on Amazon + Bookshop (verified live).
+`meta.recommendedReading` updated in both content.js (targeted edit, `·` = U+00B7 separator). **Both PDFs re-cut**
+(`packet_pdf.py`; BBS 19pp, Women 22pp; reading page paginates to an "(cont.)" page — verified render, Coogan 2-line
+title wraps clean, no Womanist). All pushed + Netlify-verified. ⚠ Emily: no paste needed for these (flipbook/PDF are
+repo-served) — but the landing/portal Webflow pastes (pt.4/pt.5) are still pending.
+
+**>> LANDING v4 + PORTAL CLICKABLE COVERS (2026-08-21 pt.5).** (a) **Landing section 2** = new Canva slide 6
+(formatting fixes) -> `assets/sss-landing-getstarted-v4.png`; landing.html block-2 src bumped v3->v4, "CLICK HERE"
+hotspot unchanged (`44/79.5/12.5/6.5`, re-verified). (b) **Landing section 3** = new Canva slide 7 (readability
+redesign: cream cards, cover-left, buttons now STACKED on the right) -> `assets/sss-landing-packets-v4.png` + regen
+full-bleed edge strip. Register/Learn More hotspots restacked (were side-by-side): BBS Register `27.1/70.7/13.8/8.4`
++ Learn More `27.1/77.7/13.9/8.3`; Women Register `76.3/70.7/13.8/8.4` + Learn More `76.3/77.7/13.9/8.3`. (c)
+**Portal tiles: the packet COVER thumbnail is now clickable** -> `/sss/<slug>` (hotspot `5.5/8.5/46/80`, radius 14),
+added on BOTH tiles alongside Open Packet/Printable PDF. All assets live on Netlify; landing.html + portal.html
+pushed. ⚠ Emily re-pastes landing blocks 2&3 + portal block 3. **STILL OPEN (finalize today):** flipbook COVER tab
+(engine `render.js`); Recommended-Reading swap (drop Womanist Midrash both packets, add L.T. Johnson *Writings of
+the NT* 3e 9780800663612 + Coogan/Chapman *The Old Testament* 4e 9780190608651 or 5e 9780197768174) + re-cut both
+PDFs.
+
+**>> BLOCK-3 TILE REDESIGN (2026-08-21 pt.4).** Emily redesigned the logged-in "Your Packets" tiles for readability
+(Canva `DAHRnlJvmA4` slides 11-14: 11=assembled reference, 12=BBS tile, 13=Women tile, 14=background+header;
+`YOUR PACKETS` header). New tiles are a LANDSCAPE card (cover LEFT; VOLUME + title + description RIGHT; **Open Packet**
+filled pill above **Printable PDF** outlined pill; "6 LESSONS" footer) - same ~1.315 aspect as the old portrait-ish
+tiles so the existing `.pk-grid` layout was reused. Assets (exported via Canva connector, cropped to the card by
+opaque-alpha bbox, 256-color FASTOCTREE PNGs preserving the transparent rounded corners): `sss-portal-tile-bbs-v4.png`
+(1093x831, 45KB), `sss-portal-tile-women-v4.png` (1095x831, 40KB), header `sss-portal-header-v3.png` (752x197, from
+slide 14; section bg stays flat #DFE6F4 = slide-14 bg). **Hotspots RESTACKED** (were side-by-side Open Booklet/PDF):
+both tiles use **Open Packet `left:55.5% top:70% w:28% h:10%`** + **Printable PDF `left:55.5% top:80.3% w:28% h:10%`**
+(color-detected pill bboxes + padding; overlay-verified). Labels "Open the ... packet". **Removed the stale mobile
+`.tile a{top:78.3%;height:14%}` override** (it forced both hotspots to one row - wrong for the stacked layout; the %
+hotspots scale fine on mobile). Header `.pk-head` bumped to width:40%/max 752px. Verified assembled at 1200px. Old
+`sss-portal-tile-bbs/women-v3` + `sss-portal-header-v2` are SUPERSEDED. ⚠ Emily re-pastes portal.html block 3.
+
+### Foxy `<foxy-customer-portal>` customization - REUSABLE REFERENCE
+Same element as the Account page (`base="https://the-candler-foundry.foxycart.com/s/customer/"`, module
+`https://cdn-js.foxy.io/elements@1/foxy-customer-portal.js` + the i18n `onResourceFetch` hook). Auth is
+**email + password** (NOT magic-link - which is why inline login works without a second webview).
+- **Show/hide sub-controls via `hiddencontrols`** (BooleanSelector, space-separated). The logged-out view
+  (`InternalCustomerPortalLoggedOutView`, `infer=""` so paths are un-prefixed from the element) exposes:
+  `sign-in:header` (Foxy's own "Sign in" + "Please enter your email and password"), `sign-in:signup`
+  ("Create account"), `sign-in:recover` ("Get temporary password" = forgot-password), `sign-in:form`.
+  **We set `hiddencontrols="customer:subscriptions sign-in:header sign-in:signup"`** -> hides the duplicative
+  header (Emily's baked heading replaces it) + truly removes Create-account from the DOM (no phantom click
+  target), and KEEPS "Get temporary password". (A store-level "disable sign-up" toggle would strip Create-account
+  everywhere incl. the real customer portal - Emily won't do that; hiddencontrols is per-embed.)
+- **Theming = Lumo design tokens** (`--lumo-*` on the element). GOTCHAS learned by inspecting the LIVE DOM:
+  - The primary **"Sign in" BUTTON background is NOT themeable** - Foxy paints it its own blue `rgb(22,118,243)`
+    internally, ignores `--lumo-primary-color`, exposes no `::part`. **Button stays Foxy blue (Emily OK with it).**
+    A fully custom form could recolor it but would own the session foxy-logic reads = risky; not worth it.
+  - The tertiary **"Get temporary password" link TEXT color = `--lumo-primary-text-color`**. Set it to NAVY
+    `#24364b` (NOT white - white made the link INVISIBLE on the white card; real bug we fixed). The Sign in button
+    keeps its white label (uses `--lumo-primary-contrast-color`, unaffected).
+  - Also set: `--lumo-primary-color:#24364b`, `--lumo-border-radius-m/l:11px`, `--lumo-base-color:#fff`,
+    `--lumo-font-family:'Avenir Next',...`.
+  - Control-name / part source of truth: `Foxy/foxy-elements` repo,
+    `src/elements/public/CustomerPortal/InternalCustomerPortalLoggedOutView.ts` + `SignInForm/SignInForm.ts`; i18n
+    keys in `cdn-js.foxy.io/elements@1/translations/customer-portal/en.json` (keys under `sign-in-form.*`).
+
+### Block 2 - redesigned "LET'S GET GOING!" (Canva slide 10)
+- **Dropped the personalized "LET'S LEARN, <NAME>"** -> REMOVED the live Thierry name overlay, its shrink-to-fit
+  script, the `@font-face`, and the `foxy-logic-display` source. **This permanently kills the mobile FRIEND-pill /
+  Thierry-font-drift problem, and the old "upload thierry.woff2 to Webflow" to-do is no longer needed for the
+  portal.** Also dropped the "Don't see your lessons? LOG IN" hotspot (login is now inline in block 3). Block 2 is
+  now just the band image + two hotspots.
+- New band image `assets/sss-portal-letslearn-v3.png` (2400x750, same framing as v2). Hotspots (nudge % if they
+  drift): "Browse available lessons HERE" -> `/sunday-school-simplified` (left:65.5% top:66% w:5.5% h:6.5%);
+  "Email us HERE" -> `mailto:candlerfoundry@emory.edu` (left:51.5% top:75.5% w:5.5% h:6.5%). CONFIRM the email addr.
+
+### >> DONE (2026-08-21): LANDING page block-2 copy refreshed (Canva slide 6)
+Emily's "more seamless" landing block-2 is shipped in `webflow-embeds/landing.html`. Slide 6 (design `DAHRnlJvmA4`)
+was retitled from "Let's get started" to a 3-step **"HERE'S HOW IT WORKS:"** card (1 Register for your FREE
+packet(s) below / 2 Check your inbox / 3 Open packet - each includes SIX lessons) + footer "Already registered?
+CLICK HERE to access your lessons." Exported slide 6 -> `assets/sss-landing-getstarted-v3.png` (2400x1000, 256-color
+PNG 137KB, live on Netlify). **The "CLICK HERE" hotspot now points to `/customer-portal/my-lessons`** (was
+`/customer-portal/account`) - inline login lives there now. Hotspot re-measured on the new crop:
+`left:44% top:79.5% w:12.5% h:6.5%` (overlay-verified snug over the bold "CLICK HERE"). Alt text refreshed.
+Also fixed the block-3 "Learn More" modal Widow ref `1 Kings 17:1-16` -> `17:1-24` (matches the packet).
+
+**BLOCK-3 FULL-BLEED FIX (2026-08-21):** the "Choose Your Packet" lavender band was capped at 1200px (baked into
+`sss-landing-packets-v3.png`), so the color stopped short of the browser edges. Restored the original full-bleed
+intent (README "heroes reshaped" block: art bands full-bleed, tiles at 1200px): block 3's outer div is now
+`width:100%` with the lavender running edge-to-edge via a STRETCHED EDGE-STRIP background
+(`assets/sss-landing-packets-edge.png`, an 8x1200 crop of the panel's left edge, `background-size:100% 100%`) so the
+baked vertical gradient matches seamlessly at the 1200px boundary; the packet-card image stays centered at max
+1200px on top. Verified at 1500px viewport (lavender fills both edges, no seam). If the band still stops short on
+Emily's live page, her HTML Embed is inside a constrained Webflow container (not a full-width section) - move the
+Embed to a full-width section, or switch the wrapper to `width:100vw;margin-left:calc(50% - 50vw)`.
+
+**⚠ Emily still has to PASTE landing.html blocks 2 AND 3 into their Webflow embeds to go live.** Latest landing.html
+commit supersedes the older one. Remaining tie-in: repoint the **welcome email** link straight at My Lessons
+(DONE 2026-08-21 - welcome email refreshed to one-action inline-login flow; lives in Emily's ESP, not the repo).
+
+### How the portal work was verified
+Tested on the LIVE page via the in-app browser + JS injection on the real Foxy component (hiddencontrols removing
+the header/create-account, the navy recover link, the centered/enlarged heading) BEFORE baking into portal.html.
+Emily re-pastes each block into the Webflow embeds to go live.
+
+### ▶▶ LATEST (2026-08-18) — it supersedes older status below
+
+**Additional Resources page was REDESIGNED as a dropdown accordion (shared engine).** `resourcesPage()`
+in `engine/render.js` now builds one collapsible row per lesson that has extras + a shared **Recommended
+Reading** row. **The separate end page is GONE** — the Candler Foundry sign-off (a **shrunk, LINKABLE**
+logo `assets/candler-foundry-logo.png` + **linkable** `candlerfoundry.emory.edu`) now sits at the bottom
+of the resources page. (The old end-page URL said `candlerfoundry.org` — WRONG; fixed everywhere.)
+**Video labels no longer say "· optional."** Schema now: per-lesson **`optionalVideos`** (ARRAY;
+singular `optionalVideo` still accepted for back-compat) + **`artwork`** (array, link-out) + meta-level
+**`recommendedReading`** (array). Verified live on both packets; the page fits the fixed 816×1056 page
+with the fullest row open (`.acc` is flex:1 scroll, footer flex:0).
+
+**Women "extra 3MB per lesson" (Additional Resources) — status:**
+
+| Women lesson | supplemental 3MB | Vimeo | state |
+|---|---|---|---|
+| L1 Hannah | `3MB-273` *khanun* | — | **ON HOLD** — see below |
+| L2 Two Daughters | `3MB-258` *pistis* | `1219313246` | LIVE (L2 also keeps *Mark's Secret Messiah* `1210281410`) |
+| L3 Shiphrah & Puah | `3MB-68` *What is Torah?* | `1219255056` | LIVE |
+| L4 Zelophehad | `3MB-267` *mishpat* | `1219343599` | LIVE |
+| L5 Tamar | `3MB-65` *Are OT figures a model of faithfulness?* | `1219254921` | LIVE |
+| L6 Widow | `3MB-85` *Orphan, widow, stranger* | `1219255238` | LIVE |
+
+- **`3MB-273` *khanun* is ON HOLD.** Its baked name lower-third reads only **"LARRY"**; the speaker is
+  **Rev. Larry Varghese**, NOT Bonfiglio — and **Airtable's `Instructor/Speaker` for 3MB-273 wrongly says
+  Bonfiglio**. **The producer is re-cutting ALL of Larry's videos to fix the name card**; wire khanun
+  (and any other Larry 3MBs) only when those corrected masters arrive. Then: caption → Vimeo → Airtable
+  (also fix the speaker field) → wire Women L1 → re-cut Women PDF. Do NOT publish the current file.
+- **Per-lesson ARTWORK** (link-out, 2–3 per Women lesson) is wired from Emily's list. **BBS artwork is
+  PENDING** (Emily's Codex is researching it).
+- **Yale "The Gospel of Mark" reading was removed** from Women L2 (Emily's call).
+
+**Recommended Reading (5 commentaries) is on BOTH packets** (`meta.recommendedReading`): Women's Bible
+Commentary 3e `9780664237073`; Theological Bible Commentary `9780664227111` (**Amazon-only — not on
+Bookshop**); NT in Color `9780830814091`; Womanist Midrash v1 `9780664239039`; v2 `9780664266011`.
+Amazon = `amazon.com/dp/<isbn10>`, Bookshop = `bookshop.org/book/<isbn13>`.
+
+**Both printable PDFs were re-cut** (`tools/packet_pdf.py` updated): resources section reads
+`optionalVideos[]` + `artwork[]` + `optionalReadings` + a Recommended Reading section (new `book_box`),
+and **the end page now uses the real logo IMAGE (linkable) instead of the flipbook-font wordmark**, URL
+`candlerfoundry.emory.edu` (logo + URL both linkable). PDF build = **Python 3.14** (`/c/Python314/python`
+has reportlab/qrcode/pymupdf/fontTools/cu2qu/brotli); reconstruct the repo tree, run
+`tools/prep_fonts.py --out fonts`, put `content.json`(from content.js)+`cover.png`+**`logo.png`**(=
+packet `assets/candler-foundry-logo.png`) beside `make_pdf.py`/`make_women_pdf.py`. PDFs live at
+`packets/<pkg>/<meta.pdf>`.
+
+**⚠ VIMEO FOLDER FILING PENDING — Emily to do (or give an `interact`-scoped token).** These 5 published
+videos are public but could NOT be filed into the **"3 Minute Bible"** folder (project `27506621`) via
+API — the token scope is `private edit upload video_files public` (no `interact`), so the folder PUT
+returns 403. Drag them into the folder in the Vimeo UI:
+`3MB-65` (1219254921) · `3MB-68` (1219255056) · `3MB-85` (1219255238) · `3MB-258` (1219313246) ·
+`3MB-267` (1219343599).
+
+**✅ DONE (2026-08-20) — 6 supplemental 3MBs wired into BEYOND BUMPER STICKERS.** All uploaded public,
+Airtable `Vimeo Link` set, wired into `content.js` `optionalVideos[]`, and in the re-cut PDF (19pp),
+verified live on Netlify:
+
+| BBS lesson | supplemental 3MB | Vimeo |
+|---|---|---|
+| L1 For I Know the Plans | `3MB-249` *What happened during the exile?* | `1219870379` |
+| L2 Be Still | `3MB-74` *Who wrote the Psalms?* | `1219870516` |
+| L3 Have Dominion | `3MB-262` *What is adam?* | `1219676911` (wired Aug 19) |
+| L4 I Can Do All Things | `3MB-42` *What is an encomium?* | `1219870600` |
+| L5 All Scripture Is Inspired | `3MB-20` *Who wrote the Pauline letters?* + `3MB-25` *What are the Pastorals?* | `1219870709` · `1219870840` |
+| L6 Love Is Patient | `3MB-28` *Understanding Paul's Letters* | `1219870939` |
+
+**⚠ Emily to do:** drag these 6 into the Vimeo "3 Minute Bible" folder (project `27506621`) — the token
+lacks `interact` scope (403). **BBS artwork still PENDING** — Emily's Codex found only 2 pieces (De Morgan
+*By the Waters of Babylon* → L1; Rembrandt *Saint Paul in Prison* → a Paul lesson, likely L4). Because
+several BBS lessons are abstract (not narrative), Claude proposed additions tied to a concrete anchor in
+each text: Michelangelo *Creation of Adam* → L5 (2 Tim "God-breathed" + Gen 2:7), Edward Hicks *Peaceable
+Kingdom* → L3 (dominion-as-care), plus non-painting supports (maps; a word-study "tip" sidebar like L3's;
+Psalm 46 → Luther's "A Mighty Fortress"). Awaiting Emily's pick before wiring `artwork[]` + re-cutting PDF.
+
+**The pattern (for future BBS/Women supplemental additions).** For EACH:
+1. **Look it up in Airtable first** (base `appiL0Z2RilcAT2Cw`, table `tblS1Bk29cXyGGUdo`) — code, `Name`,
+   `Instructor/Speaker`, existing transcript/Vimeo. Refer to it by **`3MB-<code>` + title**, never number.
+2. **If it lacks a captioned master, caption it** via the pipeline (`…\Dropbox\3MB\SSS 3MB Captioning
+   Pipeline\`): Whisper **medium** + AI proof (Greek/Hebrew, scripture refs, ASR), **intro-gate**
+   (captions start only after the name card clears — 3rd standing rule), ≤2-line burn. Then Emily's
+   review gate unless she says otherwise. Diff the new transcript vs the Airtable transcript and
+   hand-fix (e.g. "Biblical"→"biblical"). See that README's §3 (naming/filing) + §4 (pipeline).
+3. **Upload to Vimeo PUBLIC** — stage the file OFF the Dropbox mount first (WinError 389 guard), create
+   with `privacy.view=anybody, embed=public`, name = Airtable `Name` (e.g. "What is Torah?"), desc =
+   "A 3 Minute Bible with <Speaker>. From The Candler Foundry…". (Folder add will 403 — see above.)
+4. **Airtable**: write the `Vimeo Link` (and `Transcript` if newly proofed). Status stays "Draft".
+5. **Wire into `packets/beyond-bumper-stickers/content.js`** as `optionalVideos: [ {title, subtitle:"3
+   Minute Bible", url} ]` on the right lesson (do NOT write "optional"). content.js keeps short arrays
+   inline — edit with TARGETED string replacements, never a full `json.dumps` reserialize.
+6. **Re-cut the BBS PDF** (see build note above) and push it to `packets/beyond-bumper-stickers/`.
+7. **Naming/filing taxonomy** for the working files: `3MB-<code> - <Title> - <Speaker last name>\` with
+   `(Captioned).mp4` / `- Horizontal - Uncaptioned.mp4` / transcripts / `.words.json` — pipeline README §3.
+
+
+**This block is the current state of the project — read it first.** Anything left over from the older
+2026-08-07 priority list now lives under **"Carried-forward open items"** near the bottom of this file.
+Three workstreams; two are essentially done and the third is waiting on Emily.
+
+**1) Videos — ✅ ALL DONE except one held master (2026-08-17).** Emily approved the corrected batch and
+said "embed all of the videos", so four went up public in one session, all wired, all verified playing
+live, all written to Airtable:
+
+| Packet · lesson | 3MB code | Vimeo | Vimeo title |
+|---|---|---|---|
+| BBS L1 | `3MB-283` | `1218983605` | The Story of Jerusalem |
+| BBS L4 | `3MB-44`  | `1218993379` | Did the biblical texts have chapters, verses, and section headings? |
+| BBS L5 | `3MB-287` | `1218983645` | Scripture Inspired by God |
+| BBS L6 | `3MB-288` | `1218983700` | Love Is Patient, Love Is Kind |
+| Women L6 | `3MB-280` | `1219007254` | The Widow of Zarephath |
+
+**✅ EVERY LESSON IN BOTH PACKETS NOW HAS AN EMBEDDED VIDEO — 12 of 12.** The Widow master finally
+landed and went through the full pipeline on 2026-08-17 (see the Packet #2 section for its splice,
+which did NOT follow the usual template). Titles are the **on-screen slide titles with no series
+suffix**, per Emily;
+`3MB-44` has no short slide title so its Vimeo name came from the **Airtable `Name`** field — rename it
+if that reads long. Two things to know for next time: the whole batch deliberately stays
+**Status = "Draft"** in Airtable (matching the six published in July — Status does not track publication
+in that table), and **`3MB-44` carries the FEBRUARY caption style** (up to 3 lines, different placement)
+rather than the v2 ≤2-line standard the other nine use — it was uploaded as-is at Emily's direction, so
+re-caption at medium and re-burn if the packet should look uniform. Historical detail below.
+
+<details><summary>How they got here (Aug 14 note)</summary>
+
+**3 captioned, awaiting Emily's review (HARD GATE before Vimeo).**
+`3MB-283` (Jeremiah / L1), `287` (2 Timothy / L5), `288` (1 Corinthians / L6) are spliced with the
+corrected title cards, captioned at Whisper-**medium** + AI-proofed, and **re-burned 2026-08-14 with
+proofing fixes** (287 "Church"→"church"; 283 "Washington DC"→"Washington, D.C."; "scripture"→
+"Scripture" normalized; Greek/Hebrew transliterations verified public-friendly). Review copies live in
+`…\Dropbox\3MB\NEW VIDEOS GO HERE\_CAPTIONED FOR REVIEW\`. **Next after Emily approves:** Vimeo (public)
+→ Airtable (Transcript + Vimeo Link) → wire BBS **L1/L5/L6** `videoUrl` in `content.js` → re-cut the BBS
+PDF. **Also open:** L4 **Philippians (`3MB-44`)** — captioned (Feb) + filed already; Emily to decide
+**upload as-is vs re-caption at medium**. Canonical runbook = the pipeline-folder README
+(`…\Dropbox\3MB\SSS 3MB Captioning Pipeline\`).
+</details>
+
+**2) Webflow marketing surfaces — public landing + logged-in "My Lessons" portal.**
+**Canonical embed code now lives in [`webflow-embeds/`](webflow-embeds/)** (`landing.html`, `portal.html`,
+`README.md`) — do NOT reconstruct it. Built from Canva **`DAHRnlJvmA4`** (shortlink
+`canva.link/l2565l075ywv8cs`). **CURRENT assets in `assets/`** (older versions superseded — use these
+exact names): landing = `sss-landing-hero-v3`, `sss-landing-getstarted-v2`, `sss-landing-packets-v3`;
+portal = `sss-portal-hero-v3`, `sss-portal-letslearn-v2`, `sss-portal-header-v2`,
+`sss-portal-tile-bbs-v3`, `sss-portal-tile-women-v3`. The personalized greeting uses self-hosted
+**Thierry Leonie** (`engine/assets/fonts/thierry.woff2`, CORS via repo `_headers`). **Sizing factor is
+per-band and must be RE-MEASURED whenever the art changes** — Thierry caps are 96% of the em, so
+factor = (baked cap-height / imgWidth) / 0.96. The current compact band (`sss-portal-letslearn-v2`,
+2400x750) uses **`clientWidth * 0.0269`**; the older 2400x1000 band used 0.0443. Landing (hero /
+get-started / choose-packet) + portal (hero / let's-learn / your-packets) are built. **Two things are
+waiting on Emily, and nothing changes on the live site until she does them:**
+   - **⚠ PASTE THE SECTION-3 EMBED.** The rebuilt "Your Packets" code sits in
+     [`webflow-embeds/portal.html`](webflow-embeds/portal.html) but has **not** been pasted into the
+     Webflow embed yet.
+   - **⚠ THE `SSSThierry` FONT ISSUE IS STILL OPEN** (portal section 2). The live "LET'S LEARN, NAME"
+     text fell back to a system font on Emily's Webflow page. Playwright proved the Netlify font loads
+     fine cross-origin (200, `Access-Control-Allow-Origin: *`), so it is **Webflow-environment-specific**
+     — either a CSP on `candlerfoundry.emory.edu` blocking the cross-origin font, or a conflicting
+     "Thierry Leonie" already in Webflow. The shipped fix renames the `@font-face` to a unique
+     **`SSSThierry`** so it cannot clash, and falls back to `'Thierry Leonie'`. **Emily to do:** upload
+     `thierry.woff2` to **Webflow → Project Settings → Fonts** named exactly **"Thierry Leonie"** (serves
+     it same-origin, CSP-proof). **If it is still wrong after that upload it IS a CSP** — have her open
+     the live page console (F12) and look for a red CSP / `thierry.woff2` / `netlify` error.
+     **LESSON: always test the DEPLOYED setup via Playwright; a local same-origin @font-face test hides
+     CORS/CSP problems.**
+
+Section-3 detail:
+   - **✅ REBUILT (2026-08-17) — portal "Your Packets" (section 3) now matches the landing page.**
+     Emily: the logged-in band looked "sad and empty". Causes, all measured: each tile PNG carried
+     **46-73px of baked white padding** on top of the CSS padding; a lone owned tile was capped at
+     `max-width:560px`; and the header PNG was a 704px ink blob centred in a 2400px canvas. **Fix =
+     background-independent tiles** — cropped tight to the card's black stroke (**1095x832, corner
+     radius 52, transparent rounded corners**: `sss-portal-tile-bbs-v3` / `sss-portal-tile-women-v3`),
+     shadow re-added in CSS via `filter:drop-shadow()`; header cropped to its ink
+     (`sss-portal-header-v2`, 716x162). That removed the "must stay white" constraint, so the section
+     now uses the landing's flat lavender **`#DFE6F4`**, exposed as `--pk-bg` (set `#fff` to revert).
+     Landing proportions reused (card **45.6%**, gap **3.25%**, side pad **2.6%**); a lone owned packet
+     gets `.pk-one` -> `flex-basis:62%` via JS counting cells with `offsetParent!==null`. Both cards are
+     the SAME 1095x832 (the old 73-vs-46 difference was only shadow spread). Hotspots re-measured:
+     Open Booklet `left:55.4% top:80.5% w:19.6% h:9.5%`, Printable PDF `left:75.4% w:19.8%`.
+     Gating unchanged (`foxy-logic-transaction-includes`). Code in
+     [`webflow-embeds/portal.html`](webflow-embeds/portal.html) — **Emily must paste it into the
+     Webflow embed; nothing changes live until she does.** Art nit for later: the *Women* tile's
+     "Printable PDF" pill has a baked drop shadow the *BBS* tile lacks.
+
+**3) Women packet — Emily's copy review is DONE and shipped (2026-08-17).** She reworked all six
+lessons in Canva **`DAHOtl4BNMk` pages 19-30** (shortlink `canva.link/acnz1mieryl38ts`) — the range
+**MOVED** (it was 8-19), so **always re-read the design; never trust stored page numbers**. All 12 pages
+were re-exported, verified and pushed; `content.js` was re-synced to the art; hotspots were re-measured;
+and the printable PDF was re-cut in the Beyond Bumper Stickers format. See "Packet #2" below for the
+per-lesson list of what changed. **Still open on this packet:** the **letter + a packet-wide prayer pass**, which are Emily's own
+writing items. Its L6 video landed 2026-08-17, so the packet is otherwise complete.
+
+**4) NEW + BIG — caption the whole 3 Minute Bible back catalogue.** Emily (2026-08-17): the new 3MBs
+"all need captions burned in with whisper medium, using AI to check and correct the transcriptions that
+are created and focusing in particular on greek and hebrew words, biblical naming conventions and
+spelling, and other academic and punctuation errors." That is exactly what `caption_pipeline.py`
+already does — this is a **backlog run of the existing pipeline**, not new tooling. Scope from Airtable
+on 2026-08-17: **206 records total · 163 have a Dropbox video · 199 have some transcript · only 11 have
+a Vimeo link → ~195 unpublished, of which ~163 have a file to work from.** Budget roughly **5–6 minutes
+of Whisper-medium per 3-minute video on this CPU**, plus AI proof and burn. Practical plan: work in
+batches, keep Emily's review gate, and see **"Re-doing a video that is already published"** below for
+the mechanics. Confirm the batch order with Emily — the SSS-linked ones are already done.
+
+**Everything that is genuinely still open, in one place:**
+
+**A. Emily's actions**
+
+| # | Item | Where |
+|---|---|---|
+| A1 | Upload `thierry.woff2` to Webflow → Project Settings → Fonts as **"Thierry Leonie"** — fixes the live greeting font. If still wrong afterwards it IS a CSP; send the F12 console error | Webflow |
+| A2 | Women packet **letter + packet-wide prayer pass** (her writing) | `content.js` |
+| A3 | Fix the **Women** portal tile's "Printable PDF" pill — it has a baked drop shadow the **BBS** tile lacks | Canva `DAHRnlJvmA4` p12 |
+| A4 | Decide the batch order / priority for the big captioning backlog (workstream 4 above) | — |
+
+*(A1 is all that remains of the portal work — Emily embedded the section-3 code in Webflow on 2026-08-17.)*
+
+**B. Claude's queue — approved, just needs doing**
+
+| # | Item | Notes |
+|---|---|---|
+| B1 | **Re-splice `3MB-44`** with the new title card (Canva `DAHOtl4BNMk` **page 35**, "Understanding Biblical Structure") | It is already published, so follow **"Re-doing a video that is already published"** below. Vimeo canNOT replace a file in place → new id → re-wire BBS L4 + re-cut the BBS PDF. Vimeo title already renamed to "Understanding Biblical Structure" (2026-08-17). |
+| B2 | ~~Upload `3MB-85` and wire under Women L1/L4~~ — **DONE / SUPERSEDED (2026-08-18).** `3MB-85` is now the supplemental video on **Women L6** (`1219255238`); the whole Additional-Resources redesign shipped. See the **▶▶ LATEST** block at the top. |
+| B3 | **Bitly-shorten the scripture links in the PDF** so a printed Bible Gateway URL is typable | Emily's call (2026-08-17). Currently QR + hyperlink only, because the raw URLs are 90+ char encoded query strings. **Needs a Bitly account/API token — ask Emily where it lives.** |
+| B4 | Webflow greeting should read **"LET'S LEARN, EMILY!"** — add the exclamation mark | `webflow-embeds/portal.html` section 2. **Batch with B5** so Emily only re-pastes once. |
+| B5 | The **landing-page header animation** exists in the design but not in the Webflow embed code — identify it and reproduce it | `webflow-embeds/landing.html`. **Batch with B4.** |
+| B6 | Big captioning backlog (workstream 4) once Emily sets the order | ~163 videos with files |
+| B8 | **Housekeeping - clear published copies out of `_CAPTIONED FOR REVIEW`.** `3MB-283` *The Story of Jerusalem*, `3MB-287` *Scripture Inspired by God* and `3MB-288` *Love Is Patient, Love Is Kind* are published but their review copies still sit there. **LEAVE** `3MB-254/255/256/257` (the word studies) and `3MB-279` *Eve* - those are archive-only and were never reviewed. Emily pre-authorised this in principle but **confirm before deleting anything** | `...\NEW VIDEOS GO HERE\_CAPTIONED FOR REVIEW\` |
+| B7 | Optional: re-caption `3MB-44` at Whisper medium so its captions match the other nine | It carries the FEBRUARY caption style (up to 3 lines) vs the v2 ≤2-line standard. Can be folded into B1. |
+
+**C. Larger / not started**
+
+| # | Item |
+|---|---|
+| C1 | Webflow URL reorg — landing moves to top-level `/sunday-school-simplified`; flipbook wrappers stay in `/sss/` (see "Carried-forward" below) |
+| C2 | Rewire the Executive dashboard SSS card to the flipbooks/portal (separate repo — read its `CANONICAL.md` first) |
+| C3 | Canva `DAHRnlJvmA4` slide-4 typo ("below Perfect for groups" → add the period) — only if that art is reused; the live HTML reads correctly |
+
+**Settled 2026-08-17 — do not re-ask:** `3MB-280` *The Widow of Zarephath* captions are correct and
+start at the right time (no re-burn). All 12 wired lesson videos are Airtable **Status = Complete**.
+`3MB-44` is renamed on Vimeo. `3MB-85` *Orphan, widow, stranger* **does exist** (it is in Airtable).
+
+**Not a to-do:** the PDF build's fonts. They were previously un-reproducible, but
+[`tools/prep_fonts.py`](tools/prep_fonts.py) now regenerates them from this repo — verified to rebuild
+both PDFs pixel-identically. Nothing is required of Emily. **Claude: never source these fonts from an
+old session scratchpad** — un-instanced copies are still lying around there and they render everything
+ExtraLight *without failing*.
+
+---
