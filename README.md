@@ -72,71 +72,6 @@ different renderers and different rules.
 
 ---
 
-## Per-packet theming (added 2026-09-22)
-
-**The reader is themed from the same place the flipbook is.** Each packet's own
-`index.html` carries a `:root` block; the flipbook has always read it, and the reader now does
-too via a set of `--mq-*` variables. **A new packet is themed the moment it declares them** —
-there is nothing to change in the engine.
-
-The `--mq-*` defaults in `engine/styles.css` reproduce **Beyond Bumper Stickers exactly**, so a
-packet that declares nothing looks like BBS. BBS itself has no `:root` override at all.
-
-Fetch colours, never invent them. The three authoritative sources, which agree:
-
-| | Where |
-| --- | --- |
-| Flipbook palette | the packet's `index.html` `:root` |
-| PDF palette | `tools/packet_pdf.py` -> `PALETTES` |
-| Per-lesson accents | `content.js` `lesson.accent` (largely unused by the engine — a spare lever) |
-
-**The Women reader is NOT simply the Women flipbook palette**, and the difference is deliberate:
-
-- The page is plain **ivory `#FFFDF3`** (`--page`), *not* the flipbook's sand `--stage` `#EAE7CE`.
-  Emily rejected the sand on a phone. Cards are white; the tan hairline separates them.
-- Type is **brown `#6d4f26`** throughout. There is **no navy anywhere** in the Women reader,
-  the Back button included.
-- Lesson titles are **mustard gold `#B8860B`** — the same value as `packet_pdf.py`
-  `PALETTES['women']['display']` and the flipbook's `--gold`.
-
-### ⚠ Contrast is a real constraint in this palette, not a formality
-
-Checked, and it decided three design choices:
-
-| Pairing | Ratio | Consequence |
-| --- | --- | --- |
-| gold `#B8860B` on ivory | **3.19** | **large text ONLY.** Fine for the 34–42px lesson title. **Never reuse the gold at small sizes** — that is why the Optional Resources heading stays brown (`--mq-label`), not gold. |
-| cream `#FDF3D8` on gold | **2.94** | **FAILS.** The packet's own comment calls `--cream` "text/icons on gold" — it is not safe at small sizes. |
-| cream on olive / muted | 2.9–3.8 | all **fail**, which is why the resource chips are **uniform** pale gold with brown text: only brown clears 4.5:1 at 10.5px. The WORD distinguishes them, not the colour — which is the better practice anyway. |
-| brown on ivory / white | 7.36 / 7.51 | body text |
-
-### Two engine-level rules for every packet's reader
-
-- **Never name the flipbook.** Someone on a phone has never seen it and never will, so
-  mentioning it only raises a question the page cannot answer.
-- The footer is the **Candler Foundry wordmark, MASKED not drawn**, linking to
-  `https://candlerfoundry.emory.edu`. It takes its colour from `--mq-logo` (navy on BBS, brown on
-  Women). Why masked: `candler-foundry-logo-black.png` is **PNG colour type 2 with no `tRNS`, i.e.
-  no alpha at all** — it is an opaque rectangle — and `candler-foundry-logo.svg` is transparent but
-  a hardcoded navy. Masking the SVG is the only way to get transparency *and* a per-packet tint from
-  one asset. Without mask support the SVG paints directly; acceptable fallback.
-- ⚠ **The hostname is `candlerfoundry.emory.edu` with NO `www`.** `www.candlerfoundry.emory.edu`
-  has **no DNS record** — a link to it cannot resolve, anywhere, ever. It had been sitting in both
-  flipbook footers as well; fixed 2026-09-22. Check any new link against DNS, not against habit.
-- ⚠ **iOS Safari's bottom toolbar floats OVER the end of the document.** The last element on the
-  page is visible but untappable — Emily hit this on the footer logo and the foot "Back to Lessons".
-  `.mq` therefore ends with `padding-bottom: calc(132px + env(safe-area-inset-bottom,0px))`.
-  **132px is sized for the worst realistic case, not for one phone**: Safari's *expanded* bottom bar
-  is ~88px (it reappears if you scroll up slightly at the end of a lesson), its compact bar ~50px,
-  Samsung Internet ~56px, Chrome Android 0 (its bar is on top). Browser chrome is roughly constant
-  in CSS px across screen sizes, so this is not a per-device tuning problem. The first attempt, 96px,
-  cleared the compact bar by 70px and would still have been covered by the expanded one.
-  **`env()` alone does nothing here**: it reports 0 unless the viewport meta carries
-  `viewport-fit=cover`, which we deliberately do not set because it would also change the
-  flipbook's layout. The fixed 96px is what actually does the work.
-
----
-
 ## The three surfaces
 
 **One `content.js` per packet feeds three different products.** They are not responsive
@@ -232,6 +167,71 @@ art, but the same text stays in `content.js` precisely so the PDF can set it pro
 
 ---
 
+## Per-packet theming (added 2026-09-22)
+
+**The reader is themed from the same place the flipbook is.** Each packet's own
+`index.html` carries a `:root` block; the flipbook has always read it, and the reader now does
+too via a set of `--mq-*` variables. **A new packet is themed the moment it declares them** —
+there is nothing to change in the engine.
+
+The `--mq-*` defaults in `engine/styles.css` reproduce **Beyond Bumper Stickers exactly**, so a
+packet that declares nothing looks like BBS. BBS itself has no `:root` override at all.
+
+Fetch colours, never invent them. The three authoritative sources, which agree:
+
+| | Where |
+| --- | --- |
+| Flipbook palette | the packet's `index.html` `:root` |
+| PDF palette | `tools/packet_pdf.py` -> `PALETTES` |
+| Per-lesson accents | `content.js` `lesson.accent` (largely unused by the engine — a spare lever) |
+
+**The Women reader is NOT simply the Women flipbook palette**, and the difference is deliberate:
+
+- The page is plain **ivory `#FFFDF3`** (`--page`), *not* the flipbook's sand `--stage` `#EAE7CE`.
+  Emily rejected the sand on a phone. Cards are white; the tan hairline separates them.
+- Type is **brown `#6d4f26`** throughout. There is **no navy anywhere** in the Women reader,
+  the Back button included.
+- Lesson titles are **mustard gold `#B8860B`** — the same value as `packet_pdf.py`
+  `PALETTES['women']['display']` and the flipbook's `--gold`.
+
+### ⚠ Contrast is a real constraint in this palette, not a formality
+
+Checked, and it decided three design choices:
+
+| Pairing | Ratio | Consequence |
+| --- | --- | --- |
+| gold `#B8860B` on ivory | **3.19** | **large text ONLY.** Fine for the 34–42px lesson title. **Never reuse the gold at small sizes** — that is why the Optional Resources heading stays brown (`--mq-label`), not gold. |
+| cream `#FDF3D8` on gold | **2.94** | **FAILS.** The packet's own comment calls `--cream` "text/icons on gold" — it is not safe at small sizes. |
+| cream on olive / muted | 2.9–3.8 | all **fail**, which is why the resource chips are **uniform** pale gold with brown text: only brown clears 4.5:1 at 10.5px. The WORD distinguishes them, not the colour — which is the better practice anyway. |
+| brown on ivory / white | 7.36 / 7.51 | body text |
+
+### Two engine-level rules for every packet's reader
+
+- **Never name the flipbook.** Someone on a phone has never seen it and never will, so
+  mentioning it only raises a question the page cannot answer.
+- The footer is the **Candler Foundry wordmark, MASKED not drawn**, linking to
+  `https://candlerfoundry.emory.edu`. It takes its colour from `--mq-logo` (navy on BBS, brown on
+  Women). Why masked: `candler-foundry-logo-black.png` is **PNG colour type 2 with no `tRNS`, i.e.
+  no alpha at all** — it is an opaque rectangle — and `candler-foundry-logo.svg` is transparent but
+  a hardcoded navy. Masking the SVG is the only way to get transparency *and* a per-packet tint from
+  one asset. Without mask support the SVG paints directly; acceptable fallback.
+- ⚠ **The hostname is `candlerfoundry.emory.edu` with NO `www`.** `www.candlerfoundry.emory.edu`
+  has **no DNS record** — a link to it cannot resolve, anywhere, ever. It had been sitting in both
+  flipbook footers as well; fixed 2026-09-22. Check any new link against DNS, not against habit.
+- ⚠ **iOS Safari's bottom toolbar floats OVER the end of the document.** The last element on the
+  page is visible but untappable — Emily hit this on the footer logo and the foot "Back to Lessons".
+  `.mq` therefore ends with `padding-bottom: calc(132px + env(safe-area-inset-bottom,0px))`.
+  **132px is sized for the worst realistic case, not for one phone**: Safari's *expanded* bottom bar
+  is ~88px (it reappears if you scroll up slightly at the end of a lesson), its compact bar ~50px,
+  Samsung Internet ~56px, Chrome Android 0 (its bar is on top). Browser chrome is roughly constant
+  in CSS px across screen sizes, so this is not a per-device tuning problem. The first attempt, 96px,
+  cleared the compact bar by 70px and would still have been covered by the expanded one.
+  **`env()` alone does nothing here**: it reports 0 unless the viewport meta carries
+  `viewport-fit=cover`, which we deliberately do not set because it would also change the
+  flipbook's layout. The fixed 96px is what actually does the work.
+
+---
+
 ## Adding a new packet (the packet #3 runbook)
 
 The engine is shared, so **a new packet gets the flipbook and the phone reader for free** the
@@ -264,38 +264,48 @@ Engine files should not need to change to add a packet. If you find yourself edi
 `engine/*`, you are changing the *design*, which affects every packet — say so out loud.
 
 ---
-## Where things stand (updated 2026-09-22)
+## Where things stand (updated 2026-09-22, end of day)
 
-The single current-status section. The per-packet sections further down carry the detail and
-the history; **this block wins** if they disagree.
+The single current-status section. The per-packet sections further down carry the detail and the
+history; **this block wins** if they disagree.
 
 **Live on `sundayschoolsimplified.netlify.app`, all three surfaces, both packets:**
 
 | | Beyond Bumper Stickers | The Gospel According to the Women |
 |---|---|---|
 | Flipbook | live, 6 lessons | live, 6 lessons |
-| Phone reader | live | live |
+| Phone reader | live, blue (engine defaults) | live, **its own ivory/brown/gold palette** |
 | Printable PDF | live, 19pp | live, 22pp |
 | Main 3MB per lesson | all 6 wired | all 6 wired |
 | Supplemental resources | 7 optional videos | 8 optional videos, artwork, 3 readings |
+| Vimeo auto-captions | **all off** | **all off** |
 
-The **phone reader shipped 2026-09-22**. Production immediately before that release was
-**`54cf70c`** — reset `main` to it and push to roll back; there is no build step, so the old
-site is back inside a minute.
+The **phone reader shipped 2026-09-22**, then took four further rounds of Emily's review the same
+day: the Gospel palette, the gold lesson titles, the footer logo, and the iOS toolbar clearance.
+
+**Rollback:** production immediately before the phone reader was **`54cf70c`**. Reset `main` to it
+and push; there is no build step, so the old site is back inside a minute.
+
+### Settled today — do not re-open these
+
+- **Vimeo auto-captions are off on all 26 videos** across both packets, and Emily has turned off
+  the **Upload-defaults checkbox**, so new uploads no longer arrive with a track. Standing Rule 4
+  still applies to anything uploaded before that change, and is worth spot-checking on a new batch.
+- **The `www` hostname is dead** and was fixed in the reader *and* both flipbook footers. See the
+  warning under Per-packet theming. ⚠ **If that URL appears in Webflow, the welcome email, or any
+  other embed, it is broken there too** — outside this repo, so nobody here has checked it.
+- **The reader never mentions the flipbook**, and its footer is the tintable masked wordmark.
+- **Bottom clearance is 132px**, sized for Safari's expanded toolbar, not for one phone.
 
 ### Open items
 
 **Needs Emily**
 
-- **Test an iPad.** It must show the **flipbook**. Never tested on hardware — she shipped first
-  and is testing after, deliberately (phones were already broken, so the release could only
-  improve them, and rollback is cheap). The arithmetic is sound — largest iPhone short side
-  440, smallest iPad 744 — but that is not the same as what iPadOS reports. **If an iPad shows
-  the reader, that is the bug.**
-- **Two supplemental Vimeo videos still have auto-captions ON**: *What Happened During the
-  Exile?* (`1219870379`, BBS L1) and **3MB-273, *What is khanun?*** (`1221254097`, Women L1).
-  Every other video in both packets is off.
-- **The Vimeo Upload-defaults checkbox** (Standing Rule 4) — stops this recurring.
+- **Test an iPad.** It must show the **flipbook**. Still never tested on hardware — she shipped
+  first and is testing after, deliberately (phones were already broken, so the release could only
+  improve them, and rollback is cheap). The arithmetic is sound — largest iPhone short side 440,
+  smallest iPad 744, nothing in the gap — but that is not the same as what iPadOS reports.
+  **If an iPad ever shows the reader, that is the bug.**
 - **Passage in the reader: collapsed or expanded by default?** Currently collapsed, so the
   questions are not buried under ~1,700 characters of scripture. Reversible either way.
 - **The course/instructor flipbook's phone-block wording** — asked several times, still open.
@@ -303,15 +313,17 @@ site is back inside a minute.
 
 **Queued work — a "tablet health" pass**
 
-Both of these are the same class of bug as the two already fixed on phones: eager bitmaps that
-are never released. Deliberately *not* bundled with the phone release, so that a regression
-would have an obvious cause.
+Both are the same class of bug as the two already fixed on phones: eager bitmaps that are never
+released. Deliberately *not* bundled with the phone release, so a regression would have an obvious
+cause.
 
 - **Lazy-load the flipbook art.** Tablets still carry ~219MB; lazy-loading takes it to roughly
-  40–60MB with no visual change. ⚠ Needs testing — the page-flip library may want dimensions up
-  front.
-- **`/pdfview.html` rasterises every page at once** (~56MB on the Women packet). Phones no
-  longer touch it, but tablets and desktop still do.
+  40–60MB with no visual change. ⚠ Needs testing — the page-flip library may want dimensions up front.
+- **`/pdfview.html` rasterises every page at once** (~56MB on the Women packet). Phones no longer
+  touch it, but tablets and desktop still do.
+
+**Next build:** packet #3. Use the runbook above — and note a new packet gets the phone reader for
+free from the shared engine, and is themed the moment it declares `--mq-*`.
 
 **Also unshipped:** `assets/web/` screen derivatives (816w) were generated once and lost to a
 scratchpad prune — **regenerate, don't hunt for them**.
@@ -1300,61 +1312,6 @@ at checkout (SSS-only optional gift; see the Foxy checkout section above). **Rem
 Upgrade path if leakage ever matters (not built): a Netlify Edge Function checking a Foxy JWT +
 per-product entitlement.
 
-## Carried-forward open items (was "Next session — Monday 2026-08-10")
-
-**The ▶ START HERE block at the top of this file is the current state — read that first.** The items
-below are what is left from Emily's 2026-08-07 priority list. Cross-cutting rules still apply: **GitHub
-`main` is source of truth**; author in a native temp dir, `node --check` any JS, push via the Git Data
-API, verify byte parity; **re-cut the affected PDF and re-verify after any content change.** Remember
-the split brains: the **Women packet's VISIBLE flipbook pages are Canva art** (`pageImages`, design
-`DAHOtl4BNMk`, **pages 19-30** as of 2026-08-17) so `content.js` there is only the PDF source + written
-record, while **BBS is engine-rendered from `content.js`** so editing it changes the flipbook AND the PDF.
-
-1. ~~**Clean up the copy of the flipbooks and PDFs.**~~ **✅ DONE.** BBS copy was cleaned Aug 13 (incl.
-   the old lesson-4 "Through Him"/"Through Christ" mismatch — the title is now **"I Can Do All Things
-   Through Christ"** and BBS is image-based, so there is no separate header art to reconcile). The Women
-   packet's full copy rework shipped **2026-08-17** (Canva pages 19-30 → art + `content.js` + PDF).
-   Both PDFs were re-cut 2026-08-17 with Emily's larger type. Only her letter + prayer pass remain.
-   - Still worth doing if that art is ever reused: the landing/portal **Canva slide-4 typo**
-     ("below Perfect for groups" → add the period) in `DAHRnlJvmA4`; the live portal HTML already reads
-     correctly.
-
-2. **Clean up the URL folders on Webflow.** *(still open)* **Plan set Aug 10 2026 (with Emily):** the
-   **landing/register page moves OUT of the `sss` folder to top-level `/sunday-school-simplified`** —
-   Webflow folders can't have an index page of their own, which is exactly why the landing was awkwardly
-   nested at `/sss/sunday-school-simplified`. Top-level makes it the clean public front door. It's
-   **behind a password wall for now** — re-confirm the per-page PW survives the move (Webflow page
-   passwords are per-page; folder-level passwords are separate). The **two flipbook wrappers STAY in the
-   `sss` folder** — `/sss/beyond-bumper-stickers` and `/sss/gospel-according-to-the-women` (each an
-   HTML-embed `100vh` iframe of the Netlify packet) — because the welcome-email Zap, the My Lessons portal
-   tiles, and the exec-dashboard card already link there; renaming the folder would 404 all of them for no
-   user-visible gain (visitors never type flipbook URLs — they arrive via the portal/register/email links).
-   Make sure the landing "Register" + portal "Open the flipbook" links point at the final URLs.
-   - **DEFERRED — Emily to do later (added Aug 10 2026, she explicitly deferred it):** add a **301 redirect
-     `/sss` → `/sunday-school-simplified`** (Webflow → Project Settings → Publishing → 301 Redirects, then
-     republish) so a trimmed `/sss` folder URL lands on the front door instead of Webflow's 404 (the folder
-     has no index page). Optional insurance, not blocking the reorg.
-   - (Reminder: the wrapper iframe `src` is fixed, so `/sss/<slug>?lesson=N` deep links don't pass through
-     unless a one-line script appends `location.search` to the iframe `src`.)
-
-3. **Update the Additional Resources sections** *(partly open)*. The spread is **engine-rendered from
-   `content.js`** (`optionalVideo` + `optionalReadings`) for BOTH packets — even the Women packet (only
-   its lesson pages are Canva art, not the resources spread). So edit `content.js` → re-cut the PDF.
-   **"Background to the Exodus" is no longer pending** — it is live as the Women L3 lesson video
-   (`1214331923`). Still missing: the **"Orphan, Widow, and Stranger"** optional video, stubbed with an
-   empty `url` under BOTH Hannah and Zelophehad, which renders as a "coming soon" note box. Ask Emily
-   whether that one exists yet.
-
-4. **LOWER — rewire the Executive dashboard SSS card to the flipbooks.** *(still open)* Repo
-   `candlerfoundry/executive-bi-dashboard` (local `C:\Scripts\executive-bi-dashboard`, prod
-   `candlerfoundry.netlify.app`) — **read its `CANONICAL.md` first**; separate repo + push flow. The
-   "Sunday School Simplified" offering card currently maps to the `graphic-1-reader-presenter.png`
-   vignette (~`index.html` line 10406) and there's an `assets/Sunday School Simplified/` folder. Rewire
-   its flip-side / links to point at the **My Lessons portal** and/or the branded `/sss/<slug>` flipbooks.
-   Approach TBD.
-
-Memory (Cowork) also carries this: `project-sss-landing-portal` + `reference-foxy-logic-display`.
-
 ## The PDF (secondary, print-friendly product)
 
 Each packet ships a printable US-Letter PDF alongside the flipbook. **As of 2026-08-17 the layout lives
@@ -1554,6 +1511,66 @@ Pure static — serve the repo root (`python -m http.server`) and open `/`.
 usually worth more than the decisions themselves. But they are a log: where one of them
 disagrees with the reference sections at the top of this file, **the reference sections win**,
 and an old "LATEST" heading does not mean current.
+
+### Carried-forward open items from 2026-08-07 (SUPERSEDED)
+
+Kept for the reasoning only. It refers to a "START HERE" block that no longer exists, and its
+live content is covered by **The Three Surfaces** and **Where things stand**. Do not work from it.
+
+**The ▶ START HERE block at the top of this file is the current state — read that first.** The items
+below are what is left from Emily's 2026-08-07 priority list. Cross-cutting rules still apply: **GitHub
+`main` is source of truth**; author in a native temp dir, `node --check` any JS, push via the Git Data
+API, verify byte parity; **re-cut the affected PDF and re-verify after any content change.** Remember
+the split brains: the **Women packet's VISIBLE flipbook pages are Canva art** (`pageImages`, design
+`DAHOtl4BNMk`, **pages 19-30** as of 2026-08-17) so `content.js` there is only the PDF source + written
+record, while **BBS is engine-rendered from `content.js`** so editing it changes the flipbook AND the PDF.
+
+1. ~~**Clean up the copy of the flipbooks and PDFs.**~~ **✅ DONE.** BBS copy was cleaned Aug 13 (incl.
+   the old lesson-4 "Through Him"/"Through Christ" mismatch — the title is now **"I Can Do All Things
+   Through Christ"** and BBS is image-based, so there is no separate header art to reconcile). The Women
+   packet's full copy rework shipped **2026-08-17** (Canva pages 19-30 → art + `content.js` + PDF).
+   Both PDFs were re-cut 2026-08-17 with Emily's larger type. Only her letter + prayer pass remain.
+   - Still worth doing if that art is ever reused: the landing/portal **Canva slide-4 typo**
+     ("below Perfect for groups" → add the period) in `DAHRnlJvmA4`; the live portal HTML already reads
+     correctly.
+
+2. **Clean up the URL folders on Webflow.** *(still open)* **Plan set Aug 10 2026 (with Emily):** the
+   **landing/register page moves OUT of the `sss` folder to top-level `/sunday-school-simplified`** —
+   Webflow folders can't have an index page of their own, which is exactly why the landing was awkwardly
+   nested at `/sss/sunday-school-simplified`. Top-level makes it the clean public front door. It's
+   **behind a password wall for now** — re-confirm the per-page PW survives the move (Webflow page
+   passwords are per-page; folder-level passwords are separate). The **two flipbook wrappers STAY in the
+   `sss` folder** — `/sss/beyond-bumper-stickers` and `/sss/gospel-according-to-the-women` (each an
+   HTML-embed `100vh` iframe of the Netlify packet) — because the welcome-email Zap, the My Lessons portal
+   tiles, and the exec-dashboard card already link there; renaming the folder would 404 all of them for no
+   user-visible gain (visitors never type flipbook URLs — they arrive via the portal/register/email links).
+   Make sure the landing "Register" + portal "Open the flipbook" links point at the final URLs.
+   - **DEFERRED — Emily to do later (added Aug 10 2026, she explicitly deferred it):** add a **301 redirect
+     `/sss` → `/sunday-school-simplified`** (Webflow → Project Settings → Publishing → 301 Redirects, then
+     republish) so a trimmed `/sss` folder URL lands on the front door instead of Webflow's 404 (the folder
+     has no index page). Optional insurance, not blocking the reorg.
+   - (Reminder: the wrapper iframe `src` is fixed, so `/sss/<slug>?lesson=N` deep links don't pass through
+     unless a one-line script appends `location.search` to the iframe `src`.)
+
+3. **Update the Additional Resources sections** *(partly open)*. The spread is **engine-rendered from
+   `content.js`** (`optionalVideo` + `optionalReadings`) for BOTH packets — even the Women packet (only
+   its lesson pages are Canva art, not the resources spread). So edit `content.js` → re-cut the PDF.
+   **"Background to the Exodus" is no longer pending** — it is live as the Women L3 lesson video
+   (`1214331923`). Still missing: the **"Orphan, Widow, and Stranger"** optional video, stubbed with an
+   empty `url` under BOTH Hannah and Zelophehad, which renders as a "coming soon" note box. Ask Emily
+   whether that one exists yet.
+
+4. **LOWER — rewire the Executive dashboard SSS card to the flipbooks.** *(still open)* Repo
+   `candlerfoundry/executive-bi-dashboard` (local `C:\Scripts\executive-bi-dashboard`, prod
+   `candlerfoundry.netlify.app`) — **read its `CANONICAL.md` first**; separate repo + push flow. The
+   "Sunday School Simplified" offering card currently maps to the `graphic-1-reader-presenter.png`
+   vignette (~`index.html` line 10406) and there's an `assets/Sunday School Simplified/` folder. Rewire
+   its flip-side / links to point at the **My Lessons portal** and/or the branded `/sss/<slug>` flipbooks.
+   Approach TBD.
+
+Memory (Cowork) also carries this: `project-sss-landing-portal` + `reference-foxy-logic-display`.
+
+
 
 ### ▶ START HERE — current status (updated 2026-08-18)
 
