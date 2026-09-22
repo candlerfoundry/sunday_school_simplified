@@ -118,19 +118,44 @@
       return '<li><span class="mq-qn">' + (i + 1) + '</span><span class="mq-qt">' + bold(q) + '</span></li>';
     }).join("");
 
+    /* The player is rendered straight in, NOT behind a tap-to-load button (Emily,
+     * 2026-09-22). Two reasons. It should simply be there, the way it is in the
+     * flipbook. And critically there is NO autoplay parameter any more: the viewer's
+     * tap lands on Vimeo's own play button INSIDE the iframe, which is a real user
+     * gesture, so the video always starts WITH SOUND. Autoplay was the whole cause of
+     * the muted-with-no-unmute-button problem - iOS forces muted autoplay and Vimeo
+     * does not reliably draw an unmute affordance when it does. Do not put autoplay
+     * back. (The old "one player at a time" worry does not apply: the reader shows a
+     * single lesson, so there is only ever one main video on screen.) */
     var vid = "", vidId = mqVimeoId(l.videoUrl);
     if (vidId) {
       vid = '<section class="mq-s"><h2 class="mq-h2">Watch</h2>' +
-        '<button class="mq-play" type="button" data-vid="' + vidId + '">' +
-          '<span class="mq-pi">&#9658;</span>' +
-          '<span class="mq-pt">' + esc(l.videoTitle || "3 Minute Bible") + '</span>' +
-        '</button></section>';
+        '<div class="mq-vid"><iframe src="https://player.vimeo.com/video/' + vidId + '" ' +
+          'title="' + esc(l.videoTitle || "3 Minute Bible") + '" loading="lazy" ' +
+          'allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>' +
+        '</section>';
     }
 
+    /* Optional Resources (Emily, 2026-09-22). Deliberately NOT styled like the lesson:
+     * set in the display face on its own panel so it reads as an aside, because in the
+     * same font as everything above it people took it for another part of the lesson.
+     * Every item carries a type chip - Video / Art / Reading - so you know what you are
+     * tapping before you tap it. Artwork and readings were not in the reader at all
+     * before this; the phone now carries everything the lesson offers. */
     var extras = [];
+    function extraItem(kind, o, href) {
+      if (!o || !href) return;
+      extras.push('<a class="mq-x" href="' + esc(href) + '" target="_blank" rel="noopener">' +
+        '<span class="mq-xk mq-xk-' + kind.toLowerCase() + '">' + kind + '</span>' +
+        '<span class="mq-xb"><span class="mq-xt">' + esc(o.title || kind) + '</span>' +
+        (o.subtitle ? '<span class="mq-xs">' + esc(o.subtitle) + '</span>' : '') +
+        '</span></a>');
+    }
     (l.optionalVideos || (l.optionalVideo ? [l.optionalVideo] : [])).forEach(function (v) {
-      if (v && v.url) extras.push('<a href="https://vimeo.com/' + mqVimeoId(v.url) + '" target="_blank" rel="noopener">' + esc(v.title || "Extra video") + '</a>');
+      extraItem("Video", v, v && v.url ? "https://vimeo.com/" + mqVimeoId(v.url) : "");
     });
+    (l.artwork || []).forEach(function (a) { extraItem("Art", a, a && a.url); });
+    (l.optionalReadings || []).forEach(function (r) { extraItem("Reading", r, r && r.url); });
 
     var idx = C.lessons.indexOf(l),
         prev = idx > 0 ? C.lessons[idx - 1] : null,
@@ -158,8 +183,10 @@
       (l.closingPrayer ? '<section class="mq-s"><h2 class="mq-h2">Closing Prayer</h2>' +
         '<p class="mq-pray">' + esc(l.closingPrayer) + '</p></section>' : '') +
 
-      (extras.length ? '<section class="mq-s"><h2 class="mq-h2">Going Further</h2>' +
-        '<div class="mq-lk">' + extras.join("") + '</div></section>' : '') +
+      (extras.length ? '<section class="mq-xs-sec">' +
+        '<h2 class="mq-xh">Optional Resources</h2>' +
+        '<p class="mq-xn">Extras if you want to go further &mdash; not part of the lesson.</p>' +
+        '<div class="mq-xl">' + extras.join("") + '</div></section>' : '') +
 
       '<nav class="mq-nav">' +
         (prev ? '<a href="#lesson-' + prev.n + '">&#8249; Lesson ' + prev.n + '</a>' : '<span></span>') +
@@ -175,6 +202,8 @@
       C.lessons.forEach(function (x) { if (String(x.n) === m[1]) found = x; });
     }
     document.body.innerHTML = found ? mqLesson(found) : mqIndex();
+    var vf = document.querySelector(".mq-vid iframe");
+    if (vf) silenceVimeoCaptions(vf);
     window.scrollTo(0, 0);
   }
 
@@ -186,17 +215,6 @@
     document.body.className = "mqbody";
     mqRoute();
     window.addEventListener("hashchange", mqRoute);
-    // Videos load only when asked: one player at a time, never all six.
-    document.addEventListener("click", function (e) {
-      var b = e.target.closest && e.target.closest(".mq-play");
-      if (!b) return;
-      var w = document.createElement("div");
-      w.className = "mq-vid";
-      w.innerHTML = '<iframe src="https://player.vimeo.com/video/' + b.getAttribute("data-vid") +
-        '?autoplay=1" title="3 Minute Bible" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
-      b.parentNode.replaceChild(w, b);
-      silenceVimeoCaptions(w.querySelector("iframe"));
-    });
     return;                                 // no pages, no <img>, no page-flip
   }
   /* ===================== end PHONE GATE ===================== */
