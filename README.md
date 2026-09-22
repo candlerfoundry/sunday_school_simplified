@@ -114,9 +114,21 @@ Checked, and it decided three design choices:
 
 - **Never name the flipbook.** Someone on a phone has never seen it and never will, so
   mentioning it only raises a question the page cannot answer.
-- The footer is the **black Candler Foundry wordmark** (`/engine/assets/candler-foundry-logo-black.png`)
-  linking to candlerfoundry.emory.edu. Black reads on both the ivory and the powder blue, so one
-  asset serves every packet.
+- The footer is the **Candler Foundry wordmark, MASKED not drawn**, linking to
+  `https://candlerfoundry.emory.edu`. It takes its colour from `--mq-logo` (navy on BBS, brown on
+  Women). Why masked: `candler-foundry-logo-black.png` is **PNG colour type 2 with no `tRNS`, i.e.
+  no alpha at all** — it is an opaque rectangle — and `candler-foundry-logo.svg` is transparent but
+  a hardcoded navy. Masking the SVG is the only way to get transparency *and* a per-packet tint from
+  one asset. Without mask support the SVG paints directly; acceptable fallback.
+- ⚠ **The hostname is `candlerfoundry.emory.edu` with NO `www`.** `www.candlerfoundry.emory.edu`
+  has **no DNS record** — a link to it cannot resolve, anywhere, ever. It had been sitting in both
+  flipbook footers as well; fixed 2026-09-22. Check any new link against DNS, not against habit.
+- ⚠ **iOS Safari's bottom toolbar floats OVER the end of the document.** The last element on the
+  page is visible but untappable — Emily hit this on the footer logo and the foot "Back to Lessons".
+  `.mq` therefore ends with `padding-bottom: calc(96px + env(safe-area-inset-bottom,0px))`.
+  **`env()` alone does nothing here**: it reports 0 unless the viewport meta carries
+  `viewport-fit=cover`, which we deliberately do not set because it would also change the
+  flipbook's layout. The fixed 96px is what actually does the work.
 
 ---
 
