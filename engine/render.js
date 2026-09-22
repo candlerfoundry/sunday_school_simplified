@@ -130,7 +130,8 @@
     var vid = "", vidId = mqVimeoId(l.videoUrl);
     if (vidId) {
       vid = '<section class="mq-s"><h2 class="mq-h2">Watch</h2>' +
-        '<div class="mq-vid"><iframe src="https://player.vimeo.com/video/' + vidId + '" ' +
+        '<div class="mq-vid"><iframe src="https://player.vimeo.com/video/' + vidId +
+          '?title=0&amp;byline=0&amp;portrait=0" ' +
           'title="' + esc(l.videoTitle || "3 Minute Bible") + '" loading="lazy" ' +
           'allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>' +
         '</section>';
