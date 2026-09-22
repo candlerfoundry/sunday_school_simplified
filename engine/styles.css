@@ -4,6 +4,32 @@
   --navy:#0A274C; --powder:#CCE0F5; --smoky:#2F5972; --red:#FB1616; --page:#FCFDFF;
   --card:#EAF3FC; --cardbd:#D7E7F6; --dot:#C6DBF0; --stage:#DCE6F2; --muted:#8AA0B8;
   --page-w:816px; --page-h:1056px; --spine-w:68px; --tab-w:132px;
+
+  /* ---- phone-reader palette (2026-09-22) ----
+     The reader had its colours hardcoded, so every packet came out in the
+     Bumper Stickers blue even though the flipbook was already themed per packet
+     from each packet's own :root. These defaults reproduce the Bumper Stickers
+     reader EXACTLY; a packet re-themes its reader by overriding them in its own
+     index.html, the same place it overrides the flipbook palette. */
+  --mq-bg:#EAF1FB;            /* page behind the cards */
+  --mq-card:#FFFDF6;          /* prayer / question / resource cards */
+  --mq-card-2:#FBF6E6;        /* the same card, pressed */
+  --mq-cardbd:rgba(10,39,76,.13);
+  --mq-rule:rgba(10,39,76,.16);
+  --mq-ink:#0A274C;           /* body text */
+  --mq-display:#0A274C;       /* Hello Handmade titles */
+  --mq-label:#0A274C;         /* uppercase section labels (shown at .6 opacity) */
+  --mq-btn:#0A274C;           /* Back to Lessons */
+  --mq-btn-ink:#FFFDF6;
+  --mq-btn-2:#08203E;         /* pressed */
+  --mq-qnum:#FB1616;          /* discussion-question number */
+  --mq-qnum-bg:transparent;   /* a packet may put the number in a disc */
+  --mq-hint:#FB1616;          /* "Watch here" */
+  --mq-x-rule:rgba(10,39,76,.28);   /* the dashed Optional Resources panel */
+  --mq-chip-video:#FB1616;    --mq-chip-video-ink:#FFFDF6;
+  --mq-chip-art:#0A274C;      --mq-chip-art-ink:#FFFDF6;
+  --mq-chip-read:#5A7A9E;     --mq-chip-read-ink:#FFFDF6;
+  --mq-sec-rule:rgba(10,39,76,.3);  /* the outlined PDF button */
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{height:100%;}
@@ -300,70 +326,71 @@ a.rcard:hover{border-color:var(--navy);transform:translateX(2px);}
    the height rule targets html as well, a body class alone is not enough. */
 html.mqhtml,html.mqhtml body.mqbody{height:auto;min-height:100%;overflow:visible;
   overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;}
-body.mqbody{margin:0;background:#EAF1FB;color:#0A274C;
+body.mqbody{margin:0;background:var(--mq-bg);color:var(--mq-ink);
   font-family:'Mulish',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   -webkit-text-size-adjust:100%;}
 .mq{max-width:560px;margin:0 auto;padding:28px 20px 44px;text-align:center;}
 .mq-cov{width:172px;height:auto;border-radius:6px;box-shadow:0 8px 22px rgba(10,39,76,.22);}
 .mq-p{font-size:17px;line-height:1.55;margin:20px auto 22px;max-width:44ch;}
-.mq-btn{display:block;background:#0A274C;color:#fff;text-decoration:none;font-weight:800;font-size:17px;
+.mq-btn{display:block;background:var(--mq-ink);color:#fff;text-decoration:none;font-weight:800;font-size:17px;
   padding:16px 22px;border-radius:100px;min-height:44px;box-sizing:border-box;
   box-shadow:0 6px 16px rgba(10,39,76,.26);}
 .mq-btn:active{transform:translateY(1px);}
 .mq-n{font-size:15px;line-height:1.5;opacity:.72;margin:14px 0 30px;}
-.mq-ls{text-align:left;border-top:1px solid rgba(10,39,76,.16);padding-top:22px;}
+.mq-ls{text-align:left;border-top:1px solid var(--mq-rule);padding-top:22px;}
 .mq-h{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:14px;}
-.mq-l{background:#FFFDF6;border:1px solid rgba(10,39,76,.13);border-radius:13px;padding:15px 17px;margin-bottom:11px;}
+.mq-l{background:var(--mq-card);border:1px solid var(--mq-cardbd);border-radius:13px;padding:15px 17px;margin-bottom:11px;}
 .mq-ln{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.55;}
 .mq-lt{font-size:18px;font-weight:800;line-height:1.28;margin:3px 0 3px;}
 .mq-lr{font-size:15px;opacity:.75;margin-bottom:10px;}
 .mq-f{margin-top:26px;font-size:15px;}
-.mq-f a{color:#0A274C;opacity:.75;display:inline-flex;align-items:center;min-height:44px;padding:0 10px;}
+.mq-f a{color:var(--mq-ink);opacity:.75;display:inline-flex;align-items:center;min-height:44px;padding:0 10px;}
 @media (prefers-reduced-motion:no-preference){.mq-btn{transition:transform .12s;}}
 /* =================== end PHONE GATE =================== *//* ---- phone reader: index cards ---- */
 .mq-ls{text-align:left;display:flex;flex-direction:column;gap:11px;margin-bottom:26px;}
-.mq-l{display:block;background:#FFFDF6;border:1px solid rgba(10,39,76,.13);border-radius:13px;
+.mq-l{display:block;background:var(--mq-card);border:1px solid var(--mq-cardbd);border-radius:13px;
   padding:16px 17px;text-decoration:none;color:inherit;}
-.mq-l:active{background:#FBF6E6;}
-.mq-go{margin-top:10px;font-size:15px;font-weight:800;color:#0A274C;}
+.mq-l:active{background:var(--mq-card-2);}
+.mq-go{margin-top:10px;font-size:15px;font-weight:800;color:var(--mq-ink);}
 .mq-go::after{content:" \203A";}
-.mq-sec{display:block;border:2px solid rgba(10,39,76,.3);color:#0A274C;text-decoration:none;
+.mq-sec{display:block;border:2px solid var(--mq-sec-rule);color:var(--mq-ink);text-decoration:none;
   font-weight:800;font-size:16px;padding:14px 20px;border-radius:100px;min-height:44px;box-sizing:border-box;}
 /* ---- phone reader: a lesson ---- */
 .mq-read{text-align:left;}
 .mq-bk{display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:0 21px;box-sizing:border-box;
-  border:2px solid #0A274C;border-radius:100px;background:#FFFDF6;color:#0A274C;text-decoration:none;
+  border:2px solid var(--mq-btn);border-radius:100px;background:var(--mq-card);color:var(--mq-btn);text-decoration:none;
   font-weight:800;font-size:16px;line-height:1;}
-.mq-bk-solid{background:#0A274C;color:#FFFDF6;border-color:#0A274C;}
-.mq-bk:active{background:#0A274C;color:#FFFDF6;}
-.mq-bk-solid:active{background:#08203E;}
+.mq-bk-solid{background:var(--mq-btn);color:var(--mq-btn-ink);border-color:var(--mq-btn);}
+.mq-bk:active{background:var(--mq-btn);color:var(--mq-btn-ink);}
+.mq-bk-solid:active{background:var(--mq-btn-2);}
 .mq-bkc{font-size:23px;line-height:0;position:relative;top:-1px;}
 .mq-read > .mq-bk{margin-bottom:16px;}
-.mq-fb{margin-top:30px;padding-top:24px;border-top:1px solid rgba(10,39,76,.16);text-align:center;}
-.mq-t2{font-family:'Hello Handmade',sans-serif;font-weight:400;font-size:clamp(34px,10.2vw,42px);
+.mq-fb{margin-top:30px;padding-top:24px;border-top:1px solid var(--mq-rule);text-align:center;}
+.mq-t2{font-family:'Hello Handmade',sans-serif;font-weight:400;color:var(--mq-display);font-size:clamp(34px,10.2vw,42px);
   line-height:1.02;margin:2px 0 0;letter-spacing:0;text-wrap:balance;}
 .mq-s{margin-top:28px;}
 .mq-h2{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.6;
-  margin:0 0 11px;padding-bottom:8px;border-bottom:1px solid rgba(10,39,76,.16);}
-.mq-pray{font-size:17px;line-height:1.6;margin:0;background:#FFFDF6;
-  border:1px solid rgba(10,39,76,.13);border-radius:13px;padding:16px 17px;font-style:italic;}
+  margin:0 0 11px;padding-bottom:8px;border-bottom:1px solid var(--mq-rule);}
+.mq-pray{font-size:17px;line-height:1.6;margin:0;background:var(--mq-card);
+  border:1px solid var(--mq-cardbd);border-radius:13px;padding:16px 17px;font-style:italic;}
 .mq-ref{font-size:19px;font-weight:800;margin:0 0 12px;}
-.mq-det{background:#FFFDF6;border:1px solid rgba(10,39,76,.13);border-radius:13px;margin-bottom:12px;}
+.mq-det{background:var(--mq-card);border:1px solid var(--mq-cardbd);border-radius:13px;margin-bottom:12px;}
 .mq-det summary{cursor:pointer;font-weight:800;font-size:16px;padding:14px 17px;min-height:44px;box-sizing:border-box;
   display:flex;align-items:center;}
 .mq-scrip{padding:0 17px 16px;font-size:17px;line-height:1.62;}
 .mq-scrip h4{font-size:14px;letter-spacing:.06em;text-transform:uppercase;opacity:.6;margin:16px 0 8px;}
 .mq-scrip p{margin:0 0 11px;}
-.mq-scrip .vn{font-size:12px;font-weight:800;color:#FB1616;vertical-align:super;margin-right:3px;}
+.mq-scrip .vn{font-size:12px;font-weight:800;color:var(--mq-qnum);vertical-align:super;margin-right:3px;}
 .mq-scrip .super{font-weight:800;font-style:italic;opacity:.75;}
 .mq-link{display:inline-flex;align-items:center;min-height:44px;padding:0 17px;border-radius:100px;
-  background:#EAF1FB;color:#0A274C;text-decoration:none;font-size:15px;font-weight:700;}
+  background:var(--mq-bg);color:var(--mq-ink);text-decoration:none;font-size:15px;font-weight:700;}
 .mq-vid{position:relative;width:100%;aspect-ratio:16/9;max-width:100%;border-radius:13px;overflow:hidden;background:#000;}
 .mq-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
 .mq-q{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:13px;}
-.mq-q li{display:flex;gap:13px;background:#FFFDF6;border:1px solid rgba(10,39,76,.13);
+.mq-q li{display:flex;gap:13px;background:var(--mq-card);border:1px solid var(--mq-cardbd);
   border-radius:13px;padding:15px 16px;}
-.mq-qn{flex:0 0 auto;font-weight:800;font-size:19px;color:#FB1616;line-height:1.45;}
+.mq-qn{flex:0 0 auto;font-weight:800;font-size:19px;color:var(--mq-qnum);line-height:1.45;
+  background:var(--mq-qnum-bg);border-radius:50%;min-width:1.45em;text-align:center;}
 .mq-qt{font-size:17px;line-height:1.55;}
 /* ---- Optional Resources (2026-09-22) ----
    Emily: in the lesson's own font this read as another part of the lesson. So it is set
@@ -371,33 +398,33 @@ body.mqbody{margin:0;background:#EAF1FB;color:#0A274C;
    labels are uppercase Mulish), a dashed rule instead of a solid card, the page background
    instead of the cream used for lesson content, and an explicit 'not part of the lesson'
    line. Each row carries a type chip so a painting is not mistaken for a video. */
-.mq-xs-sec{margin-top:34px;padding:20px 17px 18px;border:2px dashed rgba(10,39,76,.28);
+.mq-xs-sec{margin-top:34px;padding:20px 17px 18px;border:2px dashed var(--mq-x-rule);
   border-radius:15px;background:transparent;}
 .mq-xh{font-family:'Hello Handmade',sans-serif;font-weight:400;font-size:28px;line-height:1.04;
-  margin:0;color:#0A274C;letter-spacing:0;}
+  margin:0;color:var(--mq-display);letter-spacing:0;}
 .mq-xn{font-size:14.5px;line-height:1.45;opacity:.7;margin:5px 0 15px;}
 .mq-xl{display:flex;flex-direction:column;gap:10px;}
 .mq-x{display:flex;align-items:flex-start;gap:11px;min-height:44px;padding:11px 13px;
-  background:#FFFDF6;border:1px solid rgba(10,39,76,.13);border-radius:11px;
-  text-decoration:none;color:#0A274C;}
-.mq-x:active{background:#FBF6E6;}
+  background:var(--mq-card);border:1px solid var(--mq-cardbd);border-radius:11px;
+  text-decoration:none;color:var(--mq-ink);}
+.mq-x:active{background:var(--mq-card-2);}
 .mq-xk{flex:0 0 auto;margin-top:2px;padding:3px 9px;border-radius:100px;font-size:10.5px;
-  font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#FFFDF6;background:#0A274C;}
-.mq-xk-video{background:#FB1616;}
-.mq-xk-art{background:#0A274C;}
-.mq-xk-reading{background:#5A7A9E;}
+  font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mq-chip-art-ink);background:var(--mq-chip-art);}
+.mq-xk-video{background:var(--mq-chip-video);color:var(--mq-chip-video-ink);}
+.mq-xk-art{background:var(--mq-chip-art);color:var(--mq-chip-art-ink);}
+.mq-xk-reading{background:var(--mq-chip-read);color:var(--mq-chip-read-ink);}
 /* a video row is a <button>, not a link - it opens the player in place */
 .mq-xvb{width:100%;font:inherit;text-align:left;cursor:pointer;}
 .mq-xw{display:inline-flex;align-items:center;margin-top:5px;font-size:13.5px;font-weight:800;
-  color:#FB1616;}
-.mq-xv{background:#FFFDF6;border:1px solid rgba(10,39,76,.13);border-radius:11px;
+  color:var(--mq-hint);}
+.mq-xv{background:var(--mq-card);border:1px solid var(--mq-cardbd);border-radius:11px;
   padding:11px 13px 13px;display:flex;flex-direction:column;gap:10px;}
 .mq-xvh{display:flex;align-items:flex-start;gap:11px;}
 .mq-xb{display:flex;flex-direction:column;gap:2px;min-width:0;}
 .mq-xt{font-size:16px;font-weight:800;line-height:1.3;}
 .mq-xs{font-size:13.5px;line-height:1.4;opacity:.72;}
 .mq-nav{display:flex;justify-content:space-between;gap:12px;margin-top:30px;
-  border-top:1px solid rgba(10,39,76,.16);padding-top:16px;}
+  border-top:1px solid var(--mq-rule);padding-top:16px;}
 .mq-nav a{display:inline-flex;align-items:center;min-height:44px;font-weight:800;font-size:16px;
-  color:#0A274C;text-decoration:none;}
+  color:var(--mq-ink);text-decoration:none;}
 .mq-read .mq-f{text-align:center;}
