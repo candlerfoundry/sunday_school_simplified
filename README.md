@@ -40,6 +40,38 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 > for word studies (they start talking ~3s but the name card runs to ~8â€“13s). Full detail: the pipeline
 > README (`â€¦\Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) Â§0/Â§4/Â§9.
 
+## >> SHIPPED TO PRODUCTION 2026-09-22 - the phone reader is LIVE. READ FIRST.
+
+`mobile-gate-preview` was merged to `main` (fast-forward, 13 commits) and is live on
+`sundayschoolsimplified.netlify.app`. Phones now get the reader; tablets and desktop are unchanged.
+
+**Rollback, if it is ever needed:** production before this release was **`54cf70c`**. Reset `main`
+to it and push; Netlify has no build step, so the old site is back in under a minute.
+
+**Verified on production after deploy**
+
+| Check | Result |
+| --- | --- |
+| Desktop (1920x1080, fine pointer) | gate does NOT fire, flipbook renders, 14 images |
+| Phone (375x812, coarse) | gate fires, reader renders, **0 flipbook images** |
+| Both packets | reader correct; Women L2 shows Video/Video/Art/Art/Art |
+| Lesson title | Hello Handmade; no editorialised subtitle |
+| Back to Lessons | 2 buttons per lesson |
+| Main video | inline, **no autoplay parameter** |
+| Optional Resources | correct heading, Emily's wording, type chips, 2 in-place video buttons |
+| Printable packet | links at the **PDF itself**, `application/pdf`, **no `Content-Disposition`** |
+| Cover page | duplicate title gone |
+| Horizontal overflow | none |
+
+**⚠ The iPad has still not been tested on hardware.** Emily shipped first and is testing after, which
+is a deliberate choice: phones were already broken, so the release can only improve them, and rollback
+is a minute. What *is* established is the arithmetic - the gate is `min(screen.width, screen.height)
+< 540`, the largest iPhone's short side is **440** and the smallest iPad's is **744**, so no Apple
+device sits in the gap. That verifies the rule, **not** what iPadOS actually reports. If an iPad ever
+shows the reader, that is the bug to chase, and the flipbook is one revert away.
+
+---
+
 ## >> LATEST (2026-09-22, third round) - the phone must NOT use /pdfview.html. READ FIRST.
 
 Emily: the printable-packet button *"does not consistently work... I suspect it's the same issue
