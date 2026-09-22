@@ -305,9 +305,7 @@ body.mqbody{margin:0;background:#EAF1FB;color:#0A274C;
   -webkit-text-size-adjust:100%;}
 .mq{max-width:560px;margin:0 auto;padding:28px 20px 44px;text-align:center;}
 .mq-cov{width:172px;height:auto;border-radius:6px;box-shadow:0 8px 22px rgba(10,39,76,.22);}
-.mq-t{font-family:'Hello Handmade',sans-serif;font-weight:400;font-size:clamp(30px,8.6vw,36px);
-  line-height:1.06;margin:18px 0 12px;letter-spacing:0;}
-.mq-p{font-size:17px;line-height:1.55;margin:0 auto 22px;max-width:44ch;}
+.mq-p{font-size:17px;line-height:1.55;margin:20px auto 22px;max-width:44ch;}
 .mq-btn{display:block;background:#0A274C;color:#fff;text-decoration:none;font-weight:800;font-size:17px;
   padding:16px 22px;border-radius:100px;min-height:44px;box-sizing:border-box;
   box-shadow:0 6px 16px rgba(10,39,76,.26);}

@@ -103,7 +103,6 @@
     var pdf = mqPdfHref();
     return '<div class="mq">' +
       '<img class="mq-cov" src="assets/cover-thumb.png" alt="' + esc(C.meta.title) + '">' +
-      '<h1 class="mq-t">' + esc(C.meta.title) + '</h1>' +
       '<p class="mq-p">Tap a lesson to read it here: the prayers, the passage, the video and all the ' +
         'discussion questions.</p>' +
       '<div class="mq-ls">' + cards + '</div>' +
