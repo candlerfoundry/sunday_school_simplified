@@ -125,7 +125,12 @@ Checked, and it decided three design choices:
   flipbook footers as well; fixed 2026-09-22. Check any new link against DNS, not against habit.
 - ⚠ **iOS Safari's bottom toolbar floats OVER the end of the document.** The last element on the
   page is visible but untappable — Emily hit this on the footer logo and the foot "Back to Lessons".
-  `.mq` therefore ends with `padding-bottom: calc(96px + env(safe-area-inset-bottom,0px))`.
+  `.mq` therefore ends with `padding-bottom: calc(132px + env(safe-area-inset-bottom,0px))`.
+  **132px is sized for the worst realistic case, not for one phone**: Safari's *expanded* bottom bar
+  is ~88px (it reappears if you scroll up slightly at the end of a lesson), its compact bar ~50px,
+  Samsung Internet ~56px, Chrome Android 0 (its bar is on top). Browser chrome is roughly constant
+  in CSS px across screen sizes, so this is not a per-device tuning problem. The first attempt, 96px,
+  cleared the compact bar by 70px and would still have been covered by the expanded one.
   **`env()` alone does nothing here**: it reports 0 unless the viewport meta carries
   `viewport-fit=cover`, which we deliberately do not set because it would also change the
   flipbook's layout. The fixed 96px is what actually does the work.
