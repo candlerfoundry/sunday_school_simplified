@@ -72,6 +72,54 @@ different renderers and different rules.
 
 ---
 
+## Per-packet theming (added 2026-09-22)
+
+**The reader is themed from the same place the flipbook is.** Each packet's own
+`index.html` carries a `:root` block; the flipbook has always read it, and the reader now does
+too via a set of `--mq-*` variables. **A new packet is themed the moment it declares them** —
+there is nothing to change in the engine.
+
+The `--mq-*` defaults in `engine/styles.css` reproduce **Beyond Bumper Stickers exactly**, so a
+packet that declares nothing looks like BBS. BBS itself has no `:root` override at all.
+
+Fetch colours, never invent them. The three authoritative sources, which agree:
+
+| | Where |
+| --- | --- |
+| Flipbook palette | the packet's `index.html` `:root` |
+| PDF palette | `tools/packet_pdf.py` -> `PALETTES` |
+| Per-lesson accents | `content.js` `lesson.accent` (largely unused by the engine — a spare lever) |
+
+**The Women reader is NOT simply the Women flipbook palette**, and the difference is deliberate:
+
+- The page is plain **ivory `#FFFDF3`** (`--page`), *not* the flipbook's sand `--stage` `#EAE7CE`.
+  Emily rejected the sand on a phone. Cards are white; the tan hairline separates them.
+- Type is **brown `#6d4f26`** throughout. There is **no navy anywhere** in the Women reader,
+  the Back button included.
+- Lesson titles are **mustard gold `#B8860B`** — the same value as `packet_pdf.py`
+  `PALETTES['women']['display']` and the flipbook's `--gold`.
+
+### ⚠ Contrast is a real constraint in this palette, not a formality
+
+Checked, and it decided three design choices:
+
+| Pairing | Ratio | Consequence |
+| --- | --- | --- |
+| gold `#B8860B` on ivory | **3.19** | **large text ONLY.** Fine for the 34–42px lesson title. **Never reuse the gold at small sizes** — that is why the Optional Resources heading stays brown (`--mq-label`), not gold. |
+| cream `#FDF3D8` on gold | **2.94** | **FAILS.** The packet's own comment calls `--cream` "text/icons on gold" — it is not safe at small sizes. |
+| cream on olive / muted | 2.9–3.8 | all **fail**, which is why the resource chips are **uniform** pale gold with brown text: only brown clears 4.5:1 at 10.5px. The WORD distinguishes them, not the colour — which is the better practice anyway. |
+| brown on ivory / white | 7.36 / 7.51 | body text |
+
+### Two engine-level rules for every packet's reader
+
+- **Never name the flipbook.** Someone on a phone has never seen it and never will, so
+  mentioning it only raises a question the page cannot answer.
+- The footer is the **black Candler Foundry wordmark** (`/engine/assets/candler-foundry-logo-black.png`)
+  linking to candlerfoundry.emory.edu. Black reads on both the ivory and the powder blue, so one
+  asset serves every packet.
+
+---
+
 ## The three surfaces
 
 **One `content.js` per packet feeds three different products.** They are not responsive
