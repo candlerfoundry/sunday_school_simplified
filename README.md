@@ -40,6 +40,55 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 > for word studies (they start talking ~3s but the name card runs to ~8â€“13s). Full detail: the pipeline
 > README (`â€¦\Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) Â§0/Â§4/Â§9.
 
+## >> LATEST (2026-09-22, second round) - Optional Resources, inline player, sound. READ FIRST.
+
+Branch `mobile-gate-preview` only. Three more notes from Emily after the round below.
+
+### 1. "Going Further" -> "Optional Resources", and it no longer reads as part of the lesson
+
+Emily: *"it reads as part of the lesson b/c it's the same font."* Correct - it was an ordinary
+`.mq-s` section with an ordinary `.mq-h2` label, indistinguishable from Opening Prayer or Read.
+It is now set apart on every axis available at once, because one signal was clearly not enough:
+
+- heading in **Hello Handmade** (the lesson's own section labels are uppercase Mulish);
+- a **dashed** rule instead of a solid card, on the **page background** instead of the cream used
+  for lesson content - it deliberately does not look like a content card;
+- an explicit line: *"Extras if you want to go further - not part of the lesson."*
+
+Every row carries a **type chip - Video / Art / Reading** - so a painting is not mistaken for a
+video before you tap it. **Artwork and optional readings were not in the reader at all before this**;
+only `optionalVideos` was rendered. The phone now carries everything the lesson offers, which is the
+whole point of the reader. Sources: `optionalVideos` (+ legacy singular `optionalVideo`), `artwork`,
+`optionalReadings`. Classes are `.mq-x*`; `.mq-lk` is gone.
+
+### 2. The video is rendered inline - no tap-to-load button
+
+Emily: *"I don't want the video to appear as a drop-down option. It should just automatically appear,
+and the user presses play."* The tap-to-load button was justified by "one player at a time, never all
+six" - but **that reasoning never applied here**: the reader shows a single lesson, so there is only
+ever one main video on screen. The iframe is now in the markup with `loading="lazy"`.
+
+`title=0&byline=0&portrait=0` keeps the player's preview chrome off, which is the same objection
+`videoCard()` records for the flipbook.
+
+### 3. ...which is also what fixes the sound. DO NOT PUT AUTOPLAY BACK.
+
+Emily first said the audio was fine, then found it was not: lessons **1, 2 and 6 had no unmute
+control at all** while the others did.
+
+**It is not the videos.** Checked before changing anything: every lesson video reports
+`separate_av: true` with five DASH streams - identical across the ones that worked and the ones that
+did not. The audio is there.
+
+**It was `?autoplay=1`.** iOS forces muted autoplay, and Vimeo does not reliably draw an unmute
+affordance when it has fallen back to muted - hence "no unmute option" on some videos and not others.
+Removing the parameter removes the whole failure mode: with no autoplay, the viewer's tap lands on
+Vimeo's own play button **inside** the iframe, which is a real user gesture, so playback always starts
+**with sound**, on every platform. This is why the inline player is not merely cosmetic - **re-adding
+autoplay would bring the muted-with-no-unmute bug straight back.**
+
+---
+
 ## >> LATEST (2026-09-22) - Emily's four review notes on the phone reader. READ FIRST.
 
 Branch `mobile-gate-preview` only. Production (`main`) is still the flipbook for everyone.
