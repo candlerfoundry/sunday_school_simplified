@@ -119,8 +119,9 @@
         'discussion questions.</p>' +
       '<div class="mq-ls">' + cards + '</div>' +
       (pdf ? '<a class="mq-sec" href="' + esc(pdf) + '" target="_blank" rel="noopener">Printable packet (PDF)</a>' : '') +
-      '<p class="mq-n">The interactive flipbook is available on a tablet or computer.</p>' +
-      '<div class="mq-f"><a href="https://www.candlerfoundry.emory.edu" target="_blank" rel="noopener">The Candler Foundry</a></div>' +
+      '<a class="mq-logo" href="https://www.candlerfoundry.emory.edu" target="_blank" rel="noopener">' +
+        '<img src="/engine/assets/candler-foundry-logo-black.png" alt="The Candler Foundry" width="560" height="220">' +
+      '</a>' +
       '</div>';
   }
 

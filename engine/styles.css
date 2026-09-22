@@ -335,13 +335,14 @@ body.mqbody{margin:0;background:var(--mq-bg);color:var(--mq-ink);
   padding:16px 22px;border-radius:100px;min-height:44px;box-sizing:border-box;
   box-shadow:0 6px 16px rgba(10,39,76,.26);}
 .mq-btn:active{transform:translateY(1px);}
-.mq-n{font-size:15px;line-height:1.5;opacity:.72;margin:14px 0 30px;}
 .mq-ls{text-align:left;border-top:1px solid var(--mq-rule);padding-top:22px;}
 .mq-h{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:14px;}
 .mq-l{background:var(--mq-card);border:1px solid var(--mq-cardbd);border-radius:13px;padding:15px 17px;margin-bottom:11px;}
 .mq-ln{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.55;}
 .mq-lt{font-size:18px;font-weight:800;line-height:1.28;margin:3px 0 3px;}
 .mq-lr{font-size:15px;opacity:.75;margin-bottom:10px;}
+.mq-logo{display:block;margin:30px auto 0;width:150px;max-width:60%;}
+.mq-logo img{display:block;width:100%;height:auto;}
 .mq-f{margin-top:26px;font-size:15px;}
 .mq-f a{color:var(--mq-ink);opacity:.75;display:inline-flex;align-items:center;min-height:44px;padding:0 10px;}
 @media (prefers-reduced-motion:no-preference){.mq-btn{transition:transform .12s;}}
@@ -399,7 +400,7 @@ body.mqbody{margin:0;background:var(--mq-bg);color:var(--mq-ink);
 .mq-xs-sec{margin-top:34px;padding:20px 17px 18px;border:2px dashed var(--mq-x-rule);
   border-radius:15px;background:transparent;}
 .mq-xh{font-family:'Hello Handmade',sans-serif;font-weight:400;font-size:28px;line-height:1.04;
-  margin:0;color:var(--mq-display);letter-spacing:0;}
+  margin:0;color:var(--mq-label);letter-spacing:0;}
 .mq-xn{font-size:14.5px;line-height:1.45;opacity:.7;margin:5px 0 15px;}
 .mq-xl{display:flex;flex-direction:column;gap:10px;}
 .mq-x{display:flex;align-items:flex-start;gap:11px;min-height:44px;padding:11px 13px;
