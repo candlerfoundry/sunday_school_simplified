@@ -61,6 +61,14 @@ only `optionalVideos` was rendered. The phone now carries everything the lesson 
 whole point of the reader. Sources: `optionalVideos` (+ legacy singular `optionalVideo`), `artwork`,
 `optionalReadings`. Classes are `.mq-x*`; `.mq-lk` is gone.
 
+**Extra videos play in place** ("Watch here"), rather than throwing the reader out to vimeo.com -
+Emily, correctly: leaving the site mid-lesson is the wrong trade. They are **tap-to-reveal**, not
+rendered inline like the main lesson video, because 1-3 further 16:9 players would make Optional
+Resources the largest thing on the page - the opposite of what the panel is for. Artwork and readings
+genuinely have to leave (Wikimedia, Bible Gateway), so those stay as links. The revealed player
+carries **no autoplay**, same as the main one; the cost is two taps (reveal, then Vimeo's play
+button) and that second tap is exactly the user gesture that guarantees sound.
+
 ### 2. The video is rendered inline - no tap-to-load button
 
 Emily: *"I don't want the video to appear as a drop-down option. It should just automatically appear,
