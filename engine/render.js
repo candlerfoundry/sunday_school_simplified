@@ -144,16 +144,30 @@
      * tapping before you tap it. Artwork and readings were not in the reader at all
      * before this; the phone now carries everything the lesson offers. */
     var extras = [];
+    function extraBody(kind, o, extra) {
+      return '<span class="mq-xk mq-xk-' + kind.toLowerCase() + '">' + kind + '</span>' +
+        '<span class="mq-xb"><span class="mq-xt">' + esc(o.title || kind) + '</span>' +
+        (o.subtitle ? '<span class="mq-xs">' + esc(o.subtitle) + '</span>' : '') +
+        (extra || '') + '</span>';
+    }
     function extraItem(kind, o, href) {
       if (!o || !href) return;
       extras.push('<a class="mq-x" href="' + esc(href) + '" target="_blank" rel="noopener">' +
-        '<span class="mq-xk mq-xk-' + kind.toLowerCase() + '">' + kind + '</span>' +
-        '<span class="mq-xb"><span class="mq-xt">' + esc(o.title || kind) + '</span>' +
-        (o.subtitle ? '<span class="mq-xs">' + esc(o.subtitle) + '</span>' : '') +
-        '</span></a>');
+        extraBody(kind, o) + '</a>');
     }
+    /* Extra VIDEOS open in place rather than throwing the reader out to vimeo.com
+     * (Emily, 2026-09-22): leaving the site mid-lesson is the wrong trade. They are
+     * tap-to-reveal rather than rendered inline like the main video, because 1-3 more
+     * 16:9 players would make Optional Resources the largest thing on the page - which
+     * is the opposite of what the panel is for. Artwork and readings genuinely have to
+     * leave (Wikimedia, Bible Gateway), so those stay as links.
+     * NOTE: the revealed player carries NO autoplay, for the same reason the main one
+     * does not - autoplay is what strands iOS in muted playback with no way back. */
     (l.optionalVideos || (l.optionalVideo ? [l.optionalVideo] : [])).forEach(function (v) {
-      extraItem("Video", v, v && v.url ? "https://vimeo.com/" + mqVimeoId(v.url) : "");
+      var id = v && v.url ? mqVimeoId(v.url) : "";
+      if (!id) return;
+      extras.push('<button class="mq-x mq-xvb" type="button" data-xvid="' + id + '">' +
+        extraBody("Video", v, '<span class="mq-xw">Watch here &#9662;</span>') + '</button>');
     });
     (l.artwork || []).forEach(function (a) { extraItem("Art", a, a && a.url); });
     (l.optionalReadings || []).forEach(function (r) { extraItem("Reading", r, r && r.url); });
@@ -186,7 +200,7 @@
 
       (extras.length ? '<section class="mq-xs-sec">' +
         '<h2 class="mq-xh">Optional Resources</h2>' +
-        '<p class="mq-xn">Extras if you want to go further &mdash; not part of the lesson.</p>' +
+        '<p class="mq-xn">Extras if you want to go further (but not required for the lesson).</p>' +
         '<div class="mq-xl">' + extras.join("") + '</div></section>' : '') +
 
       '<nav class="mq-nav">' +
@@ -216,6 +230,28 @@
     document.body.className = "mqbody";
     mqRoute();
     window.addEventListener("hashchange", mqRoute);
+    // Optional-resource videos open in place. No autoplay: the viewer's tap on Vimeo's
+    // own play button is the user gesture that guarantees sound. See the note above.
+    document.addEventListener("click", function (e) {
+      var b = e.target.closest && e.target.closest("[data-xvid]");
+      if (!b) return;
+      var head = document.createElement("div");
+      head.className = "mq-xvh";
+      var clone = b.cloneNode(true), hint = clone.querySelector(".mq-xw");
+      if (hint && hint.parentNode) hint.parentNode.removeChild(hint);
+      while (clone.firstChild) head.appendChild(clone.firstChild);
+      var shell = document.createElement("div");
+      shell.className = "mq-xv";
+      shell.appendChild(head);
+      var box = document.createElement("div");
+      box.className = "mq-vid";
+      box.innerHTML = '<iframe src="https://player.vimeo.com/video/' + b.getAttribute("data-xvid") +
+        '?title=0&amp;byline=0&amp;portrait=0" title="3 Minute Bible" ' +
+        'allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+      shell.appendChild(box);
+      b.parentNode.replaceChild(shell, b);
+      silenceVimeoCaptions(box.querySelector("iframe"));
+    });
     return;                                 // no pages, no <img>, no page-flip
   }
   /* ===================== end PHONE GATE ===================== */
