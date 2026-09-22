@@ -31,31 +31,32 @@
   --gold:#B8860B;   /* mustard gold — the cover's star color */
   --cream:#FDF3D8;  /* light cream: text/icons on gold */
 
-  /* ---- phone reader (2026-09-22) ----
-     The reader used to be hardcoded Bumper-Stickers blue. These re-theme it from
-     this packet's own palette above. Contrast checked against WCAG:
-     brown on cream 7.36:1, brown on sand 6.01:1, cream on brown 6.79:1,
-     navy on gold 4.58:1, brown on pale gold 6.19:1 - all pass.
-     NOTE: --cream on --gold is only 2.94:1 and FAILS, so the gold Art chip
-     carries NAVY text, not cream, despite the comment above. */
-  --mq-bg:#EAE7CE;                 /* = --stage, warm sand */
-  --mq-card:#FFFDF3;               /* = --page, warm cream */
+  /* ---- phone reader (2026-09-22, rev 2) ----
+     Emily on rev 1: too much navy, and she would rather the page were plain
+     ivory than the flipbook's sand (--stage). So: ivory page, WHITE cards, and
+     the type is brown throughout - no navy anywhere in the reader.
+     Contrast (WCAG): brown on ivory 7.36:1, brown on white 7.51:1,
+     brown on pale gold 6.19:1, ivory on brown 6.5:1. All pass.
+     Chips are deliberately UNIFORM: only brown clears 4.5:1 at 10.5px, so the
+     WORD does the distinguishing rather than the colour - which is also why
+     colour is never the only signal. */
+  --mq-bg:#FFFDF3;                 /* = --page: plain ivory */
+  --mq-card:#FFFFFF;               /* white cards, the tan hairline separates them */
   --mq-card-2:#FBF6DE;             /* = --card, pressed */
-  --mq-cardbd:#CBB47C;             /* = --cardbd, warm tan */
+  --mq-cardbd:#CBB47C;             /* = --cardbd */
   --mq-rule:#CBB47C;
-  --mq-ink:#0A274C;                /* body text stays navy: highest contrast on sand */
-  --mq-display:#6d4f26;            /* Hello Handmade titles in brown - the signature */
+  --mq-ink:#6d4f26;                /* body text brown, not navy */
+  --mq-display:#6d4f26;
   --mq-label:#6d4f26;
-  --mq-btn:#0A274C;                /* chrome only, per the note at the top */
-  --mq-btn-ink:#FDF3D8;
-  --mq-btn-2:#08203E;
+  --mq-btn:#6d4f26;                /* the Back button is brown too */
+  --mq-btn-ink:#FFFDF3;
+  --mq-btn-2:#523a1b;
   --mq-qnum:#6d4f26;
-  --mq-qnum-bg:#F4E9C4;            /* = --powder: 'question-number circles' */
   --mq-hint:#6d4f26;
   --mq-x-rule:#CBB47C;
-  --mq-chip-video:#6d4f26;   --mq-chip-video-ink:#FDF3D8;
-  --mq-chip-art:#B8860B;     --mq-chip-art-ink:#0A274C;   /* navy, NOT cream - see above */
-  --mq-chip-read:#0A274C;    --mq-chip-read-ink:#FDF3D8;
+  --mq-chip-video:#F4E9C4;   --mq-chip-video-ink:#6d4f26;   /* = --powder */
+  --mq-chip-art:#F4E9C4;     --mq-chip-art-ink:#6d4f26;
+  --mq-chip-read:#F4E9C4;    --mq-chip-read-ink:#6d4f26;
   --mq-sec-rule:#6d4f26;
 }
 /* warm cream tabs (engine default is a cool blue) */
