@@ -86,10 +86,22 @@
 
   function mqVimeoId(u) { var m = /(\d{6,})/.exec(String(u || "")); return m ? m[1] : ""; }
 
+  /* The phone links STRAIGHT AT THE PDF, not at /pdfview.html (Emily, 2026-09-22:
+   * "buggy... the same issue that prompted us to get rid of the mobile flipbook").
+   * She was right. pdfview.html's renderAll() rasterises EVERY page to its own canvas
+   * and keeps them all alive - no virtualisation, nothing released. Letter pages at
+   * DPR 2 on a 375px phone is ~2.5MB of canvas per page, so ~48MB (BBS, 19pp) and
+   * ~56MB (Women, 22pp) held at once - the flipbook's failure in miniature. And it
+   * opens in a new tab, so the reader is still resident behind it; iOS picks one to
+   * jettison, which is why it failed intermittently rather than every time.
+   * iOS's own PDF viewer is progressive and OS-managed, and it gives Share / Save to
+   * Files / Print - which is the entire point of a "printable packet". The two things
+   * pdfview.html exists for (forcing in-PDF links into a new tab, resolving internal
+   * jumps) are desktop problems; the native viewer handles taps on links itself.
+   * Tablets and desktop still get pdfview.html - that path is untouched. */
   function mqPdfHref() {
     if (!C.meta.pdf) return "";
-    return "/pdfview.html?file=" + encodeURIComponent(new URL(C.meta.pdf, location.href).href)
-         + "&title=" + encodeURIComponent(C.meta.title || "Printable Packet");
+    return new URL(C.meta.pdf, location.href).href;
   }
 
   function mqIndex() {
