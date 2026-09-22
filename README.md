@@ -25,6 +25,15 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 >    exist, **look it up there**. Do not infer it from the Dropbox folder or from Vimeo, both of which
 >    are incomplete.
 
+> ### ⛑ FOURTH STANDING RULE (2026-09-22) — VIMEO AUTO-CAPTIONS OFF
+> Our 3MB captions are **burned into the picture**. Vimeo auto-generates its own subtitle track on every
+> upload and marks it active, so a player draws **two sets of captions at once** (exactly what Emily hit on
+> the phone reader). **One-time fix: Vimeo Account settings -> Upload defaults -> uncheck "Allow viewers to
+> enable automatically generated captions".** Then check each new video (**Languages** panel, or
+> `GET /videos/<id>/texttracks` -> `active: false`). ⚠ The Vimeo MCP can **read** text tracks but **not
+> write** them. `?texttrack=false` / `=0` do **not** work, and phone emulation cannot reproduce the bug.
+> The engine's `silenceVimeoCaptions()` is a belt that only reaches videos we embed - not ones opened on
+> vimeo.com. Full runbook: `Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md` §5a.
 > ### âš¡ THIRD STANDING RULE (2026-08-18)
 > **Burned captions never start until BOTH the title card AND the name/intro card have cleared** (13â€“17s;
 > Bonfiglio â‰ˆ15.5s, Arnold â‰ˆ17s). The silent, uncaptioned opening is INTENTIONAL â€” never "fix" it, even
