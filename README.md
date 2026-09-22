@@ -40,6 +40,39 @@ for the *Sunday School Simplified* series from The Candler Foundry. One shared f
 > for word studies (they start talking ~3s but the name card runs to ~8â€“13s). Full detail: the pipeline
 > README (`â€¦\Dropbox\3MB\SSS 3MB Captioning Pipeline\README.md`) Â§0/Â§4/Â§9.
 
+## >> LATEST (2026-09-22, third round) - the phone must NOT use /pdfview.html. READ FIRST.
+
+Emily: the printable-packet button *"does not consistently work... I suspect it's the same issue
+that prompted us to get rid of the mobile flipbook in the first place."* **She was right.**
+
+`pdfview.html`'s `renderAll()` rasterises **every page to its own canvas and keeps them all alive** -
+no virtualisation, nothing released. Letter pages (612x792) at `DPR` 2 on a 375px phone is ~2.5MB of
+canvas per page:
+
+| Packet | Pages | Canvas held at once |
+| --- | --- | --- |
+| Beyond Bumper Stickers | 19 | **~48 MB** |
+| The Gospel According to the Women | 22 | **~56 MB** |
+
+That is the flipbook's failure in miniature - eager full-document bitmaps, all retained. It also
+opens in a **new tab**, so the reader is still resident behind it and iOS chooses which to jettison,
+which is why it failed **intermittently** rather than every time. Intermittent is the tell.
+
+**Fix: on a phone, `mqPdfHref()` now returns the PDF's own URL.** Same principle as the reader -
+do not optimise a renderer you cannot measure on a fleet you cannot test; take it out of the path.
+iOS's PDF viewer is progressive and OS-managed and gives Share / Save to Files / Print, which is the
+entire point of a printable packet. The two jobs `pdfview.html` exists for - forcing in-PDF links
+into a new tab, and resolving internal `dest` jumps - are **desktop** problems; the native viewer
+handles link taps itself. Verified the files serve as `application/pdf` with **no**
+`Content-Disposition`, so they still open inline and never auto-download.
+
+**Tablets and desktop still use `pdfview.html`; that path is untouched.** But note the same eager
+rasterisation applies there (~56MB on the Women packet), so **an old iPad is not obviously safe**.
+Not changed here on purpose - it belongs with the tablet lazy-loading work, not bundled into the
+phone release, or you will not know which change caused a regression.
+
+---
+
 ## >> LATEST (2026-09-22, second round) - Optional Resources, inline player, sound. READ FIRST.
 
 Branch `mobile-gate-preview` only. Three more notes from Emily after the round below.
